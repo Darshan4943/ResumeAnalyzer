@@ -17,7 +17,7 @@ function SkilotechCollection() {
   const [filterType, setFilterType] = useState();
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [loading, setLoading] = useState("")
- 
+  const [loading1, setLoading1] = useState(false)
 
  
   const widths = ["25%", "10%", "15%", "25%", "15%", "10%"];
@@ -26,15 +26,19 @@ function SkilotechCollection() {
  
   const getSkilotechResume = async () => {
     try {
+      setLoading1(true)
       const response = await axios.get('http://localhost:2000/api/resume/get/AllResume');
       if (response.data.success) {
         setData(response.data.data);
+        setLoading1(false)
       } else {
         console.error("Failed to fetch resumes:", response.data);
+        setLoading1(false)
         return [];
       }
     } catch (error) {
       console.error("Error fetching resumes:", error);
+      setLoading1(false)
       return [];
     }
   };

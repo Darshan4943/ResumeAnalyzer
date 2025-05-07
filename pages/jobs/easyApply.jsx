@@ -44,7 +44,7 @@ function EasyApply() {
     const router = useRouter();
     const { id } = router.query
     const [loading, setLoading] = useState(false);
-   
+    const [loading1, setLoading1] = useState(false);
     const [fileData, setFileData] = useState(null);
     const [tab, setTab] = useState(0);
     const [uploadLimit, setUploadLimit] = useState(0);
@@ -184,7 +184,7 @@ function EasyApply() {
 
             if (result[0]?.text?.length > 0) {
                 axios
-                    .post("https://jamblix.com/api/resume/extraction", {
+                    .post("http://localhost:2000/api/resume/extraction", {
                         data: result,
                     })
                     .then((res) => {
@@ -194,7 +194,7 @@ function EasyApply() {
                                 "parsedResume",
                                 JSON.stringify(res.data.data[0])
                             );
-                            setLoading(false);
+                            // setLoading(false);
                             setTimeout(() => {
                                 setTab(1)
                             }, 2000);
@@ -396,12 +396,12 @@ function EasyApply() {
             return;
         }
 
-        setLoading(true);
+        setLoading1(true);
         const formDataToSend = new FormData();
 
         formDataToSend.append("percentage", "");
         formDataToSend.append("extractedText", text);
-        console.log(text)
+       
       
         formDataToSend.append("parseData", JSON.stringify(parseData));
         if (file) {
@@ -421,24 +421,25 @@ function EasyApply() {
                 professional: {
                     summary: parseData?.summary,
                     designation: parseData?.designation,
-                    degrees: parseData?.degrees || [],
-                    education: parseData?.education || [],
-                    work_experience: parseData?.work_experience || [],
-                    relevant_experience: parseData?.relevant_experience || [],
-                    job_tenure_stability: parseData?.["job_tenure/stability"] || [],
-                    programming_languages: parseData?.programming_languages || [],
-                    tools: parseData?.tools || [],
-                    skills: parseData?.skills || [],
-                    soft_skills: parseData?.soft_skills || [],
-                    certification_courses: parseData?.["certification/courses"] || [],
-                    achievements: parseData?.achievements || [],
-                    industrial_projects: parseData?.industrial_projects || [],
-                    academic_projects: parseData?.academic_projects || [],
-                    cultural_fit: parseData?.culturalFit,
-                    interests_additional_activities: parseData?.["interests/additional_activities"] || [],
-                    keywords: parseData?.keywords || [],
+                    education: parseData?.education,
+                    work_experience: parseData?.work_experience,
+                    relevant_experience: parseData?.relevant_experience,
+                    job_tenure_stability: parseData?.["job_tenure/stability"] || parseData?.job_tenure_or_stability,
+                    skills: parseData?.skills,
+                    keywords: parseData?.keywords,
                     willingness_to_relocate: parseData?.willingness_to_relocate,
-                    languages: parseData?.languages || [],
+                    languages: parseData?.languages,
+                    address: parseData?.address,
+                    country: parseData?.country,
+                    dial_code: parseData?.dial_code,
+                    first_name: parseData?.first_name,
+                    last_name: parseData?.last_name,
+                    email: parseData?.email,
+                    mobileNo: parseData?.mobileNo,
+                    social_links: parseData?.social_links,
+                    projects: parseData?.projects,
+                    years_of_experience: parseData?.years_of_experience,
+                    interests_additional_activities: parseData?.["interests/additional_activities"] || parseData?.hobbies,
                   },
 
             })
@@ -479,7 +480,7 @@ function EasyApply() {
                 }
             })
             .finally(() => {
-                setLoading(false);
+                setLoading1(false);
             });
 
 
@@ -867,7 +868,7 @@ function EasyApply() {
                                 Back
                             </button>
 
-                            {loading ?
+                            {loading1 ?
                                 <div className='w-[95px] bg-blue rounded-[30px] px-9 flex items-center justify-center font-medium h-[40px] text-white'>
                                     <MiniLoader />
                                 </div>

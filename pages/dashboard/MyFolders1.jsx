@@ -63,7 +63,7 @@ function MyFolders1({
                     evaluationSummary: app?.evaluation,
                     id: app?._id,
                     myCollection: true,
-                    resumeUrl: app.resumeUrl
+                    resumeUrl: app.file
 
                 })),
             });
@@ -79,6 +79,7 @@ function MyFolders1({
         }
     };
     const handleSendIndividualMail = async (applicant) => {
+        console.log(applicant)
         setLoading(applicant._id)
         try {
             const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
@@ -87,7 +88,7 @@ function MyFolders1({
                     evaluationSummary: applicant?.evaluation,
                     id: applicant?._id,
                     myCollection: true,
-                    resumeUrl: applicant.resumeUrl
+                    resumeUrl: applicant.file
                 }]
             });
 

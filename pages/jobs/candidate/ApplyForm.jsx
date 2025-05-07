@@ -482,7 +482,7 @@ function ApplyForm() {
     );
 
     axios
-      .post(`https://jamblix.com/api/job/apply/${id}`, formDataToSend, {
+      .post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
