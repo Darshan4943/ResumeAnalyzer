@@ -365,215 +365,168 @@ function CreateResume() {
         summary,
         address,
         skills,
-        country
+        country,
+        dial_code
       } = parsedData;
-      const languages = parsedData?.languages;
-      const hobbies = parsedData?.hobbies;
-
-      const educations = parsedData.education;
-
-      const experience = parsedData["work experience"]
-        ? parsedData["work experience"]
-        : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
-      const project = parsedData.projects;
-      const internship = parsedData.internship;
-      const references = parsedData.references;
-      const achievements = parsedData.achievements;
-
-      const socialLinks = parsedData["social links"];
-      const extraCaricularActivity = parsedData["extra-curricular activities"];
-
-      const courses = parsedData["certification/courses"]
-        ? parsedData?.issuing_organization
-        : [];
+    
+      const languages = parsedData?.languages || [];
+      const hobbies = parsedData?.hobbies || [];
+      const educations = parsedData.education || [];
+      const experience = parsedData?.work_experience || [];
+      const projects = parsedData.projects || [];
+      const internships = parsedData.internships || [];
+      const achievements = parsedData.achievements || [];
+      const socialLinks = parsedData.social_links || [];
+      const extraCurricularData = parsedData.extra_curricular_data || [];
+    
       setData({
         ...data,
         showSkills: true,
         showAchievements: true,
         showCourses: true,
-        showExtraCariculam: true,
+        showExtraCurricular: true,
         showHobbies: true,
         showInternship: true,
         showLanguage: true,
         showLinks: true,
-
         showCustomSection: true,
         showProject: true,
         showReference: true,
-        clientId: clientId ? clientId : null,
+        
+        clientId: clientId || null,
         firstName: first_name,
         lastName: last_name,
         email: email,
-        dial_code: null,
+        dial_code: dial_code,
         mobileNumber: mobileNo,
         designation: designation,
         summery: summary,
         location: address,
         country: country,
-        skills:
-          skills?.length > 0
-            ? skills?.map((item) => ({
-              skill: item,
-              rating: [5, 5, 5, 5, 5],
-            }))
-            : [],
-        hobbies:
-          hobbies?.length > 0
-            ? hobbies?.map((item) => ({
-              title: item,
-            }))
-            : [],
-        languages:
-          languages?.length > 0
-            ? languages?.map((item) => ({
-              languages: item,
-              rating: [3, 3, 3],
-            }))
-            : [],
+        
+        skills: skills?.map((item) => ({
+          skill: item.skill,
+          rating: [5, 5, 5, 5, 5],  // Default rating, can be adjusted as necessary
+        })) || [],
+        
+        hobbies: hobbies|| [],
+        
+        languages: languages || [],
+        
         education: educations?.map((item) => ({
-          qualification: item.courseName,
-          specialization: item["Specialization/Board"],
-          instituteName: item["University Name"],
+          qualification: item.course_name,
+          specialization: item.specialization,
+          instituteName: item.university_name,
           type: "full-time",
           location: "",
           duration: {
             start: {
-              year: item["Passing Year"].startDate?.year
-                ? item["Passing Year"].startDate?.year
-                : "Year",
+              year: item.start_date?.year || "Year",
               month: null,
             },
             end: {
-              year: item["Passing Year"].endDate?.year
-                ? item["Passing Year"].endDate?.year
-                : "Year",
+              year: item.end_date?.year || "Year",
               month: null,
             },
           },
-        })),
+        })) || [],
+        
         experience: experience?.map((item) => ({
           designation: item.title,
           organization: item.company,
           description: item.description,
-          currentlyWorking: false,
+          currentlyWorking: item.is_current || false,
           location: item.location,
           duration: {
             start: {
-              year: item.start_date?.year ? item.start_date?.year : "Year",
+              year: item.start_date?.year || "Year",
               month: null,
             },
             end: {
-              year: item.is_current
-                ? currentYear
-                : item.end_date?.year
-                  ? item.end_date?.year
-                  : "Year",
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
               month: null,
             },
           },
-        })),
-        project:
-          project?.length > 0
-            ? project?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
-
-              duration: {
-                start: {
-                  year: item.start_date?.year
-                    ? item.start_date?.year
-                    : "Year",
-                  month: null,
-                },
-                end: {
-                  year: item.is_current
-                    ? currentYear
-                    : item.end_date?.year
-                      ? item.end_date?.year
-                      : "Year",
-                  month: null,
-                },
-              },
-            }))
-            : [],
-        internship:
-          internship?.length > 0
-            ? internship?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
-
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
-                },
-              },
-            }))
-            : [],
-        extraCaricularData:
-          extraCaricularActivity?.length > 0
-            ? extraCaricularActivity?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
-                },
-              },
-            }))
-            : [],
-        course:
-          courses?.length > 0
-            ? courses?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: true,
-
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
-                },
-              },
-            }))
-            : [],
-        socialLinks:
-          socialLinks?.length > 0
-            ? socialLinks?.map((item) => ({
-              platform: item.platform,
-              link: item.link,
-            }))
-            : [],
-        reference:
-          references?.length > 0
-            ? references?.map((item) => ({
-              referantName: item.referantName,
-              designation: item.designation,
-              "Organization Name": item["Organization Name"],
-              email: item.name,
-            }))
-            : [],
-        achievements:
-          achievements?.length > 0
-            ? achievements?.map((item) => ({
-              title: item.title,
-            }))
-            : [],
+        })) || [],
+        
+        project: projects?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: item.is_current || false,
+          duration: {
+            start: {
+              year: item.start_date?.year || "Year",
+              month: null,
+            },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
+            },
+          },
+        })) || [],
+        
+        internship: internships?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: item.is_current || false,
+          duration: {
+            start: { year: item.start_date?.year, month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year,
+              month: null,
+            },
+          },
+        })) || [],
+        
+        extraCaricularData: extraCurricularData?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: item.is_current || false,
+          duration: {
+            start: { year: item.start_date?.year, month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year,
+              month: null,
+            },
+          },
+        })) || [],
+        
+        course: parsedData.certification_courses?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: true,  // Assuming all courses are in-progress
+          duration: {
+            start: { year: item.start_date?.year, month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year,
+              month: null,
+            },
+          },
+        })) || [],
+        
+        socialLinks: socialLinks?.map((item) => ({
+          platform: item.platform,
+          link: item.url,
+        })) || [],
+        
+        reference: parsedData.references?.map((item) => ({
+          referantName: item.referantName,
+          designation: item.designation,
+          "Organization Name": item["Organization Name"],
+          email: item.email,
+        })) || [],
+        
+        achievements: achievements?.map((item) => ({
+          title: item.title,
+        })) || [],
       });
-    } else if (preResumeData) {
+    }
+    
+     else if (preResumeData) {
       setData({
         ...data,
 

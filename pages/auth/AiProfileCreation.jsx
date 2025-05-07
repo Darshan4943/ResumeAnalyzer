@@ -184,7 +184,7 @@ function AiProfileCreation() {
     extracteText(file).then((result) => {
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://jamblix.com/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -194,7 +194,7 @@ function AiProfileCreation() {
                 JSON.stringify(res.data.data[0])
               );
               setLoading(false);
-              router.push("/auth/Sign_up?role=user");
+              router.push("/auth/Sign_up?role=user&isParsed=true");
             } else {
               setCount(count + 1);
             }
