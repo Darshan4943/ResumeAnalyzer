@@ -9,13 +9,13 @@ import { useRouter } from 'next/router';
 function BpoDashboard() {
  const router = useRouter();
   const [option, setOption] = useState("skilotechCollection");
-  const { name } = router.query;
+  const { name ,isCollection} = router.query;
    useEffect(() => {
-    if(name){
+    if(name || isCollection){
       setOption("myCollection");
     }
     
-    }, [name]);
+    }, [name,isCollection]);
 
   return (
     <div className='flex flex-col gap-4'>
@@ -53,7 +53,7 @@ function BpoDashboard() {
 
       }
       {option === "myCollection" &&
-        <MyCollection />
+        <MyCollection option={option} setOption={setOption} />
 
       }
        {option === "jobApplicants" &&

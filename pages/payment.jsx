@@ -850,17 +850,17 @@ function Payment() {
                     {error && (
                         <div className="text-[14px] font-semibold text-red">{error}</div>
                     )}
-                    <div className=" w-full font-[500] flex flex-row gap-[16px] justify-end ">
-                        {/* <button
+                    <div className=" w-full font-[500] flex flex-row gap-[16px] justify-between ">
+                        <button
                         className="blue_border_Button rounded-[30px] h-[38px] px-6"
 
                         onClick={(e) => {
                             e.preventDefault();
-                            router.back();
+                            router.push("/");
                         }}
                     >
                         Cancel
-                    </button> */}
+                    </button>
                         <button
                             className="bg_Button rounded-[30px] h-[38px] px-6 sm:min-w-[140px]"
 
@@ -887,7 +887,7 @@ function Payment() {
                                     />
                                 </svg>
                             ) : (
-                                "Purchase"
+                                "proceed"
                             )}
                         </button>
                     </div>

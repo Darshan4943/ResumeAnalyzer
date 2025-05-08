@@ -9,11 +9,11 @@ import { setRecallData } from '../../Redux/slices/recallSlice';
 
 import MyCollectionFolder from './myCollectionFolder';
 
-function MyCollection() {
+function MyCollection({setOption}) {
   const router = useRouter();
   const dispatch = useDispatch();
   // dispatch(setPageOpened());
-  const [option, setOption] = useState("skilotechCollection");
+  
   const [data, setData] = useState([]);
   const [selectedApplicants, setSelectedApplicants] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -268,7 +268,7 @@ function MyCollection() {
         setIsCreate={setIsCreate}
         setIsFile={setIsFile}
         setIsCreateFolder={setIsCreateFolder}
-
+        setOption={setOption}
         parentId={parentId}
       />
       

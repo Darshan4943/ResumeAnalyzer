@@ -67,20 +67,23 @@ const CandidateAiPower = ({
   const [count, setCount] = useState(0);
   const [docfileError, setDocFileError] = useState(false);
   const [planAvailable, setplanAvailable] = useState(false);
-  const [aiHitMonthly, setAiHitMonthly] = useState(0);
-  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+  const [aiHitsMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitsMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState();
   const { recallData } = useSelector((state) => state.recall);
   const getLimits = () => {
     const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
     setAiHitMonthly(aiHitMonthly);
+   
 
     const aiHitMonthlyLimit = JSON.parse(
       localStorage.getItem("aiHitsMonthlyLimit")
     );
+    console.log(aiHitMonthlyLimit)
+    
     setAiHitMonthlyLimit(aiHitMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("planActive"));
-    setUploadLimit(aiHitMonthly ? aiHitMonthlyLimit - aiHitMonthly : 0);
+    setUploadLimit(aiHitMonthlyLimit ? aiHitMonthlyLimit - aiHitMonthly : 0);
     setActivePlan(activePlan);
   };
   useEffect(() => {

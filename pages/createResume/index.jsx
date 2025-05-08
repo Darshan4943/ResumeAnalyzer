@@ -332,7 +332,7 @@ function CreateResume() {
       setData(enhancedVersion)
     }
   }, [isEnhanced]);
-  console.log(data)
+  
 
   const resumeData = {
     selectedColor: selectedColor,
@@ -683,8 +683,8 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
-              onClick={() =>
-                router.push(`/createResume/BuildResume?clientId=${clientId}`)
+              onClick={() =>{isEnhanced ? router.push("/"):
+                router.push(`/createResume/BuildResume?clientId=${clientId}`)}
               }
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
@@ -728,6 +728,7 @@ function CreateResume() {
                   setSelectedFont={setSelectedFont}
                   template={templates}
                   clientId={clientId}
+                  isEnhanced={isEnhanced}
                 />
               </div>
               <div className="sticky top-[102px]  h-[calc(100vh-120px)] w-[60%] rounded-lg bg-white overflow-y-auto">
@@ -780,6 +781,7 @@ function CreateResume() {
                   selectedFont={selectedFont}
                   template={templates}
                   clientId={clientId}
+                  isEnhanced={isEnhanced}
                 />
               </motion.div>
             </AnimatePresence>

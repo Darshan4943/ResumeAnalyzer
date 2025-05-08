@@ -34,6 +34,7 @@ const ResumeForm = ({
   selectedFont,
   template,
   clientId,
+  isEnhanced
 }) => {
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
@@ -229,7 +230,9 @@ const ResumeForm = ({
           >
             <svg
               className=" cursor-pointer"
-              onClick={() => router.push("/createResume/BuildResume")}
+              onClick={() =>{isEnhanced ? router.push("/"):
+                router.push(`/createResume/BuildResume`)}
+              }
               width="24"
               height="24"
               viewBox="0 0 40 40"

@@ -30,7 +30,8 @@ function MyCollectionFolder({
   setIsFile,
   setIsCreateFolder,
   unSyncFiles,
-  getLimits
+  getLimits,
+  setOption
 }) {
 
  
@@ -218,7 +219,11 @@ function MyCollectionFolder({
                 <div className="flex gap-4  items-center h-[40px] ml:min-w-[185px] ">
                   <svg
                     className="bg-[#FFF] p-2 rounded-[50%] border border-[#DEDEDE] cursor-pointer"
-                    onClick={() => router.back()}
+                    onClick={() => router.push({
+                      pathname: '/', 
+                      query: { isCollection: true },
+                    })
+                    }
                     width="36"
                     height="36"
                     viewBox="0 0 28 28"

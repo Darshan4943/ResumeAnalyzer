@@ -1,13 +1,12 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { DownSvg, UpSvg } from '../../utils/svg';
-import MiniLoader from '../../components/common/mini-loader';
-import { setPageOpened } from '../../Redux/slices/websiteSlice';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { DownSvg, UpSvg } from "../../utils/svg";
+import MiniLoader from "../../components/common/mini-loader";
+import { setPageOpened } from "../../Redux/slices/websiteSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import MiniLoaderr from "../../components/common/miniLoader";
 function SkilotechCollection() {
-
   const dispatch = useDispatch();
   // dispatch(setPageOpened());
   const [option, setOption] = useState("skilotechCollection");
@@ -16,43 +15,45 @@ function SkilotechCollection() {
   const [selectAll, setSelectAll] = useState(false);
   const [filterType, setFilterType] = useState();
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [loading, setLoading] = useState("")
-  const [loading1, setLoading1] = useState(false)
+  const [loading, setLoading] = useState("");
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
 
- 
   const widths = ["25%", "10%", "15%", "25%", "15%", "10%"];
   const texts = ["start", "start", "start", "start", "start", "center"];
 
- 
   const getSkilotechResume = async () => {
     try {
-      setLoading1(true)
-      const response = await axios.get('http://localhost:2000/api/resume/get/AllResume');
+      setLoading1(true);
+      const response = await axios.get("http://localhost:2000/api/resume/get/AllResume", {
+        params: { countryCode }
+      });
+      
       if (response.data.success) {
         setData(response.data.data);
-        setLoading1(false)
+        setLoading1(false);
       } else {
         console.error("Failed to fetch resumes:", response.data);
-        setLoading1(false)
+        setLoading1(false);
         return [];
       }
     } catch (error) {
       console.error("Error fetching resumes:", error);
-      setLoading1(false)
+      setLoading1(false);
       return [];
     }
   };
- 
 
   useEffect(() => {
-   
-      getSkilotechResume();
- 
-  }, []);
+    getSkilotechResume();
+  }, [countryCode]);
 
   const handleCheckboxChange = (applicant) => {
     setSelectedApplicants((prevSelected) => {
-      const isSelected = prevSelected.find((item) => item._id === applicant._id);
+      const isSelected = prevSelected.find(
+        (item) => item._id === applicant._id
+      );
       if (isSelected) {
         return prevSelected.filter((item) => item._id !== applicant._id);
       } else {
@@ -61,69 +62,76 @@ function SkilotechCollection() {
     });
   };
 
- 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedApplicants(data); 
+      setSelectedApplicants(data);
     } else {
       setSelectedApplicants([]);
     }
     setSelectAll(e.target.checked);
   };
 
- 
   const handleSendMail = async (applicants) => {
+    setLoading2(true)
     try {
-      const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
-        userData: applicants.map((app) => ({
-          email: app.email,
-          evaluationSummary: app.evaluation,
-          id: app._id,
-          skilotechCollection:true,
-          resumeUrl:app.resumeUrl
-
-        })),
-      });
+      const response = await axios.post(
+        "http://localhost:2000/api/sendEvaluationMail",
+        {
+          userData: applicants.map((app) => ({
+            email: app.email,
+            evaluationSummary: app.evaluation,
+            id: app._id,
+            skilotechCollection: true,
+            resumeUrl: app.resumeUrl,
+          })),
+        }
+      );
 
       if (response.data.success) {
-        alert("Email sent successfully!");
+        toast.success("Email sent successfully!");
+        setLoading2(false)
         setSelectedApplicants([]);
       } else {
-        alert("Failed to send email.");
+        setLoading2(false)
+        toast.error("Failed to send email.");
       }
     } catch (error) {
+      setLoading2(false)
       console.error("Error sending email:", error);
-      alert("Error sending email.");
+      toast.error("Error sending email.");
     }
   };
-
 
   // Function to send email to an individual applicant
   const handleSendIndividualMail = async (applicant) => {
-    setLoading(applicant._id)
+    setLoading(applicant._id);
     try {
-      const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
-        userData: [{
-          email: applicant.email,
-          evaluationSummary: applicant.evaluation,
-          id: applicant._id,
-          skilotechCollection:true,
-          resumeUrl:applicant.resumeUrl
-        }]
-      });
+      const response = await axios.post(
+        "http://localhost:2000/api/sendEvaluationMail",
+        {
+          userData: [
+            {
+              email: applicant.email,
+              evaluationSummary: applicant.evaluation,
+              id: applicant._id,
+              skilotechCollection: true,
+              resumeUrl: applicant.resumeUrl,
+            },
+          ],
+        }
+      );
 
       if (response.data.success) {
-        setLoading("")
-        toast.success("Email Sent Successfully")
+        setLoading("");
+        toast.success("Email Sent Successfully");
       } else {
-        setLoading("")
+        setLoading("");
       }
     } catch (error) {
       console.error("Error sending email:", error);
-      setLoading("")
+      setLoading("");
     }
   };
-
 
   // Table headers
   const applicant_head = [
@@ -155,12 +163,33 @@ function SkilotechCollection() {
     },
   ];
 
+  const handleChange = (e) => {
+    setCountryCode(e.target.value);
+  };
+
   return (
     <div>
+      {loading1 ? (
+        <MiniLoaderr />
+      ) : 
       <div className="web">
         {/* Bulk Mail Button */}
-        <div className="flex justify-end mb-4">
-        
+        <div className="flex justify-end mb-4 gap-4">
+          <select id="country" className="px-4 rounded-[30px] outline-none text-[14px] font-medium " onChange={handleChange} defaultValue="">
+            <option value="" disabled>
+              Select Country
+            </option>
+            <option value="+91">India</option>
+            <option value="+263">Zimbabwe</option>
+            <option value="+44">United Kingdom</option>
+          </select>
+          {loading2 ?
+          
+          <div className="flex w-[140.2px] justify-center items-center h-[40px] rounded-[30px] bg-blue">
+            <MiniLoader/>
+
+          </div>
+          :
           <button
             className="text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button"
             onClick={() => handleSendMail(selectedApplicants)} // Send to selected applicants
@@ -168,6 +197,7 @@ function SkilotechCollection() {
           >
             Send Bulk Mail
           </button>
+}
         </div>
 
         {/* Table Header */}
@@ -180,8 +210,15 @@ function SkilotechCollection() {
           />
 
           {applicant_head.map((applicant_head, index) => (
-            <div key={index} className="flex items-center w-full text-[#333333] gap-[8px] relative" style={{ width: widths[index] }}>
-              <p style={{ textAlign: texts[index] }} className="text-[14px] w-full font-[600] ">
+            <div
+              key={index}
+              className="flex items-center w-full text-[#333333] gap-[8px] relative"
+              style={{ width: widths[index] }}
+            >
+              <p
+                style={{ textAlign: texts[index] }}
+                className="text-[14px] w-full font-[600] "
+              >
                 {applicant_head.name}
               </p>
             </div>
@@ -194,8 +231,13 @@ function SkilotechCollection() {
             <>
               {data.map((applicant, index) => (
                 <div
-                  className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${selectedApplicants.some((item) => item._id === applicant._id) ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                    }`}
+                  className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${
+                    selectedApplicants.some(
+                      (item) => item._id === applicant._id
+                    )
+                      ? "bg-[#D3F1FF]"
+                      : "bg-[#FFFFFF]"
+                  }`}
                   key={applicant?._id}
                 >
                   <div className="gap-[20px] w-full justify-between flex items-center">
@@ -203,42 +245,65 @@ function SkilotechCollection() {
                       key={applicant.id}
                       className="w-[16px] h-[16px]"
                       type="checkbox"
-                      checked={selectedApplicants.some((item) => item._id === applicant._id)}
+                      checked={selectedApplicants.some(
+                        (item) => item._id === applicant._id
+                      )}
                       onChange={() => handleCheckboxChange(applicant)}
                     />
                     <div className="flex w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
-                      <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
-                      <p className="text-[14px] font-[600]">{applicant?.firstName} {applicant?.lastName}</p>
+                      <img
+                        className="w-[40px]"
+                        src="/images/employer/profile_icon.png"
+                        alt=""
+                      />
+                      <p className="text-[14px] font-[600]">
+                        {applicant?.firstName} {applicant?.lastName}
+                      </p>
                     </div>
                     <div className="flex w-[10%] items-center justify-start gap-[8px]">
-                      <p className="text-[14px] font-[600]">{applicant?.dial_code}</p>
+                      <p className="text-[14px] font-[600]">
+                        {applicant?.dial_code}
+                      </p>
                     </div>
                     <div className="flex w-[15%] items-center justify-start gap-[8px]">
-                      <p className="text-[14px] font-[600]">{applicant?.mobileNumber}</p>
+                      <p className="text-[14px] font-[600]">
+                        {applicant?.mobileNumber}
+                      </p>
                     </div>
                     <div className="flex w-[25%] items-center justify-start gap-[8px]">
-                      <p className="text-[14px] font-[600]">{applicant?.email}</p>
+                      <p className="text-[14px] font-[600]">
+                        {applicant?.email}
+                      </p>
                     </div>
                     <div className="flex w-[15%] items-center justify-start gap-[8px]">
-                      <p className={`text-[14px] font-[600] ${applicant?.paymentStatus ? "text-green" : "text-red"}`}>{applicant?.paymentStatus ? "Paid" : "Unpaid"}</p>
+                      <p
+                        className={`text-[14px] font-[600] ${
+                          applicant?.paymentStatus ? "text-green" : "text-red"
+                        }`}
+                      >
+                        {applicant?.paymentStatus ? "Paid" : "Unpaid"}
+                      </p>
                     </div>
                     <div className="flex w-[10%] items-center justify-center gap-[8px]">
-                      {loading === applicant._id ?
-                        <button
-                          className="text-[14px] font-[500] flex items-center justify-center w-[92.49px] rounded-[30px] bg_Button px-4 h-[40px]"
-
-                        >
+                      {loading === applicant._id ? (
+                        <button className="text-[14px] font-[500] flex items-center justify-center w-[92.49px] rounded-[30px] bg_Button px-4 h-[40px]">
                           <MiniLoader />
                         </button>
-                        :
+                      ) : (
                         <button
-                        disabled={!applicant.isEvaluate || applicant.paymentStatus}
-                          className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${(!applicant.isEvaluate || applicant.paymentStatus) && "opacity-50"}`}
+                          disabled={
+                            !applicant.isEvaluate || applicant.paymentStatus
+                          }
+                          className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${
+                            (!applicant.isEvaluate ||
+                              applicant.paymentStatus) &&
+                            "opacity-50"
+                          }`}
                           onClick={() => handleSendIndividualMail(applicant)} // Send mail to individual
                         >
                           Send Mail
                         </button>
-                      }
+                      )}
                     </div>
                   </div>
                 </div>
@@ -246,11 +311,16 @@ function SkilotechCollection() {
             </>
           ) : (
             <div className="p-10 w-full flex items-center justify-center">
-              <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px] object-contain" />
+              <img
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+                className="h-[200px] w-[300px] object-contain"
+              />
             </div>
           )}
         </div>
       </div>
+}
     </div>
   );
 }
