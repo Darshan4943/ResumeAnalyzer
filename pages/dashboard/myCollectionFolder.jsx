@@ -276,7 +276,7 @@ function MyCollectionFolder({
 
         <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
        
-        {loading ? (
+        {/* {loading ? (
           <MiniLoader />
         ) : (
           <MyCollectionFiles
@@ -299,7 +299,7 @@ function MyCollectionFolder({
             setFolderList={setFolderList}
             query={query}
           />
-        )}
+        )} */}
 
       
       </div>
