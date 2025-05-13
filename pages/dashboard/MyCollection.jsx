@@ -1,13 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { DownSvg, UpSvg } from '../../utils/svg';
-import MiniLoader from '../../components/common/mini-loader';
-import { setPageOpened } from '../../Redux/slices/websiteSlice';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { setRecallData } from '../../Redux/slices/recallSlice';
-
 import MyCollectionFolder from './myCollectionFolder';
+
+
 
 function MyCollection({setOption}) {
   const router = useRouter();

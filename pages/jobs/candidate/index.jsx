@@ -481,10 +481,10 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className="customMargins py-6 flex gap-6">
+          <div className="customMargins py-6 flex gap-6 relative">
             <div
-              style={{ boxShadow: "0px 0px 14px 0px #00000005" }}
-              className="bg-white w-[262px]  px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4 h-full  min-w-[200px] "
+              style={{ boxShadow: "0px 0px 14px 0px #00000005",scrollbarWidth: "none"  }}
+              className="bg-white w-[262px]  px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4  min-w-[200px] sticky top-[84px] h-[calc(100vh-60px)] overflow-y-auto  pb-6 "
             >
               <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
                 <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
@@ -604,7 +604,7 @@ function Index() {
               totalCount={totalCount}
             />
 
-            <div className=" flex-col gap-6 rounded-[12px] scr900:flex hidden">
+            <div className=" flex-col gap-6 rounded-[12px] scr900:flex hidden sticky top-[84px] h-fit">
               <img
                 src="/images/home/CandidatePoster2.png"
                 alt=""
