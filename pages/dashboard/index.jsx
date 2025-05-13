@@ -54,7 +54,7 @@ function Dashboard({ toggleContentt }) {
   const fetchJobStatistics = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.208:2000/api/job/getJobStatistics/${userDataGlobal?._id}`
+        `https://jamblix.com/api/job/getJobStatistics/${userDataGlobal?._id}`
       );
       setStatistics(response.data);
     } catch (err) {
@@ -69,7 +69,7 @@ function Dashboard({ toggleContentt }) {
   const fetchJobAnalytics = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.208:2000/api/job/getJobAnalytics/${userDataGlobal?._id}`,
+        `https://jamblix.com/api/job/getJobAnalytics/${userDataGlobal?._id}`,
         { params: { selected } }
       );
       setData(response.data);
