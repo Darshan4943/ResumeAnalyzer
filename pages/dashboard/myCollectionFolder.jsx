@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 import MiniLoader from "../../components/common/miniLoader";
 import MyCollectionFiles from "./myCollectionFiles";
-import CollectionFiles from "./CollectionFiles";
 
 
 function MyCollectionFolder({
@@ -280,7 +279,7 @@ function MyCollectionFolder({
         {loading ? (
           <MiniLoader />
         ) : (
-          <CollectionFiles
+          <MyCollectionFiles
             isList={isList}
             selectedIndexes={selectedIndexes}
             setSelectedIndexes={setSelectedIndexes}
