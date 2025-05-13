@@ -7,7 +7,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 import MiniLoader from "../../components/common/miniLoader";
-import MyCollectionFiles from "./myCollectionfiles";
+import MyCollectionFiles from "./myCollectionFiles";
+
 
 function MyCollectionFolder({
   tabIndex,
