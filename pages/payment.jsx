@@ -887,7 +887,7 @@ function Payment() {
                                     />
                                 </svg>
                             ) : (
-                                "proceed"
+                                "Proceed"
                             )}
                         </button>
                     </div>

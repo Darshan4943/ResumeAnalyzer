@@ -1121,7 +1121,7 @@ function CreateNewJob() {
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
                         <div className="text-[14px] font-[500]">
-                          Location <span className="text-[red]">*</span>
+                          Location 
                         </div>
                         <Select
                           isMulti
@@ -1600,58 +1600,61 @@ function CreateNewJob() {
                             Job Type <span className="text-[red]">*</span>
                           </div>
                           <Select
-  classNamePrefix="react-select"
-  styles={{
-    container: (base) => ({
-      ...base,
-      width: "100%", // Ensures full width of the Select container
-    }),
-    control: (base, { isFocused }) => ({
-      ...base,
-      width: "100%", // Ensures full width of the control
-      height: "38px",
-      border: formError.jobType ? "1px solid red" : "1px solid #DEDEDE",
-      borderRadius: "8px",
-      padding: "2px 10px", // Adjust padding to prevent the selected value from getting cut off
-      fontSize: "12px",
-      color: "#767676",
-      boxShadow: isFocused ? "0 0 0 1px #767676" : "none",
-      "&:hover": { borderColor: "#767676" },
-      display: "flex", // Ensures that content is correctly aligned
-      alignItems: "center", // Aligns text vertically
-    }),
-    menu: (base) => ({
-      ...base,
-      width: "100%", // Ensures the dropdown width is full
-    }),
-    singleValue: (base) => ({
-      ...base,
-      width: "100%", // Ensures the single value (selected) is displayed fully
-      whiteSpace: "normal", // Allows multi-line text to wrap if necessary
-      overflow: "visible", // Prevents any clipping of text
-      textOverflow: "clip", // Prevents text from being truncated
-    }),
-    option: (base) => ({
-      ...base,
-      fontSize: "12px", // Maintains consistent font size
-    }),
-  }}
-  options={jobOptions}
-  value={jobOptions.find(
-    (option) =>
-      option.value.trim().toLowerCase() ===
-      data.jobType.trim().toLowerCase()
-  )}
-  onChange={(selectedOption) =>
-    handleChange({
-      target: {
-        name: "jobType",
-        value: selectedOption?.value,
-      },
-    })
-  }
-/>
-
+                            classNamePrefix="react-select"
+                            styles={{
+                              container: (base) => ({
+                                ...base,
+                                width: "100%", // Ensures full width of the Select container
+                              }),
+                              control: (base, { isFocused }) => ({
+                                ...base,
+                                width: "100%", // Ensures full width of the control
+                                height: "38px",
+                                border: formError.jobType
+                                  ? "1px solid red"
+                                  : "1px solid #DEDEDE",
+                                borderRadius: "8px",
+                                padding: "2px 10px", // Adjust padding to prevent the selected value from getting cut off
+                                fontSize: "12px",
+                                color: "#767676",
+                                boxShadow: isFocused
+                                  ? "0 0 0 1px #767676"
+                                  : "none",
+                                "&:hover": { borderColor: "#767676" },
+                                display: "flex", // Ensures that content is correctly aligned
+                                alignItems: "center", // Aligns text vertically
+                              }),
+                              menu: (base) => ({
+                                ...base,
+                                width: "100%", // Ensures the dropdown width is full
+                              }),
+                              singleValue: (base) => ({
+                                ...base,
+                                width: "100%", // Ensures the single value (selected) is displayed fully
+                                whiteSpace: "normal", // Allows multi-line text to wrap if necessary
+                                overflow: "visible", // Prevents any clipping of text
+                                textOverflow: "clip", // Prevents text from being truncated
+                              }),
+                              option: (base) => ({
+                                ...base,
+                                fontSize: "12px", // Maintains consistent font size
+                              }),
+                            }}
+                            options={jobOptions}
+                            value={jobOptions.find(
+                              (option) =>
+                                option.value.trim().toLowerCase() ===
+                                data.jobType.trim().toLowerCase()
+                            )}
+                            onChange={(selectedOption) =>
+                              handleChange({
+                                target: {
+                                  name: "jobType",
+                                  value: selectedOption?.value,
+                                },
+                              })
+                            }
+                          />
                         </div>
                       </div>
 
