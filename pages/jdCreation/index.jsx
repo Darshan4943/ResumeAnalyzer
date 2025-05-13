@@ -15,7 +15,7 @@ function Index() {
   const getJobDescriptions = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/jd/list/${userDataGlobal?._id}`
+        `https://jamblix.com/api/jd/list/${userDataGlobal?._id}`
       );
       setData(response.data.data);
       return response.data.data;
@@ -31,7 +31,7 @@ function Index() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/jd/delete/${id}`
+        `https://jamblix.com/api/jd/delete/${id}`
       );
 
       if (response.status === 200) {

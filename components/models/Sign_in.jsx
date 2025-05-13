@@ -58,7 +58,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
       role: role,
     };
     axios
-      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
+      .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;

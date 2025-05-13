@@ -65,7 +65,7 @@ const Index = () => {
     setLoading(true);
     if (userDataGlobal?._id) {
       axios
-        .get(`http://localhost:2000/api/resume/${userDataGlobal?._id}`)
+        .get(`https://jamblix.com/api/resume/${userDataGlobal?._id}`)
         .then((res) => {
           setResumeList(res.data.data);
 
@@ -95,7 +95,7 @@ const Index = () => {
       if (selectedIndexes) {
         try {
           const response = await axios.put(
-            `http://localhost:2000/api/candidate/selectResume`,
+            `https://jamblix.com/api/candidate/selectResume`,
             {
               selectedIndexes,
               selectedResumeUrl,

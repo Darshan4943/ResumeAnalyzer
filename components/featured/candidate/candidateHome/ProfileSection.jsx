@@ -72,7 +72,7 @@ function ProfileSection() {
           <p className="text-[16px] font-semibold">
             {profileData?.basics?.firstName} {profileData?.basics?.lastName}
           </p>
-          {profileData.workExperiance.length > 0 ? (
+          {profileData?.workExperiance?.length > 0 ? (
             <div className="flex flex-col gap-1 items-center">
                {latestExperience?.jobTitle && (
                 <p className="text-[12px] font-medium">

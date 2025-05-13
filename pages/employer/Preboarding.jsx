@@ -63,7 +63,7 @@ function Preboarding() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+          `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
           {
             params: {
               page: page,

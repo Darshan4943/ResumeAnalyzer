@@ -57,11 +57,11 @@ function ResumePage() {
       let url = "";
 
       if (skilotechCollection) {
-        url = "http://localhost:2000/api/resumeEvaluation/" + id;
+        url = "https://jamblix.com/api/resumeEvaluation/" + id;
       } else if (myCollection) {
-        url = "http://localhost:2000/api/folderEvaluation/" + id;
+        url = "https://jamblix.com/api/folderEvaluation/" + id;
       } else if (application) {
-        url = "http://localhost:2000/api/applicationEvaluation/" + id;
+        url = "https://jamblix.com/api/applicationEvaluation/" + id;
       }
       axios
         .get(url)
@@ -134,7 +134,7 @@ function ResumePage() {
   //     setLoading(true);
   //     const resumeJson = JSON.parse(parsedResume);
 
-  //     const res = await axios.post("http://localhost:2000/api/resume-evaluate", {
+  //     const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
   //       resumeText: resumeJson,
   //     });
 
@@ -155,7 +155,7 @@ function ResumePage() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:2000/api/resume-evaluate",
+        "https://jamblix.com/api/resume-evaluate",
         {
           text: resumeJson,
         }
@@ -230,7 +230,7 @@ function ResumePage() {
   //   try {
   //     setLoading(true);
   //     const resumeJson = JSON.parse(parsedResume);
-  //     const res = await axios.post("http://localhost:2000/api/resume-improve", {
+  //     const res = await axios.post("https://jamblix.com/api/resume-improve", {
   //       resumeText: resumeJson,
   //       feedback: resumeData,
   //     });

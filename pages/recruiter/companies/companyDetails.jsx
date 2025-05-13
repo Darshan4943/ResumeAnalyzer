@@ -48,7 +48,7 @@ function CompanyDetails() {
         setLoading(true);
         try {
             const response = await axios.get(
-                `http://localhost:2000/api/company/fetchCompaniDetails/${query.companyId}`
+                `https://jamblix.com/api/company/fetchCompaniDetails/${query.companyId}`
             );
             if (response.data) {
                 setData({
@@ -100,7 +100,7 @@ function CompanyDetails() {
     const fetchAttributes = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+                `https://jamblix.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
             );
 
             const data = {
