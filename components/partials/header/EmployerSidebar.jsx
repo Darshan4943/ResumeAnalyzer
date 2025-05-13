@@ -58,14 +58,14 @@ function EmployerSidebar() {
       route: "/myCollection?folders=true",
     },
     {
-      img: "/images/employer/sidebar/template1.png",
-      img1: "/images/employer/sidebar/template.png",
+      img: "/images/employer/sidebar/mailTemplate.png",
+      img1: "/images/employer/sidebar/mailTemplate2.png",
       title: "Mail Templates",
       route: "/template",
     },
     {
-      img: "/images/employer/sidebar/template1.png",
-      img1: "/images/employer/sidebar/template.png",
+      img: "/images/employer/sidebar/resumes.png",
+      img1: "/images/employer/sidebar/resumes2.png",
       title: "Resumes",
       route: "/recruiter/resumeCreation",
       route1: "/createResume"
@@ -141,8 +141,8 @@ function EmployerSidebar() {
       route: "/myCollection?folders=true",
     },
     {
-      img: "/images/employer/sidebar/template1.png",
-      img1: "/images/employer/sidebar/template.png",
+      img: "/images/employer/sidebar/mailTemplate.png",
+      img1: "/images/employer/sidebar/mailTemplate2.png",
       title: "Mail Templates",
       route: "/template",
     },

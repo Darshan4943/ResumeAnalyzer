@@ -324,7 +324,17 @@ export const Api = ({ }) => {
             localStorage.setItem("coverCountLimit", 0);
             localStorage.setItem("skillTestCountLimit", 0);
             localStorage.setItem("skillCertifiedCountLimit", 0);
+            
           }
+          localStorage.setItem(
+            "exchangeRate",
+             "1" 
+          );
+          localStorage.setItem(
+            "currency",
+            "USD" 
+          );
+          localStorage.setItem("icon",  "$" );
         })
         .catch((err) => {
           console.log(err);
@@ -409,6 +419,7 @@ export const Api = ({ }) => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
         );
+       
         return response.data.results;
       } catch (err) {
         console.error("Error fetching country data:", err);
@@ -460,6 +471,7 @@ export const Api = ({ }) => {
         );
         localStorage.setItem("icon", exchangeRate?.data === "" ? "$" : symbol);
       } else {
+        
         console.error("Error: Country data not found");
       }
     };
@@ -542,6 +554,7 @@ export const Api = ({ }) => {
       // Process the closest country data
       await processCountryData(closestData.results);
     } else {
+      
       console.log("No relevant data found");
     }
   };
@@ -560,7 +573,7 @@ export const Api = ({ }) => {
 
   return (
     <>
-      {!enablePopup && (
+      {enablePopup && (
         <LocationEnablePopup
           setEnablePopup={(value) => dispatch(setEnablePopup(value))}
           enablePopup={enablePopup}

@@ -281,6 +281,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                             <p className={` font-[700] text-[26px] `}>{icon}</p>
                             <p className={` font-[700] text-[26px]`}>
                               {Math.ceil(plan?.amount * exchangeRate)}
+                              {console.log(Math.ceil(plan?.amount * exchangeRate))}
                             </p>
                           </div>
                         )}

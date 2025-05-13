@@ -59,7 +59,7 @@ function JobDetails() {
     getData();
   }, []);
 
-  console.log(jobData[0]);
+  
   return (
     <>
 
