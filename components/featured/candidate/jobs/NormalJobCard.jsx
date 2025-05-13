@@ -23,7 +23,7 @@ function NormalJobCard({ item }) {
     setIsSaved(true);
     e.stopPropagation();
     axios
-      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`http://192.168.1.208:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(fetchSavedJobIds(userDataGlobal?._id));
 
@@ -41,7 +41,7 @@ function NormalJobCard({ item }) {
     setUnIsSaved(true);
     axios
       .post(
-        `https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `http://192.168.1.208:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
         dispatch(fetchSavedJobIds(userDataGlobal?._id));

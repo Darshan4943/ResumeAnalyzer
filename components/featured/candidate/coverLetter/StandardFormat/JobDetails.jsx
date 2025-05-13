@@ -109,7 +109,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/allskills")
+      .get("http://192.168.1.208:2000/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));

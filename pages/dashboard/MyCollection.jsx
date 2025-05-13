@@ -71,7 +71,7 @@ function MyCollection({setOption}) {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://192.168.1.208:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -89,7 +89,7 @@ function MyCollection({setOption}) {
 
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`http://192.168.1.208:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -107,7 +107,7 @@ function MyCollection({setOption}) {
 
   const getUnSyncFiles = () => {
     axios
-      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
+      .get(`http://192.168.1.208:2000/api/getUnsyncedFile/${userDataGlobal?._id}`)
       .then((res) => {
         const files = res.data.data.filter((item) => item.type === "file");
         setUnSyncFiles(files.length);
@@ -170,7 +170,7 @@ function MyCollection({setOption}) {
   // Function to send email (single or bulk)
   const handleSendMail = async (applicants) => {
     try {
-      const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
+      const response = await axios.post('http://192.168.1.208:2000/api/sendEvaluationMail', {
         userData: applicants.map((app) => ({
           email: app.email,
           evaluationSummary: app.evaluation,
@@ -196,7 +196,7 @@ function MyCollection({setOption}) {
   const handleSendIndividualMail = async (applicant) => {
     setLoading(applicant._id)
     try {
-      const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
+      const response = await axios.post('http://192.168.1.208:2000/api/sendEvaluationMail', {
         userData: [{
           email: applicant?.details?.personal?.email,
           evaluationSummary: applicant?.details?.personal?.evaluation,

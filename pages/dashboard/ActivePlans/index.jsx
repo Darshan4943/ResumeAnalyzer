@@ -19,7 +19,7 @@ function ActivePlans() {
 
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/activeSubscription", {
+      .get("http://192.168.1.208:2000/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {

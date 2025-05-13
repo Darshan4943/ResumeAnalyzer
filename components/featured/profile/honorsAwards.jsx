@@ -72,7 +72,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
     if (isEditing) {
       axios
         .put(
-          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateAchivement/${Achievement._id}`,
+          `http://192.168.1.208:2000/api/candidate/${userDataGlobal?._id}/updateAchivement/${Achievement._id}`,
           awardData
         )
         .then((res) => {
@@ -86,7 +86,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
     } else {
       axios
         .post(
-          `https://jamblix.com/api/candidate/addAchivement/${userDataGlobal?._id}`,
+          `http://192.168.1.208:2000/api/candidate/addAchivement/${userDataGlobal?._id}`,
           awardData
         )
         .then((res) => {

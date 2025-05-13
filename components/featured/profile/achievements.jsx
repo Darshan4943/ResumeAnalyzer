@@ -20,7 +20,7 @@ const Achievements = ({userData}) => {
     const deleteHandler = () => {
         axios
             .delete(
-                `https://jamblix.com/api/candidate/${userDataGlobal?._id}/deleteAchivement/${deleteData.id}`
+                `http://192.168.1.208:2000/api/candidate/${userDataGlobal?._id}/deleteAchivement/${deleteData.id}`
             )
             .then((res) => {
                 dispatch(fetchUserData());

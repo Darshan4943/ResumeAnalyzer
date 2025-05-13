@@ -7,6 +7,7 @@ import { camelCase } from "../../../utils/middleware";
 import { SkillList } from "../../../utils/data";
 import { toast } from "react-toastify";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
+import CreatableSelect from "react-select/creatable";
 
 const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const [skil, setSkil] = useState(userData?.skills || []);
@@ -30,7 +31,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     }
     axios
       .put(
-        "https://jamblix.com/api/candidate/updateSkills/" +
+        "http://192.168.1.208:2000/api/candidate/updateSkills/" +
           userDataGlobal?._id,
 
         { skills: skil }
@@ -91,23 +92,32 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
             ))}
           </div>
           <div className="flex justify-between items-start flex-col ">
-            <ReactSelect
-              options={skills.map((item) => ({
-                value: item,
-                label: camelCase(item),
-              }))}
-              className="w-[100%] "
-              onChange={(data) => {
-                const isAlreadySelected = skil.some(
-                  (skill) => skill.value === data.value
-                );
+          <CreatableSelect
+  options={skills.map((item) => ({
+    value: item,
+    label: camelCase(item),
+  }))}
+  className="w-[100%]"
+  onChange={(data) => {
+    const isAlreadySelected = skil.some(
+      (skill) => skill.value === data.value
+    );
 
-                if (!isAlreadySelected) {
-                  setSkil([...skil, data]);
-                  setError(false);
-                }
-              }}
-            />
+    if (!isAlreadySelected) {
+      setSkil([...skil, data]);
+      setError(false);
+    }
+  }}
+  onCreateOption={(inputValue) => {
+    const newOption = {
+      value: inputValue,
+      label: camelCase(inputValue),
+    };
+
+    setSkil([...skil, newOption]);
+    setError(false);
+  }}
+/>
             {error && (
               <div className="text-red text-sm mt-2">
                 Please select at least one skill.

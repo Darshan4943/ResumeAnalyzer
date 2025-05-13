@@ -17,6 +17,16 @@ function ProfileSection() {
     }
     return bDate?.months - aDate?.months;
   })[0];
+  const latestExperience = [...(profileData?.workExperiance || [])].sort((a, b) => {
+    const aDate = a?.duration?.endDate;
+    const bDate = b?.duration?.endDate;
+
+    if (aDate?.years !== bDate?.years) {
+      return bDate?.years - aDate?.years;
+    }
+    return bDate?.months - aDate?.months;
+  })[0];
+
 
   return (
     <div className="min-w-[262px] bg-[#FFFFFF] rounded-[16px] px-4 py-7 flex flex-col gap-4 ">
@@ -62,13 +72,29 @@ function ProfileSection() {
           <p className="text-[16px] font-semibold">
             {profileData?.basics?.firstName} {profileData?.basics?.lastName}
           </p>
-          <p className="text-[12px] font-medium">
-            {latestEducation?.education}
-          </p>
-          {latestEducation?.university && (
-            <p className="text-[12px] font-medium">
-              @ {latestEducation?.university}
-            </p>
+          {profileData.workExperiance.length > 0 ? (
+            <div className="flex flex-col gap-1 items-center">
+               {latestExperience?.jobTitle && (
+                <p className="text-[12px] font-medium">
+                {latestExperience?.jobTitle}
+                </p>
+              )}
+              <p className="text-[12px] font-medium">
+                @ {latestExperience?.companyName}
+              </p>
+             
+            </div>
+          ) : (
+            <div className="flex flex-col gap-1 items-center">
+              <p className="text-[12px] font-medium">
+                {latestEducation?.education}
+              </p>
+              {latestEducation?.university && (
+                <p className="text-[12px] font-medium">
+                  @ {latestEducation?.university}
+                </p>
+              )}
+            </div>
           )}
           <p className="text-[12px] font-normal text-[#646464]">
             Last updated {CountPostingDays(profileData?.updatedAt)}

@@ -68,7 +68,7 @@ function MyCollectionFiles({
   useEffect(() => {
     if (clientId) {
       axios
-        .get("https://jamblix.com/api/resume/" + clientId)
+        .get("http://192.168.1.208:2000/api/resume/" + clientId)
         .then((res) => {
           setClientResumes(res.data.data);
           setFiles(

@@ -107,7 +107,7 @@ function AddEducation({
     if (editEducation) {
       axios
         .put(
-          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateEducation/${Education._id}`,
+          `http://192.168.1.208:2000/api/candidate/${userDataGlobal?._id}/updateEducation/${Education._id}`,
           obj
         )
         .then((res) => {
@@ -123,7 +123,7 @@ function AddEducation({
     else {
       axios
         .post(
-          `https://jamblix.com/api/candidate/addEducation/${userDataGlobal?._id}`,
+          `http://192.168.1.208:2000/api/candidate/addEducation/${userDataGlobal?._id}`,
           obj
         )
         .then((res) => {
@@ -198,16 +198,14 @@ function AddEducation({
               value={educationData.education}
               onChange={handleInputChange}
             >
-              <option value="" disabled>
-                Select your education level
-              </option>
               <option value="PhD / Doctorate">PhD / Doctorate</option>
-              <option value="Masters / Post-Graduation">Masters / Post-Graduation</option>
-              <option value="Bachelor’s / Under-Graduation">
-                Bachelor’s / Under-Graduation
-              </option>
-              <option value="12th / Junior College">12th / Junior College</option>
-              <option value="10th / School">10th / School</option>
+<option value="Masters / Post-Graduation">Masters / Post-Graduation</option>
+<option value="Bachelor’s Degree">Bachelor’s Degree</option>
+<option value="Diploma">Diploma</option>
+<option value="Higher Secondary (12th)">Higher Secondary (12th)</option>
+<option value="High School (10th)">High School (10th)</option>
+<option value="Below 10th">Below 10th</option>
+<option value="Other">Other</option>
             </select>
           </div>
         </div>

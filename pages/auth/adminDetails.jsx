@@ -293,7 +293,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = role === "employer" ? "tempEmployer" : "tempRecruiter";
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("http://192.168.1.208:2000/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -370,7 +370,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("http://192.168.1.208:2000/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -450,7 +450,7 @@ function AdminDetails({
 
    
 
-    const url = "https://jamblix.com/api/skiloteckuser/employerSignUp";
+    const url = "http://192.168.1.208:2000/api/skiloteckuser/employerSignUp";
 
     axios
       .post(url, formDataToSend, {

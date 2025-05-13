@@ -97,7 +97,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getEmployerCompanies/${userDataGlobal?.companyId}`
+        `http://192.168.1.208:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -208,17 +208,17 @@ function CreateNewJob() {
       });
     }
 
-    if (!data.location || !isValidArray(data.location)) {
-      newFormError.location = "Location is required";
-      return newFormError;
-    } else {
-      data.location.forEach((item, index) => {
-        if (!isValidString(item)) {
-          newFormError.location = `Location item ${index + 1} is required`;
-          return newFormError;
-        }
-      });
-    }
+    // if (!data.location || !isValidArray(data.location)) {
+    //   newFormError.location = "Location is required";
+    //   return newFormError;
+    // } else {
+    //   data.location.forEach((item, index) => {
+    //     if (!isValidString(item)) {
+    //       newFormError.location = `Location item ${index + 1} is required`;
+    //       return newFormError;
+    //     }
+    //   });
+    // }
 
     if (!isValidString(data.description)) {
       newFormError.description = "Job Description is required";
@@ -315,7 +315,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/job/add/${id}`,
+        `http://192.168.1.208:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -352,7 +352,7 @@ function CreateNewJob() {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getByJobId/" + id)
+      .get("http://192.168.1.208:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -446,7 +446,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`https://jamblix.com/api/company/fetchCompaniDetails/${id}`)
+      .get(`http://192.168.1.208:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
@@ -646,7 +646,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getRequisitionById/${reqId}`
+        `http://192.168.1.208:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData((prevData) => ({
@@ -823,6 +823,7 @@ function CreateNewJob() {
 
   const jobOptions = [
     { value: "Full Time", label: "Full Time" },
+    { value: "Full Time (Night Shift)", label: "Full Time (Night Shift)" },
     { value: "Part Time", label: "Part Time" },
     { value: "Contract", label: "Contract" },
     { value: "Internships", label: "Internships" },
@@ -1599,40 +1600,58 @@ function CreateNewJob() {
                             Job Type <span className="text-[red]">*</span>
                           </div>
                           <Select
-                            classNamePrefix="react-select"
-                            styles={{
-                              control: (base, { isFocused }) => ({
-                                ...base,
-                                width: "100%",
-                                height: "38px",
-                                border: formError.jobType
-                                  ? "1px solid red"
-                                  : "1px solid #DEDEDE",
-                                borderRadius: "8px",
-                                padding: "2px",
-                                fontSize: "12px",
-                                color: "#767676",
-                                boxShadow: isFocused
-                                  ? "0 0 0 1px #767676"
-                                  : "none",
-                                "&:hover": { borderColor: "#767676" },
-                              }),
-                            }}
-                            options={jobOptions}
-                            value={jobOptions.find(
-                              (option) =>
-                                option.value.trim().toLowerCase() ===
-                                data.jobType.trim().toLowerCase()
-                            )}
-                            onChange={(selectedOption) =>
-                              handleChange({
-                                target: {
-                                  name: "jobType",
-                                  value: selectedOption?.value,
-                                },
-                              })
-                            }
-                          />
+  classNamePrefix="react-select"
+  styles={{
+    container: (base) => ({
+      ...base,
+      width: "100%", // Ensures full width of the Select container
+    }),
+    control: (base, { isFocused }) => ({
+      ...base,
+      width: "100%", // Ensures full width of the control
+      height: "38px",
+      border: formError.jobType ? "1px solid red" : "1px solid #DEDEDE",
+      borderRadius: "8px",
+      padding: "2px 10px", // Adjust padding to prevent the selected value from getting cut off
+      fontSize: "12px",
+      color: "#767676",
+      boxShadow: isFocused ? "0 0 0 1px #767676" : "none",
+      "&:hover": { borderColor: "#767676" },
+      display: "flex", // Ensures that content is correctly aligned
+      alignItems: "center", // Aligns text vertically
+    }),
+    menu: (base) => ({
+      ...base,
+      width: "100%", // Ensures the dropdown width is full
+    }),
+    singleValue: (base) => ({
+      ...base,
+      width: "100%", // Ensures the single value (selected) is displayed fully
+      whiteSpace: "normal", // Allows multi-line text to wrap if necessary
+      overflow: "visible", // Prevents any clipping of text
+      textOverflow: "clip", // Prevents text from being truncated
+    }),
+    option: (base) => ({
+      ...base,
+      fontSize: "12px", // Maintains consistent font size
+    }),
+  }}
+  options={jobOptions}
+  value={jobOptions.find(
+    (option) =>
+      option.value.trim().toLowerCase() ===
+      data.jobType.trim().toLowerCase()
+  )}
+  onChange={(selectedOption) =>
+    handleChange({
+      target: {
+        name: "jobType",
+        value: selectedOption?.value,
+      },
+    })
+  }
+/>
+
                         </div>
                       </div>
 

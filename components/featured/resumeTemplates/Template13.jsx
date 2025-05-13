@@ -28,9 +28,9 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
 
 useEffect(() => {
   const prepareImage = async () => {
-    if (data?.profilePhoto && typeof data.profilePhoto === 'string' && data.profilePhoto.startsWith('http')) {
+    if (data?.profilePhoto && typeof data?.profilePhoto === 'string' && data?.profilePhoto.startsWith('http')) {
       try {
-        const base64Image = await fetchImageAsBase64(data.profilePhoto);
+        const base64Image = await fetchImageAsBase64(data?.profilePhoto);
         setProfileBase64(base64Image);
       } catch (error) {
         console.error('Error fetching image:', error);
@@ -130,7 +130,7 @@ useEffect(() => {
                     marginBottom: 4,
                   }}
                 >
-                  {data.firstName}
+                  {data?.firstName}
                 </Text>
                 <Text
                   style={{
@@ -141,7 +141,7 @@ useEffect(() => {
                     flexWrap: "wrap",
                   }}
                 >
-                  {data.lastName}
+                  {data?.lastName}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", width: "100%", gap: 20 }}>
@@ -155,7 +155,7 @@ useEffect(() => {
                       color: selectedColor,
                     }}
                   >
-                    {formatLink24(data.designation)}
+                    {formatLink24(data?.designation)}
                   </Text>
                   {data?.showSummary === true && (
                     <Text
@@ -165,7 +165,7 @@ useEffect(() => {
                         color: "#333333",
                       }}
                     >
-                      {data.summery}
+                      {data?.summery}
                     </Text>
                   )}
                 </View>
@@ -204,7 +204,7 @@ useEffect(() => {
                         flexWrap: "wrap",
                       }}
                     >
-                      {formatLink28(data.email)}
+                      {formatLink28(data?.email)}
                     </Text>
                   </View>
                   <View
@@ -229,7 +229,7 @@ useEffect(() => {
                         color: "#333333",
                       }}
                     >
-                      {data.dial_code} {data.mobileNumber}
+                      {data?.dial_code} {data?.mobileNumber}
                     </Text>
                   </View>
                   <View
@@ -254,7 +254,7 @@ useEffect(() => {
                         color: "#333333",
                       }}
                     >
-                      {formatLink28(data.location)}
+                      {formatLink28(data?.location)}
                     </Text>
                   </View>
                 </View>
@@ -278,7 +278,7 @@ useEffect(() => {
                     >
                       WORK EXPERIENCE
                     </Text>
-                    {data.experience
+                    {data?.experience
                       ?.slice(0, pageLayout && 1)
                       ?.map((detail, index) => (
                         <View style={{marginBottom:24}}
@@ -341,9 +341,9 @@ useEffect(() => {
                   </View>
                 )}
 
-              {data.project.length > 0 && data?.showProject === true && (
+              {data?.project.length > 0 && data?.showProject === true && (
                 <View>
-                  {data.project
+                  {data?.project
                     ?.slice(0, pageLayout && 1)
                     ?.map((detail, index) => (
                       <View
@@ -433,11 +433,11 @@ useEffect(() => {
                 </View>
               )}
 
-              {data.internship.length > 0 &&
+              {data?.internship?.length > 0 &&
                 data?.showInternship === true &&
                 !pageLayout && (
                   <View>
-                  {data.internship.map((detail, index) => (
+                  {data?.internship?.map((detail, index) => (
                   <View
                   key={index}
                   wrap={false}
@@ -528,11 +528,11 @@ useEffect(() => {
                 </View>
                 )}
 
-              {data.course.length > 0 &&
+              {data?.course.length > 0 &&
                 data?.showCourses === true &&
                 !pageLayout && (
                   <View>
-                  {data.course.map((detail, index) => (
+                  {data?.course.map((detail, index) => (
                   <View
                   key={index}
                   wrap={false}
@@ -622,11 +622,11 @@ useEffect(() => {
                       </View>
                 )}
 
-              {data.extraCaricularData.length > 0 &&
+              {data?.extraCariculardata?.length > 0 &&
                 data?.showExtraCariculam === true &&
                 !pageLayout && (
                  <View>
-                  {data.extraCaricularData.map((detail, index) => (
+                  {data?.extraCariculardata?.map((detail, index) => (
                   <View
                   key={index}
                   wrap={false}
@@ -715,8 +715,8 @@ useEffect(() => {
                 </View>
                 )}
 
-              {data.section?.length > 0 &&  data?.showCustomSection === true &&  !pageLayout &&
-                data.section.map((item, index) => (
+              {data?.section?.length > 0 &&  data?.showCustomSection === true &&  !pageLayout &&
+                data?.section.map((item, index) => (
                   <View
                     style={{
                       flexDirection: "column",
@@ -795,7 +795,7 @@ useEffect(() => {
             </View>
 
             <View style={{ flexDirection: "column", gap: 24, width: 261 }}>
-              {data.achievements.length > 0 &&
+              {data?.achievements?.length > 0 &&
                 data?.showAchievements === true && (
                   <View
                     style={{ flexDirection: "column", gap: 12 }}
@@ -813,7 +813,7 @@ useEffect(() => {
                     <View
                       style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
                     >
-                      {data.achievements
+                      {data?.achievements
                         ?.slice(0, pageLayout && 5)
                         ?.map((detail, index) => (
                           <Text
@@ -833,7 +833,7 @@ useEffect(() => {
                 )}
 
               {/* Skills */}
-              {data.skills.length > 0 && data?.showSkills === true && (
+              {data?.skills.length > 0 && data?.showSkills === true && (
                 <View style={{ flexDirection: "column", gap: 12 }} wrap={false}>
                   <Text
                     style={{
@@ -848,7 +848,7 @@ useEffect(() => {
                   wrap={false}
                     style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
                   >
-                    {data.skills?.slice(0, pageLayout && 8).map((detail, index) => (
+                    {data?.skills?.slice(0, pageLayout && 8).map((detail, index) => (
                         <Text
                           key={index}
                           style={{
@@ -866,9 +866,9 @@ useEffect(() => {
               )}
 
               {/* Education */}
-              {data?.education?.length > 0 && data.showEducation === true && (
+              {data?.education?.length > 0 && data?.showEducation === true && (
                 <View>
-                  {data.education
+                  {data?.education
                     ?.slice(0, pageLayout && 2)
                     ?.map((detail, index) => (
                       <View
@@ -954,7 +954,7 @@ useEffect(() => {
                 data?.showLinks === true &&
                 !pageLayout && (
                   <View>
-                    {data.socialLinks.map((detail, index) => (
+                    {data?.socialLinks.map((detail, index) => (
                       <View
                         key={index}
                         wrap={false}
@@ -1020,7 +1020,7 @@ useEffect(() => {
                 )}
 
               {/* Languages */}
-              {data.languages.length > 0 &&
+              {data?.languages.length > 0 &&
                 data?.showLanguage === true &&
                 !pageLayout && (
                   <View
@@ -1039,7 +1039,7 @@ useEffect(() => {
                     <View
                       style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
                     >
-                      {data.languages.map((detail, index) => (
+                      {data?.languages.map((detail, index) => (
                         <Text
                           key={index}
                           style={{
@@ -1056,7 +1056,7 @@ useEffect(() => {
                   </View>
                 )}
 
-              {data.hobbies.length > 0 &&
+              {data?.hobbies.length > 0 &&
                 data?.showHobbies === true &&
                 !pageLayout && (
                   <View
@@ -1075,7 +1075,7 @@ useEffect(() => {
                     <View
                       style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
                     >
-                      {data.hobbies.map((detail, index) => (
+                      {data?.hobbies.map((detail, index) => (
                         <Text
                           key={index}
                           style={{
@@ -1092,11 +1092,11 @@ useEffect(() => {
                   </View>
                 )}
 
-              {data.reference.length > 0 &&
+              {data?.reference?.length > 0 &&
                 data?.showReference === true &&
                 !pageLayout && (
                   <View>
-                    {data.reference.map((detail, index) => (
+                    {data?.reference?.map((detail, index) => (
                       <View
                         wrap={false}
                         key={index}

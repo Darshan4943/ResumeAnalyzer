@@ -7,12 +7,12 @@ export const updateAiHit = createAsyncThunk(
     try {
       
       const subscriptionResponse = await axios.put(
-        `https://jamblix.com/api/subscription/updateAiHits/${userId}`
+        `http://192.168.1.208:2000/api/subscription/updateAiHits/${userId}`
       );
 
       
       const logsResponse = await axios.put(
-        `https://jamblix.com/api/apiLogs/updateAiHits/${userId}`
+        `http://192.168.1.208:2000/api/apiLogs/updateAiHits/${userId}`
       );
 
       

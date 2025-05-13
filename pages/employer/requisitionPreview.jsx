@@ -8,7 +8,7 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
   const fetchRequisition = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/getRequisitionById/${requisitionId}`
+        `http://192.168.1.208:2000/api/getRequisitionById/${requisitionId}`
       );
       setRequisition(response.data.data);
     } catch (error) {

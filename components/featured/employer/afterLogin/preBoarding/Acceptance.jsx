@@ -47,7 +47,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://192.168.1.208:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -81,7 +81,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
+        `http://192.168.1.208:2000/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {

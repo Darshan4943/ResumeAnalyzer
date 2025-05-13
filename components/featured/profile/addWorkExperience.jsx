@@ -8,6 +8,7 @@ import DateSelector from "../../common/dateSelector";
 import { SkillList } from "../../../utils/data";
 import { camelCase } from "../../../utils/middleware";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
+import CreatableSelect from "react-select/creatable";
 
 function AddWorkExperience({
   setOpenAddExperience,
@@ -188,7 +189,7 @@ function AddWorkExperience({
     if (isEditing) {
       axios
         .put(
-          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateWorkExperience/${Experience._id}`,
+          `http://192.168.1.208:2000/api/candidate/${userDataGlobal?._id}/updateWorkExperience/${Experience._id}`,
           obj
         )
         .then((res) => {
@@ -202,7 +203,7 @@ function AddWorkExperience({
     } else {
       axios
         .post(
-          `https://jamblix.com/api/candidate/addWorkExperience/${userDataGlobal?._id}`,
+          `http://192.168.1.208:2000/api/candidate/addWorkExperience/${userDataGlobal?._id}`,
           obj
         )
         .then((res) => {
@@ -228,7 +229,10 @@ function AddWorkExperience({
               Add Work Experience
             </p>
             <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-            <div className=" cursor-pointer" onClick={() => setOpenAddExperience(false)}>
+            <div
+              className=" cursor-pointer"
+              onClick={() => setOpenAddExperience(false)}
+            >
               <ClosedIcon />
             </div>
           </div>
@@ -297,6 +301,7 @@ function AddWorkExperience({
                 </option>
                 <option value="remoteWork">Remote</option>
                 <option value="onSiteWork">Office</option>
+                <option value="hybrid">Hybrid</option>
               </select>
             </div>
           </div>
@@ -371,43 +376,60 @@ function AddWorkExperience({
           />
         </div>
 
-        <div className="flex flex-col gap-2 ">
-          <div className="text-[14px] font-montserrat  font-medium">
-            Notice Period
-          </div>
-          <div className="">
-            <select
-              className="scr700:w-[46.51%] w-full  text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
-              name="noticePeriod"
-              value={experienceData.noticePeriod}
-              onChange={handleInputChange}
-            >
-              <option value="" disabled>
-                Select
-              </option>
-              <option value="15 Days">15 Days</option>
-              <option value="1 month">1 month</option>
-            </select>
-          </div>
-        </div>
+        <div className="flex flex-col gap-2">
+  <div className="text-[14px] font-montserrat font-medium">
+    Notice Period
+  </div>
+  <div>
+    <select
+      className="scr700:w-[46.51%] w-full text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px] outline-none"
+      name="noticePeriod"
+      value={experienceData.noticePeriod}
+      onChange={handleInputChange}
+    >
+      <option value="" disabled>
+        Select
+      </option>
+      <option value="Immediate Joiner">Immediate Joiner</option>
+      <option value="7 Days">7 Days</option>
+      <option value="15 Days">15 Days</option>
+      <option value="1 Month">1 Month</option>
+      <option value="45 Days">45 Days</option>
+      <option value="2 Months">2 Months</option>
+      <option value="3 Months">3 Months</option>
+      <option value="More than 3 Months">More than 3 Months</option>
+    </select>
+  </div>
+</div>
+
 
         <div className="flex flex-col gap-2 ">
           <div className=" text-[14px] font-montserrat  font-medium">
-            Skills Learned
+            Key Skills
           </div>
-          <ReactSelect
+          <CreatableSelect
+            isMulti
+            className="w-full text-[12px]"
             options={skill.map((item) => ({
               value: item,
               label: camelCase(item),
             }))}
-            isMulti
-            className="w-full text-[12px]"
             value={experienceData.skillsLearned}
             onChange={(selectedOptions) => {
               setExperienceData({
                 ...experienceData,
                 skillsLearned: selectedOptions,
               });
+            }}
+            onCreateOption={(inputValue) => {
+              const newOption = {
+                value: inputValue,
+                label: camelCase(inputValue),
+              };
+              setExperienceData((prev) => ({
+                ...prev,
+                skillsLearned: [...(prev.skillsLearned || []), newOption],
+              }));
             }}
           />
         </div>
@@ -430,15 +452,15 @@ function AddWorkExperience({
 
         <div className="flex justify-end gap-3">
           <button
-              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
-              onClick={() => setOpenAddExperience(false)}
+            className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
+            onClick={() => setOpenAddExperience(false)}
           >
             Cancel
           </button>
 
           <button
-              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
-              onClick={handleSaveChanges}
+            className="px-[32px] bg_Button h-[38px] rounded-[30px]"
+            onClick={handleSaveChanges}
           >
             {isEditing ? "Save Changes" : "Add Experience"}
           </button>

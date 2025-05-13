@@ -26,7 +26,7 @@ function ForgotPassword({ setIsForgot }) {
     e.preventDefault();
     
     axios
-      .post("https://jamblix.com/api/otpMail", {
+      .post("http://192.168.1.208:2000/api/otpMail", {
         userEmail: email,
        
       })
@@ -49,7 +49,7 @@ function ForgotPassword({ setIsForgot }) {
   const verifyOtp = (e) => {
 e.preventDefault();
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("http://192.168.1.208:2000/api/verifyOtp", {
         userEmail: email,
         otpEntered
       })
@@ -87,7 +87,7 @@ e.preventDefault();
       }
 
       const response = await axios.post(
-        "https://jamblix.com/api/updatePassword",
+        "http://192.168.1.208:2000/api/updatePassword",
         {
           email: email,
           newPassword: password,

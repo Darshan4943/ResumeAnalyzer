@@ -69,7 +69,7 @@ function EmployerHeader() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/getNotificationLength/${userDataGlobal._id}`
+        `http://192.168.1.208:2000/api/getNotificationLength/${userDataGlobal._id}`
       );
 
       if (!response.ok) {

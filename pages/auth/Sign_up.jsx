@@ -104,7 +104,7 @@ function Sign_up({ }) {
       let userRole = role;
       axios
         .post(
-          "https://jamblix.com/api/skiloteckuser/user/google/signup",
+          "http://192.168.1.208:2000/api/skiloteckuser/user/google/signup",
           { userData, parseData: JSON.stringify(parseData) }
         )
         .then((res) => {
@@ -114,7 +114,7 @@ function Sign_up({ }) {
             window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
               }`;
           } else if (isParsed) {
-            window.location.href = "/resume";
+            window.location.href = "/auth/resume";
           }
           else {
             setGoogleLoading(false);
@@ -371,7 +371,7 @@ function Sign_up({ }) {
     }
     setLoading(true);
 
-    const url = "https://jamblix.com/api/skiloteckuser/signUp";
+    const url = "http://192.168.1.208:2000/api/skiloteckuser/signUp";
     const formdata = new FormData();
     Object.keys(data).forEach((key) => {
       if (key === "email") {
@@ -477,7 +477,7 @@ function Sign_up({ }) {
     e.preventDefault();
     let tempUser = role === "user" ? "tempUser" : "tempRecruiter";
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("http://192.168.1.208:2000/api/otpMailSignup", {
         userEmail: data.email.toLowerCase(),
         tempUser,
       })
@@ -527,7 +527,7 @@ function Sign_up({ }) {
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("http://192.168.1.208:2000/api/verifyOtp", {
         userEmail: data.email,
         otpEntered,
       })

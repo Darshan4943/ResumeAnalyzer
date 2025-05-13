@@ -18,7 +18,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getByCreatedId/" + userDataGlobal?._id)
+      .get("http://192.168.1.208:2000/api/job/getByCreatedId/" + userDataGlobal?._id)
       .then((res) => {
        
         setJobPost(res.data);
@@ -93,7 +93,7 @@ const Index = () => {
 
   const deleteJob = (id) => {
     axios
-      .post("https://jamblix.com/api/jobs/deleteJobs", {
+      .post("http://192.168.1.208:2000/api/jobs/deleteJobs", {
         ids: selectedIndexes,
       })
       .then((response) => {

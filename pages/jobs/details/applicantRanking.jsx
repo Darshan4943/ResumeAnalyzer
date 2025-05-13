@@ -39,7 +39,7 @@ const ApplicantRanking = ({
       const limit = options || 10;
 
       const response = await axios.get(
-        `https://jamblix.com/api/job/appliedSyncJobs/${id}`,
+        `http://192.168.1.208:2000/api/job/appliedSyncJobs/${id}`,
         {
           params: {
             limit: limit,

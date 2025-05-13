@@ -40,7 +40,7 @@ function JobDetails() {
 
   const getData = () => {
     axios
-      .get(`https://jamblix.com/api/job/${id}/user/${userDataGlobal?._id}`)
+      .get(`http://192.168.1.208:2000/api/job/${id}/user/${userDataGlobal?._id}`)
       .then((res) => {
         setJobData([res.data.data]);
         setTimeout(() => {

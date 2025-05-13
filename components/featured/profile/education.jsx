@@ -37,7 +37,7 @@ const Education = ({ userData }) => {
     const deleteHandler = () => {
         axios
             .delete(
-                `https://jamblix.com/api/candidate/${userDataGlobal?._id}/deleteEducation/${deleteData.id}`
+                `http://192.168.1.208:2000/api/candidate/${userDataGlobal?._id}/deleteEducation/${deleteData.id}`
             )
             .then((res) => {
                 dispatch(fetchUserData());

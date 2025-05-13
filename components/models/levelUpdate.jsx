@@ -174,7 +174,7 @@ function LevelUpdate({
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://jamblix.com/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
+        `http://192.168.1.208:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
         {
           selectedValues: {
             level: selectedLevel?.level + 1,

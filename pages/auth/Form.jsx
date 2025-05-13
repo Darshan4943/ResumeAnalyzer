@@ -311,8 +311,8 @@ function Form({}) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://jamblix.com/api/updateUser"
-        : "https://jamblix.com/api/skiloteckuser/recruiter";
+        ? "http://192.168.1.208:2000/api/updateUser"
+        : "http://192.168.1.208:2000/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -387,7 +387,7 @@ function Form({}) {
     e.preventDefault();
     let tempUser = "tempRecruiter";
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("http://192.168.1.208:2000/api/otpMailSignup", {
         userEmail: data.email,
         tempUser,
       })
@@ -435,7 +435,7 @@ function Form({}) {
 
   const verifyOtp = () => {
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("http://192.168.1.208:2000/api/verifyOtp", {
         userEmail: data.email,
         otpEntered,
       })

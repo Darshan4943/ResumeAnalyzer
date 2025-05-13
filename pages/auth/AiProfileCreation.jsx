@@ -184,7 +184,7 @@ function AiProfileCreation() {
     extracteText(file).then((result) => {
       if (result[0]?.text?.length > 0) {
         axios
-          .post("http://localhost:2000/api/resume/extraction", {
+          .post("http://192.168.1.208:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -223,7 +223,7 @@ function AiProfileCreation() {
 
   //         // 1. Send extracted text to the first API (extraction)
   //         axios
-  //           .post("https://jamblix.com/api/resume/extraction", {
+  //           .post("http://192.168.1.208:2000/api/resume/extraction", {
   //             data: result,
   //           })
   //           .then((res) => {
@@ -234,7 +234,7 @@ function AiProfileCreation() {
   //               );
 
   //               // 2. Send extracted text to AI resume check API
-  //               return axios.post("https://jamblix.com/api/resumeCheck", {
+  //               return axios.post("http://192.168.1.208:2000/api/resumeCheck", {
   //                 resumeText: extractedText,
   //               });
   //             } else {

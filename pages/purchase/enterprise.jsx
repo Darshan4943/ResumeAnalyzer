@@ -147,7 +147,7 @@ function Index() {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/planEnquiry/create",
+        "http://192.168.1.208:2000/api/planEnquiry/create",
         data
       );
       // toast.success("Contacted Successfully");

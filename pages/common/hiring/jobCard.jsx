@@ -34,7 +34,7 @@ const JobCard = ({ filters, setFilters }) => {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getAllJobDetails/${id}`,
+        `http://192.168.1.208:2000/api/job/getAllJobDetails/${id}`,
         {
           params: { page, limit, ...filters },
         }
@@ -105,7 +105,7 @@ const JobCard = ({ filters, setFilters }) => {
       }
 
       const response = await axios.post(
-        `https://jamblix.com/api/job/handleChangeStatus`,
+        `http://192.168.1.208:2000/api/job/handleChangeStatus`,
         { jobId: id, status: newStatus }
       );
 
@@ -137,7 +137,7 @@ const JobCard = ({ filters, setFilters }) => {
   const handleDelete = async () => {
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/jobs/deletejob/${selectedJobId}`
+        `http://192.168.1.208:2000/api/jobs/deletejob/${selectedJobId}`
       );
 
       if (response.data.success) {
@@ -158,23 +158,24 @@ const JobCard = ({ filters, setFilters }) => {
   return (
     <div>
       {loading ? (
-       <div className="flex gap-4 flex-shrink-0 w-full col-span-4">
-       {[1, 2, 3].map((item, index) => (
-       
-           <div key={index}  className="h-[192px] w-full sm:w-[380px] bg-white rounded-[12px] p-4 flex flex-col gap-1">
-             <div className="flex justify-between">
-               <div className="skeleton-line h-[24px] max-w-[140px]"></div>
-               {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
-             </div>
+        <div className="flex gap-4 flex-shrink-0 w-full col-span-4">
+          {[1, 2, 3].map((item, index) => (
+            <div
+              key={index}
+              className="h-[192px] w-full sm:w-[380px] bg-white rounded-[12px] p-4 flex flex-col gap-1"
+            >
+              <div className="flex justify-between">
+                <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+              </div>
 
-             <div className="skeleton-subtitle h-[20px]"></div>
-             <div className="skeleton-line h-[20px] max-w-[70%]"></div>
-             <div className="skeleton-line h-[50px] w-full"></div>
-             <div className="skeleton-line h-[20px] max-w-[140px]"></div>
-           </div>
-     
-       ))}
-     </div>
+              <div className="skeleton-subtitle h-[20px]"></div>
+              <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+              <div className="skeleton-line h-[50px] w-full"></div>
+              <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+            </div>
+          ))}
+        </div>
       ) : (
         <>
           {data?.length === 0 ? (
@@ -442,40 +443,44 @@ const JobCard = ({ filters, setFilters }) => {
                         {job.jobType}
                       </div>
                     </div>
-                    <div className="border-[1px] border-[#AFAFAF]"></div>
-                    <div className="flex gap-[4px] items-center">
-                      <div>
-                        <svg
-                          width="10"
-                          height="13"
-                          viewBox="0 0 10 13"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                    {job.location.length > 0 && (
+                      <div className="border-[1px] border-[#AFAFAF]"></div>
+                    )}{" "}
+                    {job.location.length > 0 && (
+                      <div className="flex gap-[4px] items-center">
+                        <div>
+                          <svg
+                            width="10"
+                            height="13"
+                            viewBox="0 0 10 13"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M5.0026 6.4974C5.32344 6.4974 5.59809 6.38316 5.82656 6.15469C6.05503 5.92622 6.16927 5.65156 6.16927 5.33073C6.16927 5.0099 6.05503 4.73524 5.82656 4.50677C5.59809 4.2783 5.32344 4.16406 5.0026 4.16406C4.68177 4.16406 4.40712 4.2783 4.17865 4.50677C3.95017 4.73524 3.83594 5.0099 3.83594 5.33073C3.83594 5.65156 3.95017 5.92622 4.17865 6.15469C4.40712 6.38316 4.68177 6.4974 5.0026 6.4974ZM5.0026 10.7849C6.18871 9.69601 7.06858 8.70677 7.64219 7.81719C8.2158 6.9276 8.5026 6.13767 8.5026 5.4474C8.5026 4.38767 8.16476 3.51997 7.48906 2.84427C6.81337 2.16858 5.98455 1.83073 5.0026 1.83073C4.02066 1.83073 3.19184 2.16858 2.51615 2.84427C1.84045 3.51997 1.5026 4.38767 1.5026 5.4474C1.5026 6.13767 1.78941 6.9276 2.36302 7.81719C2.93663 8.70677 3.81649 9.69601 5.0026 10.7849ZM5.0026 12.3307C3.43733 10.9988 2.26823 9.76163 1.49531 8.61927C0.722396 7.47691 0.335938 6.41962 0.335938 5.4474C0.335938 3.98906 0.805035 2.82726 1.74323 1.96198C2.68142 1.0967 3.76788 0.664062 5.0026 0.664062C6.23733 0.664062 7.32378 1.0967 8.26198 1.96198C9.20017 2.82726 9.66927 3.98906 9.66927 5.4474C9.66927 6.41962 9.28281 7.47691 8.5099 8.61927C7.73698 9.76163 6.56788 10.9988 5.0026 12.3307Z"
+                              fill="#646464"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          className={`text-[12px] font-[400] ${
+                            job.location.length > 1 && "group"
+                          } relative`}
                         >
-                          <path
-                            d="M5.0026 6.4974C5.32344 6.4974 5.59809 6.38316 5.82656 6.15469C6.05503 5.92622 6.16927 5.65156 6.16927 5.33073C6.16927 5.0099 6.05503 4.73524 5.82656 4.50677C5.59809 4.2783 5.32344 4.16406 5.0026 4.16406C4.68177 4.16406 4.40712 4.2783 4.17865 4.50677C3.95017 4.73524 3.83594 5.0099 3.83594 5.33073C3.83594 5.65156 3.95017 5.92622 4.17865 6.15469C4.40712 6.38316 4.68177 6.4974 5.0026 6.4974ZM5.0026 10.7849C6.18871 9.69601 7.06858 8.70677 7.64219 7.81719C8.2158 6.9276 8.5026 6.13767 8.5026 5.4474C8.5026 4.38767 8.16476 3.51997 7.48906 2.84427C6.81337 2.16858 5.98455 1.83073 5.0026 1.83073C4.02066 1.83073 3.19184 2.16858 2.51615 2.84427C1.84045 3.51997 1.5026 4.38767 1.5026 5.4474C1.5026 6.13767 1.78941 6.9276 2.36302 7.81719C2.93663 8.70677 3.81649 9.69601 5.0026 10.7849ZM5.0026 12.3307C3.43733 10.9988 2.26823 9.76163 1.49531 8.61927C0.722396 7.47691 0.335938 6.41962 0.335938 5.4474C0.335938 3.98906 0.805035 2.82726 1.74323 1.96198C2.68142 1.0967 3.76788 0.664062 5.0026 0.664062C6.23733 0.664062 7.32378 1.0967 8.26198 1.96198C9.20017 2.82726 9.66927 3.98906 9.66927 5.4474C9.66927 6.41962 9.28281 7.47691 8.5099 8.61927C7.73698 9.76163 6.56788 10.9988 5.0026 12.3307Z"
-                            fill="#646464"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        className={`text-[12px] font-[400] ${
-                          job.location.length > 2 && "group"
-                        } relative`}
-                      >
-                        {job.location.length > 2
-                          ? `${job.location[0].split(" ")[0]} ...`
-                          : job?.location
-                              ?.map((loc) => loc.split(" ")[0]) 
-                              .join(" ")}
-
-                        <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                          {job?.location
-                            ?.map((loc) => loc.split(" ")[0])
-                            .join(" ")}
+                          {job.location.length > 1
+                            ? job.location
+                                .map((loc) => loc.split(",")[0]) // Get the first part before the comma (e.g., "Pune" or "Nashik")
+                                .join(", ") // Join them with commas
+                            : job.location[0]?.split(",")[0]}{" "}
+                          {/* If only one location, show the first part */}
+                          <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                            {job?.location
+                              ?.map((loc) => loc.split(",")[0]) // Get the first part before the comma
+                              .join(", ")}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   {deletePopup && (

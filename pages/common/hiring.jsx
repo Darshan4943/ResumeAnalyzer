@@ -69,7 +69,7 @@ function Hiring() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `http://192.168.1.208:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {

@@ -39,7 +39,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal?._id}`
+        `http://192.168.1.208:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
       )
       .then((res) => {
         setDetails(res.data.data);

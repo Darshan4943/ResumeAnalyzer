@@ -73,7 +73,7 @@ function CreateNewClient() {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal?._id}`
+  //       `http://192.168.1.208:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -219,8 +219,8 @@ function CreateNewClient() {
         );
         formdata.append("isProfileImageRemoved", isProfileImageRemoved);
         const url = isUpdate
-          ? "https://jamblix.com/api/updateClient"
-          : "https://jamblix.com/api/client/create";
+          ? "http://192.168.1.208:2000/api/updateClient"
+          : "http://192.168.1.208:2000/api/client/create";
 
         const response = await axios.post(url, formdata);
 
@@ -265,7 +265,7 @@ function CreateNewClient() {
   useEffect(() => {
     if (id) {
       axios
-        .get(`https://jamblix.com/api/client/getByClientId/${id}`)
+        .get(`http://192.168.1.208:2000/api/client/getByClientId/${id}`)
         .then((res) => {
           const details = res.data.data;
           setDetails(details);
