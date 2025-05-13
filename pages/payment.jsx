@@ -348,7 +348,7 @@ function Payment() {
                 setPaymentStatus(session.payment_status);
 
                 if (
-                    session.payment_status === "unpaid" &&
+                    session.payment_status === "paid" &&
 
                     exchangeRate &&
                     icon
