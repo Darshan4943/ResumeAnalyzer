@@ -68,7 +68,7 @@ function MyCollectionFiles({
   useEffect(() => {
     if (clientId) {
       axios
-        .get("http://192.168.1.208:2000/api/resume/" + clientId)
+        .get("http://localhost:2000/api/resume/" + clientId)
         .then((res) => {
           setClientResumes(res.data.data);
           setFiles(
