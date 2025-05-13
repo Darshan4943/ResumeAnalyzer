@@ -51,7 +51,7 @@ const [saveLoading,setSaveLoading]= useState()
 
   const fetchFolder = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.208:2000/api/getSkilotechFolder/${userDataGlobal?._id}`);
+      const response = await axios.get(`http://localhost:2000/api/getSkilotechFolder/${userDataGlobal?._id}`);
       setParentId(response?.data?._id);
     } catch (error) {
       console.error("Error fetching folder:", error);
@@ -151,7 +151,7 @@ const [saveLoading,setSaveLoading]= useState()
           };
 
           const response = await axios.post(
-            "http://192.168.1.208:2000/api/folder/addFileToSkilotechCollection",
+            "http://localhost:2000/api/folder/addFileToSkilotechCollection",
             payload,
             {
               headers: {
@@ -202,7 +202,7 @@ const [saveLoading,setSaveLoading]= useState()
 
 
           const response = await axios.post(
-            "http://192.168.1.208:2000/api/folder/addFileToSkilotechCollection",
+            "http://localhost:2000/api/folder/addFileToSkilotechCollection",
             payload,
             {
               headers: {
@@ -295,7 +295,7 @@ const [saveLoading,setSaveLoading]= useState()
       const movePromises = filteredApplicants.map(async (applicant) => {
         try {
           const response = await axios.put(
-            `http://192.168.1.208:2000/api/job/moveToHiring/${selectedJob}`,
+            `http://localhost:2000/api/job/moveToHiring/${selectedJob}`,
             applicant,
             {
               headers: { "Content-Type": "application/json" },

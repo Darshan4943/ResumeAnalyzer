@@ -64,7 +64,7 @@ const AboutMe = ({ data, setData }) => {
     if (text.length > 100) {
       setLoading(true);
       axios
-        .post("http://192.168.1.208:2000/api/text/regenrate", { prompt })
+        .post("http://localhost:2000/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");

@@ -146,7 +146,7 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
 
     try {
       const response = await axios.put(
-        `http://192.168.1.208:2000/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
+        `http://localhost:2000/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
         formData
       );
       dispatch(fetchUserData());

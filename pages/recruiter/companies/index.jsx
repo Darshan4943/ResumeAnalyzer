@@ -28,7 +28,7 @@ function Index() {
   const fetchCompanyData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.208:2000/api/company/getCompaniesById/${id}`,
+        `http://localhost:2000/api/company/getCompaniesById/${id}`,
         {
           params: { page, limit },
         }
@@ -79,7 +79,7 @@ function Index() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://192.168.1.208:2000/api/company/deleteCompany/${selectedJobId}`
+        `http://localhost:2000/api/company/deleteCompany/${selectedJobId}`
       );
       if (response.data.success) {
         toast.success("Company deleted successfully!");

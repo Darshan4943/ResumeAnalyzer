@@ -87,7 +87,7 @@ function Index() {
     setIsCountrySet(true);
 
     axios
-      .get("http://192.168.1.208:2000/api/jobs/getJobAttributes")
+      .get("http://localhost:2000/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
         setTimeout(() => {
@@ -221,7 +221,7 @@ function Index() {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "http://192.168.1.208:2000/api/job/getAll",
+        "http://localhost:2000/api/job/getAll",
         {
           // requiredSkills:
           //   jobTitle || location ? [] : userSkills?.map((item) => item),
@@ -283,7 +283,7 @@ function Index() {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.208:2000/api/job/getFilterData",
+        "http://localhost:2000/api/job/getFilterData",
         {
           // requiredSkills:
           //   jobTitle || location ? [] : userSkills?.map((item) => item),

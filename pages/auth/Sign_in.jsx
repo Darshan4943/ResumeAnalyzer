@@ -35,7 +35,7 @@ function Sign_in({ setSignIn, setSignUp }) {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "http://192.168.1.208:2000/api/skiloteckuser/user/google/signup",
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
           { userData }
         )
         .then((res) => {
@@ -106,7 +106,7 @@ function Sign_in({ setSignIn, setSignUp }) {
       role: role,
     };
     axios
-      .post("http://192.168.1.208:2000/api/skiloteckuser/signin", dataToSend)
+      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;

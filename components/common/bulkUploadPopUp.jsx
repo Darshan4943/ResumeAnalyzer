@@ -60,7 +60,7 @@ function BulkUploadPopUp({ setOpenPopup }) {
 
         try {
             const response = await axios.post(
-                `http://192.168.1.208:2000/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
+                `http://localhost:2000/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },

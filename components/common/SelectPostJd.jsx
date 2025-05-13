@@ -40,7 +40,7 @@ const SelectPostJd = ({
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        `http://192.168.1.208:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
+        `http://localhost:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
         {
           params: {
             page,

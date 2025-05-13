@@ -126,7 +126,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
 
     try {
       const response = await axios.post(
-        "http://192.168.1.208:2000/api/preboarding",
+        "http://localhost:2000/api/preboarding",
         data
       );
 

@@ -12,7 +12,7 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (_, { 
        
         const decoded = jwtDecode(token.token);
       
-        const response = await axios.get(`http://192.168.1.208:2000/api/skiloteckuser/user/${decoded._id}`);
+        const response = await axios.get(`http://localhost:2000/api/skiloteckuser/user/${decoded._id}`);
         const userData = jwtDecode(response.data.data);
       
         return {

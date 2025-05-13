@@ -311,8 +311,8 @@ function Form({}) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "http://192.168.1.208:2000/api/updateUser"
-        : "http://192.168.1.208:2000/api/skiloteckuser/recruiter";
+        ? "http://localhost:2000/api/updateUser"
+        : "http://localhost:2000/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -387,7 +387,7 @@ function Form({}) {
     e.preventDefault();
     let tempUser = "tempRecruiter";
     axios
-      .post("http://192.168.1.208:2000/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email,
         tempUser,
       })
@@ -435,7 +435,7 @@ function Form({}) {
 
   const verifyOtp = () => {
     axios
-      .post("http://192.168.1.208:2000/api/verifyOtp", {
+      .post("http://localhost:2000/api/verifyOtp", {
         userEmail: data.email,
         otpEntered,
       })

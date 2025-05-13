@@ -97,7 +97,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://192.168.1.208:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
+        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -315,7 +315,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `http://192.168.1.208:2000/api/job/add/${id}`,
+        `http://localhost:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -352,7 +352,7 @@ function CreateNewJob() {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://192.168.1.208:2000/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -446,7 +446,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`http://192.168.1.208:2000/api/company/fetchCompaniDetails/${id}`)
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
@@ -646,7 +646,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://192.168.1.208:2000/api/getRequisitionById/${reqId}`
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData((prevData) => ({

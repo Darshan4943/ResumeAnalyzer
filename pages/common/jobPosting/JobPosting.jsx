@@ -63,7 +63,7 @@ function JobPosting() {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.208:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
+          `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
 
@@ -169,7 +169,7 @@ function JobPosting() {
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.208:2000/api/getrequisitions/${userDataGlobal._id}`,
+          `http://localhost:2000/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,

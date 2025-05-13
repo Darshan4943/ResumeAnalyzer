@@ -27,7 +27,7 @@ function EmployerNotification() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `http://192.168.1.208:2000/api/getnotification/${
+        `http://localhost:2000/api/getnotification/${
           userDataGlobal._id
         }?filter=${encodeURIComponent(filter)}`
       );
@@ -53,7 +53,7 @@ function EmployerNotification() {
 
   const handleNotificationClick = async () => {
     try {
-      await axios.post(`http://192.168.1.208:2000/api/updateNotification`, {
+      await axios.post(`http://localhost:2000/api/updateNotification`, {
         selectedIds,
       });
       fetchNotifications();
@@ -69,7 +69,7 @@ function EmployerNotification() {
   const deleteNotification = async (id) => {
     try {
       const response = await axios.post(
-        `http://192.168.1.208:2000/api/deletnotification/${id}`
+        `http://localhost:2000/api/deletnotification/${id}`
       );
 
       toast.success(response.data.message);

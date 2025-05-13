@@ -243,7 +243,7 @@ const CandidateAiPower = ({
 
       if (result[0]?.text?.length > 0) {
         axios
-          .post("http://192.168.1.208:2000/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -260,7 +260,7 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "http://192.168.1.208:2000/api/subscription/updateUploadLimit/" +
+                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
                   userDataGlobal?._id
                 )
                 .then((res) => {

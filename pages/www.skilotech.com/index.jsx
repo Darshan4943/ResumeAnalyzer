@@ -9,7 +9,7 @@ function Index() {
  
   useEffect(() => {
     axios
-      .get("http://192.168.1.208:2000/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         const selectedResume = res.data.data.find(
           (resume) => resume._id === userDataGlobal.selectedResume

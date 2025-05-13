@@ -43,7 +43,7 @@ function SavedJobs({ setLimitPopup,
   const getData = () => {
 
     axios
-      .post(`http://192.168.1.208:2000/api/job/getSaveJobsById/${userDataGlobal?._id}`, {
+      .post(`http://localhost:2000/api/job/getSaveJobsById/${userDataGlobal?._id}`, {
 
         page: page,
         limit: limit,

@@ -59,7 +59,7 @@ function SubscriptionPlans({ fromMain }) {
   useEffect(() => {
     axios
       .get(
-        "http://192.168.1.208:2000/api/checkForFreePlanByUserId/" +
+        "http://localhost:2000/api/checkForFreePlanByUserId/" +
         userDataGlobal?._id
       )
       .then((res) => {
@@ -72,7 +72,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.208:2000/api/subscription/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })
@@ -83,7 +83,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.208:2000/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
         const allPlan = res.data.data;
 

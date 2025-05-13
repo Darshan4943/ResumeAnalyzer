@@ -19,7 +19,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("http://192.168.1.208:2000/api/recruiters", {
+      .get("http://localhost:2000/api/recruiters", {
         params: { page, limit },
       })
       .then((res) => {
@@ -54,7 +54,7 @@ const Index = () => {
     try {
       let role = "recruiter"
       const response = await axios.post(
-        'http://192.168.1.208:2000/api/users/download',
+        'http://localhost:2000/api/users/download',
         { role },
         {
           responseType: 'blob',

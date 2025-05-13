@@ -50,7 +50,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
     if (text?.length > 100) {
       setLoading(true);
       axios
-        .post("http://192.168.1.208:2000/api/text/regenrate", { prompt })
+        .post("http://localhost:2000/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setText(res.data.data.choices[0].message.content);
@@ -80,7 +80,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const handleSubmit = () => {
     axios
       .post(
-        "http://192.168.1.208:2000/api/candidate/updateSummery/" +
+        "http://localhost:2000/api/candidate/updateSummery/" +
           userDataGlobal?._id,
 
         { summery: text }

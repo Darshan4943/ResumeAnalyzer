@@ -36,7 +36,7 @@ function ApplicantPreview({  }) {
       );
 
       const response = await axios.get(
-        "http://192.168.1.208:2000/api/applicantdetails",
+        "http://localhost:2000/api/applicantdetails",
         {
           params: { id, applicantId },
         }

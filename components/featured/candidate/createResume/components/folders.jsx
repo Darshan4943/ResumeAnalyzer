@@ -77,7 +77,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://192.168.1.208:2000/api/folder/delete", {
+      .post("http://localhost:2000/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -98,7 +98,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://192.168.1.208:2000/api/folder/restore", {
+      .post("http://localhost:2000/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })

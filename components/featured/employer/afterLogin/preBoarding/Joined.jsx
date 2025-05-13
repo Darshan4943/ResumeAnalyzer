@@ -58,7 +58,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://192.168.1.208:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,

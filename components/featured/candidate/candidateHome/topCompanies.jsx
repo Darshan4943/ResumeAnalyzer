@@ -33,7 +33,7 @@ const TopCompanies = () => {
     setError(null);
     try {
       const response = await axios.get(
-        "http://192.168.1.208:2000/api/getTopcompanies"
+        "http://localhost:2000/api/getTopcompanies"
       );
       const data = response.data;
 

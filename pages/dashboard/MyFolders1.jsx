@@ -57,7 +57,7 @@ function MyFolders1({
     const handleSendMail = async (applicants) => {
         setLoading1(true)
         try {
-            const response = await axios.post('http://192.168.1.208:2000/api/sendEvaluationMail', {
+            const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
                 userData: applicants.map((app) => ({
                     email: app?.enhancedVersion?.email,
                     evaluationSummary: app?.evaluation,
@@ -82,7 +82,7 @@ function MyFolders1({
         console.log(applicant)
         setLoading(applicant._id)
         try {
-            const response = await axios.post('http://192.168.1.208:2000/api/sendEvaluationMail', {
+            const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
                 userData: [{
                     email: applicant?.enhancedVersion?.email,
                     evaluationSummary: applicant?.evaluation,

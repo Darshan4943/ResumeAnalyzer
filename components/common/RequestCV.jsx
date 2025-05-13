@@ -131,7 +131,7 @@ function RequestCV() {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `http://192.168.1.208:2000/api/jdParameters/get/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -169,7 +169,7 @@ function RequestCV() {
       const outputData = [];
 
       const response = await axios.post(
-        "http://192.168.1.208:2000/api/skiloCollection/jobMatching",
+        "http://localhost:2000/api/skiloCollection/jobMatching",
         {
           jd: isResumes === "post" ? selectedJob : data,
           resumeCount,
@@ -216,7 +216,7 @@ function RequestCV() {
 
   const updateJobMatchLimit = async () => {
     try {
-      const updateJobMatchApiUrl = `http://192.168.1.208:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
         resumeCount,
       });
@@ -228,7 +228,7 @@ function RequestCV() {
         );
       }
 
-      // const jdSubscriptionLimitUrl = `http://192.168.1.208:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      // const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
       //   resumeCount,
       // });
@@ -336,7 +336,7 @@ function RequestCV() {
   //             };
 
   //             const response = await axios.post(
-  //                 "http://192.168.1.208:2000/api/folder/addFileToSkilotechCollection",
+  //                 "http://localhost:2000/api/folder/addFileToSkilotechCollection",
   //                 payload,
   //                 {
   //                     headers: {
@@ -384,7 +384,7 @@ function RequestCV() {
       };
 
       const folderResponse = await axios.post(
-        "http://192.168.1.208:2000/api/folder/addFileToSkilotechCollection",
+        "http://localhost:2000/api/folder/addFileToSkilotechCollection",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -409,7 +409,7 @@ function RequestCV() {
         };
 
         return axios.post(
-          "http://192.168.1.208:2000/api/folder/addFileToSkilotechCollection",
+          "http://localhost:2000/api/folder/addFileToSkilotechCollection",
           payload,
           { headers: { "Content-Type": "application/json" } }
         );

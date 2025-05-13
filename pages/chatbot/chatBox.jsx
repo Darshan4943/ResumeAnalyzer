@@ -157,7 +157,7 @@ const ChatBox = ({
   // const updateChatCount = () => {
   //   axios
   //     .put(
-  //       `http://192.168.1.208:2000/api/subscription/updateChatLimit/${userDataGlobal?._id}`
+  //       `http://localhost:2000/api/subscription/updateChatLimit/${userDataGlobal?._id}`
   //     )
   //     .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
   //       const chatCounts = Number(localStorage.getItem("chatCount"));
@@ -206,7 +206,7 @@ const ChatBox = ({
       };
       setLoading(true);
       axios
-        .post("http://192.168.1.208:2000/api/qna", {
+        .post("http://localhost:2000/api/qna", {
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
           userType: userDataGlobal?.role,
@@ -313,7 +313,7 @@ const ChatBox = ({
       //   formData.append("file", file);
       //   try {
       //     const response = await axios.post(
-      //       "http://192.168.1.208:2000/convert",
+      //       "http://localhost:2000/convert",
       //       formData,
       //       {
       //         responseType: "blob",
@@ -362,7 +362,7 @@ const ChatBox = ({
       const formData = new FormData();
       formData.append("img", file);
       axios
-        .post("http://192.168.1.208:2000/api/getImageUrl", formData)
+        .post("http://localhost:2000/api/getImageUrl", formData)
         .then((res) => {
           if (res.data.success) {
             setImg(res.data.location);

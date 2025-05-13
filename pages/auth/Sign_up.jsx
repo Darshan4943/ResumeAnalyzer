@@ -104,7 +104,7 @@ function Sign_up({ }) {
       let userRole = role;
       axios
         .post(
-          "http://192.168.1.208:2000/api/skiloteckuser/user/google/signup",
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
           { userData, parseData: JSON.stringify(parseData) }
         )
         .then((res) => {
@@ -371,7 +371,7 @@ function Sign_up({ }) {
     }
     setLoading(true);
 
-    const url = "http://192.168.1.208:2000/api/skiloteckuser/signUp";
+    const url = "http://localhost:2000/api/skiloteckuser/signUp";
     const formdata = new FormData();
     Object.keys(data).forEach((key) => {
       if (key === "email") {
@@ -477,7 +477,7 @@ function Sign_up({ }) {
     e.preventDefault();
     let tempUser = role === "user" ? "tempUser" : "tempRecruiter";
     axios
-      .post("http://192.168.1.208:2000/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email.toLowerCase(),
         tempUser,
       })
@@ -527,7 +527,7 @@ function Sign_up({ }) {
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://192.168.1.208:2000/api/verifyOtp", {
+      .post("http://localhost:2000/api/verifyOtp", {
         userEmail: data.email,
         otpEntered,
       })

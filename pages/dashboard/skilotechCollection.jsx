@@ -26,7 +26,7 @@ function SkilotechCollection() {
   const getSkilotechResume = async () => {
     try {
       setLoading1(true);
-      const response = await axios.get("http://192.168.1.208:2000/api/resume/get/AllResume", {
+      const response = await axios.get("http://localhost:2000/api/resume/get/AllResume", {
         params: { countryCode }
       });
       
@@ -75,7 +75,7 @@ function SkilotechCollection() {
     setLoading2(true)
     try {
       const response = await axios.post(
-        "http://192.168.1.208:2000/api/sendEvaluationMail",
+        "http://localhost:2000/api/sendEvaluationMail",
         {
           userData: applicants.map((app) => ({
             email: app.email,
@@ -107,7 +107,7 @@ function SkilotechCollection() {
     setLoading(applicant._id);
     try {
       const response = await axios.post(
-        "http://192.168.1.208:2000/api/sendEvaluationMail",
+        "http://localhost:2000/api/sendEvaluationMail",
         {
           userData: [
             {

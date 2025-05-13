@@ -43,7 +43,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
         e.stopPropagation();
         try {
             const res = await axios.post(
-                `http://192.168.1.208:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+                `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             );
             await dispatch(fetchSavedJobIds(userDataGlobal?._id));
             await getData();

@@ -35,7 +35,7 @@ const JobPostChart = () => {
 
       try {
         const response = await axios.get(
-          `http://192.168.1.208:2000/api/job/getJobStatisticsdata/${userDataGlobal?._id}?filter=${selected}`
+          `http://localhost:2000/api/job/getJobStatisticsdata/${userDataGlobal?._id}?filter=${selected}`
         );
         setChartData(response.data);
       } catch (error) {

@@ -19,7 +19,7 @@ const Saved = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .post("http://192.168.1.208:2000/api/job/byIds", {
+      .post("http://localhost:2000/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),

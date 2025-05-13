@@ -17,7 +17,7 @@ const PlanExpiredModal = () => {
         return;
       }
       axios
-        .get("http://192.168.1.208:2000/api/subscription/" + userDataGlobal?._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           if (res.data.success) {
             if (
@@ -26,7 +26,7 @@ const PlanExpiredModal = () => {
             ) {
               axios
                 .put(
-                  "http://192.168.1.208:2000/api/subscription/update/" +
+                  "http://localhost:2000/api/subscription/update/" +
                     userDataGlobal?._id
                 )
                 .then((res) => {

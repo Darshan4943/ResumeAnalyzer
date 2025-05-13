@@ -209,7 +209,7 @@ function Payment() {
     //       loading: true,
     //     });
     //     axios
-    //       .post("http://192.168.1.208:2000/api/add/subscription", {
+    //       .post("http://localhost:2000/api/add/subscription", {
     //         userId: userDataGlobal?._id,
     //         plan: selectedPlan.duration + " " + selectedPlan.limit,
     //         ...jsonData,
@@ -283,7 +283,7 @@ function Payment() {
         localStorage.setItem("paymentDetails", JSON.stringify(data));
         if (currency) {
             const { data } = await axios.post(
-                "http://192.168.1.208:2000/api/getPriceId",
+                "http://localhost:2000/api/getPriceId",
                 {
                     amount: Math.ceil(2.4 * exchangeRate) * 100,
                     productName: "prod_SDBxkH83EhOl1p",
@@ -314,7 +314,7 @@ function Payment() {
                 try {
                     const priceId = await getPriceId();
                     axios
-                        .post("http://192.168.1.208:2000/api/proceed/resumePayment", {
+                        .post("http://localhost:2000/api/proceed/resumePayment", {
                             priceId,
 
                         })
@@ -338,7 +338,7 @@ function Payment() {
             try {
                 // setSuccessModel({ visible: true, loading: true });
                 const response = await axios.get(
-                    "http://192.168.1.208:2000/api/retrieve/session",
+                    "http://localhost:2000/api/retrieve/session",
                     {
                         params: { storedId },
                     }
@@ -396,11 +396,11 @@ function Payment() {
 
         try {
             if (skilotechCollection) {
-                await axios.put(`http://192.168.1.208:2000/api/updateResume/paymentStatus/${storedId}`);
+                await axios.put(`http://localhost:2000/api/updateResume/paymentStatus/${storedId}`);
             } else if (myCollection) {
-                await axios.put(`http://192.168.1.208:2000/api/updateCollection/paymentStatus/${storedId}`);
+                await axios.put(`http://localhost:2000/api/updateCollection/paymentStatus/${storedId}`);
             } else if (application) {
-                await axios.put(`http://192.168.1.208:2000/api/updateApplication/paymentStatus/${storedId}`);
+                await axios.put(`http://localhost:2000/api/updateApplication/paymentStatus/${storedId}`);
             }
 
             // setPurchaseCount(1)
@@ -437,7 +437,7 @@ function Payment() {
             } else {
                 setLoading(true);
                 try {
-                    await axios.post("http://192.168.1.208:2000/api/add/subscription", {
+                    await axios.post("http://localhost:2000/api/add/subscription", {
                         userId: userDataGlobal?._id,
                         plan: `${selectedPlan.name}`,
                         firstName: data?.firstName,

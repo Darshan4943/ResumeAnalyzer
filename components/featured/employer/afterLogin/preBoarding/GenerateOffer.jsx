@@ -82,7 +82,7 @@ const GenerateOffer = ({
         formdata.append("file", data.selectedFile);
       }
       const response = await axios.post(
-        `http://192.168.1.208:2000/api/preboarding/genretoffer/${offerData.jobId}/${offerData.applicantId}`,
+        `http://localhost:2000/api/preboarding/genretoffer/${offerData.jobId}/${offerData.applicantId}`,
         formdata,
         {
           headers: { "Content-Type": "multipart/form-data" },

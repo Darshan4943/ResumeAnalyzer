@@ -73,7 +73,7 @@ const Profile = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://192.168.1.208:2000/api/getEmployerCompanieBy/${userDataGlobal?._id}`
+          `http://localhost:2000/api/getEmployerCompanieBy/${userDataGlobal?._id}`
         );
 
         if (response.data && Object.keys(response.data).length > 0) {
@@ -107,7 +107,7 @@ const Profile = () => {
 
     try {
       const response = await axios.post(
-        `http://192.168.1.208:2000/api/updateCompany/${companyData._id}`,
+        `http://localhost:2000/api/updateCompany/${companyData._id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
