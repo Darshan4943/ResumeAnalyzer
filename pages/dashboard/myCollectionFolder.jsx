@@ -85,7 +85,7 @@ function MyCollectionFolder({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/delete", {
+      .post("http://192.168.1.208:2000/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -106,7 +106,7 @@ function MyCollectionFolder({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/restore", {
+      .post("http://192.168.1.208:2000/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })
