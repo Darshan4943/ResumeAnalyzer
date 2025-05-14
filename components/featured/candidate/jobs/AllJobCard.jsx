@@ -103,7 +103,23 @@ function AllJobCard({
     <div className="flex flex-col gap-4 w-full max-w-[548px] items-center">
       {loading ? (
         <div className="w-full max-w-[548px]">
-          <MiniLoader />
+          <div className="flex gap-4 flex-col w-full">
+              {[1, 2, 3, 4,5].map((item, index) => (
+                <div key={index} className="flex gap-4 flex-col w-full">
+                  <div className="h-[169px] w-full max-w-[548px] bg-white rounded-[12px] p-4 flex flex-col gap-1">
+                    <div className="flex justify-between">
+                      <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                      {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                    </div>
+
+                    <div className="skeleton-subtitle h-[20px]"></div>
+                    <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                    <div className="skeleton-line h-[50px] w-full"></div>
+                    <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
         </div>
       ) : (
         <>
@@ -172,20 +188,21 @@ function AllJobCard({
           ) : (
             <NoJobs />
           )}
+
+          {totalCount > 10 && (
+            <CustomPagination
+              setMiniloading={setMiniloading}
+              miniLoading={miniLoading}
+              setPage={setPage}
+              title={"Jobs"}
+              setLimit={setLimit}
+              defaultLimit={10}
+              totalPages={totalPages}
+              limit={limit}
+              page={page}
+            />
+          )}
         </>
-      )}
-      {totalCount > 10 && (
-        <CustomPagination
-          setMiniloading={setMiniloading}
-          miniLoading={miniLoading}
-          setPage={setPage}
-          title={"Jobs"}
-          setLimit={setLimit}
-          defaultLimit={10}
-          totalPages={totalPages}
-          limit={limit}
-          page={page}
-        />
       )}
     </div>
   );
