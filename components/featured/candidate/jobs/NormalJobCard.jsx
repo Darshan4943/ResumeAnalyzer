@@ -76,7 +76,7 @@ function NormalJobCard({ item }) {
               {item?.jobTitle.length > 40
                 ? `${item?.jobTitle.slice(0, 40)}...`
                 : item?.jobTitle}
-              <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+              <div className="absolute text-[10px] z-[100] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                 {item.jobTitle}
               </div>
             </div>
