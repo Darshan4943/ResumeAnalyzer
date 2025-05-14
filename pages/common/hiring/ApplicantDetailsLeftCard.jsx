@@ -70,16 +70,19 @@ function ApplicantDetailsLeftCard({
                   {jobDetails?.details?.personal?.firstName}{" "}
                   {jobDetails?.details?.personal?.lastName}
                 </p>
+               
                 <p className="text-[16px]   text-start text-[#646464]   font-normal  ">
-                  {/* {jobDetails?.jobTitle} */}
+                  {jobDetails?.details?.professional?.designation}
                 </p>
-                <div className="flex gap-2 text-[13px] scr500:text-[16px] font-medium items-center">
-                  Profile Match Score :
-                  <span className="text-[13px] scr500:text-[16px] font-semibold">
-                    {" "}
-                    {jobDetails?.matchingPercentage} %
-                  </span>
-                </div>
+                {jobDetails?.matchingPercentage && (
+                  <div className="flex gap-2 text-[13px] scr500:text-[16px] font-medium items-center">
+                    Profile Match Score :
+                    <span className="text-[13px] scr500:text-[16px] font-semibold">
+                      {" "}
+                      {jobDetails?.matchingPercentage} %
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-2 rounded-[12px] p-4 bg-[#EFFAFF]">

@@ -419,7 +419,10 @@ function EasyApply() {
                     mobileNo: data?.mobileNo,
                 },
                 professional: {
+                    aboutme:parseData.summary,
                     summary: parseData?.summary,
+                    currentJob:parseData.currentJob,
+                    hightestQul:parseData.hightestQul,
                     designation: parseData?.designation,
                     education: parseData?.education,
                     work_experience: parseData?.work_experience,

@@ -201,17 +201,21 @@ function Job_card({
                     </g>
                   </svg>
                   <div className="text-[#262626] text-[12px] font-[400] ">
-                    {item?.country?.join(", ")} {item?.country && "||"}{" "}
-                    {item?.location
-                      ?.filter((loc) => loc.trim() !== "")
-                      ?.map((loc) => {
-                        const firstWord = loc.split(" ")[0];
-                        return (
-                          firstWord.charAt(0).toUpperCase() +
-                          firstWord.slice(1).toLowerCase()
-                        );
-                      })
-                      .join(" ")}
+                  {(() => {
+                  const formattedLocations = item?.location
+                    ?.filter((loc) => loc.trim() !== "")
+                    ?.map((loc) => {
+                      const firstWord = loc.split(",")[0].trim(); // Split by comma and trim spaces
+                      return (
+                        firstWord.charAt(0).toUpperCase() +
+                        firstWord.slice(1).toLowerCase()
+                      );
+                    });
+
+                  return formattedLocations?.length > 1
+                    ? formattedLocations.join(", ")
+                    : formattedLocations?.[0] || "";
+                })()}
                   </div>
                 </div>
               )}

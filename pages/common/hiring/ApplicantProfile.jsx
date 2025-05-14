@@ -5,13 +5,28 @@ function ApplicantProfile({ jobDetails }) {
     <div className="flex flex-col gap-4 text-[16px] font-normal px-2 scr500:px-6  overflow-y-auto">
       <p className="font-semibold">Personal Info</p>
       <div className="flex gap-6">
-        <div className="flex flex-col gap-4 w-[50%]">
+        <div className="flex  gap-12 w-[50%]">
           <div>
             <p className="text-[14px]  font-medium">Full Name</p>
             <p className="text-[12px] font-normal">
               {jobDetails?.details?.personal?.firstName} {""}
               {jobDetails?.details?.personal?.lastName}
             </p>
+           
+          </div>
+          <div>
+            <p className="text-[14px]  font-medium">Email</p>
+            <p className="text-[12px] font-normal">
+              {jobDetails?.details?.personal?.email}
+            </p>
+           
+          </div>
+          <div>
+            <p className="text-[14px]  font-medium">Mobile Number</p>
+            <p className="text-[12px] font-normal">
+            {jobDetails?.details?.personal?.dial_code} {jobDetails?.details?.personal?.mobileNo}
+            </p>
+           
           </div>
           {jobDetails?.details?.personal?.currentLocation && (
             <div>
@@ -49,14 +64,17 @@ function ApplicantProfile({ jobDetails }) {
           </div>
         )}
         <div className="flex ml:flex-row gap-4 flex-col justify-between">
-          {jobDetails?.details?.professional?.currentJob?.length > 0 ||
+          {jobDetails?.details?.professional?.currentJob?.company  ||
           jobDetails?.details?.professional?.hightestQul?.length > 0 ? (
             <div className="flex flex-col gap-4 ml:w-[30%] w-[100%]">
               {jobDetails?.details?.professional?.currentJob && (
                 <div>
                   <p className="text-[14px] font-medium">Current Job</p>
                   <p className="text-[12px] font-normal">
-                    {jobDetails?.details?.professional?.currentJob}
+                    {jobDetails?.details?.professional?.currentJob?.company}
+                  </p>
+                  <p className="text-[12px] font-normal">
+                    {jobDetails?.details?.professional?.currentJob?.title}
                   </p>
                 </div>
               )}
