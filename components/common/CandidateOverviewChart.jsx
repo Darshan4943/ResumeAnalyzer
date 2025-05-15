@@ -38,7 +38,6 @@ const CandidateOverviewChart = () => {
     shortlist: 0,
     rejected: 0,
   });
-  console.log(chartData)
   const chartRef = useRef(null);
 
   const fetchJobStatistics = async () => {
@@ -46,7 +45,7 @@ const CandidateOverviewChart = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getJobStatisticsDateRange/${userDataGlobal?._id}`,
+        `https://jamblix.com/api/job/getJobStatisticsDateRange/${userDataGlobal?._id}`,
         {
           params: {
             startDate: startDate.toISOString(),
