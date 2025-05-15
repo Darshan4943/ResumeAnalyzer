@@ -154,12 +154,9 @@ function ResumePage() {
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "https://jamblix.com/api/resume-evaluate",
-        {
-          text: resumeJson,
-        }
-      );
+      const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
+        text: resumeJson,
+      });
 
       setResumeData(res?.data?.data?.evaluation[0]);
       setData(res?.data?.data?.enhancedVersion);
@@ -501,6 +498,51 @@ function ResumePage() {
 
   return (
     <>
+      {isPayment && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-95"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+            <div
+              style={{ boxShadow: "0px 0.5px 3px 0px #00000040" }}
+              className="bg-white flex flex-col  gap-4 p-6 rounded-[10px] justify-center items-center w-[400px]"
+            >
+              <svg
+                width="66"
+                height="66"
+                viewBox="0 0 66 66"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6706_89731)">
+                  <rect width="66" height="66" rx="33" fill="#0C8A0A" />
+
+                  <g mask="url(#mask0_6706_89731)">
+                    <path
+                      d="M26.7859 45.1778L15.6484 34.0403L18.7058 30.983L26.7859 39.0631L46.5131 19.3359L49.5705 22.3933L26.7859 45.1778Z"
+                      fill="white"
+                    />
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6706_89731">
+                    <rect width="66" height="66" rx="33" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              <p className="font-[600]">
+                You have already Enhanced your Resume!
+              </p>
+
+              <button
+                onClick={() => router.push("/")}
+                className="h-[38px]  rounded-[30px] px-6 bg_Button text-[14px] font-semibold"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </>
+      )}
       {isLogin && userDataGlobal?.role !== "user" && (
         <div
           className="bg-white z-[2000] fixed w-full top-0 ml-[-24px]"
@@ -638,7 +680,7 @@ function ResumePage() {
 
             <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center relative ">
               <div className="w-full md:w-1/2 flex flex-col gap-4 sticky top-[84px]   ">
-                {isPayment && (
+                {/* {isPayment && (
                   <div className="flex w-full justify-end">
                     <button
                       onClick={() =>
@@ -649,7 +691,7 @@ function ResumePage() {
                       Edit
                     </button>
                   </div>
-                )}
+                )} */}
                 <div className={` ${!isPayment && "blur-sm"} sticky `}>
                   <div
                     className="w-[100%]  rounded overflow-hidden  "

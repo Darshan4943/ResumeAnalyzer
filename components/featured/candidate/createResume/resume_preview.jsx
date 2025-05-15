@@ -816,7 +816,7 @@ const ResumePreview = ({
                       </button>
                     </div>
                   </div>
-                  {(selectedResumeIndex !== undefined && isLogin) && (
+                  {(selectedResumeIndex !== undefined && isLogin && !isEnhanced) && (
                     <>
                     
                     <SaveButton loading={loading} />
