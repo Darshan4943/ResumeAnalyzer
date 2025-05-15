@@ -285,7 +285,7 @@ function Payment() {
             const { data } = await axios.post(
                 "https://jamblix.com/api/getPriceId",
                 {
-                    amount: Math.ceil(0.39 * exchangeRate) * 100,
+                    amount: Math.ceil(2.3 * exchangeRate) * 100,
                     productName: "prod_SDBxkH83EhOl1p",
                     currency: currency,
                 }
