@@ -744,6 +744,7 @@ function CreateResume() {
                   id={editId}
                   render={render}
                   clientId={clientId}
+                  isEnhanced={isEnhanced}
                 />
               </div>
             </div>

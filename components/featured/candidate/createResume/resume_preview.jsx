@@ -66,6 +66,7 @@ const ResumePreview = ({
   id,
   render,
   clientId,
+  isEnhanced
 }) => {
 
 
@@ -424,7 +425,7 @@ const ResumePreview = ({
       }
   
       // Now continue to save resume
-      if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
+      if (((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) && !isEnhanced) {
         setLimitPopup(true);
         return;
       }
@@ -690,6 +691,64 @@ const ResumePreview = ({
       )}
     </BlobProvider>
   );
+  const DownloadButton1 = () => (
+    <BlobProvider document={<MyComponent />} fileName={`${name}.pdf`}>
+      {({ blob, url, loading, error }) => (
+        <button
+          onClick={() => {
+            if (blob) {
+              const link = document.createElement('a');
+              link.href = window.URL.createObjectURL(blob);
+              link.download = `${name}.pdf`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+          }}
+          disabled={loading}
+          style={{ opacity: loading ? '0.5' : 1 }}
+          className=" hover:bg-[#06A9EF] hover-svg-white hover:text-[white] flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+        >
+           {loading ? (
+            <svg
+              aria-hidden="true"
+              role="status"
+              className="inline w-4 h-4 me-3  animate-spin "
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="#E5E7EB"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentColor"
+              />
+            </svg>
+          ) : (
+            <svg
+              className=""
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_635_20356)">
+                <path
+                  d="M9.99967 13.333L5.83301 9.16634L6.99967 7.95801L9.16634 10.1247V3.33301H10.833V10.1247L12.9997 7.95801L14.1663 9.16634L9.99967 13.333ZM4.99967 16.6663C4.54134 16.6663 4.14898 16.5031 3.82259 16.1768C3.4962 15.8504 3.33301 15.458 3.33301 14.9997V12.4997H4.99967V14.9997H14.9997V12.4997H16.6663V14.9997C16.6663 15.458 16.5031 15.8504 16.1768 16.1768C15.8504 16.5031 15.458 16.6663 14.9997 16.6663H4.99967Z"
+                  fill="#333333"
+                />
+              </g>
+            </svg>
+          )}
+        </button>
+      )}
+    </BlobProvider>
+  );
+  
 
   return (
     <div
@@ -758,13 +817,16 @@ const ResumePreview = ({
                     </div>
                   </div>
                   {(selectedResumeIndex !== undefined && isLogin) && (
-                    // <BlobProvider document={<MyComponent />}>
-                    //   {({ blob, url, loading, error }) => (
+                    <>
+                    
                     <SaveButton loading={loading} />
-                    //   )}
-                    // </BlobProvider>
+                    <DownloadButton />
+                    </>
+                   
                   )}
-                  <DownloadButton />
+                  {isEnhanced &&
+                  <DownloadButton1 />
+}
                 </>
               )}
             </div>
