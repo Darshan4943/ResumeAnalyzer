@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/miniLoader";
+import Fuse from "fuse.js";
 
 function EmployerNotification() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -12,6 +13,8 @@ function EmployerNotification() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredNotifications, setFilteredNotifications] = useState([]);
 
   const router = useRouter();
 
@@ -23,6 +26,20 @@ function EmployerNotification() {
     // "Offer",
     // "Views on profile",
   ];
+  const fuseSearch = (term, data) => {
+    const fuse = new Fuse(data, {
+      keys: ["title", "message", "description"], // adjust based on your notification object
+      threshold: 0.3,
+    });
+
+    const result = fuse.search(term);
+    return term ? result.map(({ item }) => item) : data;
+  };
+
+  useEffect(() => {
+    const filtered = fuseSearch(searchTerm, notifications);
+    setFilteredNotifications(filtered);
+  }, [searchTerm, notifications]);
 
   const fetchNotifications = async (filter) => {
     try {
@@ -110,17 +127,26 @@ function EmployerNotification() {
               </button>
             ))}
           </div>
+          <div className="flex justify-between gap-4 items-center">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search notifications..."
+              className="border border-[#DEDEDE] rounded-full px-4 py-2 text-[14px] sm:text-[14px]  "
+            />
 
-          <p
-            className="text-[14px] sm:text-[16px] w-[166px] font-semibold text-[#06A9EF] cursor-pointer "
-            onClick={() => handleSelectId()}
-          >
-            Mark all as read
-          </p>
+            <p
+              className="text-[14px] sm:text-[16px] w-[166px] font-semibold text-[#06A9EF] cursor-pointer "
+              onClick={() => handleSelectId()}
+            >
+              Mark all as read
+            </p>
+          </div>
         </div>
       </div>
 
-      {notifications.length > 0 ? (
+      {filteredNotifications.length > 0 ? (
         <>
           {loading ? (
             <div className=" min-h-[360px] ">
@@ -129,7 +155,7 @@ function EmployerNotification() {
           ) : (
             <div className="w-full flex flex-col sm:p-4 p-3 items-start gap-3 rounded-lg bg-white shadow-md">
               <>
-                {notifications.map((e, i) => (
+                {filteredNotifications.map((e, i) => (
                   <div
                     key={e._id}
                     className={`flex w-full px-4 py-3 gap-4 items-center justify-between rounded-lg transition-all cursor-pointer 
