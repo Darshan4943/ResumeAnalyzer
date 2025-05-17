@@ -58,8 +58,11 @@ function JobApplicants() {
 
   // Handle checkbox change for individual applicants
   const handleCheckboxChange = (applicant) => {
+    // don’t toggle if they’ve already paid
+    if (applicant.paymentStatus === true) return;
+  
     setSelectedApplicants((prevSelected) => {
-      const isSelected = prevSelected.find(
+      const isSelected = prevSelected.some(
         (item) => item._id === applicant._id
       );
       if (isSelected) {
@@ -69,16 +72,20 @@ function JobApplicants() {
       }
     });
   };
+  
 
   // Handle 'select all' checkbox
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedApplicants(data); // `data` contains all applicants
+      // Only include applicants whose paymentStatus is NOT true
+      const toSelect = data.filter(applicant => applicant.paymentStatus !== true);
+      setSelectedApplicants(toSelect);
     } else {
       setSelectedApplicants([]);
     }
     setSelectAll(e.target.checked);
   };
+  
 
   // Function to send email (single or bulk)
   const handleSendMail = async (applicants) => {
@@ -204,7 +211,7 @@ function JobApplicants() {
           </div>
           :
             <button
-              className="text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button"
+              className={`text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button ${selectedApplicants.length === 0 && "opacity-50"}`}
               onClick={() => handleSendMail(selectedApplicants)} // Send to selected applicants
               disabled={selectedApplicants.length === 0}
             >
@@ -305,9 +312,9 @@ function JobApplicants() {
                           </button>
                         ) : (
                           <button
-                            disabled={!applicant.isEvaluate}
+                            disabled={!applicant.isEvaluate || applicant.paymentStatus}
                             className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${
-                              !applicant.isEvaluate && "opacity-50"
+                              !applicant.isEvaluate || applicant.paymentStatus && "opacity-50"
                             }`}
                             onClick={() => handleSendIndividualMail(applicant)} // Send mail to individual
                           >

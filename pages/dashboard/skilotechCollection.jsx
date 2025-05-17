@@ -50,6 +50,9 @@ function SkilotechCollection() {
   }, [countryCode]);
 
   const handleCheckboxChange = (applicant) => {
+    // Prevent selection if paymentStatus is true
+    if (applicant.paymentStatus === true) return;
+  
     setSelectedApplicants((prevSelected) => {
       const isSelected = prevSelected.find(
         (item) => item._id === applicant._id
@@ -61,15 +64,19 @@ function SkilotechCollection() {
       }
     });
   };
+  
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedApplicants(data);
+      // select only those whose paymentStatus is not true
+      const toSelect = data.filter(applicant => !applicant.paymentStatus);
+      setSelectedApplicants(toSelect);
     } else {
       setSelectedApplicants([]);
     }
     setSelectAll(e.target.checked);
   };
+  
 
   const handleSendMail = async (applicants) => {
     setLoading2(true)
@@ -191,7 +198,7 @@ function SkilotechCollection() {
           </div>
           :
           <button
-            className="text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button"
+            className={`text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button ${selectedApplicants.length === 0 && "opacity-50"} `}
             onClick={() => handleSendMail(selectedApplicants)} // Send to selected applicants
             disabled={selectedApplicants.length === 0}
           >
