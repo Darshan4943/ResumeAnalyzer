@@ -5,7 +5,7 @@ function ApplicantProfile({ jobDetails }) {
     <div className="flex flex-col gap-4 text-[16px] font-normal px-2 scr500:px-6  overflow-y-auto">
       <p className="font-semibold">Personal Info</p>
       <div className="flex gap-6">
-        <div className="flex  gap-12 w-[50%]">
+        <div className="flex  gap-12 w-[1000%]">
           <div>
             <p className="text-[14px]  font-medium">Full Name</p>
             <p className="text-[12px] font-normal">

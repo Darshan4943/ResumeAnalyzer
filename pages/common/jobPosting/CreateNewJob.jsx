@@ -67,6 +67,7 @@ function CreateNewJob() {
     workFrom: "",
     location: [],
     country: [],
+    dial_code: [],
     aboutOrganization: "",
     description: "",
     salaryType: "",
@@ -91,6 +92,7 @@ function CreateNewJob() {
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
+    dial_code:country.dial_code
   }));
 
   const fetchCompanyDetails = async () => {
@@ -121,6 +123,7 @@ function CreateNewJob() {
   }, []);
 
   const handleCountryChange = (selectedCountries) => {
+    console.log(selectedCountries)
     setFormError((prevErrors) => ({
       ...prevErrors,
       country: "",
@@ -129,6 +132,9 @@ function CreateNewJob() {
       ...data,
       country: selectedCountries
         ? selectedCountries.map((country) => country.value)
+        : [],
+      dial_code: selectedCountries
+        ? selectedCountries.map((country) => country.dial_code)
         : [],
     });
   };
@@ -315,7 +321,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/job/add/${id}`,
+        `http://localhost:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -368,6 +374,7 @@ function CreateNewJob() {
           jobMode,
           location,
           country,
+          dial_code,
           jobCat,
           description,
           jobSector,
@@ -400,6 +407,7 @@ function CreateNewJob() {
           aboutOrganization,
           workFrom: jobMode?.trim() || "",
           country,
+          dial_code,
           location,
           jobCat,
           deadLine,
@@ -532,6 +540,7 @@ function CreateNewJob() {
       workFrom: "",
       location: [],
       country: [],
+      dial_code: [],
       aboutOrganization: "",
       description: "",
       salaryType: "",
@@ -943,113 +952,134 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                        <div className="text-[14px] font-[500]">
-                          Keywords <span className="text-[red]">*</span>
-                        </div>
-                        <div
-                          className={`w-full flex ${
-                            data?.Keywords ? "justify-between" : ""
-                          } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${
-                            formError.Keywords
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
-                        >
-                          <div className="flex gap-4 w-[90%]  items-center">
-                            {data?.Keywords.length > 0 && (
-                              <div
-                                style={{
-                                  scrollbarWidth: "none",
-                                  msOverflowStyle: "none",
-                                }}
-                                id="scroll"
-                                className="overflow-x-auto flex gap-2 "
-                              >
-                                {data?.Keywords?.map((item, index) => (
-                                  <div
-                                    key={index}
-                                    className="h-[28px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px]"
-                                  >
-                                    <span className="flex text-[#06A9EF] text-[14px] font-[400] text-nowrap">
-                                      {item}
-                                    </span>
-
-                                    <svg
-                                      onClick={() =>
-                                        setData({
-                                          ...data,
-                                          Keywords: data?.Keywords.filter(
-                                            (data) => data != item
-                                          ),
-                                        })
-                                      }
-                                      width="11"
-                                      height="10"
-                                      viewBox="0 0 11 10"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M0.937354 0.435637C1.08738 0.28566 1.29082 0.201408 1.50295 0.201408C1.71509 0.201408 1.91853 0.28566 2.06855 0.435637L5.50295 3.87004L8.93735 0.435637C9.01115 0.359229 9.09943 0.298283 9.19703 0.256356C9.29463 0.214429 9.39961 0.19236 9.50583 0.191436C9.61206 0.190513 9.7174 0.210755 9.81572 0.250979C9.91403 0.291204 10.0034 0.350607 10.0785 0.425721C10.1536 0.500835 10.213 0.590157 10.2532 0.688474C10.2934 0.786791 10.3137 0.892135 10.3128 0.998358C10.3118 1.10458 10.2898 1.20956 10.2478 1.30716C10.2059 1.40476 10.145 1.49304 10.0686 1.56684L6.63415 5.00124L10.0686 8.43564C10.2143 8.58652 10.2949 8.7886 10.2931 8.99836C10.2913 9.20812 10.2071 9.40877 10.0588 9.55709C9.91048 9.70542 9.70983 9.78955 9.50007 9.79138C9.29032 9.7932 9.08823 9.71256 8.93735 9.56684L5.50295 6.13244L2.06855 9.56684C1.91767 9.71256 1.71559 9.7932 1.50583 9.79138C1.29608 9.78955 1.09543 9.70542 0.947099 9.55709C0.798773 9.40877 0.714637 9.20812 0.712815 8.99836C0.710992 8.7886 0.791628 8.58652 0.937354 8.43564L4.37175 5.00124L0.937354 1.56684C0.787377 1.41681 0.703125 1.21337 0.703125 1.00124C0.703125 0.789106 0.787377 0.585659 0.937354 0.435637V0.435637Z"
-                                        fill="#9A4545"
-                                      />
-                                    </svg>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                            <input
-                              type="text"
-                              name=""
-                              id=""
-                              placeholder="Enter Keywords"
-                              className="input w-[130px] placeholder:text-[12px] placeholder:font-[400] outline-none"
-                              value={KeywordsText}
-                              onChange={(e) => {
-                                setKeywordsText(e.target.value);
-                              }}
-                            />
+                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                          <div className="text-sm font-medium">
+                            Keywords
+                            <span className="text-[red]">*</span>
                           </div>
-                          <button
-                            disabled={KeywordsText?.length == 0}
-                            onClick={() => {
+
+                          <CreatableSelect
+                            isMulti
+                            onInputChange={(data) => {}}
+                            options={skills
+                              .filter((item) => item.trim() !== "")
+                              .map((item) => ({
+                                value: item,
+                                label: camelCase(item),
+                              }))}
+                            className={`w-full withoutBorder ${
+                              formError.Keywords
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
+                            value={
+                              data.Keywords
+                                ? data.Keywords.map((skill) => ({
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
+                                : []
+                            }
+                            onChange={(selectedOptions) => {
+                              const newKeywords= selectedOptions
+                                ? selectedOptions.map((option) => option.value)
+                                : [];
+
+                              if (
+                                newKeywords.length > data?.Keywords?.length
+                              ) {
+                                setFormError((prevErrors) => ({
+                                  ...prevErrors,
+                                  Keywords: "",
+                                }));
+                              }
+
                               setData({
                                 ...data,
-                                Keywords: [...data.Keywords, KeywordsText],
+                                Keywords: newKeywords,
                               });
-                              setKeywordsText("");
-
-                              setTimeout(() => {
-                                const scrollDiv =
-                                  document.getElementById("scroll");
-                                if (scrollDiv) {
-                                  scrollDiv.scrollLeft = scrollDiv.scrollWidth;
-                                }
-                              }, 100);
-                              setFormError((prevErrors) => ({
-                                ...prevErrors,
-                                Keywords: "",
-                              }));
                             }}
-                          >
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M5.14286 6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714H6.85714V12H5.14286V6.85714Z"
-                                fill="#333333"
-                              />
-                            </svg>
-                          </button>
+                            onCreateOption={(inputValue) => {
+                              const newKeyword = inputValue.trim();
+
+                              if (newKeyword && !skills.includes(newKeyword)) {
+                                setSkills((prevKeywords) => [
+                                  ...prevKeywords,
+                                  newKeyword,
+                                ]);
+                              }
+
+                              setData({
+                                ...data,
+                                Keywords: [
+                                  ...(data.Keywords || []),
+                                  newKeyword,
+                                ],
+                              });
+                            }}
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                border: formError.Keywords
+                                  ? "1px solid red"
+                                  : "1px solid #DEDEDE",
+                                borderRadius: "8px",
+                                padding: "2px 8px",
+                                flexWrap: "wrap",
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 1px #DEDEDE"
+                                  : "none",
+                                  outlineColor:"none"
+                              }),
+                              valueContainer: (base) => ({
+                                ...base,
+                                display: "flex",
+                                flexWrap: "nowrap",
+                                gap: "4px",
+                                padding: "2px 4px",
+                                overflowX: "auto",
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
+                              }),
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "#767676",
+                                fontSize: "12px",
+                                fontWeight: "400",
+                              }),
+                              menu: (provided) => ({
+                                ...provided,
+                                zIndex: 10,
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
+                              }),
+                              multiValue: (provided) => ({
+                                ...provided,
+                                backgroundColor: "#EFFAFF",
+                                borderRadius: "4px",
+                                minWidth: "90px",
+                              }),
+                              multiValueLabel: (provided) => ({
+                                ...provided,
+                                color: "#06A9EF",
+                                fontWeight: "500",
+                              }),
+                              multiValueRemove: (provided) => ({
+                                ...provided,
+                                color: "#9A4545",
+                                "&:hover": {
+                                  backgroundColor: "transparent",
+                                },
+                              }),
+                            }}
+                          />
                         </div>
-                      </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">
                           Redirect Job URL
@@ -1120,9 +1150,7 @@ function CreateNewJob() {
                         />
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
-                        <div className="text-[14px] font-[500]">
-                          Location 
-                        </div>
+                        <div className="text-[14px] font-[500]">Location</div>
                         <Select
                           isMulti
                           options={
@@ -2096,7 +2124,7 @@ function CreateNewJob() {
                           Preview
                         </button>
                         {loadingg ? (
-                          <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] w-[101.19px]">
+                          <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] min-w-[119.17px]">
                             <MiniLoader1 />
                           </div>
                         ) : (

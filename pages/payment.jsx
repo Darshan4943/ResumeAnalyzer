@@ -526,7 +526,7 @@ function Payment() {
                     </div>
                 </div>
             }
-            <div className={" w-full plan-container  flex justify-center items-center py-12 "}>
+            <div className={" w-full plan-container  flex justify-center items-center py-12 customMargins "}>
 
                 {successModel.visible && (
                     <div className="expiryModel">
@@ -665,7 +665,7 @@ function Payment() {
                         </div>
                     </>
                 )}
-                <div className="flex flex-col gap-6 w-[60%] bg-white rounded-[12px] p-6 ">
+                <div className="flex flex-col gap-6 ml:w-[60%] w-full bg-white rounded-[12px] p-6 customMargins ">
                     <div className=" flex flex-col gap-4 justify-center w-[100%] ">
                         <div className="text-[16px] font-[600] ">Account Details</div>
                         <div className="flex flex-col gap-4 w-[100%] text-[14px]">

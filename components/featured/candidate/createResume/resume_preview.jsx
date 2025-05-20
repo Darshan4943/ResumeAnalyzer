@@ -66,10 +66,8 @@ const ResumePreview = ({
   id,
   render,
   clientId,
-  isEnhanced
+  isEnhanced,
 }) => {
-
-
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -127,17 +125,18 @@ const ResumePreview = ({
   }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
-    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : userDataGlobal?._id;
+    const id =
+      userDataGlobal?.role === "user"
+        ? userDataGlobal?._id
+        : userDataGlobal?._id;
     if (id) {
       axios
         .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
-
           if (!isEdit) {
             setName(data.firstName + "_resume " + (res.data.data.length + 1));
           }
-
         })
         .catch((err) => {
           console.log(err);
@@ -150,11 +149,8 @@ const ResumePreview = ({
     if (!isEdit) {
       setName(data?.firstName + "_resume");
     } else {
-
-      setName(data?.fileName?.replace('.pdf', ''));
+      setName(data?.fileName?.replace(".pdf", ""));
     }
-
-
   }, [userDataGlobal, data.firstName, saveLimit]);
 
   const selectResumeTemplate = (index) => {
@@ -395,75 +391,76 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
- 
+
   const saveResume = async (blob, download) => {
     setdisabled(true);
-    
-  
+
     if (!blob) {
       toast.error("Something went wrong, Please try again");
       return;
     }
-  
+
     const uploadProfilePhotoAndSave = async () => {
       let profilePhotoUrl = "";
-  
-     
-      if (data.profilePhoto && typeof data.profilePhoto === "object" && data.profilePhoto instanceof Blob) {
+
+      if (
+        data.profilePhoto &&
+        typeof data.profilePhoto === "object" &&
+        data.profilePhoto instanceof Blob
+      ) {
         const photoForm = new FormData();
         photoForm.append("profilePhoto", data.profilePhoto);
-  
+
         try {
-          const res = await axios.post("https://jamblix.com/api/upload/profile-photo", photoForm);
-          profilePhotoUrl = res.data.url; 
+          const res = await axios.post(
+            "https://jamblix.com/api/upload/profile-photo",
+            photoForm
+          );
+          profilePhotoUrl = res.data.url;
         } catch (error) {
           setLoading(false);
           setSaveDisabled(false);
-         
-          
         }
       }
-  
+
       // Now continue to save resume
-      if (((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) && !isEnhanced) {
+      if ((aiHitMonthly >= aiHitMonthlyLimit || !activePlan) && !isEnhanced) {
         setLimitPopup(true);
         return;
       }
-  
+
       if (isEdit) {
         setSaveDisabled(true);
         setLoading(true);
-  
+
         const formData = new FormData();
         Object.keys(data).forEach((key) => {
-          if (key === "profilePhoto") return; 
-        
+          if (key === "profilePhoto") return;
+
           if (Array.isArray(data[key]) && data[key].length > 0) {
             formData.append(key, JSON.stringify(data[key]));
           } else {
             formData.append(key, data[key]);
           }
         });
-        
-        
-  
+
         if (profilePhotoUrl) {
           formData.append("profilePhoto", profilePhotoUrl);
         }
-  
+
         formData.append("resumeTemplateIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
-  
+
         formData.append("UserId", userDataGlobal?._id);
-  
+
         axios
           .put(`https://jamblix.com/api/resume/${id}`, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
-  
+
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -472,15 +469,15 @@ const ResumePreview = ({
               link.click();
               document.body.removeChild(link);
             }
-  
+
             dispatch(updateAiHit(userDataGlobal?._id));
             setTimeout(() => {
               dispatch(setRecallData(!recallData));
               getLimits();
             }, 1000);
-  
+
             toast.success("Resume Updated successfully");
-  
+
             setTimeout(() => setSaveDisabled(false), 10000);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setdisabled(false), 10000);
@@ -494,11 +491,11 @@ const ResumePreview = ({
       } else {
         setLoading(true);
         setSaveDisabled(true);
-  
+
         const formData = new FormData();
         Object.keys(data).forEach((key) => {
           if (key === "profilePhoto") return;
-        
+
           if (Array.isArray(data[key]) && data[key].length > 0) {
             formData.append(key, JSON.stringify(data[key]));
           } else {
@@ -507,19 +504,18 @@ const ResumePreview = ({
             }
           }
         });
-        
-  
+
         if (profilePhotoUrl) {
           formData.append("profilePhoto", profilePhotoUrl);
         }
-  
+
         formData.append("pdfBlob", blob);
         formData.append("resumeTemplateIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
         formData.append("userId", userDataGlobal?._id);
-  
+
         axios
           .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
@@ -527,7 +523,7 @@ const ResumePreview = ({
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
             const saveCount = JSON.parse(localStorage.getItem("saveCount"));
             setSaveLimit(saveCount);
-  
+
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -536,18 +532,18 @@ const ResumePreview = ({
               link.click();
               document.body.removeChild(link);
             }
-  
+
             getLimits();
-  
+
             dispatch(updateAiHit(userDataGlobal?._id));
             setTimeout(() => {
               dispatch(setRecallData(!recallData));
             }, 1000);
-  
+
             toast.success("Resume Saved To Collection successfully");
             localStorage.removeItem("userData");
             localStorage.removeItem("resumeData");
-  
+
             setTimeout(() => setSaveDisabled(false), 10000);
             setLoading(false);
             setTimeout(() => setdisabled(false), 10000);
@@ -560,18 +556,17 @@ const ResumePreview = ({
           });
       }
     };
-  
+
     // Call the flow
     uploadProfilePhotoAndSave();
   };
-  
-  const updateDownloadCount = async () => {
 
+  const updateDownloadCount = async () => {
     setDownloadBtnLoading(true);
     axios
       .put(
         "https://jamblix.com/api/subscription/updateDownloadLimit/" +
-        userDataGlobal?._id
+          userDataGlobal?._id
       )
       .then((res) => {
         const result = res.data;
@@ -611,7 +606,7 @@ const ResumePreview = ({
     <BlobProvider document={<MyComponent />} fileName="demo.pdf">
       {({ blob, url, loading, error }) => (
         <button
-          onClick={() => saveResume(blob, false)} 
+          onClick={() => saveResume(blob, false)}
           disabled={saveDisabled}
           style={{ opacity: saveDisabled ? "0.5" : 1 }}
           className="hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px] sm:w-[150px] justify-center font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF]"
@@ -641,8 +636,7 @@ const ResumePreview = ({
       )}
     </BlobProvider>
   );
-  
-  
+
   const DownloadButton = () => (
     <BlobProvider document={<MyComponent />} fileName="demo.pdf">
       {({ blob, url, loading, error }) => (
@@ -697,7 +691,7 @@ const ResumePreview = ({
         <button
           onClick={() => {
             if (blob) {
-              const link = document.createElement('a');
+              const link = document.createElement("a");
               link.href = window.URL.createObjectURL(blob);
               link.download = `${name}.pdf`;
               document.body.appendChild(link);
@@ -706,10 +700,10 @@ const ResumePreview = ({
             }
           }}
           disabled={loading}
-          style={{ opacity: loading ? '0.5' : 1 }}
+          style={{ opacity: loading ? "0.5" : 1 }}
           className=" hover:bg-[#06A9EF] hover-svg-white hover:text-[white] flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
-           {loading ? (
+          {loading ? (
             <svg
               aria-hidden="true"
               role="status"
@@ -748,7 +742,6 @@ const ResumePreview = ({
       )}
     </BlobProvider>
   );
-  
 
   return (
     <div
@@ -760,10 +753,7 @@ const ResumePreview = ({
       }}
     >
       <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
-      <div
-        className="flex  h-fit flex-col w-full  sm:px-4 p-3 gap-[14px]  "
-
-      >
+      <div className="flex  h-fit flex-col w-full  sm:px-4 p-3 gap-[14px]  ">
         <div className="" ref={resumeRef}>
           <div className="flex justify-between  scr1024:gap-4 gap-2 ">
             <div className="flex items-center justify-between ml:w-[58%] w-full gap-4 ">
@@ -816,17 +806,15 @@ const ResumePreview = ({
                       </button>
                     </div>
                   </div>
-                  {(selectedResumeIndex !== undefined && isLogin && !isEnhanced) && (
-                    <>
-                    
-                    <SaveButton loading={loading} />
-                    <DownloadButton />
-                    </>
-                   
-                  )}
-                  {isEnhanced &&
-                  <DownloadButton1 />
-}
+                  {selectedResumeIndex !== undefined &&
+                    isLogin &&
+                    !isEnhanced && (
+                      <>
+                        <SaveButton loading={loading} />
+                        <DownloadButton />
+                      </>
+                    )}
+                  {isEnhanced && <DownloadButton1 />}
                 </>
               )}
             </div>
