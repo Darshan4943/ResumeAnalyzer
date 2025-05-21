@@ -52,18 +52,6 @@ function ResumePage() {
   }, [userDataGlobal]);
 
   useEffect(() => {
-    const enhanceData = localStorage.getItem("enhancedVersion");
-    const evaluation = localStorage.getItem("evaluation");
-   
-    if (evaluation) {
-      setResumeData(evaluation);
-    }
-    if (enhanceData) {
-      setData(enhanceData);
-    }
-  }, []);
-
-  useEffect(() => {
     if (id) {
       setLoading(true);
       let url = "";
@@ -84,10 +72,6 @@ function ResumePage() {
           localStorage.setItem(
             "enhancedVersion",
             JSON.stringify(res?.data?.data?.enhancedVersion)
-          );
-          localStorage.setItem(
-            "evaluation",
-            JSON.stringify(es?.data?.data?.evaluation[0].feedback)
           );
           const data = res?.data?.data?.enhancedVersion;
 
@@ -116,6 +100,19 @@ function ResumePage() {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (!loading) return;
+
+    const interval = setInterval(() => {
+      setActiveStep((prev) => {
+        if (prev < steps.length - 1) return prev + 1;
+        return prev;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const openPopup = (content) => {
     setPopupContent(content);
@@ -168,10 +165,6 @@ function ResumePage() {
         "enhancedVersion",
         JSON.stringify(res?.data?.data?.enhancedVersion)
       );
-      localStorage.setItem(
-        "evaluation",
-        JSON.stringify(res?.data?.data?.evaluation[0])
-      );
       const data = res?.data?.data?.enhancedVersion;
 
       if (data) {
@@ -194,38 +187,13 @@ function ResumePage() {
       setLoading(false);
     }
   };
-  
-useEffect(() => {
-  const storedEvaluation = localStorage.getItem("evaluation");
-  const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
+  console.log(data);
 
-  // Only evaluate resume if no data is stored already
-  if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
-    evaluateResume();
-  } else {
-    // Optionally set state from localStorage to avoid blank state
-    if (storedEvaluation) {
-      setResumeData(JSON.parse(storedEvaluation));
+  useEffect(() => {
+    if (!id) {
+      evaluateResume();
     }
-    if (storedEnhancedVersion) {
-      const enhanced = JSON.parse(storedEnhancedVersion);
-      setData(enhanced);
-
-      const userPaymentDetails = {
-        firstName: enhanced?.firstName,
-        lastName: enhanced?.lastName,
-        dialCode: enhanced?.dialCode,
-        mobileNo: enhanced?.mobileNumber,
-        email: enhanced?.email,
-      };
-      localStorage.setItem(
-        "userPaymentDetails",
-        JSON.stringify(userPaymentDetails)
-      );
-    }
-  }
-}, []);
-
+  }, []);
 
   const sectionRefs = {
     tailoring: useRef(null),
@@ -499,21 +467,6 @@ useEffect(() => {
       icon: <Sparkles className="w-5 h-5" />,
     },
   ];
-  
-  useEffect(() => {
-  if (!loading) return; // ✅ Valid inside useEffect
-
-  const interval = setInterval(() => {
-    setActiveStep((prev) => {
-      if (prev < steps.length - 1) return prev + 1;
-      return prev;
-    });
-  }, 5000);
-
-  return () => clearInterval(interval);
-}, [loading, steps.length]); // 🔁 include steps.length in dependency
-
-
   const MyComponent = ({ pageLayout }) => {
     return (
       <Document dpi={72}>
@@ -637,9 +590,9 @@ useEffect(() => {
                       <div className="flex items-center space-x-4 text-lg z-10">
                         <div className="w-6 h-6 flex items-center justify-center">
                           {isCompleted ? (
-                            <CheckCircle className="text-green w-6 h-6" />
+                            <CheckCircle className="text-green-500 w-6 h-6" />
                           ) : isActive ? (
-                            <Loader2 className="animate-spin text-blue w-6 h-6" />
+                            <Loader2 className="animate-spin text-blue-500 w-6 h-6" />
                           ) : (
                             step.icon
                           )}
@@ -670,9 +623,9 @@ useEffect(() => {
       ) : (
         <div>
           <div className="flex flex-col gap-8 customMargins py-6 justify-between">
-            <div className="flex lg:flex-row flex-col justify-evenly 420px:justify-between scr800:justify-start gap-[24px]">
+            <div className="flex  justify-evenly 420px:justify-between scr800:justify-start gap-[24px]">
               <div
-                className={`rounded-[16px] p-[28px] h-[182px] min-w-[262px]  w-fit cursor-pointer  flex flex-col gap-3 items-center
+                className={`rounded-[16px] p-[28px] h-[182px] min-w-[262px]  cursor-pointer  flex flex-col gap-3 items-center
                     `}
                 style={{
                   backgroundImage:
@@ -696,7 +649,7 @@ useEffect(() => {
                         setSelectedSection(card.sectionKey);
                       }
                     }}
-                    className={`rounded-[16px] p-[10px] h-[86px] sm:w-[190px] w-[45%] flex flex-col bg-white cursor-pointer justify-between
+                    className={`rounded-[16px] p-[10px] h-[86px] w-[190px] flex flex-col bg-white cursor-pointer justify-between
                    ${
                      selectedSection === card.sectionKey
                        ? "ring-2 ring-[#06A9EF]"
@@ -704,7 +657,7 @@ useEffect(() => {
                    }
         `}
                   >
-                    <div className="text-[#333333] sm:text-[14px] text-[12px] font-[500] flex justify-between items-center w-full leading-tight">
+                    <div className="text-[#333333] text-[14px] font-[500] flex justify-between items-center w-full leading-tight">
                       <div>{card.title}</div>
                     </div>
                     <div
@@ -725,8 +678,8 @@ useEffect(() => {
               </div>
             </div>
 
-            <div className="flex gap-6 w-full scr1168:flex-row flex-col scr1168:justify-start justify-start scr1168:items-start items-start  relative ">
-              <div className="w-full scr1168:w-1/2 ms:flex hidden flex-col gap-4 scr1168:sticky top-[84px]   ">
+            <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center relative ">
+              <div className="w-full md:w-1/2 flex flex-col gap-4 sticky top-[84px]   ">
                 {/* {isPayment && (
                   <div className="flex w-full justify-end">
                     <button
@@ -741,14 +694,14 @@ useEffect(() => {
                 )} */}
                 <div className={` ${!isPayment && "blur-sm"} sticky `}>
                   <div
-                    className=" h-[776px] mt-1 w-[552px] rounded overflow-hidden  "
+                    className="w-[100%]  rounded overflow-hidden  "
                     style={{ boxShadow: "0px 4px 10px 3px #00000040" }}
                   >
                     <PDFViewer width="575px" height="788px" showToolbar={false}>
                       <MyComponent pageLayout={true} />
                     </PDFViewer>
                   </div>
-                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[771px] mt-[7px] w-[548px] top-0 "></div>
+                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[776px] mt-1 w-[552px] top-0 "></div>
                 </div>
                 {!isPayment && (
                   <div
@@ -766,7 +719,7 @@ useEffect(() => {
 
                       router.push(`/payment?${query.toString()}`);
                     }}
-                    className=" cursor-pointer absolute inset-0 flex flex-col gap-4 items-center justify-center h-[776px] mt-1 w-[552px]"
+                    className=" cursor-pointer absolute inset-0 flex flex-col gap-4 items-center justify-center"
                   >
                     <svg
                       width="31"
@@ -783,40 +736,9 @@ useEffect(() => {
                     <p className="text-[14px] font-semibold">
                       Enhance CV with Skilotech
                     </p>
-                    <button
-                onClick={() => {
-                  const query = new URLSearchParams({ id });
-
-                  if (skilotechCollection)
-                    query.append("skilotechCollection", skilotechCollection);
-                  if (application) query.append("application", application);
-                  if (myCollection) query.append("myCollection", myCollection);
-
-                  router.push(`/payment?${query.toString()}`);
-                }}
-                
-                className="flex text-[16px] justify-center items-center bg-blue text-white font-[600] h-[40px] rounded-[30px] px-6"
-              >
-                Enhance 
-              </button>
                   </div>
                 )}
               </div>
-              <button
-                onClick={() => {
-                  const query = new URLSearchParams({ id });
-
-                  if (skilotechCollection)
-                    query.append("skilotechCollection", skilotechCollection);
-                  if (application) query.append("application", application);
-                  if (myCollection) query.append("myCollection", myCollection);
-
-                  router.push(`/payment?${query.toString()}`);
-                }}
-                className="flex  ms:hidden justify-center items-center bg_Button h-[40px] rounded-[30px] px-6"
-              >
-                Enhance CV with Skilotech
-              </button>
 
               <div className="w-full md:w-1/2 flex flex-col gap-4 ">
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
