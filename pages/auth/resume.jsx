@@ -52,6 +52,18 @@ function ResumePage() {
   }, [userDataGlobal]);
 
   useEffect(() => {
+    const enhanceData = localStorage.getItem("enhancedVersion");
+    const evaluation = localStorage.getItem("evaluation");
+   
+    if (evaluation) {
+      setResumeData(evaluation);
+    }
+    if (enhanceData) {
+      setData(enhanceData);
+    }
+  }, []);
+
+  useEffect(() => {
     if (id) {
       setLoading(true);
       let url = "";
@@ -72,6 +84,10 @@ function ResumePage() {
           localStorage.setItem(
             "enhancedVersion",
             JSON.stringify(res?.data?.data?.enhancedVersion)
+          );
+          localStorage.setItem(
+            "evaluation",
+            JSON.stringify(res?.data?.data?.evaluation[0].feedback)
           );
           const data = res?.data?.data?.enhancedVersion;
 
@@ -101,19 +117,6 @@ function ResumePage() {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (!loading) return;
-
-    const interval = setInterval(() => {
-      setActiveStep((prev) => {
-        if (prev < steps.length - 1) return prev + 1;
-        return prev;
-      });
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [loading]);
-
   const openPopup = (content) => {
     setPopupContent(content);
     setIsPopupOpen(true);
@@ -123,30 +126,7 @@ function ResumePage() {
     setIsPopupOpen(false);
   };
 
-  // const evaluateResume = useCallback(async () => {
-  //   const parsedResume = localStorage.getItem("parsedResume");
 
-  //   if (!parsedResume || hasFetched.current) return;
-
-  //   hasFetched.current = true;
-
-  //   try {
-  //     setLoading(true);
-  //     const resumeJson = JSON.parse(parsedResume);
-
-  //     const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
-  //       resumeText: resumeJson,
-  //     });
-
-  //     const { atsScore, feedback } = res.data;
-  //     setResumeData(feedback);
-  //     console.log(res.data)
-  //   } catch (err) {
-  //     setError("Evaluation Error: " + err.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }, []);
 
   const evaluateResume = async () => {
     const parsedResume = localStorage.getItem("parsedResume");
@@ -164,6 +144,10 @@ function ResumePage() {
       localStorage.setItem(
         "enhancedVersion",
         JSON.stringify(res?.data?.data?.enhancedVersion)
+      );
+      localStorage.setItem(
+        "evaluation",
+        JSON.stringify(res?.data?.data?.evaluation[0])
       );
       const data = res?.data?.data?.enhancedVersion;
 
@@ -187,13 +171,38 @@ function ResumePage() {
       setLoading(false);
     }
   };
-  console.log(data);
+  
+useEffect(() => {
+  const storedEvaluation = localStorage.getItem("evaluation");
+  const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
 
-  useEffect(() => {
-    if (!id) {
-      evaluateResume();
+  // Only evaluate resume if no data is stored already
+  if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
+    evaluateResume();
+  } else {
+    // Optionally set state from localStorage to avoid blank state
+    if (storedEvaluation) {
+      setResumeData(JSON.parse(storedEvaluation));
     }
-  }, []);
+    if (storedEnhancedVersion) {
+      const enhanced = JSON.parse(storedEnhancedVersion);
+      setData(enhanced);
+
+      const userPaymentDetails = {
+        firstName: enhanced?.firstName,
+        lastName: enhanced?.lastName,
+        dialCode: enhanced?.dialCode,
+        mobileNo: enhanced?.mobileNumber,
+        email: enhanced?.email,
+      };
+      localStorage.setItem(
+        "userPaymentDetails",
+        JSON.stringify(userPaymentDetails)
+      );
+    }
+  }
+}, []);
+
 
   const sectionRefs = {
     tailoring: useRef(null),
@@ -220,173 +229,7 @@ function ResumePage() {
     }
   };
 
-  // const improveResume = async () => {
-  //   const parsedResume = localStorage.getItem("parsedResume");
-  //   if (!parsedResume || !resumeData) return;
-
-  //   try {
-  //     setLoading(true);
-  //     const resumeJson = JSON.parse(parsedResume);
-  //     const res = await axios.post("https://jamblix.com/api/resume-improve", {
-  //       resumeText: resumeJson,
-  //       feedback: resumeData,
-  //     });
-
-  //     const improvedResume = res.data.improvedResume;
-
-  //     setImprovedResume(improvedResume);
-  //     setParsedData(improvedResume);
-  //     setIsPremium(true);
-  //     localStorage.setItem("parsedResume", JSON.stringify(improvedResume));
-
-  //     const {
-  //       first_name,
-  //       last_name,
-  //       email,
-  //       mobileNo,
-  //       designation,
-  //       summary,
-  //       address,
-  //       skills,
-  //       country,
-  //       languages,
-  //       hobbies,
-  //       education,
-  //       projects,
-  //       internship,
-  //       references,
-  //       achievements,
-  //       ["social links"]: socialLinks,
-  //       ["extra-curricular activities"]: extraCaricularActivity,
-  //       ["work experience"]: workExperience,
-  //       work_experience,
-  //       ["certification/courses"]: courses,
-  //     } = improvedResume;
-
-  //     const currentYear = new Date().getFullYear();
-  //     const experience = workExperience || work_experience || [];
-
-  //     setData({
-  //       showSkills: true,
-  //       showAchievements: true,
-  //       showCourses: true,
-  //       showExtraCariculam: true,
-  //       showHobbies: true,
-  //       showInternship: true,
-  //       showLanguage: true,
-  //       showLinks: true,
-  //       showCustomSection: true,
-  //       showProject: true,
-  //       showReference: true,
-  //       firstName: first_name,
-  //       lastName: last_name,
-  //       email: email,
-  //       dial_code: null,
-  //       mobileNumber: mobileNo,
-  //       designation: designation,
-  //       summery: summary,
-  //       location: address,
-  //       country: country,
-  //       skills: skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) || [],
-  //       hobbies: hobbies?.map((item) => ({ title: item })) || [],
-  //       languages: languages?.map((item) => ({ languages: item, rating: [3, 3, 3] })) || [],
-  //       education: education?.map((item) => ({
-  //         qualification: item.courseName,
-  //         specialization: item["Specialization/Board"],
-  //         instituteName: item["University Name"],
-  //         type: "full-time",
-  //         location: "",
-  //         duration: {
-  //           start: { year: item["Passing Year"]?.startDate?.year || "Year", month: null },
-  //           end: { year: item["Passing Year"]?.endDate?.year || "Year", month: null },
-  //         },
-  //       })) || [],
-  //       experience: experience?.map((item) => ({
-  //         designation: item.title,
-  //         organization: item.company,
-  //         description: item.description,
-  //         currentlyWorking: false,
-  //         location: item.location,
-  //         duration: {
-  //           start: { year: item.start_date?.year || "Year", month: null },
-  //           end: {
-  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
-  //             month: null,
-  //           },
-  //         },
-  //       })) || [],
-  //       project: projects?.map((item) => ({
-  //         title: item.title,
-  //         organization: item.organization,
-  //         description: item.description,
-  //         currentlyWorking: false,
-  //         duration: {
-  //           start: { year: item.start_date?.year || "Year", month: null },
-  //           end: {
-  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
-  //             month: null,
-  //           },
-  //         },
-  //       })) || [],
-  //       internship: internship?.map((item) => ({
-  //         title: item.title,
-  //         organization: item.organization,
-  //         description: item.description,
-  //         currentlyWorking: false,
-  //         duration: {
-  //           start: { year: item.start_date?.year || "Year", month: null },
-  //           end: {
-  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
-  //             month: null,
-  //           },
-  //         },
-  //       })) || [],
-  //       extraCaricularData: extraCaricularActivity?.map((item) => ({
-  //         title: item.title,
-  //         organization: item.organization,
-  //         description: item.description,
-  //         currentlyWorking: false,
-  //         duration: {
-  //           start: { year: item.start_date?.year || "Year", month: null },
-  //           end: {
-  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
-  //             month: null,
-  //           },
-  //         },
-  //       })) || [],
-  //       course: courses?.map((item) => ({
-  //         title: item.title,
-  //         organization: item.organization,
-  //         description: item.description,
-  //         currentlyWorking: true,
-  //         duration: {
-  //           start: { year: item.start_date?.year || "Year", month: null },
-  //           end: {
-  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
-  //             month: null,
-  //           },
-  //         },
-  //       })) || [],
-  //       socialLinks: socialLinks?.map((item) => ({
-  //         platform: item.platform,
-  //         link: item.link,
-  //       })) || [],
-  //       reference: references?.map((item) => ({
-  //         referantName: item.referantName,
-  //         designation: item.designation,
-  //         "Organization Name": item["Organization Name"],
-  //         email: item.name,
-  //       })) || [],
-  //       achievements: achievements?.map((item) => ({ title: item.title })) || [],
-  //     });
-
-  //     setLoading(false);
-  //   } catch (err) {
-  //     setError("Improvement Error: " + err.message);
-  //     setLoading(false);
-  //   }
-  // };
-
+  
   const tailoringScore = resumeData?.tailoring?.score ?? 0;
   const contentScore = resumeData?.content?.score ?? 0;
   const formatScore = resumeData?.format?.score ?? 0;
@@ -467,6 +310,19 @@ function ResumePage() {
       icon: <Sparkles className="w-5 h-5" />,
     },
   ];
+  useEffect(() => {
+    if (!loading) return;
+
+    const interval = setInterval(() => {
+      setActiveStep((prev) => {
+        if (prev < steps.length - 1) return prev + 1;
+        return prev;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [loading, steps.length]);
+
   const MyComponent = ({ pageLayout }) => {
     return (
       <Document dpi={72}>
@@ -590,9 +446,9 @@ function ResumePage() {
                       <div className="flex items-center space-x-4 text-lg z-10">
                         <div className="w-6 h-6 flex items-center justify-center">
                           {isCompleted ? (
-                            <CheckCircle className="text-green-500 w-6 h-6" />
+                            <CheckCircle className="text-green w-6 h-6" />
                           ) : isActive ? (
-                            <Loader2 className="animate-spin text-blue-500 w-6 h-6" />
+                            <Loader2 className="animate-spin text-blue w-6 h-6" />
                           ) : (
                             step.icon
                           )}
@@ -623,9 +479,9 @@ function ResumePage() {
       ) : (
         <div>
           <div className="flex flex-col gap-8 customMargins py-6 justify-between">
-            <div className="flex  justify-evenly 420px:justify-between scr800:justify-start gap-[24px]">
+            <div className="flex lg:flex-row flex-col justify-evenly 420px:justify-between scr800:justify-start gap-[24px]">
               <div
-                className={`rounded-[16px] p-[28px] h-[182px] min-w-[262px]  cursor-pointer  flex flex-col gap-3 items-center
+                className={`rounded-[16px] p-[28px] h-[182px] min-w-[262px]  w-fit cursor-pointer  flex flex-col gap-3 items-center
                     `}
                 style={{
                   backgroundImage:
@@ -649,7 +505,7 @@ function ResumePage() {
                         setSelectedSection(card.sectionKey);
                       }
                     }}
-                    className={`rounded-[16px] p-[10px] h-[86px] w-[190px] flex flex-col bg-white cursor-pointer justify-between
+                    className={`rounded-[16px] p-[10px] h-[86px] sm:w-[190px] w-[45%] flex flex-col bg-white cursor-pointer justify-between
                    ${
                      selectedSection === card.sectionKey
                        ? "ring-2 ring-[#06A9EF]"
@@ -657,7 +513,7 @@ function ResumePage() {
                    }
         `}
                   >
-                    <div className="text-[#333333] text-[14px] font-[500] flex justify-between items-center w-full leading-tight">
+                    <div className="text-[#333333] sm:text-[14px] text-[12px] font-[500] flex justify-between items-center w-full leading-tight">
                       <div>{card.title}</div>
                     </div>
                     <div
@@ -678,8 +534,8 @@ function ResumePage() {
               </div>
             </div>
 
-            <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center relative ">
-              <div className="w-full md:w-1/2 flex flex-col gap-4 sticky top-[84px]   ">
+            <div className="flex gap-6 w-full scr1168:flex-row flex-col scr1168:justify-start justify-start scr1168:items-start items-start  relative ">
+              <div className="w-full scr1168:w-1/2 ms:flex hidden flex-col gap-4 scr1168:sticky top-[84px]   ">
                 {/* {isPayment && (
                   <div className="flex w-full justify-end">
                     <button
@@ -694,14 +550,14 @@ function ResumePage() {
                 )} */}
                 <div className={` ${!isPayment && "blur-sm"} sticky `}>
                   <div
-                    className="w-[100%]  rounded overflow-hidden  "
+                    className=" h-[776px] mt-1 w-[552px] rounded overflow-hidden  "
                     style={{ boxShadow: "0px 4px 10px 3px #00000040" }}
                   >
                     <PDFViewer width="575px" height="788px" showToolbar={false}>
                       <MyComponent pageLayout={true} />
                     </PDFViewer>
                   </div>
-                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[776px] mt-1 w-[552px] top-0 "></div>
+                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[771px] mt-[7px] w-[548px] top-0 "></div>
                 </div>
                 {!isPayment && (
                   <div
@@ -719,7 +575,7 @@ function ResumePage() {
 
                       router.push(`/payment?${query.toString()}`);
                     }}
-                    className=" cursor-pointer absolute inset-0 flex flex-col gap-4 items-center justify-center"
+                    className=" cursor-pointer absolute inset-0 flex flex-col gap-4 items-center justify-center h-[776px] mt-1 w-[552px]"
                   >
                     <svg
                       width="31"
@@ -736,9 +592,40 @@ function ResumePage() {
                     <p className="text-[14px] font-semibold">
                       Enhance CV with Skilotech
                     </p>
+                    <button
+                onClick={() => {
+                  const query = new URLSearchParams({ id });
+
+                  if (skilotechCollection)
+                    query.append("skilotechCollection", skilotechCollection);
+                  if (application) query.append("application", application);
+                  if (myCollection) query.append("myCollection", myCollection);
+
+                  router.push(`/payment?${query.toString()}`);
+                }}
+                
+                className="flex text-[16px] justify-center items-center bg-blue text-white font-[600] h-[40px] rounded-[30px] px-6"
+              >
+                Enhance 
+              </button>
                   </div>
                 )}
               </div>
+              <button
+                onClick={() => {
+                  const query = new URLSearchParams({ id });
+
+                  if (skilotechCollection)
+                    query.append("skilotechCollection", skilotechCollection);
+                  if (application) query.append("application", application);
+                  if (myCollection) query.append("myCollection", myCollection);
+
+                  router.push(`/payment?${query.toString()}`);
+                }}
+                className="flex  ms:hidden justify-center items-center bg_Button h-[40px] rounded-[30px] px-6"
+              >
+                Enhance CV with Skilotech
+              </button>
 
               <div className="w-full md:w-1/2 flex flex-col gap-4 ">
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
