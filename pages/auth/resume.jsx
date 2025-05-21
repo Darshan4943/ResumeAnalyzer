@@ -62,6 +62,31 @@ function ResumePage() {
       setData(enhanceData);
     }
   }, []);
+  const steps = [
+    { label: "Parsing your resume", icon: <FileText className="w-5 h-5" /> },
+    { label: "Analyzing your experience", icon: <Brain className="w-5 h-5" /> },
+    {
+      label: "Extracting your skills",
+      icon: <BadgeCheck className="w-5 h-5" />,
+    },
+    {
+      label: "Generating recommendations",
+      icon: <Sparkles className="w-5 h-5" />,
+    },
+  ];
+  
+useEffect(() => {
+    if (!loading) return;
+
+    const interval = setInterval(() => {
+      setActiveStep((prev) => {
+        if (prev < steps.length - 1) return prev + 1;
+        return prev;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   useEffect(() => {
     if (id) {
@@ -172,36 +197,36 @@ function ResumePage() {
     }
   };
   
-// useEffect(() => {
-//   const storedEvaluation = localStorage.getItem("evaluation");
-//   const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
+useEffect(() => {
+  const storedEvaluation = localStorage.getItem("evaluation");
+  const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
 
-//   // Only evaluate resume if no data is stored already
-//   if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
-//     evaluateResume();
-//   } else {
-//     // Optionally set state from localStorage to avoid blank state
-//     if (storedEvaluation) {
-//       setResumeData(JSON.parse(storedEvaluation));
-//     }
-//     if (storedEnhancedVersion) {
-//       const enhanced = JSON.parse(storedEnhancedVersion);
-//       setData(enhanced);
+  // Only evaluate resume if no data is stored already
+  if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
+    evaluateResume();
+  } else {
+    // Optionally set state from localStorage to avoid blank state
+    if (storedEvaluation) {
+      setResumeData(JSON.parse(storedEvaluation));
+    }
+    if (storedEnhancedVersion) {
+      const enhanced = JSON.parse(storedEnhancedVersion);
+      setData(enhanced);
 
-//       const userPaymentDetails = {
-//         firstName: enhanced?.firstName,
-//         lastName: enhanced?.lastName,
-//         dialCode: enhanced?.dialCode,
-//         mobileNo: enhanced?.mobileNumber,
-//         email: enhanced?.email,
-//       };
-//       localStorage.setItem(
-//         "userPaymentDetails",
-//         JSON.stringify(userPaymentDetails)
-//       );
-//     }
-//   }
-// }, []);
+      const userPaymentDetails = {
+        firstName: enhanced?.firstName,
+        lastName: enhanced?.lastName,
+        dialCode: enhanced?.dialCode,
+        mobileNo: enhanced?.mobileNumber,
+        email: enhanced?.email,
+      };
+      localStorage.setItem(
+        "userPaymentDetails",
+        JSON.stringify(userPaymentDetails)
+      );
+    }
+  }
+}, []);
 
 
   const sectionRefs = {
@@ -297,32 +322,11 @@ function ResumePage() {
   const handlePayment = () => {
     console.log("Payment initiated");
   };
+  
 
-  const steps = [
-    { label: "Parsing your resume", icon: <FileText className="w-5 h-5" /> },
-    { label: "Analyzing your experience", icon: <Brain className="w-5 h-5" /> },
-    {
-      label: "Extracting your skills",
-      icon: <BadgeCheck className="w-5 h-5" />,
-    },
-    {
-      label: "Generating recommendations",
-      icon: <Sparkles className="w-5 h-5" />,
-    },
-  ];
-  useEffect(() => {
-    if (!loading) return;
 
-    const interval = setInterval(() => {
-      setActiveStep((prev) => {
-        if (prev < steps.length - 1) return prev + 1;
-        return prev;
-      });
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [loading, steps.length]);
-
+  
+  
   const MyComponent = ({ pageLayout }) => {
     return (
       <Document dpi={72}>
@@ -351,6 +355,7 @@ function ResumePage() {
     "missingOrWeakSections",
     "toneAndLanguageFeedback",
   ];
+  
 
   return (
     <>
