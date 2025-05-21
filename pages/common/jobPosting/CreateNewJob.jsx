@@ -321,7 +321,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/job/add/${id}`,
+        `https://jamblix.com/api/job/add/${id}`,
         formData,
         {
           headers: {

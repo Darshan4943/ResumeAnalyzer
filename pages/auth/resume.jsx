@@ -50,6 +50,17 @@ function ResumePage() {
       dispatch(setPageOpened());
     }
   }, [userDataGlobal]);
+  useEffect(() => {
+    const enhanceData = localStorage.getItem("enhancedVersion");
+    const evaluation = localStorage.getItem("evaluation");
+   
+    if (evaluation) {
+      setResumeData(evaluation);
+    }
+    if (enhanceData) {
+      setData(enhanceData);
+    }
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -72,6 +83,10 @@ function ResumePage() {
           localStorage.setItem(
             "enhancedVersion",
             JSON.stringify(res?.data?.data?.enhancedVersion)
+          );
+          localStorage.setItem(
+            "evaluation",
+            JSON.stringify(es?.data?.data?.evaluation[0].feedback)
           );
           const data = res?.data?.data?.enhancedVersion;
 
@@ -100,8 +115,6 @@ function ResumePage() {
         });
     }
   }, [id]);
-
-  
 
   const openPopup = (content) => {
     setPopupContent(content);
@@ -154,6 +167,10 @@ function ResumePage() {
         "enhancedVersion",
         JSON.stringify(res?.data?.data?.enhancedVersion)
       );
+      localStorage.setItem(
+        "evaluation",
+        JSON.stringify(res?.data?.data?.evaluation[0])
+      );
       const data = res?.data?.data?.enhancedVersion;
 
       if (data) {
@@ -176,13 +193,38 @@ function ResumePage() {
       setLoading(false);
     }
   };
-  console.log(data);
+  
+useEffect(() => {
+  const storedEvaluation = localStorage.getItem("evaluation");
+  const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
 
-  useEffect(() => {
-    if (!id) {
-      evaluateResume();
+  // Only evaluate resume if no data is stored already
+  if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
+    evaluateResume();
+  } else {
+    // Optionally set state from localStorage to avoid blank state
+    if (storedEvaluation) {
+      setResumeData(JSON.parse(storedEvaluation));
     }
-  }, []);
+    if (storedEnhancedVersion) {
+      const enhanced = JSON.parse(storedEnhancedVersion);
+      setData(enhanced);
+
+      const userPaymentDetails = {
+        firstName: enhanced?.firstName,
+        lastName: enhanced?.lastName,
+        dialCode: enhanced?.dialCode,
+        mobileNo: enhanced?.mobileNumber,
+        email: enhanced?.email,
+      };
+      localStorage.setItem(
+        "userPaymentDetails",
+        JSON.stringify(userPaymentDetails)
+      );
+    }
+  }
+}, []);
+
 
   const sectionRefs = {
     tailoring: useRef(null),
@@ -702,7 +744,7 @@ function ResumePage() {
                       <MyComponent pageLayout={true} />
                     </PDFViewer>
                   </div>
-                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[776px] mt-1 w-[552px] top-0 "></div>
+                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[771px] mt-[7px] w-[548px] top-0 "></div>
                 </div>
                 {!isPayment && (
                   <div
@@ -737,23 +779,38 @@ function ResumePage() {
                     <p className="text-[14px] font-semibold">
                       Enhance CV with Skilotech
                     </p>
+                    <button
+                onClick={() => {
+                  const query = new URLSearchParams({ id });
+
+                  if (skilotechCollection)
+                    query.append("skilotechCollection", skilotechCollection);
+                  if (application) query.append("application", application);
+                  if (myCollection) query.append("myCollection", myCollection);
+
+                  router.push(`/payment?${query.toString()}`);
+                }}
+                
+                className="flex text-[16px] justify-center items-center bg-blue text-white font-[600] h-[40px] rounded-[30px] px-6"
+              >
+                Enhance 
+              </button>
                   </div>
                 )}
               </div>
-              <button onClick={() => {
-                      const query = new URLSearchParams({ id });
+              <button
+                onClick={() => {
+                  const query = new URLSearchParams({ id });
 
-                      if (skilotechCollection)
-                        query.append(
-                          "skilotechCollection",
-                          skilotechCollection
-                        );
-                      if (application) query.append("application", application);
-                      if (myCollection)
-                        query.append("myCollection", myCollection);
+                  if (skilotechCollection)
+                    query.append("skilotechCollection", skilotechCollection);
+                  if (application) query.append("application", application);
+                  if (myCollection) query.append("myCollection", myCollection);
 
-                      router.push(`/payment?${query.toString()}`);
-                    }} className="flex  ms:hidden justify-center items-center bg_Button h-[40px] rounded-[30px] px-6">
+                  router.push(`/payment?${query.toString()}`);
+                }}
+                className="flex  ms:hidden justify-center items-center bg_Button h-[40px] rounded-[30px] px-6"
+              >
                 Enhance CV with Skilotech
               </button>
 
