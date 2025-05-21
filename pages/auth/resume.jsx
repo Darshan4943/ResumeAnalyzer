@@ -50,6 +50,7 @@ function ResumePage() {
       dispatch(setPageOpened());
     }
   }, [userDataGlobal]);
+
   useEffect(() => {
     const enhanceData = localStorage.getItem("enhancedVersion");
     const evaluation = localStorage.getItem("evaluation");
@@ -498,18 +499,21 @@ useEffect(() => {
       icon: <Sparkles className="w-5 h-5" />,
     },
   ];
+  
   useEffect(() => {
-    if (!loading) return;
+  if (!loading) return; // ✅ Valid inside useEffect
 
-    const interval = setInterval(() => {
-      setActiveStep((prev) => {
-        if (prev < steps.length - 1) return prev + 1;
-        return prev;
-      });
-    }, 5000);
+  const interval = setInterval(() => {
+    setActiveStep((prev) => {
+      if (prev < steps.length - 1) return prev + 1;
+      return prev;
+    });
+  }, 5000);
 
-    return () => clearInterval(interval);
-  }, [loading]);
+  return () => clearInterval(interval);
+}, [loading, steps.length]); // 🔁 include steps.length in dependency
+
+
   const MyComponent = ({ pageLayout }) => {
     return (
       <Document dpi={72}>
