@@ -172,36 +172,36 @@ function ResumePage() {
     }
   };
   
-useEffect(() => {
-  const storedEvaluation = localStorage.getItem("evaluation");
-  const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
+// useEffect(() => {
+//   const storedEvaluation = localStorage.getItem("evaluation");
+//   const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
 
-  // Only evaluate resume if no data is stored already
-  if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
-    evaluateResume();
-  } else {
-    // Optionally set state from localStorage to avoid blank state
-    if (storedEvaluation) {
-      setResumeData(JSON.parse(storedEvaluation));
-    }
-    if (storedEnhancedVersion) {
-      const enhanced = JSON.parse(storedEnhancedVersion);
-      setData(enhanced);
+//   // Only evaluate resume if no data is stored already
+//   if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
+//     evaluateResume();
+//   } else {
+//     // Optionally set state from localStorage to avoid blank state
+//     if (storedEvaluation) {
+//       setResumeData(JSON.parse(storedEvaluation));
+//     }
+//     if (storedEnhancedVersion) {
+//       const enhanced = JSON.parse(storedEnhancedVersion);
+//       setData(enhanced);
 
-      const userPaymentDetails = {
-        firstName: enhanced?.firstName,
-        lastName: enhanced?.lastName,
-        dialCode: enhanced?.dialCode,
-        mobileNo: enhanced?.mobileNumber,
-        email: enhanced?.email,
-      };
-      localStorage.setItem(
-        "userPaymentDetails",
-        JSON.stringify(userPaymentDetails)
-      );
-    }
-  }
-}, []);
+//       const userPaymentDetails = {
+//         firstName: enhanced?.firstName,
+//         lastName: enhanced?.lastName,
+//         dialCode: enhanced?.dialCode,
+//         mobileNo: enhanced?.mobileNumber,
+//         email: enhanced?.email,
+//       };
+//       localStorage.setItem(
+//         "userPaymentDetails",
+//         JSON.stringify(userPaymentDetails)
+//       );
+//     }
+//   }
+// }, []);
 
 
   const sectionRefs = {
