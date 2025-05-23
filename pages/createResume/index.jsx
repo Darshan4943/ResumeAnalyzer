@@ -644,7 +644,12 @@ function CreateResume() {
         } else {
           setSelectedColor("");
         }
-      } else {
+      } 
+      else if(isEnhanced){
+        setSelectedResumeIndex(48);
+          setSelectedColor("#F7941D");
+      }
+      else {
         setTimeout(() => {
           setSelectedResumeIndex(1);
           setSelectedColor("#414042");

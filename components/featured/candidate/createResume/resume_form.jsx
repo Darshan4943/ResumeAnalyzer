@@ -388,7 +388,7 @@ const ResumeForm = ({
         />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
-        <AboutMe setData={setData} data={data} />
+        <AboutMe setData={setData} data={data} isEnhanced={isEnhanced}/>
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <Education setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>

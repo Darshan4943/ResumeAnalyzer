@@ -434,7 +434,7 @@ function Collection() {
 
           try {
             const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
+              "http://localhost:2000/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);

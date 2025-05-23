@@ -8,7 +8,7 @@ import { updateAiHit } from "../../../../../Redux/slices/aiHitsSlice";
 import { setRecallData } from "../../../../../Redux/slices/recallSlice";
 import LimitUsedModal from "../../../../models/limitUsedModal";
 
-const AboutMe = ({ data, setData }) => {
+const AboutMe = ({ data, setData,isEnhanced }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const [text, setText] = useState("");

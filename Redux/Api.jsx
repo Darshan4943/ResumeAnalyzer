@@ -23,7 +23,7 @@ import { useRouter } from "next/router";
 import { setShareJobClose } from "./slices/shareJobSlice";
 import { setAiHitsData } from "./slices/setAiHitsSlice";
 
-export const Api = ({ }) => {
+export const Api = ({}) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -31,9 +31,6 @@ export const Api = ({ }) => {
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const router = useRouter();
-
-
-
   const [allPlans, setAllPlans] = useState([]);
 
   const dispatch = useDispatch();
@@ -52,15 +49,7 @@ export const Api = ({ }) => {
 
   useEffect(() => {
     dispatch(fetchUserData());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
-      const isLoggedIn = token && token !== "undefined";
-      dispatch(setLoginState(isLoggedIn));
-    }
-  }, [dispatch]);
+  }, []);
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -114,6 +103,7 @@ export const Api = ({ }) => {
       dispatch(fetchProfileData(userDataGlobal?._id));
       dispatch(fetchAppliedJob(userDataGlobal?._id));
       dispatch(fetchSavedJobIds(userDataGlobal?._id));
+      dispatch(setLoginState(true));
     }
   }, [userDataGlobal]);
 
@@ -179,10 +169,12 @@ export const Api = ({ }) => {
               (item) => item.index == result.index
             );
 
-            dispatch(setAiHitsData({
-              monthly: result.used.aiHits.monthly,
-              limit: result.limits.aiHitsLimit.monthly,
-            }));
+            dispatch(
+              setAiHitsData({
+                monthly: result.used.aiHits.monthly,
+                limit: result.limits.aiHitsLimit.monthly,
+              })
+            );
             localStorage.setItem(
               "activePlan",
               result?.index ? result?.index : null
@@ -324,17 +316,10 @@ export const Api = ({ }) => {
             localStorage.setItem("coverCountLimit", 0);
             localStorage.setItem("skillTestCountLimit", 0);
             localStorage.setItem("skillCertifiedCountLimit", 0);
-            
           }
-          localStorage.setItem(
-            "exchangeRate",
-             "1" 
-          );
-          localStorage.setItem(
-            "currency",
-            "USD" 
-          );
-          localStorage.setItem("icon",  "$" );
+          localStorage.setItem("exchangeRate", "1");
+          localStorage.setItem("currency", "USD");
+          localStorage.setItem("icon", "$");
         })
         .catch((err) => {
           console.log(err);
@@ -402,11 +387,6 @@ export const Api = ({ }) => {
       setError("Geolocation is not supported by this browser.");
     }
   };
- 
-
-
-
-
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
@@ -419,16 +399,13 @@ export const Api = ({ }) => {
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
         );
-       
+
         return response.data.results;
       } catch (err) {
         console.error("Error fetching country data:", err);
         return null;
       }
     };
-
-   
-
 
     const processCountryData = async (results) => {
       const countryData = results.find((result) =>
@@ -448,8 +425,8 @@ export const Api = ({ }) => {
           country === "India"
             ? "INR"
             : country === "United Kingdom"
-              ? "GBP"
-              : "USD";
+            ? "GBP"
+            : "USD";
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
@@ -471,7 +448,6 @@ export const Api = ({ }) => {
         );
         localStorage.setItem("icon", exchangeRate?.data === "" ? "$" : symbol);
       } else {
-        
         console.error("Error: Country data not found");
       }
     };
@@ -513,9 +489,9 @@ export const Api = ({ }) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance in kilometers
       return distance;
@@ -554,7 +530,6 @@ export const Api = ({ }) => {
       // Process the closest country data
       await processCountryData(closestData.results);
     } else {
-      
       console.log("No relevant data found");
     }
   };

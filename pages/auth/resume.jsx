@@ -24,6 +24,7 @@ import Template47 from "../../components/featured/resumeTemplates/Template47";
 import Template1 from "../../components/featured/resumeTemplates/Template1";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageOpened } from "../../Redux/slices/websiteSlice";
+import { fetchUserData } from "../../Redux/slices/userSlice";
 
 function ResumePage() {
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -45,16 +46,16 @@ function ResumePage() {
   const [isPayment, setIsPayment] = useState(false);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (isLogin && userDataGlobal?.role !== "user") {
-      dispatch(setPageOpened());
-    }
-  }, [userDataGlobal]);
+  // useEffect(() => {
+  //   if (isLogin && userDataGlobal?.role !== "user") {
+  //     dispatch(setPageOpened());
+  //   }
+  // }, [userDataGlobal]);
 
   useEffect(() => {
     const enhanceData = localStorage.getItem("enhancedVersion");
     const evaluation = localStorage.getItem("evaluation");
-   
+
     if (evaluation) {
       setResumeData(evaluation);
     }
@@ -62,6 +63,14 @@ function ResumePage() {
       setData(enhanceData);
     }
   }, []);
+
+  //   useEffect(() => {
+  //     if (application) {
+
+  //     }
+
+  // }, []);
+
   const steps = [
     { label: "Parsing your resume", icon: <FileText className="w-5 h-5" /> },
     { label: "Analyzing your experience", icon: <Brain className="w-5 h-5" /> },
@@ -74,8 +83,8 @@ function ResumePage() {
       icon: <Sparkles className="w-5 h-5" />,
     },
   ];
-  
-useEffect(() => {
+
+  useEffect(() => {
     if (!loading) return;
 
     const interval = setInterval(() => {
@@ -92,53 +101,64 @@ useEffect(() => {
     if (id) {
       setLoading(true);
       let url = "";
-
+      const token = JSON.parse(localStorage.getItem("authToken"));
       if (skilotechCollection) {
-        url = "https://jamblix.com/api/resumeEvaluation/" + id;
+        url = "http://localhost:2000/api/resumeEvaluation/" + id;
       } else if (myCollection) {
-        url = "https://jamblix.com/api/folderEvaluation/" + id;
+        url = "http://localhost:2000/api/folderEvaluation/" + id;
       } else if (application) {
-        url = "https://jamblix.com/api/applicationEvaluation/" + id;
+        url = "http://localhost:2000/api/applicationEvaluation/" + id;
       }
-      axios
-        .get(url)
-        .then((res) => {
-          setResumeData(res?.data?.data?.evaluation[0].feedback);
-          setData(res?.data?.data?.enhancedVersion);
-          setIsPayment(res?.data?.data?.paymentStatus);
-          localStorage.setItem(
-            "enhancedVersion",
-            JSON.stringify(res?.data?.data?.enhancedVersion)
-          );
-          localStorage.setItem(
-            "evaluation",
-            JSON.stringify(res?.data?.data?.evaluation[0].feedback)
-          );
-          const data = res?.data?.data?.enhancedVersion;
+      if (!token) {
+        axios
+          .get(url)
+          .then((res) => {
+            setResumeData(res?.data?.data?.evaluation[0].feedback);
+            setData(res?.data?.data?.enhancedVersion);
+            localStorage.setItem("authToken", JSON.stringify(res?.data));
+            dispatch(fetchUserData());
 
-          if (data) {
-            const userPaymentDetails = {
-              firstName: data?.firstName,
-              lastName: data?.lastName,
-              dialCode: data?.dialCode,
-              mobileNo: data?.mobileNumber,
-              email: data?.email,
-            };
-
+            setIsPayment(res?.data?.data?.paymentStatus);
             localStorage.setItem(
-              "userPaymentDetails",
-              JSON.stringify(userPaymentDetails)
+              "enhancedVersion",
+              JSON.stringify(res?.data?.data?.enhancedVersion)
             );
-          }
+            localStorage.setItem(
+              "evaluation",
+              JSON.stringify(res?.data?.data?.evaluation[0].feedback)
+            );
+            localStorage.setItem(
+              "improvedEvaluation",
+              JSON.stringify(res?.data?.data?.improvedEvaluation[0].feedback)
+            );
+            const data = res?.data?.data?.enhancedVersion;
 
-          setTimeout(() => {
+            if (data) {
+              const userPaymentDetails = {
+                firstName: data?.firstName,
+                lastName: data?.lastName,
+                dialCode: data?.dialCode,
+                mobileNo: data?.mobileNumber,
+                email: data?.email,
+              };
+
+              localStorage.setItem(
+                "userPaymentDetails",
+                JSON.stringify(userPaymentDetails)
+              );
+            }
+
+            setTimeout(() => {
+              setLoading(false);
+            }, 1000);
+          })
+          .catch((err) => {
+            console.log(err);
             setLoading(false);
-          }, 1000);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
+          });
+      } else {
+        setLoading(false);
+      }
     }
   }, [id]);
 
@@ -151,17 +171,18 @@ useEffect(() => {
     setIsPopupOpen(false);
   };
 
-
-
   const evaluateResume = async () => {
     const parsedResume = localStorage.getItem("parsedResume");
     const resumeJson = JSON.parse(parsedResume);
     try {
       setLoading(true);
 
-      const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
-        text: resumeJson,
-      });
+      const res = await axios.post(
+        "http://localhost:2000/api/resume-evaluate",
+        {
+          text: resumeJson,
+        }
+      );
 
       setResumeData(res?.data?.data?.evaluation[0]);
       setData(res?.data?.data?.enhancedVersion);
@@ -196,38 +217,37 @@ useEffect(() => {
       setLoading(false);
     }
   };
-  
-useEffect(() => {
-  const storedEvaluation = localStorage.getItem("evaluation");
-  const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
 
-  // Only evaluate resume if no data is stored already
-  if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
-    evaluateResume();
-  } else {
-    // Optionally set state from localStorage to avoid blank state
-    if (storedEvaluation) {
-      setResumeData(JSON.parse(storedEvaluation));
+  useEffect(() => {
+    const storedEvaluation = localStorage.getItem("evaluation");
+    const storedEnhancedVersion = localStorage.getItem("enhancedVersion");
+
+    // Only evaluate resume if no data is stored already
+    if (!id && (!storedEvaluation || !storedEnhancedVersion)) {
+      evaluateResume();
+    } else {
+      // Optionally set state from localStorage to avoid blank state
+      if (storedEvaluation) {
+        setResumeData(JSON.parse(storedEvaluation));
+      }
+      if (storedEnhancedVersion) {
+        const enhanced = JSON.parse(storedEnhancedVersion);
+        setData(enhanced);
+
+        const userPaymentDetails = {
+          firstName: enhanced?.firstName,
+          lastName: enhanced?.lastName,
+          dialCode: enhanced?.dialCode,
+          mobileNo: enhanced?.mobileNumber,
+          email: enhanced?.email,
+        };
+        localStorage.setItem(
+          "userPaymentDetails",
+          JSON.stringify(userPaymentDetails)
+        );
+      }
     }
-    if (storedEnhancedVersion) {
-      const enhanced = JSON.parse(storedEnhancedVersion);
-      setData(enhanced);
-
-      const userPaymentDetails = {
-        firstName: enhanced?.firstName,
-        lastName: enhanced?.lastName,
-        dialCode: enhanced?.dialCode,
-        mobileNo: enhanced?.mobileNumber,
-        email: enhanced?.email,
-      };
-      localStorage.setItem(
-        "userPaymentDetails",
-        JSON.stringify(userPaymentDetails)
-      );
-    }
-  }
-}, []);
-
+  }, []);
 
   const sectionRefs = {
     tailoring: useRef(null),
@@ -254,7 +274,6 @@ useEffect(() => {
     }
   };
 
-  
   const tailoringScore = resumeData?.tailoring?.score ?? 0;
   const contentScore = resumeData?.content?.score ?? 0;
   const formatScore = resumeData?.format?.score ?? 0;
@@ -322,11 +341,7 @@ useEffect(() => {
   const handlePayment = () => {
     console.log("Payment initiated");
   };
-  
 
-
-  
-  
   const MyComponent = ({ pageLayout }) => {
     return (
       <Document dpi={72}>
@@ -355,7 +370,6 @@ useEffect(() => {
     "missingOrWeakSections",
     "toneAndLanguageFeedback",
   ];
-  
 
   return (
     <>
@@ -404,7 +418,7 @@ useEffect(() => {
           </div>
         </>
       )}
-      {isLogin && userDataGlobal?.role !== "user" && (
+      {/* {isLogin && userDataGlobal?.role !== "user" && (
         <div
           className="bg-white z-[2000] fixed w-full top-0 ml-[-24px]"
           style={{ borderBottom: "1.5px solid #DEDEDE" }}
@@ -417,7 +431,7 @@ useEffect(() => {
             />
           </div>
         </div>
-      )}
+      )} */}
       {loading ? (
         <div className="flex flex-col gap-4 customMargins py-6 justify-between">
           <div className="flex flex-wrap justify-evenly 420px:justify-between scr800:justify-start gap-[24px]">
@@ -541,18 +555,6 @@ useEffect(() => {
 
             <div className="flex gap-6 w-full scr1168:flex-row flex-col scr1168:justify-start justify-start scr1168:items-start items-start  relative ">
               <div className="w-full scr1168:w-1/2 ms:flex hidden flex-col gap-4 scr1168:sticky top-[84px]   ">
-                {/* {isPayment && (
-                  <div className="flex w-full justify-end">
-                    <button
-                      onClick={() =>
-                        router.push(`/createResume?isEnhanced=${true}`)
-                      }
-                      className="h-[36px] px-3 rounded-[30px] bg_Button w-[80px]"
-                    >
-                      Edit
-                    </button>
-                  </div>
-                )} */}
                 <div className={` ${!isPayment && "blur-sm"} sticky `}>
                   <div
                     className=" h-[776px] mt-1 w-[552px] rounded overflow-hidden  "
@@ -598,21 +600,25 @@ useEffect(() => {
                       Enhance CV with Skilotech
                     </p>
                     <button
-                onClick={() => {
-                  const query = new URLSearchParams({ id });
+                      onClick={() => {
+                        const query = new URLSearchParams({ id });
 
-                  if (skilotechCollection)
-                    query.append("skilotechCollection", skilotechCollection);
-                  if (application) query.append("application", application);
-                  if (myCollection) query.append("myCollection", myCollection);
+                        if (skilotechCollection)
+                          query.append(
+                            "skilotechCollection",
+                            skilotechCollection
+                          );
+                        if (application)
+                          query.append("application", application);
+                        if (myCollection)
+                          query.append("myCollection", myCollection);
 
-                  router.push(`/payment?${query.toString()}`);
-                }}
-                
-                className="flex text-[16px] justify-center items-center bg-blue text-white font-[600] h-[40px] rounded-[30px] px-6"
-              >
-                Enhance 
-              </button>
+                        router.push(`/payment?${query.toString()}`);
+                      }}
+                      className="flex text-[16px] justify-center items-center bg-blue text-white font-[600] h-[40px] rounded-[30px] px-6"
+                    >
+                      Enhance
+                    </button>
                   </div>
                 )}
               </div>

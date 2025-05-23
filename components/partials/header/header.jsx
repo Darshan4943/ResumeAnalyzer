@@ -18,7 +18,7 @@ function Header({ userData }) {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [experience, setExperience] = useState("");
-  const [isSearch, setIsSearch] = useState(false)
+  const [isSearch, setIsSearch] = useState(false);
   const [experinceData, setExperinceData] = useState([]);
   const [isSignIn, setIsSignIn] = useState(false);
   const [isServices, setServices] = useState(false);
@@ -29,7 +29,9 @@ function Header({ userData }) {
   const [jdCountMonthly, setJdCountMonthly] = useState();
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const { recallData } = useSelector((state) => state.recall);
-  const { aiHitsMonthly, aiHitsMonthlyLimit } = useSelector((state) => state.aiHits);
+  const { aiHitsMonthly, aiHitsMonthlyLimit } = useSelector(
+    (state) => state.aiHits
+  );
   // const getLimits = () => {
   //   const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
   //   setJdCountMonthly(jdCountMonthly);
@@ -68,26 +70,24 @@ function Header({ userData }) {
       .then((res) => {
         const { experiences } = res.data;
         setExperinceData(experiences);
-
       })
       .catch((err) => console.error(err));
   }, []);
-
 
   const sortedExperiences = (experinceData || [])
     .filter(Boolean)
     .sort((a, b) => {
       const getYearsRange = (str) => {
         const match = str?.match(/\d+/g);
-        return match ? [parseInt(match[0]), parseInt(match[1] || Infinity)] : [Infinity, Infinity];
+        return match
+          ? [parseInt(match[0]), parseInt(match[1] || Infinity)]
+          : [Infinity, Infinity];
       };
 
       const [aStart, aEnd] = getYearsRange(a);
       const [bStart, bEnd] = getYearsRange(b);
 
-
       if (aStart !== bStart) return aStart - bStart;
-
 
       return aEnd - bEnd;
     });
@@ -98,7 +98,6 @@ function Header({ userData }) {
     setShowDropdown(!showDropdown);
   };
   const handleLogOut = () => {
-
     toggleDropdown();
     localStorage.clear();
     sessionStorage.clear();
@@ -110,8 +109,8 @@ function Header({ userData }) {
       ref={taskRef}
       className={
         selectedPage === "/auth/candidate_register" ||
-          selectedPage === "/auth/Employer_register" ||
-          selectedPage === "/auth/Recruiter_register"
+        selectedPage === "/auth/Employer_register" ||
+        selectedPage === "/auth/Recruiter_register"
           ? " "
           : "bg-white z-[1000000] fixed w-[100%]  "
       }
@@ -124,9 +123,6 @@ function Header({ userData }) {
           className={`flex justify-between w-[100%] transition-all duration-500 ease-in-out bg-white`}
           style={{ height: isSearch ? "168px" : "60px" }}
         >
-
-
-
           <>
             <div className="flex py-3 scr1024:gap-9  gap-4 list-none w-full">
               <Link href="/">
@@ -136,19 +132,27 @@ function Header({ userData }) {
                   alt=""
                 />
               </Link>
-              {!isLogin ?
+              {!isLogin ? (
                 <div className=" ml:flex hidden items-center h-[40px] scr1024:gap-9 gap-4 ">
                   <div
                     onClick={() => {
                       router.push("/jobs/candidate");
                       setServices(false);
                     }}
-                    className={`transition-opacity duration-800 ease-in-out ${isSearch ? "opacity-0" : "opacity-100"
-                      } ${selectedPage === "/jobs/candidate" && !isServices ? "active" : "li"} scr1250:text-[16px] text-[16px] cursor-pointer`}
+                    className={`transition-opacity duration-800 ease-in-out ${
+                      isSearch ? "opacity-0" : "opacity-100"
+                    } ${
+                      selectedPage === "/jobs/candidate" && !isServices
+                        ? "active"
+                        : "li"
+                    } scr1250:text-[16px] text-[16px] cursor-pointer`}
                   >
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
-                      animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                      animate={{
+                        opacity: isSearch ? 0 : 1,
+                        scale: isSearch ? 0.8 : 1,
+                      }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.4 }}
                       layout
@@ -159,12 +163,18 @@ function Header({ userData }) {
 
                   <div
                     onClick={() => router.push("/services")}
-                    className={`transition-opacity duration-800 ease-in-out ${isSearch ? "opacity-0" : "opacity-100"
-                      } ${selectedPage === "/services" ? "active" : "li"} scr1250:text-[16px] text-[16px] cursor-pointer`}
+                    className={`transition-opacity duration-800 ease-in-out ${
+                      isSearch ? "opacity-0" : "opacity-100"
+                    } ${
+                      selectedPage === "/services" ? "active" : "li"
+                    } scr1250:text-[16px] text-[16px] cursor-pointer`}
                   >
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
-                      animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                      animate={{
+                        opacity: isSearch ? 0 : 1,
+                        scale: isSearch ? 0.8 : 1,
+                      }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.4 }}
                       layout
@@ -173,20 +183,25 @@ function Header({ userData }) {
                     </motion.div>
                   </div>
                 </div>
-                :
+              ) : (
                 <div className="ml:flex hidden items-center scr1024:gap-7 gap-4 h-[40px]">
-                  {userDataGlobal?.role == "user" &&
+                  {userDataGlobal?.role == "user" && (
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
-                      animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                      animate={{
+                        opacity: isSearch ? 0 : 1,
+                        scale: isSearch ? 0.8 : 1,
+                      }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.4 }}
                       layout
-
-                      onClick={() => { setServices(false); selectedPage !== "/jobs/candidate" && router.push("/jobs/candidate") }}
-
+                      onClick={() => {
+                        setServices(false);
+                        selectedPage !== "/jobs/candidate" &&
+                          router.push("/jobs/candidate");
+                      }}
                       className={
-                        (selectedPage === "/jobs/candidate" && !isServices)
+                        selectedPage === "/jobs/candidate" && !isServices
                           ? "text-[14px] flex gap-2 items-center   px-[4px] font-semibold cursor-pointer  border-b-2 border-b-yellow "
                           : " text-[14px] flex gap-2 items-center font-medium  px-[4px] border-2 border-white  hover:border-b-yellow  cursor-pointer "
                       }
@@ -213,20 +228,23 @@ function Header({ userData }) {
 
                       <li>Jobs</li>
                     </motion.div>
-
-                  }
+                  )}
                   <motion.div
                     initial={{ opacity: 1, scale: 1 }}
-                    animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                    animate={{
+                      opacity: isSearch ? 0 : 1,
+                      scale: isSearch ? 0.8 : 1,
+                    }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.4 }}
                     layout
-                    className="relative flex items-center  ">
+                    className="relative flex items-center  "
+                  >
                     {selectedPage !== "/services" ? (
                       <div
                         onClick={() => router.push("/services")}
                         className={
-                         "text-[14px] flex gap-2 items-center   px-[4px] font-medium cursor-pointer  border-2 border-white hover:border-b-yellow "
+                          "text-[14px] flex gap-2 items-center   px-[4px] font-medium cursor-pointer  border-2 border-white hover:border-b-yellow "
                         }
                       >
                         {/* <Service /> */}
@@ -242,8 +260,6 @@ function Header({ userData }) {
                           " text-[14px] flex gap-2  items-center font-semibold px-[4px] border-b-2 border-b-yellow   cursor-pointer "
                         }
                       >
-                     
-
                         <li>Services</li>
                       </div>
                     )}
@@ -257,27 +273,25 @@ function Header({ userData }) {
                     )}
                   </motion.div>
                 </div>
+              )}
 
-              }
-
-
-              {(selectedPage.startsWith('/jobs') || isLogin) &&
+              {(selectedPage.startsWith("/jobs") || isLogin) && (
                 <div className="relative  w-full ml:flex hidden justify-center ">
                   <motion.div
-
-                    className={`absolute z-[30000] bg-white xlg:w-[258px]  ${isSearch ? "" : ""}  `}
+                    className={`absolute z-[30000] bg-white xlg:w-[258px]  ${
+                      isSearch ? "" : ""
+                    }  `}
                     initial={{ width: "258px", height: "46px" }}
                     animate={{
                       width: isSearch ? "648px" : "",
                       height: isSearch ? "62px" : "46px",
                       y: isSearch ? 80 : 0,
                       x: isSearch ? 0 : 0,
-
                     }}
                     exit={{ width: "80px", height: "50px" }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                   >
-                    {isSearch ?
+                    {isSearch ? (
                       <motion.div
                         initial={{ scaleX: 0, scaleY: 0 }}
                         animate={{
@@ -288,7 +302,8 @@ function Header({ userData }) {
                         }}
                         exit={{ scaleX: 0, scaleY: 0 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="flex flex-row gap-[8px] scr1024:gap-4 items-center justify-between w-full border border-[#E1E3E3] rounded-[30px] px-3 py-[10px]">
+                        className="flex flex-row gap-[8px] scr1024:gap-4 items-center justify-between w-full border border-[#E1E3E3] rounded-[30px] px-3 py-[10px]"
+                      >
                         <input
                           type="text"
                           placeholder="Enter Job title"
@@ -299,7 +314,9 @@ function Header({ userData }) {
                         <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
 
                         <select
-                          className={`text-[14px] font-[500] outline-none border-none  w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"}`}
+                          className={`text-[14px] font-[500] outline-none border-none  w-full font-Montserrat max-w-[148px] min-w-[80px] ${
+                            experience ? "text-[#333333]" : "text-[#889FBA]"
+                          }`}
                           value={experience}
                           onChange={(e) => setExperience(e.target.value)}
                         >
@@ -309,7 +326,11 @@ function Header({ userData }) {
                           {sortedExperiences
                             .filter((exp) => exp)
                             .map((exp, index) => (
-                              <option key={index} value={exp} className="text-[#333333]">
+                              <option
+                                key={index}
+                                value={exp}
+                                className="text-[#333333]"
+                              >
                                 {exp}
                               </option>
                             ))}
@@ -327,52 +348,64 @@ function Header({ userData }) {
 
                         <button
                           onClick={() => {
-                            router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+                            router.push(
+                              `/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`
+                            );
                           }}
                           className="px-6 bg-blue h-[38px] bg_Button rounded-[30px] text-[14px] font-semibold text-white leading-tight"
                         >
                           Search
                         </button>
                       </motion.div>
-                      :
+                    ) : (
                       <div
-                        onClick={() => {setIsSearch(true);}}
+                        onClick={() => {
+                          setIsSearch(true);
+                        }}
                         className={`  flex justify-between pl-[10px] gap-4 items-center  cursor-pointer lg:w-full w-[200px]  border border-[#E1E3E3] rounded-[30px] px-[3px] h-[37px] `}
                       >
                         <div className="text-[14px] font-medium text-[#889FBA]">
                           UX Designer
                         </div>
                         <div className="bg-blue rounded-[50%] h-[30px] w-[30px] flex justify-center items-center">
-                          <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                          <svg
+                            width="19"
+                            height="18"
+                            viewBox="0 0 19 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <g mask="url(#mask0_8338_107109)">
-                              <path d="M7.75831 11.7119C6.47756 11.7119 5.39294 11.2677 4.50444 10.3794C3.61606 9.49087 3.17188 8.40625 3.17188 7.1255C3.17188 5.84475 3.61606 4.76013 4.50444 3.87163C5.39294 2.98325 6.47756 2.53906 7.75831 2.53906C9.03906 2.53906 10.1237 2.98325 11.0122 3.87163C11.9006 4.76013 12.3448 5.84475 12.3448 7.1255C12.3448 7.66112 12.2549 8.17269 12.0751 8.66019C11.8953 9.14769 11.6553 9.57169 11.3553 9.93219L15.6708 14.2477C15.7747 14.3514 15.8278 14.4819 15.8302 14.6392C15.8326 14.7964 15.7794 14.9294 15.6708 15.038C15.5622 15.1466 15.4304 15.2009 15.2756 15.2009C15.1208 15.2009 14.9891 15.1466 14.8805 15.038L10.565 10.7225C10.19 11.0321 9.75875 11.2744 9.27125 11.4494C8.78375 11.6244 8.27944 11.7119 7.75831 11.7119ZM7.75831 10.5871C8.72469 10.5871 9.54319 10.2517 10.2138 9.581C10.8846 8.91037 11.2199 8.09187 11.2199 7.1255C11.2199 6.15912 10.8846 5.34062 10.2138 4.67C9.54319 3.99925 8.72469 3.66387 7.75831 3.66387C6.79194 3.66387 5.97344 3.99925 5.30281 4.67C4.63206 5.34062 4.29669 6.15912 4.29669 7.1255C4.29669 8.09187 4.63206 8.91037 5.30281 9.581C5.97344 10.2517 6.79194 10.5871 7.75831 10.5871Z" fill="white" />
+                              <path
+                                d="M7.75831 11.7119C6.47756 11.7119 5.39294 11.2677 4.50444 10.3794C3.61606 9.49087 3.17188 8.40625 3.17188 7.1255C3.17188 5.84475 3.61606 4.76013 4.50444 3.87163C5.39294 2.98325 6.47756 2.53906 7.75831 2.53906C9.03906 2.53906 10.1237 2.98325 11.0122 3.87163C11.9006 4.76013 12.3448 5.84475 12.3448 7.1255C12.3448 7.66112 12.2549 8.17269 12.0751 8.66019C11.8953 9.14769 11.6553 9.57169 11.3553 9.93219L15.6708 14.2477C15.7747 14.3514 15.8278 14.4819 15.8302 14.6392C15.8326 14.7964 15.7794 14.9294 15.6708 15.038C15.5622 15.1466 15.4304 15.2009 15.2756 15.2009C15.1208 15.2009 14.9891 15.1466 14.8805 15.038L10.565 10.7225C10.19 11.0321 9.75875 11.2744 9.27125 11.4494C8.78375 11.6244 8.27944 11.7119 7.75831 11.7119ZM7.75831 10.5871C8.72469 10.5871 9.54319 10.2517 10.2138 9.581C10.8846 8.91037 11.2199 8.09187 11.2199 7.1255C11.2199 6.15912 10.8846 5.34062 10.2138 4.67C9.54319 3.99925 8.72469 3.66387 7.75831 3.66387C6.79194 3.66387 5.97344 3.99925 5.30281 4.67C4.63206 5.34062 4.29669 6.15912 4.29669 7.1255C4.29669 8.09187 4.63206 8.91037 5.30281 9.581C5.97344 10.2517 6.79194 10.5871 7.75831 10.5871Z"
+                                fill="white"
+                              />
                             </g>
                           </svg>
-
                         </div>
                       </div>
-                    }
-
-
+                    )}
                   </motion.div>
-
                 </div>
-              }
-
-
+              )}
             </div>
 
-            {isLogin ?
+            {isLogin ? (
               <motion.div
                 initial={{ opacity: 1, scale: 1 }}
-                animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                animate={{
+                  opacity: isSearch ? 0 : 1,
+                  scale: isSearch ? 0.8 : 1,
+                }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
                 layout
-                className="relative flex gap-4 justify-end  items-center scr1024:w-[50%]  w-[40%] h-[50px] mt-[4px] ">
+                className="relative flex gap-4 justify-end  items-center scr1024:w-[50%]  w-[40%] h-[50px] mt-[4px] "
+              >
                 <div className="flex gap-1 text-[12px] font-medium items-center">
-                  <p className="hidden ml:block min-w-[120px]">Remaining AI Hits</p>
+                  <p className="hidden ml:block min-w-[120px]">
+                    Remaining AI Hits
+                  </p>
                   <div
                     style={{
                       backgroundColor: "#4C43CD",
@@ -534,27 +567,60 @@ function Header({ userData }) {
                       </svg>
                       My Purchase
                     </div>
-                    {userDataGlobal?.role == "user" &&
+                    {userDataGlobal?.role == "user" && (
                       <div
                         onClick={() => router.push("/candidate/myWebsite")}
                         className=" flex gap-3 py-2 px-3  items-center"
                       >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7 6.6C7 6.26863 7.26863 6 7.6 6H8.4C8.73137 6 9 6.26863 9 6.6C9 6.93137 8.73137 7.2 8.4 7.2H7.6C7.26863 7.2 7 6.93137 7 6.6Z" fill="#333333" />
-                          <path d="M4 6.6C4 6.26863 4.26863 6 4.6 6H5.4C5.73137 6 6 6.26863 6 6.6C6 6.93137 5.73137 7.2 5.4 7.2H4.6C4.26863 7.2 4 6.93137 4 6.6Z" fill="#333333" />
-                          <path d="M16 6.6C16 6.26863 16.2686 6 16.6 6C16.9314 6 17.2 6.26863 17.2 6.6C17.2 6.93137 16.9314 7.2 16.6 7.2C16.2686 7.2 16 6.93137 16 6.6Z" fill="#333333" />
-                          <path d="M17.7002 6.6C17.7002 6.26863 17.9688 6 18.3002 6C18.6316 6 18.9002 6.26863 18.9002 6.6C18.9002 6.93137 18.6316 7.2 18.3002 7.2C17.9688 7.2 17.7002 6.93137 17.7002 6.6Z" fill="#333333" />
-                          <path d="M19.3999 6.6C19.3999 6.26863 19.6685 6 19.9999 6C20.3313 6 20.5999 6.26863 20.5999 6.6C20.5999 6.93137 20.3313 7.2 19.9999 7.2C19.6685 7.2 19.3999 6.93137 19.3999 6.6Z" fill="#333333" />
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.0998 5.49999H20.8998C21.2312 5.49999 21.4998 5.76862 21.4998 6.09999V8H2.5L2.4998 6.09999C2.4998 5.76862 2.76843 5.49999 3.0998 5.49999ZM2.49998 9L2.4998 17.9C2.4998 18.2314 2.76843 18.5 3.0998 18.5H20.8998C21.2312 18.5 21.4998 18.2314 21.4998 17.9V9H2.49998ZM1.2998 6.09999C1.2998 5.10588 2.10569 4.29999 3.0998 4.29999H20.8998C21.8939 4.29999 22.6998 5.10588 22.6998 6.09999V17.9C22.6998 18.8941 21.8939 19.7 20.8998 19.7H3.0998C2.10569 19.7 1.2998 18.8941 1.2998 17.9V6.09999Z" fill="#333333" />
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.07419 18.689C9.0742 18.6889 9.07422 18.6887 9.07423 18.6886C9.15106 17.9667 9.49204 17.2987 10.0316 16.8131C10.5713 16.3273 11.2715 16.0582 11.9976 16.0577C12.7237 16.0571 13.4244 16.325 13.9649 16.8098C14.5051 17.2944 14.8471 17.9616 14.9253 18.683C14.9253 18.6834 14.9254 18.6838 14.9254 18.6842L15.977 18.5707C15.9329 18.1626 15.8268 17.7674 15.665 17.3974C15.4376 16.8775 15.1004 16.4077 14.6712 16.0226C13.9364 15.3634 12.9839 14.9992 11.9968 15C11.0097 15.0008 10.0577 15.3666 9.32405 16.027C8.89542 16.4128 8.55897 16.8832 8.3325 17.4034C8.17132 17.7737 8.06584 18.1691 8.02246 18.5772L9.07419 18.689Z" fill="#333333" />
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 13.5C12.856 13.5 13.55 12.8061 13.55 11.95C13.55 11.094 12.856 10.4 12 10.4C11.144 10.4 10.45 11.094 10.45 11.95C10.45 12.8061 11.144 13.5 12 13.5ZM12 14.7C13.5188 14.7 14.75 13.4688 14.75 11.95C14.75 10.4312 13.5188 9.20001 12 9.20001C10.4812 9.20001 9.25 10.4312 9.25 11.95C9.25 13.4688 10.4812 14.7 12 14.7Z" fill="#333333" />
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7 6.6C7 6.26863 7.26863 6 7.6 6H8.4C8.73137 6 9 6.26863 9 6.6C9 6.93137 8.73137 7.2 8.4 7.2H7.6C7.26863 7.2 7 6.93137 7 6.6Z"
+                            fill="#333333"
+                          />
+                          <path
+                            d="M4 6.6C4 6.26863 4.26863 6 4.6 6H5.4C5.73137 6 6 6.26863 6 6.6C6 6.93137 5.73137 7.2 5.4 7.2H4.6C4.26863 7.2 4 6.93137 4 6.6Z"
+                            fill="#333333"
+                          />
+                          <path
+                            d="M16 6.6C16 6.26863 16.2686 6 16.6 6C16.9314 6 17.2 6.26863 17.2 6.6C17.2 6.93137 16.9314 7.2 16.6 7.2C16.2686 7.2 16 6.93137 16 6.6Z"
+                            fill="#333333"
+                          />
+                          <path
+                            d="M17.7002 6.6C17.7002 6.26863 17.9688 6 18.3002 6C18.6316 6 18.9002 6.26863 18.9002 6.6C18.9002 6.93137 18.6316 7.2 18.3002 7.2C17.9688 7.2 17.7002 6.93137 17.7002 6.6Z"
+                            fill="#333333"
+                          />
+                          <path
+                            d="M19.3999 6.6C19.3999 6.26863 19.6685 6 19.9999 6C20.3313 6 20.5999 6.26863 20.5999 6.6C20.5999 6.93137 20.3313 7.2 19.9999 7.2C19.6685 7.2 19.3999 6.93137 19.3999 6.6Z"
+                            fill="#333333"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M3.0998 5.49999H20.8998C21.2312 5.49999 21.4998 5.76862 21.4998 6.09999V8H2.5L2.4998 6.09999C2.4998 5.76862 2.76843 5.49999 3.0998 5.49999ZM2.49998 9L2.4998 17.9C2.4998 18.2314 2.76843 18.5 3.0998 18.5H20.8998C21.2312 18.5 21.4998 18.2314 21.4998 17.9V9H2.49998ZM1.2998 6.09999C1.2998 5.10588 2.10569 4.29999 3.0998 4.29999H20.8998C21.8939 4.29999 22.6998 5.10588 22.6998 6.09999V17.9C22.6998 18.8941 21.8939 19.7 20.8998 19.7H3.0998C2.10569 19.7 1.2998 18.8941 1.2998 17.9V6.09999Z"
+                            fill="#333333"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M9.07419 18.689C9.0742 18.6889 9.07422 18.6887 9.07423 18.6886C9.15106 17.9667 9.49204 17.2987 10.0316 16.8131C10.5713 16.3273 11.2715 16.0582 11.9976 16.0577C12.7237 16.0571 13.4244 16.325 13.9649 16.8098C14.5051 17.2944 14.8471 17.9616 14.9253 18.683C14.9253 18.6834 14.9254 18.6838 14.9254 18.6842L15.977 18.5707C15.9329 18.1626 15.8268 17.7674 15.665 17.3974C15.4376 16.8775 15.1004 16.4077 14.6712 16.0226C13.9364 15.3634 12.9839 14.9992 11.9968 15C11.0097 15.0008 10.0577 15.3666 9.32405 16.027C8.89542 16.4128 8.55897 16.8832 8.3325 17.4034C8.17132 17.7737 8.06584 18.1691 8.02246 18.5772L9.07419 18.689Z"
+                            fill="#333333"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 13.5C12.856 13.5 13.55 12.8061 13.55 11.95C13.55 11.094 12.856 10.4 12 10.4C11.144 10.4 10.45 11.094 10.45 11.95C10.45 12.8061 11.144 13.5 12 13.5ZM12 14.7C13.5188 14.7 14.75 13.4688 14.75 11.95C14.75 10.4312 13.5188 9.20001 12 9.20001C10.4812 9.20001 9.25 10.4312 9.25 11.95C9.25 13.4688 10.4812 14.7 12 14.7Z"
+                            fill="#333333"
+                          />
                         </svg>
-
-
-
                         My Website
                       </div>
-                    }
+                    )}
                     <div
                       onClick={handleLogOut}
                       className=" flex gap-3 py-2 px-3 text-[#C00000] items-center"
@@ -575,18 +641,19 @@ function Header({ userData }) {
                       </svg>
                       Log Out
                     </div>
-
                   </div>
                 )}
               </motion.div>
-              :
-
+            ) : (
               <div className="w-[40%] gap-4 flex justify-end items-center h-[40px] mt-[10px]">
                 <motion.button
                   onClick={() => router.push("/auth?signin=true")}
                   className="buttonTransparent  rounded-[30px] flex justify-center items-center blue_border_Button py-[10px] h-[38px] px-6 text-[14px] font-semibold border-[1px]  leading-[18px]"
                   initial={{ opacity: 1, scale: 1 }}
-                  animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                  animate={{
+                    opacity: isSearch ? 0 : 1,
+                    scale: isSearch ? 0.8 : 1,
+                  }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
                   layout
@@ -598,7 +665,10 @@ function Header({ userData }) {
                   onClick={() => router.push("/auth?signup=true")}
                   className="rounded-[30px]  flex justify-center items-center bg_Button py-[10px] h-[38px] px-6  text-[14px] font-semibold border-[1px]  leading-[18px]"
                   initial={{ opacity: 1, scale: 1 }}
-                  animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
+                  animate={{
+                    opacity: isSearch ? 0 : 1,
+                    scale: isSearch ? 0.8 : 1,
+                  }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
                   layout
@@ -606,13 +676,18 @@ function Header({ userData }) {
                   Sign Up
                 </motion.button>
               </div>
-            }
+            )}
           </>
 
-
-          {isServices && <Services setServices={setServices} isServices={isServices} setIsMove={setIsMove} isMove={isMove} />}
+          {isServices && (
+            <Services
+              setServices={setServices}
+              isServices={isServices}
+              setIsMove={setIsMove}
+              isMove={isMove}
+            />
+          )}
         </div>
-
       </div>
     </div>
   );

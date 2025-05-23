@@ -528,11 +528,11 @@ useEffect(() => {
                 </View>
                 )}
 
-              {data?.course.length > 0 &&
+              {data?.course?.length > 0 &&
                 data?.showCourses === true &&
                 !pageLayout && (
                   <View>
-                  {data?.course.map((detail, index) => (
+                  {data?.course?.map((detail, index) => (
                   <View
                   key={index}
                   wrap={false}

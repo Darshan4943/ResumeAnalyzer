@@ -35,24 +35,32 @@ function MyFolders1({
     });
   }
   const handleCheckboxChange = (applicant) => {
-    setSelectedApplicants((prevSelected) => {
-      const isSelected = prevSelected.find(
-        (item) => item._id === applicant._id
-      );
-      if (isSelected) {
-        return prevSelected.filter((item) => item._id !== applicant._id);
-      } else {
-        return [...prevSelected, applicant];
-      }
-    });
-  };
+  // Skip if paymentStatus is not unpaid
+  if (applicant.paymentStatus ) return;
+
+  setSelectedApplicants((prevSelected) => {
+    const isSelected = prevSelected.find(
+      (item) => item._id === applicant._id
+    );
+
+    if (isSelected) {
+      // Deselect if already selected
+      return prevSelected.filter((item) => item._id !== applicant._id);
+    } else {
+      // Select if not already selected
+      return [...prevSelected, applicant];
+    }
+  });
+};
+
+
 
   // Handle 'select all' checkbox
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       // Select only applicants with paymentStatus !== true
       const unpaidApplicants = data.filter(
-        (applicant) => !applicant.paymentStatus
+        (applicant) => !applicant.paymentStatus  && applicant.type !=="folder"
       );
       setSelectedApplicants(unpaidApplicants);
     } else {

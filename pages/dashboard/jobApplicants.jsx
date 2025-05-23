@@ -6,7 +6,7 @@ import MiniLoaderr from "../../components/common/miniLoader";
 import { setPageOpened } from "../../Redux/slices/websiteSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
+import Fuse from "fuse.js";
 function JobApplicants() {
   const dispatch = useDispatch();
   // dispatch(setPageOpened());
@@ -17,12 +17,32 @@ function JobApplicants() {
   const [filterType, setFilterType] = useState();
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [loading, setLoading] = useState("");
+    const [loadingg, setLoadingg] = useState("");
   const [loading1, setLoading1] = useState("");
   const [countryCode, setCountryCode] = useState("");
+  
   const [loading2, setLoading2] = useState(false);
   // Column widths and text alignments
-  const widths = ["25%", "10%", "15%", "25%", "15%", "10%"];
+  const widths = ["25%", "10%", "15%", "25%", "15%", "25%"];
   const texts = ["start", "start", "start", "start", "start", "center"];
+
+   const [searchTerm, setSearchTerm] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
+
+  const fuseSearch = (term, data) => {
+  const fuse = new Fuse(data, {
+    keys: ["details.personal.email", "details.personal.firstName", "details.personal.lastName", "details.personal.mobileNo"],
+    threshold: 0.3,
+  });
+
+  const result = fuse.search(term);
+  return term ? result.map(({ item }) => item) : data;
+};
+  useEffect(() => {
+      const filtered = fuseSearch(searchTerm, data);
+      setFilteredData(filtered);
+    }, [searchTerm, data]);
+
 
   const getJobApplicants = async () => {
     setLoading1(true);
@@ -121,7 +141,7 @@ function JobApplicants() {
 
   // Function to send email to an individual applicant
   const handleSendIndividualMail = async (applicant) => {
-    setLoading(applicant._id);
+    // setLoading(applicant._id);
     try {
       const response = await axios.post(
         "https://jamblix.com/api/sendEvaluationMail",
@@ -141,14 +161,17 @@ function JobApplicants() {
       if (response.data.success) {
         toast.success("Email sent successfully!");
         setLoading("");
+        setLoadingg("");
       } else {
         setLoading("");
+         setLoadingg("");
         toast.error("Failed to send email.");
       }
     } catch (error) {
       console.error("Error sending email:", error);
       toast.error("Failed to send email.");
       setLoading("");
+       setLoadingg("");
     }
   };
 
@@ -190,6 +213,14 @@ function JobApplicants() {
         <div className="web">
           {/* Bulk Mail Button */}
           <div className="flex justify-end mb-4 gap-4">
+             <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search ..."
+              className="border border-[#DEDEDE] rounded-full px-4 py-2 text-[14px] sm:text-[14px]  "
+            />
+
             <select
               id="country"
               className="px-4 rounded-[30px] outline-none text-[14px] font-medium "
@@ -247,9 +278,9 @@ function JobApplicants() {
 
           {/* Table Body */}
           <div className="flex flex-col items-start bg-[#fff] overflow-y-auto">
-            {data.length !== 0 ? (
+            {filteredData.length !== 0 ? (
               <>
-                {data.map((applicant, index) => (
+                {filteredData.map((applicant, index) => (
                   <div
                     className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${
                       selectedApplicants.some(
@@ -278,8 +309,9 @@ function JobApplicants() {
                         />
                         <p className="text-[14px] font-[600]">
                           {applicant?.details?.personal?.firstName}{" "}
-                          {applicant?.lastName}
+                          {applicant?.details?.personal?.lastName}
                         </p>
+                        
                       </div>
                       <div className="flex w-[10%] items-center justify-start gap-[8px]">
                         <p className="text-[14px] font-[600]">
@@ -305,7 +337,23 @@ function JobApplicants() {
                           {applicant?.paymentStatus ? "Paid" : "Unpaid"}
                         </p>
                       </div>
-                      <div className="flex w-[10%] items-center justify-center gap-[8px]">
+                      <div className="flex w-[25%] items-center justify-center gap-[8px]">
+                        {/* {loadingg === applicant._id ? (
+                          <button className="text-[14px] font-[500] flex items-center justify-center w-[152.63px] rounded-[30px] bg_Button px-4 h-[40px]">
+                            <MiniLoader />
+                          </button>
+                        ) : (
+                          <button
+                            disabled={!applicant.isEvaluate || applicant.paymentStatus}
+                            className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${
+                              !applicant.isEvaluate || applicant.paymentStatus && "opacity-50"
+                            }`}
+                            onClick={() => {setLoadingg(applicant._id) ;handleSendIndividualMail(applicant)}} 
+                          >
+                            Send Payment Link
+                          </button>
+                        )} */}
+                   
                         {loading === applicant._id ? (
                           <button className="text-[14px] font-[500] flex items-center justify-center w-[92.49px] rounded-[30px] bg_Button px-4 h-[40px]">
                             <MiniLoader />
@@ -316,7 +364,7 @@ function JobApplicants() {
                             className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${
                               !applicant.isEvaluate || applicant.paymentStatus && "opacity-50"
                             }`}
-                            onClick={() => handleSendIndividualMail(applicant)} // Send mail to individual
+                            onClick={() =>{setLoading(applicant._id) ;handleSendIndividualMail(applicant)}}
                           >
                             Send Mail
                           </button>
