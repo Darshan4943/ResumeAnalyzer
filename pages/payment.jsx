@@ -886,7 +886,7 @@ function Payment() {
               <button
                 className="red_border_Button rounded-[30px] h-[38px] px-6"
                 onClick={() => {
-                  e.preventDefault();
+                 
                   router.push("/").then(() => {
                     window.location.reload();
                   });
