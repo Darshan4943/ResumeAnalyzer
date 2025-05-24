@@ -25,6 +25,7 @@ import Template1 from "../../components/featured/resumeTemplates/Template1";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageOpened } from "../../Redux/slices/websiteSlice";
 import { fetchUserData } from "../../Redux/slices/userSlice";
+import { jwtDecode } from "jwt-decode";
 
 function ResumePage() {
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -44,6 +45,7 @@ function ResumePage() {
   const [activeStep, setActiveStep] = useState(0);
   const { id, application, skilotechCollection, myCollection } = router.query;
   const [isPayment, setIsPayment] = useState(false);
+  console.log(isPayment);
 
   const dispatch = useDispatch();
   // useEffect(() => {
@@ -103,22 +105,28 @@ function ResumePage() {
       let url = "";
       const token = JSON.parse(localStorage.getItem("authToken"));
       if (skilotechCollection) {
-        url = "http://localhost:2000/api/resumeEvaluation/" + id;
+        url = "https://jamblix.com/api/resumeEvaluation/" + id;
       } else if (myCollection) {
-        url = "http://localhost:2000/api/folderEvaluation/" + id;
+        url = "https://jamblix.com/api/folderEvaluation/" + id;
       } else if (application) {
-        url = "http://localhost:2000/api/applicationEvaluation/" + id;
+        url = "https://jamblix.com/api/applicationEvaluation/" + id;
       }
-      if (!token) {
-        axios
-          .get(url)
-          .then((res) => {
+      axios
+        .get(url)
+        .then((res) => {
+          const decoded = jwtDecode(token.token);
+          const existingUser = decoded._id;
+          const authToken = jwtDecode(res.data.token);
+          const newUser = authToken._id;
+          if (res?.data?.data?.paymentStatus) {
+            setIsPayment(res?.data?.data?.paymentStatus);
+          }
+          if (!token || existingUser != newUser) {
             setResumeData(res?.data?.data?.evaluation[0].feedback);
             setData(res?.data?.data?.enhancedVersion);
             localStorage.setItem("authToken", JSON.stringify(res?.data));
             dispatch(fetchUserData());
 
-            setIsPayment(res?.data?.data?.paymentStatus);
             localStorage.setItem(
               "enhancedVersion",
               JSON.stringify(res?.data?.data?.enhancedVersion)
@@ -151,14 +159,14 @@ function ResumePage() {
             setTimeout(() => {
               setLoading(false);
             }, 1000);
-          })
-          .catch((err) => {
-            console.log(err);
+          } else {
             setLoading(false);
-          });
-      } else {
-        setLoading(false);
-      }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
     }
   }, [id]);
 
@@ -178,7 +186,7 @@ function ResumePage() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:2000/api/resume-evaluate",
+        "https://jamblix.com/api/resume-evaluate",
         {
           text: resumeJson,
         }
@@ -195,6 +203,10 @@ function ResumePage() {
         "evaluation",
         JSON.stringify(res?.data?.data?.evaluation[0])
       );
+      localStorage.setItem(
+              "improvedEvaluation",
+              JSON.stringify(res?.data?.data?.improvedEvaluation[0])
+            );
       const data = res?.data?.data?.enhancedVersion;
 
       if (data) {
@@ -448,7 +460,7 @@ function ResumePage() {
 
           <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center">
             <div className="w-full md:w-1/2 flex flex-col gap-2 animate-pulse">
-              <div className="h-6 w-1/2 bg-gray rounded"></div>
+             
               <div className="w-full h-[600px] bg-white rounded">
                 <div className="h-full w-full p-6 bg-gray rounded"></div>
               </div>
