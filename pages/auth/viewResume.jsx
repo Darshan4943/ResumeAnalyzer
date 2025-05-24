@@ -367,7 +367,7 @@ function ViewResume() {
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                   <div className="fixed z-[2000] left-0 right-0 bottom-0 flex items-center justify-center top-12">
-                    <div className="bg-white flex flex-col gap-4 px-4 py-3 items-end">
+                    <div className="bg-white flex flex-col gap-4 px-4 py-3 items-end h-[80vh]">
                       <div
                         className=" cursor-pointer"
                         onClick={() => setPreview(false)}
