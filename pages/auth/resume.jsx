@@ -114,14 +114,20 @@ function ResumePage() {
       axios
         .get(url)
         .then((res) => {
-          const decoded = jwtDecode(token.token);
-          const existingUser = decoded._id;
-          const authToken = jwtDecode(res.data.token);
-          const newUser = authToken._id;
+          let existingUser;
+          let newUser;
+          if (token) {
+            const decoded = jwtDecode(token.token);
+            existingUser = decoded._id;
+            const authToken = jwtDecode(res.data.token);
+            newUser = authToken._id;
+          }
+
           if (res?.data?.data?.paymentStatus) {
             setIsPayment(res?.data?.data?.paymentStatus);
           }
           if (!token || existingUser != newUser) {
+            console.log("hii");
             setResumeData(res?.data?.data?.evaluation[0].feedback);
             setData(res?.data?.data?.enhancedVersion);
             localStorage.setItem("authToken", JSON.stringify(res?.data));
@@ -160,7 +166,9 @@ function ResumePage() {
               setLoading(false);
             }, 1000);
           } else {
-            setLoading(false);
+            setTimeout(() => {
+              setLoading(false);
+            }, 1000);
           }
         })
         .catch((err) => {
@@ -185,12 +193,9 @@ function ResumePage() {
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "https://jamblix.com/api/resume-evaluate",
-        {
-          text: resumeJson,
-        }
-      );
+      const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
+        text: resumeJson,
+      });
 
       setResumeData(res?.data?.data?.evaluation[0]);
       setData(res?.data?.data?.enhancedVersion);
@@ -204,9 +209,9 @@ function ResumePage() {
         JSON.stringify(res?.data?.data?.evaluation[0])
       );
       localStorage.setItem(
-              "improvedEvaluation",
-              JSON.stringify(res?.data?.data?.improvedEvaluation[0])
-            );
+        "improvedEvaluation",
+        JSON.stringify(res?.data?.data?.improvedEvaluation[0])
+      );
       const data = res?.data?.data?.enhancedVersion;
 
       if (data) {
@@ -460,7 +465,6 @@ function ResumePage() {
 
           <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center">
             <div className="w-full md:w-1/2 flex flex-col gap-2 animate-pulse">
-             
               <div className="w-full h-[600px] bg-white rounded">
                 <div className="h-full w-full p-6 bg-gray rounded"></div>
               </div>
