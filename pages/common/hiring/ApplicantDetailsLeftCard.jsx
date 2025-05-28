@@ -5,6 +5,7 @@ import { CountPostingDays } from "../../../utils/data";
 import MiniLoader from "../../../components/common/mini-loader";
 import { toast } from "react-toastify";
 import axios from "axios";
+import ApplicantProfile from "./ApplicantProfile";
 
 function ApplicantDetailsLeftCard({
   jobDetails,
@@ -33,6 +34,8 @@ function ApplicantDetailsLeftCard({
       );
       setLoading(false);
       setStatusChange(true);
+      setToggle("HiringProgress");
+      setActiveOption("HiringProgress");
       toast.success("Successfully moved to Hiring");
       return response.data;
     } catch (error) {
@@ -70,7 +73,7 @@ function ApplicantDetailsLeftCard({
                   {jobDetails?.details?.personal?.firstName}{" "}
                   {jobDetails?.details?.personal?.lastName}
                 </p>
-               
+
                 <p className="text-[16px]   text-start text-[#646464]   font-normal  ">
                   {jobDetails?.details?.professional?.designation}
                 </p>
@@ -140,18 +143,13 @@ function ApplicantDetailsLeftCard({
                   </div>
                 ) : (
                   <>
-                    {jobDetails?.hiringStage !== "Pending" ? (
-                      <div
-                        onClick={() => {
-                          setToggle("HiringProgress");
-                          setActiveOption("HiringProgress");
-                        }}
-                        className="flex gap-2 cursor-pointer"
+                    {jobDetails?.hiringStage === "Pending" ? (
+                      <button
+                        onClick={moveToHiring}
+                        className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]"
                       >
-                        <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
-                          Schedule Interview
-                        </div>
-                      </div>
+                        Move to Hiring Process
+                      </button>
                     ) : jobDetails?.hiringStage === "Shortlisted" ? (
                       <button disabled className="flex gap-2">
                         <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#4640DE] bg-[#4640DE1A]">
@@ -171,12 +169,17 @@ function ApplicantDetailsLeftCard({
                         </div>
                       </button>
                     ) : (
-                      <button
-                        onClick={moveToHiring}
-                        className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]"
+                      <div
+                        onClick={() => {
+                          setToggle("HiringProgress");
+                          setActiveOption("HiringProgress");
+                        }}
+                        className="flex gap-2 cursor-pointer"
                       >
-                        Move to Hiring Process
-                      </button>
+                        <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
+                          Schedule Interview
+                        </div>
+                      </div>
                     )}
                   </>
                 )}
@@ -184,13 +187,13 @@ function ApplicantDetailsLeftCard({
             )}
 
             <div className="min-h-[1px] bg-[#D6DDEB]"></div>
-            <div className="flex flex-col gap-4 text-[16px] font-normal">
+            <div className="flex flex-col gap-4 text-[14px] font-normal">
               <p className="font-[600] text-[16px] text-[#333333]">Contact</p>
               <div className="flex gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                 >
@@ -206,8 +209,8 @@ function ApplicantDetailsLeftCard({
               <div className="flex gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                 >
@@ -224,8 +227,8 @@ function ApplicantDetailsLeftCard({
                 <div className="flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                   >
@@ -244,8 +247,8 @@ function ApplicantDetailsLeftCard({
                 <div className="flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                   >
@@ -262,6 +265,60 @@ function ApplicantDetailsLeftCard({
                   </p>
                 </div>
               )}
+              <div className="flex flex-col gap-4 text-[16px] font-normal  overflow-y-auto">
+    
+      <div className="flex flex-col gap-4">
+
+        {jobDetails?.details?.professional?.aboutme && (
+          <div className="flex flex-col gap-2  w-[100%]">
+            <p className=" font-medium text-[14px] ">About </p>
+            <div className="flex flex-col gap-4 text-[12px] font-normal">
+              <p>{jobDetails?.details?.professional?.aboutme}</p>
+            </div>
+          </div>
+        )}
+        <div className="flex  gap-4 flex-col justify-between">
+          {jobDetails?.details?.professional?.currentJob?.company ||
+          jobDetails?.details?.professional?.hightestQul?.length > 0 ? (
+            <div className="flex flex-col gap-4 w-[100%]">
+              {jobDetails?.details?.professional?.currentJob && (
+                <div>
+                  <p className="text-[14px] font-medium">Current Job</p>
+                  <p className="text-[12px] font-normal">
+                    {jobDetails?.details?.professional?.currentJob?.company}
+                  </p>
+                  <p className="text-[12px] font-normal">
+                    {jobDetails?.details?.professional?.currentJob?.title}
+                  </p>
+                </div>
+              )}
+              {jobDetails?.details?.professional?.hightestQul && (
+                <div>
+                  <p className="text-[14px] font-medium">
+                    Highest Qualification
+                  </p>
+                  <p className="text-[12px] font-normal">
+                    {jobDetails?.details?.professional?.hightestQul}
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : null}
+
+          <div className="flex flex-col gap-4  w-[100%]">
+            {jobDetails?.details?.professional?.totalExperience && (
+              <div>
+                <p className="text-[14px]  font-medium">Experience in Years</p>
+                <p className="text-[12px] font-normal">
+                  {jobDetails?.details?.professional?.totalExperience}
+                </p>
+              </div>
+            )}
+           
+          </div>
+        </div>
+      </div>
+    </div>
             </div>
           </div>
         )}

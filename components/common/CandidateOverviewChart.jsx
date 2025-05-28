@@ -69,9 +69,9 @@ const CandidateOverviewChart = () => {
   useEffect(() => {
     if (statistics) {
       setChartData({
-        jobPost: statistics.totalJobs || 0,
         apply: statistics.totalApplications || 0,
         shortlist: statistics.shortlisted || 0,
+        hired: statistics.hired || 0,
         rejected: statistics.rejected || 0,
       });
     }
@@ -82,12 +82,12 @@ const CandidateOverviewChart = () => {
     datasets: [
       {
         data: [
-          chartData.jobPost,
           chartData.apply,
           chartData.shortlist,
+          chartData.hired,
           chartData.rejected,
         ],
-        backgroundColor: ["#1E88E5", "#64B5F6", "#90CAF9", "#BBDEFB"],
+        backgroundColor: ["#FFB836", "#4640DE", "#56CDAD", "#FF6550"],
         barThickness: 25,
       },
     ],
@@ -220,10 +220,10 @@ const CandidateOverviewChart = () => {
 
         <div className="flex items-center gap-4 mt-2 text-[12px] flex-wrap">
           {[
-            ["#1E88E5", "Job Posts"],
-            ["#64B5F6", "Job Applied"],
-            ["#90CAF9", "Shortlisted"],
-            ["#BBDEFB", "Rejected"],
+            ["#FFB836", "Job Applied"],
+            ["#4640DE", "Shortlisted"],
+            ["#56CDAD", "Hired"],
+            ["#FF6550", "Rejected"],
           ].map(([color, label]) => (
             <div key={label} className="flex items-center">
               <span

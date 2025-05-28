@@ -36,7 +36,7 @@ const Index = () => {
     revalentExp: "",
     mustSkills: [],
     goodSkills: [],
-    qualificationType:[],
+    qualificationType: [],
     status: "Live",
   });
 
@@ -70,7 +70,7 @@ const Index = () => {
           currency,
           revalentExp,
           status,
-          qualificationType
+          qualificationType,
         } = res.data;
         setData({
           ...data,
@@ -82,8 +82,8 @@ const Index = () => {
           location,
           description,
           salaryType,
-          minSalary:minSalary === null ?"" :minSalary,
-          maxSalary:maxSalary === null ?"" :maxSalary,
+          minSalary: minSalary === null ? "" : minSalary,
+          maxSalary: maxSalary === null ? "" : maxSalary,
           requiredQualification,
           requiredSkills,
           deadLine: formattedDeadLine,
@@ -93,7 +93,7 @@ const Index = () => {
           currency,
           revalentExp,
           status,
-          qualificationType
+          qualificationType,
         });
       })
       .catch((err) => {

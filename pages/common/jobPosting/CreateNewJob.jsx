@@ -29,6 +29,7 @@ import "primeicons/primeicons.css";
 import Select from "react-select";
 import PreviewCard from "../../../components/featured/candidate/jobs/PreviewCard";
 import { fetchCities } from "../../../Redux/slices/geoLocationSlice";
+import JdExtraction from "./jdExtraction";
 function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
@@ -58,6 +59,7 @@ function CreateNewJob() {
   const [selectedCity, setSelectedCity] = useState("");
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
+  const [companyData, setCompanyData] = useState([]);
   const [data, setData] = useState({
     jobTitle: "",
     companyName: "",
@@ -74,14 +76,16 @@ function CreateNewJob() {
     minSalary: "",
     maxSalary: "",
     openPositions: "",
-    totalExperience: "",
+    totalExpMax: "",
+    relExpMin: "",
+    relExpMax: "",
+    totalExpMin: "",
+    experience: "",
     jobSector: "",
     currency: "",
     requiredQualification: "",
     requiredSkills: "",
     deadLine: "",
-    experience: "",
-    revalentExp: "",
     mustSkills: [],
     goodSkills: [],
     jobCat: [],
@@ -89,17 +93,87 @@ function CreateNewJob() {
     status: "Active",
     logo: "",
   });
+  console.log(data);
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://jamblix.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
+          {
+            params: { page: 1, limit: 100 },
+          }
+        );
+        setCompanyData(response.data.companies);
+      } catch (err) {
+        console.error("Error fetching company data:", err);
+        setError("Error fetching company data.");
+      }
+    };
+
+    fetchCompanyData();
+  }, []);
+
+  useEffect(() => {
+    const storedJdData = localStorage.getItem("jdData");
+
+    if (storedJdData) {
+      try {
+        const parsedData = JSON.parse(storedJdData);
+
+        // Start building HTML content
+        let combinedHTML = "";
+
+        // Add Job Description
+        if (parsedData.description) {
+          combinedHTML += `
+          <p style="font-weight: bold; margin-top: 20px;">Job Description:</p>
+          <p>${parsedData.description}</p>
+        `;
+        }
+
+        // Add each section
+        if (Array.isArray(parsedData.sections)) {
+          parsedData.sections.forEach((section) => {
+            combinedHTML += `
+            <p style="font-weight: bold; margin-top: 20px;">${
+              section.heading
+            }:</p>
+            ${
+              section.points && section.points.length > 0
+                ? `<ul>${section.points
+                    .map((pt) => `<li>${pt}</li>`)
+                    .join("")}</ul>`
+                : "<p>No information provided</p>"
+            }
+          `;
+          });
+        }
+
+        // Update the state with combined HTML in `description`
+        setData((prev) => ({
+          ...prev,
+          ...parsedData,
+          description: combinedHTML, // override plain description with combined HTML
+        }));
+      } catch (error) {
+        console.error("Failed to parse jdData:", error);
+      }
+    }
+  }, []);
+
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
-    dial_code:country.dial_code
+    dial_code: country.dial_code,
   }));
 
   const fetchCompanyDetails = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getEmployerCompanies/${userDataGlobal?.companyId}`
+        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -123,7 +197,7 @@ function CreateNewJob() {
   }, []);
 
   const handleCountryChange = (selectedCountries) => {
-    console.log(selectedCountries)
+    console.log(selectedCountries);
     setFormError((prevErrors) => ({
       ...prevErrors,
       country: "",
@@ -166,7 +240,7 @@ function CreateNewJob() {
   };
 
   useEffect(() => {
-    setData({ ...data, logo: croppedImage?.blob });
+    setData((prev) => ({ ...prev, logo: croppedImage?.blob }));
   }, [croppedImage]);
 
   const validateFormData = (data) => {
@@ -264,7 +338,7 @@ function CreateNewJob() {
     const currentDate = new Date().setHours(0, 0, 0, 0);
     const inputDate = new Date(data.deadLine).setHours(0, 0, 0, 0);
 
-    if (inputDate < currentDate) {
+    if (inputDate < currentDate && data.status !== "Active") {
       newFormError.deadLine = "Deadline cannot be earlier than today's date";
       return newFormError;
     }
@@ -276,6 +350,7 @@ function CreateNewJob() {
     e.preventDefault();
     setLoadingg(true);
     const formErrors = await validateFormData(data);
+    console.log(formErrors);
     if (Object.keys(formErrors).length > 0) {
       setFormError(formErrors);
       toast.error("All fields are Required");
@@ -321,7 +396,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/job/add/${id}`,
+        `http://localhost:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -330,6 +405,7 @@ function CreateNewJob() {
         }
       );
       router.push("/common/hiring");
+      localStorage.removeItem("jdData");
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -358,7 +434,7 @@ function CreateNewJob() {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -389,8 +465,10 @@ function CreateNewJob() {
           mustSkills,
           goodSkills,
           currency,
-          revalentExp,
-          totalExperience,
+          totalExpMax,
+          relExpMin,
+          relExpMax,
+          totalExpMin,
           status,
           qualificationType,
           logo,
@@ -422,8 +500,12 @@ function CreateNewJob() {
           mustSkills,
           goodSkills,
           currency,
-          revalentExp: revalentExp?.trim(),
-          totalExperience,
+          totalExpMax:
+            totalExpMax === null ? "" : !totalExpMax ? "" : totalExpMax,
+          relExpMin: relExpMin === null ? "" : !relExpMin ? "" : relExpMin,
+          relExpMax: relExpMax === null ? "" : !relExpMax ? "" : relExpMax,
+          totalExpMin:
+            totalExpMin === null ? "" : !totalExpMin ? "" : totalExpMin,
           status,
           logo,
           qualificationType,
@@ -454,10 +536,8 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`https://jamblix.com/api/company/fetchCompaniDetails/${id}`)
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
-        setLoading(false);
-
         const {
           companyName,
           companyLogo: logo,
@@ -474,6 +554,9 @@ function CreateNewJob() {
           createdAt,
           updatedAt,
         });
+        setTimeout(() => {
+          setLoading(false);
+        }, 200);
       })
       .catch((err) => {
         setLoading(false);
@@ -554,8 +637,10 @@ function CreateNewJob() {
       deadLine: "",
       experience: "",
       jobCat: [],
-      revalentExp: "",
-      totalExperience: "",
+      totalExpMax: null,
+      relExpMin: null,
+      relExpMax: null,
+      totalExpMin: null,
       mustSkills: [],
       goodSkills: [],
       qualificationType: [],
@@ -655,7 +740,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getRequisitionById/${reqId}`
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData((prevData) => ({
@@ -863,6 +948,7 @@ function CreateNewJob() {
               </div>
             </>
           )}
+
           {modelView && (
             <ImageCropper
               setModelView={setModelView}
@@ -876,32 +962,313 @@ function CreateNewJob() {
             </div>
           ) : (
             <>
-              <div className=" flex w-full flex-col gap-[16px]">
-                <div
-                  onClick={() => router.back()}
-                  className="gap-[12px] flex cursor-pointer  "
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+              <div className=" flex w-full flex-col gap-[16px] ">
+                <div className="flex gap-4 items-center">
+                  <div
+                    onClick={() => router.back()}
+                    className="gap-[12px] flex cursor-pointer items-center "
                   >
-                    <g mask="url(#mask0_6262_72954)">
-                      <path
-                        d="M7.37295 12.7481L12.5422 17.9174C12.6909 18.066 12.7643 18.24 12.7625 18.4394C12.7605 18.6387 12.682 18.8159 12.527 18.9711C12.3718 19.1159 12.1961 19.1909 12 19.1961C11.8038 19.2013 11.6281 19.1263 11.473 18.9711L5.1327 12.6309C5.03904 12.5372 4.97304 12.4384 4.9347 12.3346C4.8962 12.2308 4.87695 12.1186 4.87695 11.9981C4.87695 11.8776 4.8962 11.7654 4.9347 11.6616C4.97304 11.5578 5.03904 11.459 5.1327 11.3654L11.473 5.0251C11.6115 4.8866 11.783 4.81577 11.9875 4.8126C12.192 4.80943 12.3718 4.88027 12.527 5.0251C12.682 5.18027 12.7595 5.35844 12.7595 5.5596C12.7595 5.76094 12.682 5.93918 12.527 6.09435L7.37295 11.2481H18.75C18.9628 11.2481 19.141 11.3199 19.2845 11.4636C19.4281 11.6071 19.5 11.7853 19.5 11.9981C19.5 12.2109 19.4281 12.3891 19.2845 12.5326C19.141 12.6763 18.9628 12.7481 18.75 12.7481H7.37295Z"
-                        fill="#1C1B1F"
-                      />
-                    </g>
-                  </svg>
-                  <div className="text-[20px] font-[500]">Post a Job</div>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_6262_72954)">
+                        <path
+                          d="M7.37295 12.7481L12.5422 17.9174C12.6909 18.066 12.7643 18.24 12.7625 18.4394C12.7605 18.6387 12.682 18.8159 12.527 18.9711C12.3718 19.1159 12.1961 19.1909 12 19.1961C11.8038 19.2013 11.6281 19.1263 11.473 18.9711L5.1327 12.6309C5.03904 12.5372 4.97304 12.4384 4.9347 12.3346C4.8962 12.2308 4.87695 12.1186 4.87695 11.9981C4.87695 11.8776 4.8962 11.7654 4.9347 11.6616C4.97304 11.5578 5.03904 11.459 5.1327 11.3654L11.473 5.0251C11.6115 4.8866 11.783 4.81577 11.9875 4.8126C12.192 4.80943 12.3718 4.88027 12.527 5.0251C12.682 5.18027 12.7595 5.35844 12.7595 5.5596C12.7595 5.76094 12.682 5.93918 12.527 6.09435L7.37295 11.2481H18.75C18.9628 11.2481 19.141 11.3199 19.2845 11.4636C19.4281 11.6071 19.5 11.7853 19.5 11.9981C19.5 12.2109 19.4281 12.3891 19.2845 12.5326C19.141 12.6763 18.9628 12.7481 18.75 12.7481H7.37295Z"
+                          fill="#1C1B1F"
+                        />
+                      </g>
+                    </svg>
+                    <div className="text-[20px] font-[500]">Post a Job</div>
+                  </div>
+                  {/* <button
+                    onClick={() => setIsUpload(true)}
+                    className="bg_Button rounded-[30px] h-[40px] px-6"
+                  >
+                    Upload Jd
+                  </button> */}
                 </div>
 
                 <div className="bg-[#FFFFFF] flex flex-col rounded-[16px] gap-[16px] ">
                   <div>
-                    <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] p-[10px] md:p-[16px] w-full">
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                    <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 justify-between">
+                        <div className="text-sm font-medium">
+                          Company Name <span className="text-[red]">*</span>
+                        </div>
+
+                        <CreatableSelect
+                          isClearable
+                          isDisabled={
+                            (userDataGlobal?.role === "employer" && !reqId) ||
+                            companyId
+                          }
+                          onInputChange={() => {}}
+                          options={companyData
+                            .filter((item) => item.companyName.trim() !== "")
+                            .map((item) => ({
+                              value: item.companyName,
+                              label: camelCase(item.companyName),
+                              _id: item._id,
+                            }))}
+                          className={`w-full  ${
+                            formError.companyName
+                              ? "border-red"
+                              : "border-[#DEDEDE] outline-none"
+                          }`}
+                          value={
+                            data.companyName
+                              ? {
+                                  value: data.companyName,
+                                  label: camelCase(data.companyName),
+                                }
+                              : null
+                          }
+                          onChange={(selectedOption) => {
+                            const selectedValue = selectedOption?.value || "";
+                            setFormError((prevErrors) => ({
+                              ...prevErrors,
+                              companyName: "",
+                            }));
+                            setData({
+                              ...data,
+                              companyName: selectedValue,
+                            });
+                            if (selectedOption?._id) {
+                              getcompaniesdetails(selectedOption._id);
+                            }
+                          }}
+                          onCreateOption={(inputValue) => {
+                            const newCompany = inputValue.trim();
+                            const companyExists = companyData.some(
+                              (c) =>
+                                c.companyName.toLowerCase() ===
+                                newCompany.toLowerCase()
+                            );
+
+                            if (!companyExists) {
+                              setCompanyData((prev) => [
+                                ...prev,
+                                { companyName: newCompany },
+                              ]);
+                            }
+
+                            setData({
+                              ...data,
+                              companyName: newCompany,
+                            });
+                          }}
+                          styles={{
+                            control: (provided, state) => ({
+                              ...provided,
+                              border: formError.companyName
+                                ? "1px solid red"
+                                : "1px solid #DEDEDE",
+                              borderRadius: "8px",
+                              padding: "2px 8px",
+                              boxShadow: state.isFocused
+                                ? "0 0 0 1px #DEDEDE"
+                                : "none",
+                            }),
+                            placeholder: (provided) => ({
+                              ...provided,
+                              color: "#767676",
+                              fontSize: "12px",
+                              fontWeight: "400",
+                            }),
+                            menu: (provided) => ({
+                              ...provided,
+                              zIndex: 10,
+                              scrollbarWidth: "none",
+                              "-ms-overflow-style": "none",
+                              "&::-webkit-scrollbar": {
+                                display: "none",
+                              },
+                            }),
+                            valueContainer: (provided) => ({
+                              ...provided,
+                              overflow: "visible",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            }),
+                            singleValue: (provided, { data }) => ({
+                              ...provided,
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: "100%",
+                              fontSize: "12px", // 👈 this sets font size of selected value
+                              fontWeight: "400",
+                              color: "#000", // optional
+                            }),
+                          }}
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4 ">
+                        <div className="text-[14px] font-[500]">
+                          Job Title <span className="text-[#ff0000]">*</span>
+                        </div>
+                        <div>
+                          <input
+                            className={`border-[1px] h-[42px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
+                            placeholder="Add job title / role"
+                            type="text"
+                            name="jobTitle"
+                            value={data.jobTitle}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
+                        <div className="text-sm font-medium">
+                          Keywords
+                          <span className="text-[red]"> *</span>
+                        </div>
+
+                        <CreatableSelect
+                          isMulti
+                          onInputChange={(data) => {}}
+                          options={skills
+                            .filter((item) => item.trim() !== "")
+                            .map((item) => ({
+                              value: item,
+                              label: camelCase(item),
+                            }))}
+                          className={`w-full withoutBorder ${
+                            formError.Keywords
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
+                          value={
+                            data.Keywords
+                              ? data.Keywords.map((skill) => ({
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
+                              : []
+                          }
+                          onChange={(selectedOptions) => {
+                            const newKeywords = selectedOptions
+                              ? selectedOptions.map((option) => option.value)
+                              : [];
+
+                            if (newKeywords.length > data?.Keywords?.length) {
+                              setFormError((prevErrors) => ({
+                                ...prevErrors,
+                                Keywords: "",
+                              }));
+                            }
+
+                            setData({
+                              ...data,
+                              Keywords: newKeywords,
+                            });
+                          }}
+                          onCreateOption={(inputValue) => {
+                            const newKeyword = inputValue.trim();
+
+                            if (newKeyword && !skills.includes(newKeyword)) {
+                              setSkills((prevKeywords) => [
+                                ...prevKeywords,
+                                newKeyword,
+                              ]);
+                            }
+
+                            setData({
+                              ...data,
+                              Keywords: [...(data.Keywords || []), newKeyword],
+                            });
+                          }}
+                          styles={{
+                            control: (provided, state) => ({
+                              ...provided,
+                              border: formError.Keywords
+                                ? "1px solid red"
+                                : "1px solid #DEDEDE",
+                              borderRadius: "8px",
+                              padding: "2px 8px",
+                              flexWrap: "wrap",
+                              boxShadow: state.isFocused
+                                ? "0 0 0 1px #DEDEDE"
+                                : "none",
+                              outlineColor: "none",
+                            }),
+                            valueContainer: (base) => ({
+                              ...base,
+                              display: "flex",
+                              flexWrap: "nowrap",
+                              gap: "4px",
+                              padding: "2px 4px",
+                              overflowX: "auto",
+                              scrollbarWidth: "none",
+                              "-ms-overflow-style": "none",
+                              "&::-webkit-scrollbar": {
+                                display: "none",
+                              },
+                            }),
+                            placeholder: (provided) => ({
+                              ...provided,
+                              color: "#767676",
+                              fontSize: "12px",
+                              fontWeight: "400",
+                            }),
+                            menu: (provided) => ({
+                              ...provided,
+                              zIndex: 10,
+                              scrollbarWidth: "none",
+                              "-ms-overflow-style": "none",
+                              "&::-webkit-scrollbar": {
+                                display: "none",
+                              },
+                            }),
+                            multiValue: (provided) => ({
+                              ...provided,
+                              backgroundColor: "#EFFAFF",
+                              borderRadius: "4px",
+                              minWidth: "90px",
+                            }),
+                            multiValueLabel: (provided) => ({
+                              ...provided,
+                              color: "#06A9EF",
+                              fontWeight: "500",
+                            }),
+                            multiValueRemove: (provided) => ({
+                              ...provided,
+                              color: "#9A4545",
+                              "&:hover": {
+                                backgroundColor: "transparent",
+                              },
+                            }),
+                          }}
+                        />
+                      </div>
+                      {/* <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-[14px] font-[500]">
+                          Redirect Job URL
+                        </div>
+                        <div>
+                          <input
+                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[38px] px-[16px] rounded-[8px] w-full outline-none"
+                            placeholder="Add Job Link"
+                            type="text"
+                            name="jobLink"
+                            value={data.jobLink}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div> */}
+                    </div>
+                    <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 justify-between">
                         <div className="text-[14px] font-[500]">
                           Job Status <span className="text-[#ff0000]">*</span>
                         </div>
@@ -928,196 +1295,11 @@ function CreateNewJob() {
                             }}
                             styles={customStyless}
                             isSearchable={false}
-                            className="w-full"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 ">
-                        <div className="text-[14px] font-[500]">
-                          Job Title <span className="text-[#ff0000]">*</span>
-                        </div>
-                        <div>
-                          <input
-                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
-                            placeholder="Add job title / role"
-                            type="text"
-                            name="jobTitle"
-                            value={data.jobTitle}
-                            onChange={handleChange}
+                            className="w-full "
                           />
                         </div>
                       </div>
 
-                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">
-                            Keywords
-                            <span className="text-[red]">*</span>
-                          </div>
-
-                          <CreatableSelect
-                            isMulti
-                            onInputChange={(data) => {}}
-                            options={skills
-                              .filter((item) => item.trim() !== "")
-                              .map((item) => ({
-                                value: item,
-                                label: camelCase(item),
-                              }))}
-                            className={`w-full withoutBorder ${
-                              formError.Keywords
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
-                            value={
-                              data.Keywords
-                                ? data.Keywords.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
-                                : []
-                            }
-                            onChange={(selectedOptions) => {
-                              const newKeywords= selectedOptions
-                                ? selectedOptions.map((option) => option.value)
-                                : [];
-
-                              if (
-                                newKeywords.length > data?.Keywords?.length
-                              ) {
-                                setFormError((prevErrors) => ({
-                                  ...prevErrors,
-                                  Keywords: "",
-                                }));
-                              }
-
-                              setData({
-                                ...data,
-                                Keywords: newKeywords,
-                              });
-                            }}
-                            onCreateOption={(inputValue) => {
-                              const newKeyword = inputValue.trim();
-
-                              if (newKeyword && !skills.includes(newKeyword)) {
-                                setSkills((prevKeywords) => [
-                                  ...prevKeywords,
-                                  newKeyword,
-                                ]);
-                              }
-
-                              setData({
-                                ...data,
-                                Keywords: [
-                                  ...(data.Keywords || []),
-                                  newKeyword,
-                                ],
-                              });
-                            }}
-                            styles={{
-                              control: (provided, state) => ({
-                                ...provided,
-                                border: formError.Keywords
-                                  ? "1px solid red"
-                                  : "1px solid #DEDEDE",
-                                borderRadius: "8px",
-                                padding: "2px 8px",
-                                flexWrap: "wrap",
-                                boxShadow: state.isFocused
-                                  ? "0 0 0 1px #DEDEDE"
-                                  : "none",
-                                  outlineColor:"none"
-                              }),
-                              valueContainer: (base) => ({
-                                ...base,
-                                display: "flex",
-                                flexWrap: "nowrap",
-                                gap: "4px",
-                                padding: "2px 4px",
-                                overflowX: "auto",
-                                scrollbarWidth: "none",
-                                "-ms-overflow-style": "none",
-                                "&::-webkit-scrollbar": {
-                                  display: "none",
-                                },
-                              }),
-                              placeholder: (provided) => ({
-                                ...provided,
-                                color: "#767676",
-                                fontSize: "12px",
-                                fontWeight: "400",
-                              }),
-                              menu: (provided) => ({
-                                ...provided,
-                                zIndex: 10,
-                                scrollbarWidth: "none",
-                                "-ms-overflow-style": "none",
-                                "&::-webkit-scrollbar": {
-                                  display: "none",
-                                },
-                              }),
-                              multiValue: (provided) => ({
-                                ...provided,
-                                backgroundColor: "#EFFAFF",
-                                borderRadius: "4px",
-                                minWidth: "90px",
-                              }),
-                              multiValueLabel: (provided) => ({
-                                ...provided,
-                                color: "#06A9EF",
-                                fontWeight: "500",
-                              }),
-                              multiValueRemove: (provided) => ({
-                                ...provided,
-                                color: "#9A4545",
-                                "&:hover": {
-                                  backgroundColor: "transparent",
-                                },
-                              }),
-                            }}
-                          />
-                        </div>
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                        <div className="text-[14px] font-[500]">
-                          Redirect Job URL
-                        </div>
-                        <div>
-                          <input
-                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[38px] px-[16px] rounded-[8px] w-full outline-none"
-                            placeholder="Add Job Link"
-                            type="text"
-                            name="jobLink"
-                            value={data.jobLink}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] p-[10px] md:p-[16px] w-full">
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
-                        <div className="text-[14px] font-[500]">
-                          Company Name <span className="text-[red]">*</span>
-                        </div>
-                        <input
-                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
-                            formError.companyName
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
-                          placeholder="Enter Company Name"
-                          type="text"
-                          name="companyName"
-                          value={data.companyName}
-                          onChange={handleChange}
-                          disabled={
-                            (userDataGlobal?.role === "employer" && !reqId) ||
-                            companyId
-                          }
-                        />
-                      </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
                         <div className="text-[14px] font-[500]">
                           Country <span className="text-[red]">*</span>
@@ -1165,7 +1347,7 @@ function CreateNewJob() {
                           }}
                           onChange={handleSelectChange}
                           value={selectedCity}
-                          placeholder="Search & Select Your Location"
+                          placeholder="Search Location"
                           isSearchable={true}
                           classNamePrefix="select"
                           styles={customStylesss}
@@ -1178,14 +1360,14 @@ function CreateNewJob() {
                       </div>
                     </div>
 
-                    <div className="p-[10px] md:p-4 w-full flex-col gap-4 md:flex-row grid lg:grid-cols-12">
+                    <div className="p-[10px] md:p-4 w-full flex-col gap-4 md:flex-row grid lg:grid-cols-11">
                       <div className=" lg:col-span-3 flex flex-col gap-4 h-full ">
                         <div className="flex flex-col gap-[8px] w-full h-full">
                           <div className="text-[14px] font-[500]">
                             About Company
                           </div>
                           <div
-                            className={`border-[1px] text-start border-[#DEDEDE] text-[12px] h-full
+                            className={`border-[1px] text-start border-[#DEDEDE] text-[12px] w-full h-full
     items-start justify-start w-[284px] 
     ${userDataGlobal?.role !== "employer" || reqId ? "h-[177px]" : "h-full"} 
     placeholder:text-[12px] font-[400] p-[16px] 
@@ -1332,7 +1514,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="flex flex-col gap-[8px] w-full lg:col-span-9 h-fit ">
+                      <div className="flex flex-col gap-[8px] w-full lg:col-span-8 h-fit ">
                         <div className="text-[14px] font-[500]">
                           Job Description <span className="text-[red]">*</span>
                         </div>
@@ -1742,7 +1924,7 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Must have Skills
-                            <span className="text-[red]">*</span>
+                            <span className="text-[red]"> *</span>
                           </div>
 
                           <CreatableSelect
@@ -1993,89 +2175,98 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
+                      <div className="grid grid-cols-1 scr730:grid-cols-9 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr730:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
-                            Total Experience
+                            Total Experience (Years)
                           </label>
-                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small  min-w-[100px] h-[38px]">
-                            <Select
-                              options={experienceOptions}
-                              value={experienceOptions.find(
-                                (opt) => opt.value === data.experience
-                              )}
-                              onChange={(selectedOption) =>
-                                setData({
-                                  ...data,
-                                  experience: selectedOption.value,
-                                })
-                              }
-                              placeholder="Select experience"
-                              className="w-full text-[12px] font-[400] text-[#767676]"
-                              styles={{
-                                control: (provided) => ({
-                                  ...provided,
-                                  height: "38px",
-                                  border: "1px solid #ccc",
-                                  background: "transparent",
-                                }),
+                          <div className="flex  gap-2 items-center">
+                            <input
+                              type="number"
+                              min="0"
+                              value={data.totalExpMin}
+                              onChange={(e) => {
+                                const newMin = e.target.value;
+                                setData((prev) => ({
+                                  ...prev,
+                                  totalExpMin: newMin,
+                                  experience: `${newMin}-${
+                                    prev.totalExpMax || ""
+                                  } years`,
+                                }));
                               }}
+                              placeholder="Min"
+                              className="w-full border border-[#DEDEDE] rounded-lg p-2 h-[38px] text-[14px]"
+                            />
+
+                            <input
+                              type="number"
+                              min={data.totalExpMin || 0}
+                              value={data.totalExpMax}
+                              onChange={(e) => {
+                                const newMax = e.target.value;
+                                setData((prev) => ({
+                                  ...prev,
+                                  totalExpMax: newMax,
+                                  experience: `${
+                                    prev.totalExpMin || ""
+                                  }-${newMax} years`,
+                                }));
+                              }}
+                              placeholder="Max"
+                              className="w-full border border-[#DEDEDE] rounded-lg p-2 h-[38px] text-[14px]"
                             />
                           </div>
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
+
+                        <div className="flex flex-col gap-[8px] col-span-1 scr730:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
-                            Relevant Experience
+                            Relevant Experience (Years)
                           </label>
-                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[12px] font-[400] text-[#767676] outline-none font-montserrat font-small  min-w-[100px]  h-[38px]">
-                            <Select
-                              options={experienceOptions}
-                              value={experienceOptions.find(
-                                (opt) => opt.value === data.revalentExp
-                              )}
-                              onChange={(selectedOption) => {
-                                const newRelevantExp = selectedOption.value;
+                          <div className="flex gap-2 items-center">
+                            <input
+                              type="number"
+                              min="0"
+                              value={data.relExpMin}
+                              onChange={(e) => {
+                                const newMin = e.target.value;
+                                setData((prev) => ({
+                                  ...prev,
+                                  relExpMin: newMin,
+                                }));
+                              }}
+                              placeholder="Min"
+                              className="w-full border border-[#DEDEDE] rounded-lg p-2 h-[38px] text-[14px]"
+                            />
 
-                                const totalExpIndex = experienceIndices.indexOf(
-                                  data.experience
-                                );
-                                const relevantExpIndex =
-                                  experienceIndices.indexOf(newRelevantExp);
-
+                            <input
+                              type="number"
+                              min={data.relExpMin || 0}
+                              max={data.totalExpMax || undefined}
+                              value={data.relExpMax}
+                              onChange={(e) => {
+                                const newMax = e.target.value;
                                 if (
-                                  isRelevantAllowed(
-                                    totalExpIndex,
-                                    relevantExpIndex
-                                  )
+                                  parseInt(newMax) >
+                                  parseInt(data.totalExpMax || 0)
                                 ) {
-                                  setData({
-                                    ...data,
-                                    revalentExp: newRelevantExp,
-                                  });
-                                } else {
                                   toast.error(
-                                    "Cannot be greater than total experience."
+                                    "Relevant experience cannot exceed total experience."
                                   );
-                                  setData((prevData) => ({
-                                    ...prevData,
-                                    revalentExp: "",
-                                  }));
+                                  return;
                                 }
+                                setData((prev) => ({
+                                  ...prev,
+                                  relExpMax: newMax,
+                                }));
                               }}
-                              placeholder="Select relevant experience"
-                              className="w-full text-[12px] font-[400] text-[#767676]"
-                              styles={{
-                                control: (provided) => ({
-                                  ...provided,
-                                  height: "38px",
-                                  border: "1px solid #ccc",
-                                  background: "transparent",
-                                }),
-                              }}
+                              placeholder="Max"
+                              className="w-full border border-[#DEDEDE] rounded-lg p-2 h-[38px] text-[14px]"
                             />
                           </div>
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
+
+                        <div className="flex flex-col gap-[8px] col-span-1 scr730:col-span-3">
                           <div className="text-sm font-medium">
                             Application Deadline{" "}
                             <span className="text-[red]">*</span>
@@ -2124,7 +2315,11 @@ function CreateNewJob() {
                           Preview
                         </button>
                         {loadingg ? (
-                          <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] min-w-[119.17px]">
+                          <div
+                            className={`flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] ${
+                              id ? "min-w-[119.17px]" : "min-w-[101.2px]"
+                            }`}
+                          >
                             <MiniLoader1 />
                           </div>
                         ) : (

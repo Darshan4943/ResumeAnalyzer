@@ -55,7 +55,7 @@ function Index() {
                 <img
                   src={i.companyLogo}
                   alt={`${i.name} logo`}
-                  className="min-h-[56px] min-w-[56px] max-w-[56px] max-h-[56px] rounded-[6px] object-contain border-[#DEDEDE] border-[1px]"
+                  className="min-h-[56px] min-w-[56px] max-w-[56px] max-h-[56px] rounded-[6px] object-contain border-[#DEDEDE] border-[1px] px-1"
                 />
                 <div className="flex flex-col gap-[6px]">
                   <span className="text-[14px] font-[500] text-[#333333]">

@@ -10,8 +10,8 @@ import { useSelector } from "react-redux";
 import InlineSVG from "../../../components/common/InlineSvg";
 
 function ApplicantDetails({ setTogglee }) {
-  const [toggle, setToggle] = useState("ApplicantProfile");
-  const [activeOption, setActiveOption] = useState("ApplicantProfile");
+  const [toggle, setToggle] = useState("matchingParameters");
+  const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -62,6 +62,8 @@ function ApplicantDetails({ setTogglee }) {
   useEffect(() => {
     if (id && applicantId) {
       getData();
+     
+
     }
   }, [statusChange]);
 
@@ -198,7 +200,7 @@ function ApplicantDetails({ setTogglee }) {
                     <div
                       className={`flex justify-between sm:justify-start   gap-12  ml:text-[16px] sm:text-[14px] text-[12px]   font-semibold overflow-x-auto`}
                     >
-                      <div>
+                      {/* <div>
                         <p
                           className={` min-w-[121px] ${
                             activeOption === "ApplicantProfile"
@@ -225,9 +227,41 @@ function ApplicantDetails({ setTogglee }) {
                             }
                           />
                         </svg>
-                      </div>
+                      </div> */}
+                       {jobDetails?.matchingParameters.length > 0 && (
+                        <div>
+                          <p
+                            className={`min-w-[156px] ${
+                              activeOption === "matchingParameters"
+                                ? "text-[#333]"
+                                : "text-[#646464]"
+                            } cursor-pointer `}
+                            onClick={() =>
+                              handleOptionClick("matchingParameters")
+                            }
+                          >
+                            Matching Parameters
+                          </p>
+                          <svg
+                            className=" ml:w-[175px] sm:w-[120px] w-[100px]"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="4"
+                            viewBox="0 0 138 4"
+                            fill="none"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
+                              fill={
+                                activeOption === "matchingParameters"
+                                  ? "#06A9EF"
+                                  : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
+                      )}
                       {userDataGlobal?.role === "employer" &&
-                        jobDetails?.hiringStage !== "Pending" && (
+                        jobDetails?.hiringStage !== "Pending" && jobDetails.hiringLevel.length>0 && (
                           <div>
                             <p
                               className={`min-w-[115px] ${
@@ -285,38 +319,7 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      {jobDetails?.matchingParameters.length > 0 && (
-                        <div>
-                          <p
-                            className={`min-w-[156px] ${
-                              activeOption === "matchingParameters"
-                                ? "text-[#333]"
-                                : "text-[#646464]"
-                            } cursor-pointer `}
-                            onClick={() =>
-                              handleOptionClick("matchingParameters")
-                            }
-                          >
-                            Matching Parameters
-                          </p>
-                          <svg
-                            className=" ml:w-[175px] sm:w-[120px] w-[100px]"
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="4"
-                            viewBox="0 0 138 4"
-                            fill="none"
-                          >
-                            <path
-                              d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
-                              fill={
-                                activeOption === "matchingParameters"
-                                  ? "#06A9EF"
-                                  : "white"
-                              }
-                            />
-                          </svg>
-                        </div>
-                      )}
+                     
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
