@@ -25,14 +25,15 @@ function Dashboard({ toggleContentt }) {
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState("Daily");
   const [isPending, setIsPending] = useState("");
+  const [status,setStatus]= useState()
   const router = useRouter();
   const pendingJobsRef = useRef(null);
 
-  const scrollToPendingJobs = () => {
+  const scrollToPendingJobs = (status) => {
     if (pendingJobsRef.current) {
       const offset = 64;
       const elementPosition = pendingJobsRef.current.offsetTop;
-      setIsPending("Pending");
+      setStatus(status);
       window.scrollTo({
         top: elementPosition - offset,
         behavior: "smooth",
@@ -94,6 +95,7 @@ function Dashboard({ toggleContentt }) {
         statistics={statistics}
         scrollToInterviewJobs={scrollToInterviewJobs}
         scrollToPendingJobs={scrollToPendingJobs}
+        setStatus={setStatus}
       />
       <div className="scr1300:flex scr1300:flex-row flex flex-col w-full  scr1300:justify-between gap-4">
         <>
@@ -121,7 +123,8 @@ function Dashboard({ toggleContentt }) {
         {/* {userDataGlobal?.role === "employer" ? (
           <RecentApplications isPending={isPending} />
         ) : ( */}
-          <RecentJobs />
+         <RecentApplications status={status} />
+          {/* <RecentJobs /> */}
         {/* )} */}
       </div>
 

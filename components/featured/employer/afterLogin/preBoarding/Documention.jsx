@@ -256,7 +256,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="grid grid-rows-1 w-full">
           {!jobs?.length == 0 ? (
-            <div className="grid grid-cols-1 w-full rounded-b-[6px] overflow-hidden">
+            <div className="grid grid-cols-1 w-full rounded-b-[6px] ">
               {jobs?.map((applicants, index) => (
                 <>
                   <div
@@ -267,7 +267,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                   >
                     <div className="grid grid-cols-6 w-full ">
                       <div className="flex items-center justify-start col-span-1">
-                        <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
+                        <div onClick={()=> router.push(`/common/hiring/ApplicantDetails?applicantId=${applicants?.applicantId}&id=${applicants?.jobId}`)}  className="flex justify-start text-[14px] font-[600] items-center cursor-pointer  gap-1 scr1024:gap-[16px]">
                           {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
                           <img
                             className="w-[40px] rounded-[50%]"

@@ -1,5 +1,5 @@
 import { TablePagination } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -10,13 +10,13 @@ import CustomPagination from "../../common/CustomPagination";
 import ShortlistMail from "../../../pages/common/hiring/ShortlistMail";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-function RecentApplications({ isPending }) {
+function RecentApplications({ status }) {
   const [id, setId] = useState("");
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
 
   const [applicantIds, setApplicantIds] = useState();
@@ -43,8 +43,8 @@ function RecentApplications({ isPending }) {
   };
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
-    setSearchQuery(isPending);
-  }, [isPending]);
+    setSearchQuery(status);
+  }, [status]);
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -52,14 +52,14 @@ function RecentApplications({ isPending }) {
     }
   }, [userDataGlobal]);
 
-  const widths = ["20%", "10%", "15%", "20%", "15%", "20%"];
-  const texts = ["start", "start", "center", "center", "start", "end"];
+  const widths = ["20%", "20%", "10%", "15%", "15%", "15%", "5%"];
+  const texts = ["start", "start", "start", "center", "center", "start", "end"];
 
   const fetchJobs = useCallback(async () => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getAllApplication/${userDataGlobal?._id}`,
+        `http://localhost:2000/api/job/getAllApplication/${userDataGlobal?._id}`,
         {
           params: { page, limit, search: searchQuery },
         }
@@ -129,10 +129,18 @@ function RecentApplications({ isPending }) {
     }));
   };
 
+  const randomPercentage = useMemo(
+    () => Math.floor(Math.random() * (95 - 70 + 1)) + 70,
+    []
+  );
   const applicant_head = [
     {
       name: "Name of Candidate",
       check: <input className="w-[24px] h-[24px]" type="checkbox" />,
+    },
+    {
+      name: "Job Title",
+      check: "",
     },
     {
       name: "source",
@@ -247,6 +255,11 @@ function RecentApplications({ isPending }) {
                           {applicant.details?.personal?.lastName}
                         </p>
                       </div>
+                      <div className="flex w-[20%] items-center justify-start   gap-[8px]">
+                        <p className="text-[14px] font-[600]">
+                          {applicant.jobTitle}
+                        </p>
+                      </div>
                       <div className="flex w-[10%] items-center justify-start   gap-[8px]">
                         <p className="text-[14px] font-[600]">
                           {applicant.source}
@@ -259,10 +272,12 @@ function RecentApplications({ isPending }) {
                             {applicant.matchingPercentage} %
                           </p>
                         ) : (
-                          <>-</>
+                          <p className="blur-[3px] text-[14px] font-[600]">
+                            {randomPercentage + index} %
+                          </p>
                         )}
                       </div>
-                      <div className=" flex justify-center w-[20%]">
+                      <div className=" flex justify-center w-[15%]">
                         <div
                           className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
                             checkedApplicants[index]
@@ -318,15 +333,16 @@ function RecentApplications({ isPending }) {
                             .replace(",", "")}
                         </p>
                       </div>
-                      <div className="flex justify-end  w-[20%] items-center gap-[16px] relative">
+                      <div className="flex justify-center  w-[5%] items-center gap-[16px] relative">
                         <div
-                          className="cursor-pointer"
+                          className="cursor-pointer flex gap-3 text-[14px] text-[#224D90] font-medium"
                           onClick={() =>
                             router.push(
                               `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
                             )
                           }
                         >
+                          View
                           <svg
                             width="24"
                             height="24"
@@ -356,7 +372,7 @@ function RecentApplications({ isPending }) {
                             />
                           </svg>
                         </div>
-                        {userDataGlobal?.role === "recruiter" && (
+                        {/* {userDataGlobal?.role === "recruiter" && (
                           <button
                             disabled={
                               applicant?.hiringStage === "Rejected" ||
@@ -379,7 +395,7 @@ function RecentApplications({ isPending }) {
                           >
                             Shortlist
                           </button>
-                        )}
+                        )} */}
 
                         <>
                           {isPopupVisible && (
@@ -400,7 +416,7 @@ function RecentApplications({ isPending }) {
                             <MiniLoaderr />
                           </div>
                         ) : ( */}
-                        <button
+                        {/* <button
                           disabled={applicant?.hiringStage === "Rejected"}
                           style={{
                             opacity:
@@ -413,7 +429,7 @@ function RecentApplications({ isPending }) {
                           className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
                         >
                           Reject
-                        </button>
+                        </button> */}
                         {/* )} */}
 
                         <AnimatePresence>
@@ -674,7 +690,7 @@ function RecentApplications({ isPending }) {
           setPage={setPage}
           title={"Applications"}
           setLimit={setLimit}
-          defaultLimit={10}
+          defaultLimit={5}
           totalPages={totalPages}
           limit={limit}
           page={page}

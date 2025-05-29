@@ -232,7 +232,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="grid grid-rows-1 w-full">
           {!jobs?.length == 0 ? (
-            <div className="grid grid-cols-1 w-full rounded-b-[6px] overflow-hidden">
+            <div className="grid grid-cols-1 w-full rounded-b-[6px] ">
               {jobs.map((applicants, index) => (
                 <>
                   <div
@@ -244,7 +244,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   >
                     <div className="grid grid-cols-6 w-full">
                       <div className="flex items-center justify-start col-span-1">
-                        <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
+                        <div onClick={()=> router.push(`/common/hiring/ApplicantDetails?applicantId=${applicants?.applicantId}&id=${applicants?.jobId}`)} className="flex justify-start text-[14px] font-[600] cursor-pointer items-center  gap-1 scr1024:gap-[16px]">
                           {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
                           <img
                             className="w-[40px] rounded-[50%]"
@@ -833,12 +833,12 @@ const Verification = ({ toggleContentt, setToggle }) => {
                 <div className="w-full justify-end gap-4 flex ">
                   <button
                     onClick={() => setDocumentation(false)}
-                    className="flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[12px] font-[600] border-[1px] text-[#333] border-[#06A9EF] bg-[#fff]"
+                    className="flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[30px] font-[600] border-[1px] text-[#333] border-[#06A9EF] bg-[#fff]"
                   >
                     Cancel
                   </button>
                   {loading ? (
-                    <div className=" w-[197.7px] flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[12px] font-[600] border-[1px]  border-[#06A9EF] bg-[#06A9EF]">
+                    <div className=" w-[197.7px] flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[30px] font-[600] border-[1px]  border-[#06A9EF] bg-[#06A9EF]">
                       <MiniLoader />
                     </div>
                   ) : (
@@ -849,7 +849,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                           VerifyApplicant?.jobId
                         )
                       }
-                      className="flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[12px] font-[600] border-[1px] text-[#fff] border-[#06A9EF] bg-[#06A9EF]"
+                      className="flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[30px] font-[600] border-[1px] text-[#fff] border-[#06A9EF] bg-[#06A9EF]"
                     >
                       Verify Documents
                     </button>

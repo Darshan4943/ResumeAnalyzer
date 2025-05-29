@@ -9,6 +9,7 @@ import CustomPagination from "../../../components/common/CustomPagination";
 import { useSelector } from "react-redux";
 import { currenciesWithIcons } from "../../../utils/data";
 import BulkUploadPopUp from "../../../components/common/bulkUploadPopUp";
+import JdExtraction from "./jdExtraction";
 
 function JobPosting() {
   const router = useRouter();
@@ -28,6 +29,7 @@ function JobPosting() {
   const [miniLoading, setMiniloading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [openPopup, setOpenPopup] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const [company, setCompany] = useState();
   // useEffect(() => {
   //   setFilterData((prev) => ({
@@ -236,6 +238,16 @@ function JobPosting() {
   return (
     <>
       {openPopup && <BulkUploadPopUp setOpenPopup={setOpenPopup} />}
+      {isUpload && (
+              <>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+                  <div className=" w-fit flex flex-col gap-3 rounded-[12px] bg-white">
+                    <JdExtraction />
+                  </div>
+                </div>
+              </>
+            )}
       <div>
         {toggle === 0 && (
           <div>
@@ -254,7 +266,8 @@ function JobPosting() {
                     </button>
 
                     <button
-                      onClick={toggleContent}
+                      // onClick={toggleContent}
+                      onClick={() => setIsUpload(true)}
                       className=" bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
                     >
                       + Create New Job

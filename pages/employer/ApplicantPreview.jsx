@@ -11,8 +11,8 @@ import ApplicantProfile from "../common/hiring/ApplicantProfile";
 import HiringProgress from "../../components/featured/employer/HiringProgress";
 
 function ApplicantPreview({  }) {
-  const [toggle, setToggle] = useState("ApplicantProfile");
-  const [activeOption, setActiveOption] = useState("ApplicantProfile");
+  const [toggle, setToggle] = useState("Resume");
+  const [activeOption, setActiveOption] = useState("Resume");
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -164,7 +164,7 @@ function ApplicantPreview({  }) {
                     <div
                       className={`flex justify-start gap-12 ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
                     >
-                      <div>
+                      {/* <div>
                         <p
                           className={`${
                             activeOption === "ApplicantProfile"
@@ -191,7 +191,7 @@ function ApplicantPreview({  }) {
                             }
                           />
                         </svg>
-                      </div>
+                      </div> */}
                       <div>
                         <p
                           className={`${

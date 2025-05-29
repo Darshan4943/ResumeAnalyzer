@@ -16,7 +16,7 @@ function RecentJobs({ isPending }) {
   const [page, setPage] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
 
   const [applicantIds, setApplicantIds] = useState();
@@ -61,11 +61,11 @@ function RecentJobs({ isPending }) {
           params: { page, limit, search: searchQuery },
         }
       );
-      const recentApplications = response.data.jobs.slice(0, 5);
+      const recentApplications = response.data.jobs.slice(0, 10);
       setApplicants(recentApplications);
 
       // setApplicants(response.data.jobs);
-      setTotalCount(response.data.pagination.totalApplications);
+      setTotalCount(response.data.pagination.totalCount);
       setTotalpages(response.data.pagination.totalPages);
       toast.dismiss();
     } catch (err) {
@@ -129,8 +129,8 @@ function RecentJobs({ isPending }) {
     }));
   };
 
-  const texts = ["start", "start", "start", "start", "start", "start", "end"];
-  const widths = ["20%", "20%", "16%", "16%", "16%", "7%", "5%"];
+  const texts = ["start", "start", "start", "start", "start", "start", "start", "end"];
+  const widths = ["18%", "18%", "16%", "13%", "13%",  "10%","7%", "5%"];
 
   const applicant_head = [
     {
@@ -154,9 +154,14 @@ function RecentJobs({ isPending }) {
       check: "",
     },
     {
+      name: "Applications",
+      check: "",
+    },
+    {
       name: "Status",
       check: "",
     },
+    
 
     {
       name: "Action",
@@ -210,12 +215,12 @@ function RecentJobs({ isPending }) {
                     key={applicant._id}
                   >
                     <div className="  gap-[20px]  w-full justify-between flex items-center">
-                      <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
+                      <div className="flex  w-[18%] justify-start text-[14px] font-[600] items-center gap-[16px]">
                         <p className="text-[14px] font-[600]">
                           {applicant.jobTitle} {""}
                         </p>
                       </div>
-                      <div className="flex w-[20%] items-center justify-start   gap-[8px]">
+                      <div className="flex w-[18%] items-center justify-start   gap-[8px]">
                         <p className="text-[14px] font-[600]">
                           {applicant.companyName}
                         </p>
@@ -231,7 +236,7 @@ function RecentJobs({ isPending }) {
                           : applicant.location?.split(",")[0].trim()}
                       </div>
 
-                      <div className=" flex justify-start w-[16%]">
+                      <div className=" flex justify-start w-[13%]">
                         <div className=" flex text-[14px] font-[600] items-center gap-[8px] rounded-[80px] w-fit">
                           {new Date(applicant.createdAt)
                             .toLocaleDateString("en-GB", {
@@ -242,7 +247,7 @@ function RecentJobs({ isPending }) {
                             .replace(",", "")}
                         </div>
                       </div>
-                      <div className=" flex text-[14px] w-[16%] justify-start  font-[600]">
+                      <div className=" flex text-[14px] w-[13%] justify-start  font-[600]">
                         <p>
                           {new Date(applicant.deadLine)
                             .toLocaleDateString("en-GB", {
@@ -251,6 +256,11 @@ function RecentJobs({ isPending }) {
                               year: "numeric",
                             })
                             .replace(",", "")}
+                        </p>
+                      </div>
+                         <div className="flex w-[10%] items-center justify-start pl-8  gap-[8px]">
+                        <p className="text-[14px] font-[600]">
+                          {applicant.totalApplicationCount}
                         </p>
                       </div>
 
@@ -288,6 +298,7 @@ function RecentJobs({ isPending }) {
                           {applicant.status}
                         </p>
                       </div>
+                    
 
                       <div className="flex justify-end  w-[5%] items-center gap-[16px] relative">
                         <div
@@ -457,19 +468,19 @@ function RecentJobs({ isPending }) {
         </div>
       </div>
 
-      {/* {totalCount > 5 && (
+      {totalCount > 5 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
           title={"Applications"}
           setLimit={setLimit}
-          defaultLimit={10}
+          defaultLimit={5}
           totalPages={totalPages}
           limit={limit}
           page={page}
         />
-      )} */}
+      )}
     </>
   );
 }

@@ -8,6 +8,7 @@ function TopSection({
   statistics,
   scrollToPendingJobs,
   scrollToInterviewJobs,
+  setStatus,
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
@@ -28,24 +29,28 @@ function TopSection({
             count: statistics.totalApplications,
             color: "#57697B",
             svg: "svg2",
+            key: "",
           },
           {
             title: "Shortlisted",
             count: statistics.shortlisted,
             color: "#57697B",
             svg: "svg3",
+            key: "Shortlisted",
           },
           {
             title: "Hired",
             count: statistics.hired,
             color: "#57697B",
             svg: "svg4",
+            key: "Hired",
           },
           {
             title: "Rejected",
             count: statistics.rejected,
             color: "#57697B",
             svg: "svg5",
+            key: "Rejected",
           },
         ]
       : [
@@ -60,24 +65,28 @@ function TopSection({
             count: statistics.totalApplications,
             color: "#57697B",
             svg: "svg2",
+            key: "",
           },
           {
             title: "Shortlisted",
             count: statistics.shortlisted,
             color: "#57697B",
             svg: "svg3",
+            key: "Shortlisted",
           },
           {
             title: "Hired",
             count: statistics.hired,
             color: "#57697B",
             svg: "svg4",
+            key: "Hired",
           },
           {
             title: "Rejected",
             count: statistics.rejected,
             color: "#57697B",
             svg: "svg5",
+            key: "Rejected",
           },
         ];
 
@@ -273,9 +282,13 @@ function TopSection({
           </div>
         </div>
       </div>
-
       {jobStats.map((stat, index) => (
         <div
+          onClick={() =>
+            index === 0
+              ? router.push("/common/hiring")
+              : scrollToPendingJobs(stat?.key)
+          }
           key={index}
           style={{
             borderRadius: "12px",
@@ -283,12 +296,12 @@ function TopSection({
             backgroundColor: "#fff",
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
-          className="w-full sm:w-[195px] h-[130px] bg-white shadow-md rounded-lg p-4 relative"
+          className="w-full sm:w-[195px] h-[130px] bg-white shadow-md rounded-lg p-4 relative cursor-pointer"
         >
-          <div className="text-gray-700 font-medium text-[17px]">{stat.title}</div>
-          <div className="text-3xl font-semibold  mt-1">
-            {stat.count}
+          <div className="text-gray-700 font-medium text-[17px]">
+            {stat.title}
           </div>
+          <div className="text-3xl font-semibold mt-1">{stat.count}</div>
           <div className="absolute bottom-0 flex justify-end left-0 w-full pr-4 h-[60px]">
             {SVGs[stat.svg]}
           </div>
