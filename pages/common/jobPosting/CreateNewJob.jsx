@@ -100,7 +100,7 @@ function CreateNewJob() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://jamblix.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
+          `http://localhost:2000/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
             params: { page: 1, limit: 100 },
           }
@@ -173,7 +173,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getEmployerCompanies/${userDataGlobal?.companyId}`
+        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -396,7 +396,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/job/add/${id}`,
+        `http://localhost:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -434,7 +434,7 @@ function CreateNewJob() {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -536,7 +536,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`https://jamblix.com/api/company/fetchCompaniDetails/${id}`)
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         const {
           companyName,
@@ -740,7 +740,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getRequisitionById/${reqId}`
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData((prevData) => ({

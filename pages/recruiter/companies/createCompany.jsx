@@ -64,7 +64,7 @@ function CreateCompany() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://jamblix.com/api/company/fetchCompaniDetails/${companyId}`
+          `http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`
         );
         console.log(response.data);
         if (response.data) {
@@ -249,7 +249,7 @@ function CreateCompany() {
         formData.append("croppedImage", file);
       }
       const response = await axios.post(
-        `https://jamblix.com/api/company/addCompany/${id}`,
+        `http://localhost:2000/api/company/addCompany/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -303,7 +303,7 @@ function CreateCompany() {
       }
 
       const response = await axios.put(
-        `https://jamblix.com/api/company/updateCompanyDetails/${companyId}/${id}`,
+        `http://localhost:2000/api/company/updateCompanyDetails/${companyId}/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -366,51 +366,82 @@ function CreateCompany() {
 
   const header = renderHeader();
 
-  const [options, setOptions] = useState([
-    "Finance",
-    "Technology",
-    "Healthcare",
-    "Retail",
-    "Education",
-    "Manufacturing",
-    "Construction",
-    "Real Estate",
-    "Transportation",
-    "Logistics",
-    "Automotive",
-    "Telecommunications",
-    "Media & Entertainment",
-    "Energy",
-    "Utilities",
-    "Agriculture",
-    "Food & Beverage",
-    "Pharmaceuticals",
-    "Biotechnology",
-    "Aerospace & Defense",
-    "Hospitality",
-    "Tourism",
-    "E-commerce",
-    "Government",
-    "Legal Services",
-    "Consulting",
-    "Human Resources",
-    "Nonprofit & NGOs",
-    "Marketing & Advertising",
-    "Sports & Recreation",
-    "Fashion & Apparel",
-    "Environmental Services",
-    "IT Services",
-    "Cybersecurity",
-    "Artificial Intelligence",
-    "Blockchain",
-    "Cloud Computing",
-    "EdTech",
-    "FinTech",
-    "HealthTech",
-    "InsurTech",
-    "MarTech",
-    "PropTech",
-  ]);
+ const [options, setOptions] = useState([
+  "Aerospace & Defense",
+  "Agriculture",
+  "Artificial Intelligence",
+  "Automotive",
+  "Banking",
+  "Biotechnology",
+  "Blockchain",
+  "Chemicals",
+  "Cloud Computing",
+  "Construction",
+  "Consulting",
+  "Consumer Electronics",
+  "Cybersecurity",
+  "Defense",
+  "Design",
+  "E-commerce",
+  "EdTech",
+  "Education",
+  "Electrical & Electronics",
+  "Energy",
+  "Engineering",
+  "Entertainment",
+  "Environmental Services",
+  "Fashion & Apparel",
+  "Finance",
+  "FinTech",
+  "Food & Beverage",
+  "Gaming",
+  "Government",
+  "Healthcare",
+  "HealthTech",
+  "Hospitality",
+  "Human Resources",
+  "Import & Export",
+  "Industrial Automation",
+  "Information Technology",
+  "Insurance",
+  "InsurTech",
+  "Interior Design",
+  "IT Services",
+  "Legal Services",
+  "Logistics",
+  "Manufacturing",
+  "MarTech",
+  "Marketing & Advertising",
+  "Media & Entertainment",
+  "Mining & Metals",
+  "Nonprofit & NGOs",
+  "Oil & Gas",
+  "Pharmaceuticals",
+  "Photography",
+  "Professional Services",
+  "PropTech",
+  "Real Estate",
+  "Renewable Energy",
+  "Retail",
+  "Robotics",
+  "Scientific Research",
+  "Security Services",
+  "Shipping & Ports",
+  "Social Media",
+  "Software Development",
+  "Sports & Recreation",
+  "Supply Chain",
+  "Telecommunications",
+  "Tourism",
+  "Toys & Games",
+  "Transportation",
+  "Travel",
+  "Utilities",
+  "Veterinary",
+  "Waste Management",
+  "Wholesale & Distribution"
+]);
+
 
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -482,31 +513,7 @@ function CreateCompany() {
                       className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1"> Company Size</div>
-                    <input
-                      type="text"
-                      name="companySize"
-                      value={data.companySize}
-                      onChange={handleInputChange}
-                      placeholder="Enter Company Size"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1"> Company Address</div>
-                    <input
-                      type="text"
-                      name="companyAddress"
-                      value={data.companyAddress}
-                      onChange={handleInputChange}
-                      placeholder="Enter Company Address"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
-                    />
-                  </div>
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <div className="gap-1">
                       Company Sector <span className="text-red">*</span>
                     </div>
@@ -525,6 +532,32 @@ function CreateCompany() {
                       classNamePrefix="select"
                     />
                   </div>
+                  
+                </div>
+                <div className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Address</div>
+                    <input
+                      type="text"
+                      name="companyAddress"
+                      value={data.companyAddress}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Address"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
+                    />
+                  </div>
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Size</div>
+                    <input
+                      type="text"
+                      name="companySize"
+                      value={data.companySize}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Size"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
+                    />
+                  </div>
+                
                 </div>
                 <div className="flex w-full flex-col md:flex-row gap-4 md:gap-[24px]">
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">

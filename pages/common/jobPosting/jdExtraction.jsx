@@ -186,7 +186,7 @@ function JdExtraction() {
     extracteText(file).then((result) => {
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://jamblix.com/api/jd/extraction", {
+          .post("http://localhost:2000/api/jd/extraction", {
             jobDescription: result[0].text,
           })
           .then((res) => {
@@ -224,7 +224,7 @@ function JdExtraction() {
 
   //         // 1. Send extracted text to the first API (extraction)
   //         axios
-  //           .post("https://jamblix.com/api/resume/extraction", {
+  //           .post("http://localhost:2000/api/resume/extraction", {
   //             data: result,
   //           })
   //           .then((res) => {
@@ -235,7 +235,7 @@ function JdExtraction() {
   //               );
 
   //               // 2. Send extracted text to AI resume check API
-  //               return axios.post("https://jamblix.com/api/resumeCheck", {
+  //               return axios.post("http://localhost:2000/api/resumeCheck", {
   //                 resumeText: extractedText,
   //               });
   //             } else {

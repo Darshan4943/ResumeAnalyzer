@@ -6,7 +6,7 @@ export const fetchProfileData = createAsyncThunk(
   "profile/fetchProfileData",
   async (userId) => {
     const response = await axios.get(
-      `https://jamblix.com/api/candidate/${userId}`
+      `http://localhost:2000/api/candidate/${userId}`
     );
 
     const profileData = jwtDecode(response.data.data);

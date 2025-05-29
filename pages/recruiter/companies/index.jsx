@@ -31,7 +31,7 @@ function Index() {
   const fetchCompanyData = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/company/getCompaniesById/${id}`,
+        `http://localhost:2000/api/company/getCompaniesById/${id}`,
         {
           params: { page, limit },
         }
@@ -82,7 +82,7 @@ function Index() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://jamblix.com/api/company/deleteCompany/${selectedJobId}`
+        `http://localhost:2000/api/company/deleteCompany/${selectedJobId}`
       );
       if (response.data.success) {
         toast.success("Company deleted successfully!");
@@ -107,7 +107,7 @@ function Index() {
       <div className="flex gap-2">
         <button
           onClick={() => router.push("/recruiter/companies/createCompany")}
-          className="bg-[#06A9EF] text-[#FFFFFF] w-[239px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
+          className="bg-[#06A9EF] text-[#FFFFFF] w-[200px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
         >
           <svg
             width="18"
@@ -123,11 +123,11 @@ function Index() {
               />
             </g>
           </svg>
-          Create Company Profile
+          Create Company
         </button>
         <button
          onClick={() => setOpenPopup(true)} 
-          className="bg-[#06A9EF] text-[#FFFFFF] w-[239px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
+          className="bg-[#06A9EF] text-[#FFFFFF] w-[235px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-between"
         >
           <svg
             width="18"

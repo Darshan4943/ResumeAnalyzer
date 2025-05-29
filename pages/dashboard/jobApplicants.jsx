@@ -48,7 +48,7 @@ function JobApplicants() {
     setLoading1(true);
     try {
       const response = await axios.get(
-        "https://jamblix.com/api/job/getAllJobApplicant",
+        "http://localhost:2000/api/job/getAllJobApplicant",
         {
           params: { countryCode },
         }
@@ -112,7 +112,7 @@ function JobApplicants() {
     setLoading2(true)
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/sendEvaluationMail",
+        "http://localhost:2000/api/sendEvaluationMail",
         {
           userData: applicants.map((app) => ({
             email: app?.details?.personal?.email,
@@ -144,7 +144,7 @@ function JobApplicants() {
     // setLoading(applicant._id);
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/sendEvaluationMail",
+        "http://localhost:2000/api/sendEvaluationMail",
         {
           userData: [
             {

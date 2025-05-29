@@ -29,7 +29,7 @@ function JobPosting() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://jamblix.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
+          `http://localhost:2000/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
             params: { page: 1, limit: 100 },
           }
@@ -53,7 +53,7 @@ function JobPosting() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {
@@ -311,7 +311,7 @@ function JobPosting() {
                       />
                     </g>
                   </svg>
-                  Create Job Post
+                  Post Job
                 </button>
                 <img
                   className="max-w-[98px] max-h-[78px] object-cover"
@@ -419,6 +419,13 @@ function JobPosting() {
                     menuPortal: (base) => ({
                       ...base,
                       zIndex: 9999,
+                    }),
+                    singleValue: (base) => ({
+                      ...base,
+                      whiteSpace: "normal",
+                      overflow: "visible",
+                      textOverflow: "unset",
+                      maxWidth: "100%",
                     }),
                   }}
                 />

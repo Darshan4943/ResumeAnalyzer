@@ -100,7 +100,7 @@ function RecentApplications({ status }) {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 

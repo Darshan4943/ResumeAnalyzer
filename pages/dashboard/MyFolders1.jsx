@@ -73,7 +73,7 @@ function MyFolders1({
     setLoading1(true);
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/sendEvaluationMail",
+        "http://localhost:2000/api/sendEvaluationMail",
         {
           userData: applicants.map((app) => ({
             email: app?.enhancedVersion?.email,
@@ -99,7 +99,7 @@ function MyFolders1({
     setLoading(applicant._id);
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/sendEvaluationMail",
+        "http://localhost:2000/api/sendEvaluationMail",
         {
           userData: [
             {

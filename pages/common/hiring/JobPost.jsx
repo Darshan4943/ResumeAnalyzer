@@ -127,7 +127,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -165,7 +165,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setLoading1(true);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/hiring/moveToHiringMultiple/${id}`,
+        `http://localhost:2000/api/hiring/moveToHiringMultiple/${id}`,
         { applicantIds }
       );
       setLoading1(false);
@@ -268,7 +268,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 
@@ -293,7 +293,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const fetchJobDetailsHeder = async (id, setJobData) => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getJobDetailsById/${id}`
+        `http://localhost:2000/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
     } catch (error) {
@@ -310,7 +310,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setError(null);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getByIdApplication/${id}`,
+        `http://localhost:2000/api/job/getByIdApplication/${id}`,
         {
           params: {
             page: page,
@@ -361,7 +361,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setAiLoading(true);
   //   try {
   //     const response = await axios.put(
-  //       `https://jamblix.com/api/job/aiMatch/${id}`
+  //       `http://localhost:2000/api/job/aiMatch/${id}`
   //     );
   //     updateJobMatchLimit();
   //     setTimeout(() => {
@@ -381,7 +381,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setAiLoading(true);
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/aiMatch/gist",
+        "http://localhost:2000/api/aiMatch/gist",
 
         {
           jobGist: jobData?.gist,
@@ -408,7 +408,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   // const updateJobMatchLimit = async () => {
   //   try {
-  //     const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+  //     const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
   //     const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl);
 
   //     if (!jdSubscriptionResponse.data.success) {
@@ -535,7 +535,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const hiredCandidate = async (applicantId, jobId) => {
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/hiring/hiredCandidate/${applicantId}/${jobId}`
+        `http://localhost:2000/api/hiring/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
@@ -776,32 +776,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                   </div>
-                  <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                    <p
-                      onClick={() => {
-                        setOption(1), setActiveOption("JobDetails");
-                      }}
-                      className={` ${
-                        activeOption === "JobDetails" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
-                    >
-                      Job Details
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="89"
-                      height="4"
-                      viewBox="0 0 89 4"
-                      fill="none"
-                    >
-                      <path
-                        d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                        fill={
-                          activeOption === "JobDetails" ? "#06A9EF" : "white"
-                        }
-                      />
-                    </svg>
-                  </div>
+                 
                   <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
                     <p
                       onClick={() => {
@@ -824,6 +799,32 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
                         fill={
                           activeOption === "Analytics" ? "#06A9EF" : "white"
+                        }
+                      />
+                    </svg>
+                  </div>
+                   <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                    <p
+                      onClick={() => {
+                        setOption(1), setActiveOption("JobDetails");
+                      }}
+                      className={` ${
+                        activeOption === "JobDetails" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
+                    >
+                      Job Details
+                    </p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="89"
+                      height="4"
+                      viewBox="0 0 89 4"
+                      fill="none"
+                    >
+                      <path
+                        d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                        fill={
+                          activeOption === "JobDetails" ? "#06A9EF" : "white"
                         }
                       />
                     </svg>
@@ -1224,7 +1225,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           .replace(",", "")}
                                       </p>
                                     </div>
-                                    <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible">
+                                    <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible ">
                                       <>
                                         {isPopupVisible && (
                                           <ShortlistMail
@@ -1239,7 +1240,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           />
                                         )}
                                       </>
-
                                       {moreOption &&
                                         selectedDotIndex === index && (
                                           <div
@@ -1334,6 +1334,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                               )}
                                           </div>
                                         )}
+                                      <div className="text-[14px] font-medium text-[#224D90] cursor-pointer">
+                                        View
+                                      </div>
 
                                       <svg
                                         className=" cursor-pointer"
@@ -1380,7 +1383,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           </clipPath>
                                         </defs>
                                       </svg>
-
                                       <img
                                         onClick={() => {
                                           if (

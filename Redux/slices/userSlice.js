@@ -13,7 +13,7 @@ export const fetchUserData = createAsyncThunk(
           const decoded = jwtDecode(token.token);
 
           const response = await axios.get(
-            `https://jamblix.com/api/skiloteckuser/user/${decoded._id}`
+            `http://localhost:2000/api/skiloteckuser/user/${decoded._id}`
           );
           const userData = jwtDecode(response.data.data);
           return {

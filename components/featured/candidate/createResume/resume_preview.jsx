@@ -131,7 +131,7 @@ const ResumePreview = ({
         : userDataGlobal?._id;
     if (id) {
       axios
-        .get(`https://jamblix.com/api/resume/${id}`)
+        .get(`http://localhost:2000/api/resume/${id}`)
 
         .then((res) => {
           if (!isEdit) {
@@ -413,7 +413,7 @@ const ResumePreview = ({
 
         try {
           const res = await axios.post(
-            "https://jamblix.com/api/upload/profile-photo",
+            "http://localhost:2000/api/upload/profile-photo",
             photoForm
           );
           profilePhotoUrl = res.data.url;
@@ -457,7 +457,7 @@ const ResumePreview = ({
         formData.append("UserId", userDataGlobal?._id);
 
         axios
-          .put(`https://jamblix.com/api/resume/${id}`, formData)
+          .put(`http://localhost:2000/api/resume/${id}`, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -517,7 +517,7 @@ const ResumePreview = ({
         formData.append("userId", userDataGlobal?._id);
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -565,7 +565,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal?._id
       )
       .then((res) => {

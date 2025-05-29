@@ -69,7 +69,7 @@ function Hiring() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {
@@ -411,28 +411,35 @@ function Hiring() {
                       menuPortalTarget={document.body}
                       menuPosition="absolute"
                       styles={{
-                        ...customStyles,
-                        menu: (base) => ({
-                          ...base,
-                          minWidth: "320px",
-                          maxWidth: "150px",
-                          zIndex: 9999,
-                        }),
-                        menuList: (base) => ({
-                          ...base,
-                          fontSize: "12px",
-                          padding: "4px",
-                        }),
-                        option: (base) => ({
-                          ...base,
-                          padding: "4px 8px",
-                          fontSize: "16px",
-                        }),
-                        menuPortal: (base) => ({
-                          ...base,
-                          zIndex: 9999,
-                        }),
-                      }}
+                    ...customStyles,
+                    menu: (base) => ({
+                      ...base,
+                      minWidth: "320px",
+                      maxWidth: "150px",
+                      zIndex: 9999,
+                    }),
+                    menuList: (base) => ({
+                      ...base,
+                      fontSize: "12px",
+                      padding: "4px",
+                    }),
+                    option: (base) => ({
+                      ...base,
+                      padding: "4px 8px",
+                      fontSize: "14px",
+                    }),
+                    menuPortal: (base) => ({
+                      ...base,
+                      zIndex: 9999,
+                    }),
+                    singleValue: (base) => ({
+                      ...base,
+                      whiteSpace: "normal",
+                      overflow: "visible",
+                      textOverflow: "unset",
+                      maxWidth: "100%",
+                    }),
+                  }}
                     />
                     <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
                   </>

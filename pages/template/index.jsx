@@ -68,7 +68,7 @@ function Index() {
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/getTemplates/${userDataGlobal._id}`
+        `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
       );
       const result = await response.json();
 

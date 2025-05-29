@@ -144,7 +144,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -159,7 +159,7 @@ function Collection() {
 
   const getClientData = (clientId) => {
     axios
-      .get("https://jamblix.com/api/resume/" + clientId)
+      .get("http://localhost:2000/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -173,7 +173,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -190,7 +190,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://jamblix.com/api/folder/getSkilotechCollectionData/${userDataGlobal?._id}`
+        `http://localhost:2000/api/folder/getSkilotechCollectionData/${userDataGlobal?._id}`
       )
       .then((res) => {
         setFolderList(res.data.data[0].files);
@@ -209,7 +209,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal?._id}`)
+      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -224,7 +224,7 @@ function Collection() {
 
   const getUnSyncFiles = () => {
     axios
-      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal?._id}`)
       .then((res) => {
         const files = res.data.data.filter((item) => item.type === "file");
         setUnSyncFiles(files.length);
@@ -258,7 +258,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("https://jamblix.com/api/folder/create", formData)
+        .post("http://localhost:2000/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -434,7 +434,7 @@ function Collection() {
 
           try {
             const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
+              "http://localhost:2000/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
@@ -482,7 +482,7 @@ function Collection() {
   //   }
   //   try {
 
-  //     const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
+  //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
@@ -514,8 +514,8 @@ function Collection() {
       };
     }
     try {
-      const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
-      const anotherApiUrl = `https://jamblix.com/api/subscription/updateCollectionLimit/${userDataGlobal?._id}`;
+      const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
+      const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal?._id}`;
 
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
       const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount });
@@ -959,13 +959,13 @@ function Collection() {
       )}
       <div className="">
         <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4   relative  ">
-          <div className="flex flex-col gap-5  justify-between ml:w-[25%] w-[100%]  min-w-[315px] ">
-            <div className="flex flex-col gap-4 ">
-              <p className="text-[18px] font-semibold h-[36px] ">
+          <div className="flex flex-col gap-5  justify-between ml:w-[25%] w-[100%]   ">
+            <div className="flex flex-col gap-4 min-h-[calc(95vh-104px)]">
+              <p className="text-[18px] font-semibold h-[36px] min-h-[36px] ">
                 My Collection
               </p>
 
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2 ml:min-h-[560px] overflow-x-auto ">
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  h-full bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2  overflow-x-auto ">
                 <button
                   onClick={() => {
                     // setTab(1);

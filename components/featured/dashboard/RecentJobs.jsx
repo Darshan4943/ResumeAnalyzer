@@ -56,7 +56,7 @@ function RecentJobs({ isPending }) {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getAllJobDetails/${userDataGlobal._id}`,
+        `http://localhost:2000/api/job/getAllJobDetails/${userDataGlobal._id}`,
         {
           params: { page, limit, search: searchQuery },
         }
@@ -100,7 +100,7 @@ function RecentJobs({ isPending }) {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 

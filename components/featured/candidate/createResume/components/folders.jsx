@@ -77,7 +77,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/delete", {
+      .post("http://localhost:2000/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -98,7 +98,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/restore", {
+      .post("http://localhost:2000/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -181,7 +181,7 @@ function Folders({
   }, [selectedIndexes]);
 
   return (
-    <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
+    <div className="flex flex-col gap-4 ml:w-[80%] w-[100%]  min-h-[calc(95vh-104px)]">
       <div className="flex justify-end items-center">
 
         <div
@@ -220,7 +220,7 @@ function Folders({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4   bg-white ms:p-6 p-2  rounded-[16px]   min-h-[560px] ">
+      <div className="flex flex-col gap-4   bg-white ms:p-6 p-2  rounded-[16px] h-full  ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           {/* <div className="flex justify-end text-[14px] font-medium ">
             {unSyncFiles > 0 &&

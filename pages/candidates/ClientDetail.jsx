@@ -29,7 +29,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     if (clientId) {
       axios
-        .get(`https://jamblix.com/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           setDetails(res.data.data);
         })
@@ -37,7 +37,7 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
       axios
-        .get("https://jamblix.com/api/resume/" + clientId)
+        .get("http://localhost:2000/api/resume/" + clientId)
         .then((res) => {
           setResumeList(res.data.data);
         })
@@ -50,7 +50,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/cover/get/" + clientId)
+      .get("http://localhost:2000/api/cover/get/" + clientId)
       .then((res) => {
         setCoverList(res.data.data);
         setTimeout(() => {
@@ -80,7 +80,7 @@ function ClientDetail({ tabIndex }) {
     }
 
     axios
-      .delete("https://jamblix.com/api/resume/deleteResume", {
+      .delete("http://localhost:2000/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
@@ -104,7 +104,7 @@ function ClientDetail({ tabIndex }) {
     }
 
     axios
-      .delete(`https://jamblix.com/api/cover/delete/${ids}`)
+      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
       .then((response) => {
         toast.success("Resume Deleted successfully");
 

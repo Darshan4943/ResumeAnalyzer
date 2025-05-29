@@ -61,7 +61,7 @@ function BulkUploadPopUp({ setOpenPopup }) {
 
         try {
             const response = await axios.post(
-                `https://jamblix.com/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
+                `http://localhost:2000/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -177,7 +177,7 @@ function BulkUploadPopUp({ setOpenPopup }) {
                     <p>
                         1. Download the Template{" "}
                         <span className="font-[400]">
-                            - Click on &quot;Download CSV File&quot; to get the required
+                            - Click on &quot;Download Bulk Upload File&quot; to get the required
                             format.
                         </span>
                     </p>
@@ -192,7 +192,7 @@ function BulkUploadPopUp({ setOpenPopup }) {
                     <p>
                         3. Upload the File{" "}
                         <span className="font-[400]">
-                            - Click &quot;Browse&quot; or drag and drop your completed CSV
+                            - Click &quot;Browse&quot; or drag and drop your completed Bulk Upload
                             file.
                         </span>
                     </p>
@@ -222,14 +222,14 @@ function BulkUploadPopUp({ setOpenPopup }) {
                                 fill="#333333"
                             />
                         </svg>
-                        Download CSV File
+                        Download Bulk Upload File
                     </a>
 
                     <button
                         onClick={() => {
                             handleUpload();
                         }}
-                        className="bg-blue text-white text-[12px] font-[600] px-4 py-2 rounded-[30px] "
+                        className={`bg-blue text-white text-[12px] font-[600] px-4 py-2 rounded-[30px] ${!file && "opacity-50"}`}
                     >
                         Upload
                     </button>

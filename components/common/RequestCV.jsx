@@ -131,7 +131,7 @@ function RequestCV() {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -169,7 +169,7 @@ function RequestCV() {
       const outputData = [];
 
       const response = await axios.post(
-        "https://jamblix.com/api/skiloCollection/jobMatching",
+        "http://localhost:2000/api/skiloCollection/jobMatching",
         {
           jd: isResumes === "post" ? selectedJob : data,
           resumeCount,
@@ -216,7 +216,7 @@ function RequestCV() {
 
   const updateJobMatchLimit = async () => {
     try {
-      const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
         resumeCount,
       });
@@ -228,7 +228,7 @@ function RequestCV() {
         );
       }
 
-      // const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      // const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
       //   resumeCount,
       // });
@@ -336,7 +336,7 @@ function RequestCV() {
   //             };
 
   //             const response = await axios.post(
-  //                 "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+  //                 "http://localhost:2000/api/folder/addFileToSkilotechCollection",
   //                 payload,
   //                 {
   //                     headers: {
@@ -384,7 +384,7 @@ function RequestCV() {
       };
 
       const folderResponse = await axios.post(
-        "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+        "http://localhost:2000/api/folder/addFileToSkilotechCollection",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -409,7 +409,7 @@ function RequestCV() {
         };
 
         return axios.post(
-          "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+          "http://localhost:2000/api/folder/addFileToSkilotechCollection",
           payload,
           { headers: { "Content-Type": "application/json" } }
         );
@@ -564,9 +564,9 @@ function RequestCV() {
           </div>
         </>
       )}
-      <div className="w-full flex flex-col gap-4 ">
+      <div className="w-full flex flex-col gap-4  min-h-[calc(95vh-104px)] ">
         <div className="ml:h-[36px] h-0"></div>
-        <div className="p-4 bg-white rounded-[16px] flex flex-col gap-4 min-h-[560px]">
+        <div className="p-4 bg-white rounded-[16px] flex flex-col gap-4 h-full ">
           <div className="bg-[#F9F9F9] scr390:w-[348px] w-[284px] flex rounded-[30px] scr390:text-[14px] text-[10px] font-semibold justify-center">
             <button
               className={`${

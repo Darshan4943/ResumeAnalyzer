@@ -63,7 +63,7 @@ function BulkCompany({ setOpenPopup ,fetchCompanyData }) {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/company/addBulk/${userDataGlobal?._id}`,
+        `http://localhost:2000/api/company/addBulk/${userDataGlobal?._id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -180,28 +180,28 @@ function BulkCompany({ setOpenPopup ,fetchCompanyData }) {
           <p>
             1. Download the Template{" "}
             <span className="font-[400]">
-              - Click on &quot;Download CSV File&quot; to get the required
+              - Click on &quot;Download Bulk Upload File&quot; to get the required
               format.
             </span>
           </p>
           <p>
-            2. Fill in the Job Details
+            2. Fill in the Company Details
             <span className="font-[400]">
               {" "}
-              - Open the file, enter all job-related information, and save it.
+              - Open the file, enter all company-related information, and save it.
             </span>
           </p>
           <p>
             3. Upload the File{" "}
             <span className="font-[400]">
-              - Click &quot;Browse&quot; or drag and drop your completed CSV
+              - Click &quot;Browse&quot; or drag and drop your completed Bulk Upload
               file.
             </span>
           </p>
           <p>
-            4. Submit the Jobs
+            4. Create Company
             <span className="font-[400]">
-              - Click &quot;Upload&quot; to post your jobs successfully.
+              - Click &quot;Upload&quot; to create companies successfully.
             </span>
           </p>
         </div>
@@ -224,14 +224,14 @@ function BulkCompany({ setOpenPopup ,fetchCompanyData }) {
                 fill="#333333"
               />
             </svg>
-            Download CSV File
+            Download Bulk Upload File
           </a>
 
           <button
             onClick={() => {
               handleUpload();
             }}
-            className="bg-blue text-white text-[12px] font-[600] px-4 py-2 rounded-[30px] "
+            className={`bg-blue text-white text-[12px] font-[600] px-4 py-2 rounded-[30px] ${!file && "opacity-50"}`}
           >
             Upload
           </button>

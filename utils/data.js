@@ -11,7 +11,7 @@ export const uploadFile = async (file, fieldName) => {
     fileData.append(fieldName, file);
 
     const response = await axios.post(
-      "https://jamblix.com/api/upload/document",
+      "http://localhost:2000/api/upload/document",
       fileData,
       {
         headers: { "Content-Type": "multipart/form-data" },

@@ -77,7 +77,7 @@ function CreateJd() {
   const getJobDescriptions = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/jd/getById/${id}`
+        `http://localhost:2000/api/jd/getById/${id}`
       );
       setJobDescription(response.data.data.jd);
     } catch (error) {
@@ -121,7 +121,7 @@ function CreateJd() {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/generate/jobDescription",
+        "http://localhost:2000/api/generate/jobDescription",
         formData
       );
       setJobTitle(response.data.jobTitle);
@@ -306,8 +306,8 @@ function CreateJd() {
     try {
       setLoadingg(true);
       const url = id
-        ? `https://jamblix.com/api/jd/update/${id}`
-        : "https://jamblix.com/api/jd/add";
+        ? `http://localhost:2000/api/jd/update/${id}`
+        : "http://localhost:2000/api/jd/add";
 
       const method = id ? "put" : "post";
 
@@ -562,7 +562,7 @@ function CreateJd() {
                       </button>
 
                       {loading ? (
-                        <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-[30px] h-[38px] w-[88.45px]">
+                        <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-[30px] h-[38px] w-[104.57px]">
                           <MiniLoader />
                         </div>
                       ) : (
@@ -570,7 +570,7 @@ function CreateJd() {
                           onClick={handleSubmit}
                           className="text-[12px] md:text-[14px] font-semibold px-6 bg_Button rounded-[30px] h-[38px]"
                         >
-                          Create
+                          Generate
                         </button>
                       )}
                     </div>

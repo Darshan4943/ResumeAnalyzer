@@ -213,7 +213,7 @@ function Payment() {
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://jamblix.com/api/add/subscription", {
+  //       .post("http://localhost:2000/api/add/subscription", {
   //         userId: userDataGlobal?._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -285,7 +285,7 @@ function Payment() {
     const currency = localStorage.getItem("currency");
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
-      const { data } = await axios.post("https://jamblix.com/api/getPriceId", {
+      const { data } = await axios.post("http://localhost:2000/api/getPriceId", {
         amount: Math.ceil(2.3 * exchangeRate) * 100,
         productName: "prod_SDBxkH83EhOl1p",
         currency: currency,
@@ -313,7 +313,7 @@ function Payment() {
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://jamblix.com/api/proceed/resumePayment", {
+            .post("http://localhost:2000/api/proceed/resumePayment", {
               priceId,
             })
             .then((res) => {
@@ -336,7 +336,7 @@ function Payment() {
       try {
         // setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
-          "https://jamblix.com/api/retrieve/session",
+          "http://localhost:2000/api/retrieve/session",
           {
             params: { storedId },
           }
@@ -388,15 +388,15 @@ function Payment() {
     try {
       if (skilotechCollection) {
         await axios.put(
-          `https://jamblix.com/api/updateResume/paymentStatus/${storedId}`
+          `http://localhost:2000/api/updateResume/paymentStatus/${storedId}`
         );
       } else if (myCollection) {
         await axios.put(
-          `https://jamblix.com/api/updateCollection/paymentStatus/${storedId}`
+          `http://localhost:2000/api/updateCollection/paymentStatus/${storedId}`
         );
       } else if (application) {
         await axios.put(
-          `https://jamblix.com/api/updateApplication/paymentStatus/${storedId}`
+          `http://localhost:2000/api/updateApplication/paymentStatus/${storedId}`
         );
       }
 
@@ -434,7 +434,7 @@ function Payment() {
       } else {
         setLoading(true);
         try {
-          await axios.post("https://jamblix.com/api/add/subscription", {
+          await axios.post("http://localhost:2000/api/add/subscription", {
             userId: userDataGlobal?._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,
