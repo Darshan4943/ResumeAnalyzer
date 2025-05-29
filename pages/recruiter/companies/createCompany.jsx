@@ -33,8 +33,10 @@ function CreateCompany() {
     companyWebsite: "",
     companyMail: "",
     companySize: "",
+    hrEmail: "",
+    hrContact: "",
   });
-  console.log(data)
+  console.log(data);
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
 
@@ -54,7 +56,7 @@ function CreateCompany() {
       setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
-  console.log(id)
+  console.log(id);
 
   useEffect(() => {
     if (!companyId) return;
@@ -64,12 +66,15 @@ function CreateCompany() {
         const response = await axios.get(
           `https://jamblix.com/api/company/fetchCompaniDetails/${companyId}`
         );
-        console.log(response.data)
+        console.log(response.data);
         if (response.data) {
           setData({
             companyName: response.data.companyName,
             companySector: response.data.companySector
-              ? response.data.companySector.map((sector) => ({ value: sector, label: sector }))
+              ? response.data.companySector.map((sector) => ({
+                  value: sector,
+                  label: sector,
+                }))
               : [],
             companyLogo: response.data.companyLogo,
             companyDescription: response.data.companyDescription,
@@ -77,6 +82,8 @@ function CreateCompany() {
             companyWebsite: response.data.companyWebsite,
             companyMail: response.data.companyMail,
             companySize: response.data.companySize,
+            hrEmail: response.data.hrEmail,
+            hrContact: response.data.hrContact,
           });
         }
       } catch (error) {
@@ -116,9 +123,7 @@ function CreateCompany() {
 
     setData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
-
-
-  }
+  };
   const handleInputChangee = (inputValue) => {
     if (!inputValue.trim()) {
       setFilteredOptions(options);
@@ -176,6 +181,8 @@ function CreateCompany() {
       companyWebsite: "",
       companyMail: "",
       companySize: "",
+      hrEmail: "",
+      hrContact: "",
     });
     setCroppedImage(null);
     setFile(null);
@@ -222,12 +229,17 @@ function CreateCompany() {
     try {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
-      formData.append("companySector", JSON.stringify(data.companySector.map((sector) => sector.value)));
+      formData.append(
+        "companySector",
+        JSON.stringify(data.companySector.map((sector) => sector.value))
+      );
       formData.append("companyDescription", data.companyDescription);
       formData.append("companyAddress", data.companyAddress);
       formData.append("companyWebsite", data.companyWebsite);
       formData.append("companyMail", data.companyMail);
       formData.append("companySize", data.companySize);
+      formData.append("hrEmail", data.hrEmail);
+      formData.append("hrContact", data.hrContact);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();
@@ -270,12 +282,17 @@ function CreateCompany() {
     try {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
-      formData.append("companySector", JSON.stringify(data.companySector.map((sector) => sector.value)));
+      formData.append(
+        "companySector",
+        JSON.stringify(data.companySector.map((sector) => sector.value))
+      );
       formData.append("companyDescription", data.companyDescription);
       formData.append("companyAddress", data.companyAddress);
       formData.append("companyWebsite", data.companyWebsite);
       formData.append("companyMail", data.companyMail);
       formData.append("companySize", data.companySize);
+      formData.append("hrEmail", data.hrEmail);
+      formData.append("hrContact", data.hrContact);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();
@@ -398,7 +415,6 @@ function CreateCompany() {
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [showDropdown, setShowDropdown] = useState(false);
 
-
   return (
     <div className="w-full relative flex flex-col gap-5">
       <div className="flex gap-3 scr340:text-[16px] text-[16px] font-[600] text-[#333333] items-center">
@@ -456,10 +472,7 @@ function CreateCompany() {
                 </div>
                 <div className="flex w-full md:flex-row  flex-col  md:gap-[24px] gap-4">
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1">
-                      {" "}
-                      Company Website
-                    </div>
+                    <div className="gap-1"> Company Website</div>
                     <input
                       type="text"
                       name="companyWebsite"
@@ -483,10 +496,7 @@ function CreateCompany() {
                 </div>
                 <div className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1">
-                      {" "}
-                      Company Address
-                    </div>
+                    <div className="gap-1"> Company Address</div>
                     <input
                       type="text"
                       name="companyAddress"
@@ -498,18 +508,46 @@ function CreateCompany() {
                   </div>
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <div className="gap-1">
-                      Company Sector<span className="text-red">*</span>
+                      Company Sector <span className="text-red">*</span>
                     </div>
                     <Select
                       isMulti
                       name="companySector"
-                      options={options.map((opt) => ({ value: opt, label: opt }))}
+                      options={options.map((opt) => ({
+                        value: opt,
+                        label: opt,
+                      }))}
                       value={data.companySector}
                       onChange={handleSelect}
                       onInputChange={handleInputChangee}
                       placeholder="Enter or Select Company Sector"
                       className="w-full"
                       classNamePrefix="select"
+                    />
+                  </div>
+                </div>
+                <div className="flex w-full flex-col md:flex-row gap-4 md:gap-[24px]">
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <label className="gap-1">HR POC Contact</label>
+                    <input
+                      type="text"
+                      name="hrContact"
+                      value={data.hrContact}
+                      onChange={handleInputChange}
+                      placeholder="Enter HR Contact Number"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#DEDEDE] outline-none rounded-[8px] px-4 py-2 h-[44px]"
+                    />
+                  </div>
+
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <label className="gap-1">HR POC Email</label>
+                    <input
+                      type="email"
+                      name="hrEmail"
+                      value={data.hrEmail}
+                      onChange={handleInputChange}
+                      placeholder="Enter HR Email Address"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#DEDEDE] outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
                 </div>
@@ -533,17 +571,17 @@ function CreateCompany() {
                   {(croppedImage ||
                     data?.companyLogo ||
                     "/images/jobs/logo.png") && (
-                      <ImageContainer
-                        value={data?.companyLogo}
-                        src={
-                          croppedImage?.url ||
-                          data?.companyLogo ||
-                          "/images/jobs/logo.png"
-                        }
-                        alt="Selected File"
-                        className="w-[143.95%] h-[60px] object-contain"
-                      />
-                    )}
+                    <ImageContainer
+                      value={data?.companyLogo}
+                      src={
+                        croppedImage?.url ||
+                        data?.companyLogo ||
+                        "/images/jobs/logo.png"
+                      }
+                      alt="Selected File"
+                      className="w-[143.95%] h-[60px] object-contain"
+                    />
+                  )}
 
                   <input
                     type="file"
@@ -586,9 +624,14 @@ function CreateCompany() {
                     // borderBottomLeftRadius: "8px",
                     // borderBottomRightRadius: "8px",
                     minHeight: "296px",
-                    height: "212px"
+                    height: "212px",
                   }}
-                  className={`editor-container ${window.location.pathname === "/recruiter/companies/createCompany" ? "create-company-height" : ""} editor-container `}
+                  className={`editor-container ${
+                    window.location.pathname ===
+                    "/recruiter/companies/createCompany"
+                      ? "create-company-height"
+                      : ""
+                  } editor-container `}
                   onPaste={(e) => e.preventDefault()}
                 />
                 <div className="text-[12px] text-gray-500">
@@ -602,7 +645,6 @@ function CreateCompany() {
                 </div>
               </div>
             </div>
-
           </div>
 
           <div className="w-full flex justify-between pt-5">

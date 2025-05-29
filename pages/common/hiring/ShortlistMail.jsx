@@ -192,7 +192,7 @@ function ShortlistMail({
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/hiring/shortlistCandidate",
+        "https://jamblix.com/api/hiring/shortlistCandidate",
         emailDetails
       );
 

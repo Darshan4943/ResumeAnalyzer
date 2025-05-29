@@ -5,6 +5,8 @@ import MiniLoader from "../../../components/common/miniLoader";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CustomPagination from "../../../components/common/CustomPagination";
+import BulkUploadPopUp from "../../../components/common/bulkUploadPopUp";
+import BulkCompany from "../../../components/common/bulkCompany";
 
 function Index() {
   const router = useRouter();
@@ -20,6 +22,7 @@ function Index() {
   const [totalCompanies, setTotalCount] = useState(0);
   const [deletePopup, setDeletePopup] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [openPopup, setOpenPopup] = useState(false);
 
   useEffect(() => {
     setId(userDataGlobal?._id || "");
@@ -101,26 +104,48 @@ function Index() {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <button
-        onClick={() => router.push("/recruiter/companies/createCompany")}
-        className="bg-[#06A9EF] text-[#FFFFFF] w-[239px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
-      >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <div className="flex gap-2">
+        <button
+          onClick={() => router.push("/recruiter/companies/createCompany")}
+          className="bg-[#06A9EF] text-[#FFFFFF] w-[239px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
         >
-          <g mask="url(#mask0_6706_95211)">
-            <path
-              d="M8.25 9.75H4.5C4.2875 9.75 4.10938 9.67812 3.96562 9.53438C3.82187 9.39062 3.75 9.2125 3.75 9C3.75 8.7875 3.82187 8.60938 3.96562 8.46562C4.10938 8.32188 4.2875 8.25 4.5 8.25H8.25V4.5C8.25 4.2875 8.32188 4.10938 8.46562 3.96562C8.60938 3.82187 8.7875 3.75 9 3.75C9.2125 3.75 9.39062 3.82187 9.53438 3.96562C9.67812 4.10938 9.75 4.2875 9.75 4.5V8.25H13.5C13.7125 8.25 13.8906 8.32188 14.0344 8.46562C14.1781 8.60938 14.25 8.7875 14.25 9C14.25 9.2125 14.1781 9.39062 14.0344 9.53438C13.8906 9.67812 13.7125 9.75 13.5 9.75H9.75V13.5C9.75 13.7125 9.67812 13.8906 9.53438 14.0344C9.39062 14.1781 9.2125 14.25 9 14.25C8.7875 14.25 8.60938 14.1781 8.46562 14.0344C8.32188 13.8906 8.25 13.7125 8.25 13.5V9.75Z"
-              fill="white"
-            />
-          </g>
-        </svg>
-        Create Company Profile
-      </button>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g mask="url(#mask0_6706_95211)">
+              <path
+                d="M8.25 9.75H4.5C4.2875 9.75 4.10938 9.67812 3.96562 9.53438C3.82187 9.39062 3.75 9.2125 3.75 9C3.75 8.7875 3.82187 8.60938 3.96562 8.46562C4.10938 8.32188 4.2875 8.25 4.5 8.25H8.25V4.5C8.25 4.2875 8.32188 4.10938 8.46562 3.96562C8.60938 3.82187 8.7875 3.75 9 3.75C9.2125 3.75 9.39062 3.82187 9.53438 3.96562C9.67812 4.10938 9.75 4.2875 9.75 4.5V8.25H13.5C13.7125 8.25 13.8906 8.32188 14.0344 8.46562C14.1781 8.60938 14.25 8.7875 14.25 9C14.25 9.2125 14.1781 9.39062 14.0344 9.53438C13.8906 9.67812 13.7125 9.75 13.5 9.75H9.75V13.5C9.75 13.7125 9.67812 13.8906 9.53438 14.0344C9.39062 14.1781 9.2125 14.25 9 14.25C8.7875 14.25 8.60938 14.1781 8.46562 14.0344C8.32188 13.8906 8.25 13.7125 8.25 13.5V9.75Z"
+                fill="white"
+              />
+            </g>
+          </svg>
+          Create Company Profile
+        </button>
+        <button
+         onClick={() => setOpenPopup(true)} 
+          className="bg-[#06A9EF] text-[#FFFFFF] w-[239px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g mask="url(#mask0_9696_113372)">
+              <path
+                d="M4.875 15C3.7375 15 2.76562 14.6062 1.95938 13.8188C1.15313 13.0312 0.75 12.0688 0.75 10.9312C0.75 9.95625 1.04375 9.0875 1.63125 8.325C2.21875 7.5625 2.9875 7.075 3.9375 6.8625C4.25 5.7125 4.875 4.78125 5.8125 4.06875C6.75 3.35625 7.8125 3 9 3C10.4625 3 11.7031 3.50938 12.7219 4.52813C13.7406 5.54688 14.25 6.7875 14.25 8.25C15.1125 8.35 15.8281 8.72188 16.3969 9.36563C16.9656 10.0094 17.25 10.7625 17.25 11.625C17.25 12.5625 16.9219 13.3594 16.2656 14.0156C15.6094 14.6719 14.8125 15 13.875 15H9.75C9.3375 15 8.98438 14.8531 8.69063 14.5594C8.39688 14.2656 8.25 13.9125 8.25 13.5V9.6375L7.05 10.8L6 9.75L9 6.75L12 9.75L10.95 10.8L9.75 9.6375V13.5H13.875C14.4 13.5 14.8438 13.3188 15.2062 12.9563C15.5687 12.5938 15.75 12.15 15.75 11.625C15.75 11.1 15.5687 10.6563 15.2062 10.2938C14.8438 9.93125 14.4 9.75 13.875 9.75H12.75V8.25C12.75 7.2125 12.3844 6.32812 11.6531 5.59688C10.9219 4.86563 10.0375 4.5 9 4.5C7.9625 4.5 7.07812 4.86563 6.34688 5.59688C5.61562 6.32812 5.25 7.2125 5.25 8.25H4.875C4.15 8.25 3.53125 8.50625 3.01875 9.01875C2.50625 9.53125 2.25 10.15 2.25 10.875C2.25 11.6 2.50625 12.2188 3.01875 12.7313C3.53125 13.2438 4.15 13.5 4.875 13.5H6.75V15H4.875Z"
+                fill="white"
+              />
+            </g>
+          </svg>
+          Bulk Company Upload
+        </button>
+      </div>
       {loading ? (
         <div className=" min-h-[360px] ">
           <MiniLoader />
@@ -154,7 +179,8 @@ function Index() {
                         dangerouslySetInnerHTML={{
                           __html:
                             item?.companyDescription?.length > 50
-                              ? item?.companyDescription?.substring(0, 50) + "..."
+                              ? item?.companyDescription?.substring(0, 50) +
+                                "..."
                               : item?.companyDescription,
                         }}
                       />
@@ -226,7 +252,10 @@ function Index() {
                         <div className="w-full flex justify-between">
                           <button
                             className="blue_border_Button h-[38px] px-6 rounded-[30px]"
-                            onClick={(e) => {e.stopPropagation(); setDeletePopup(false)}}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setDeletePopup(false);
+                            }}
                           >
                             No
                           </button>
@@ -272,6 +301,7 @@ function Index() {
           )}
         </div>
       )}
+        {openPopup && <BulkCompany setOpenPopup={setOpenPopup} fetchCompanyData={fetchCompanyData} />}
     </div>
   );
 }

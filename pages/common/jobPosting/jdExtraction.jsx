@@ -186,7 +186,7 @@ function JdExtraction() {
     extracteText(file).then((result) => {
       if (result[0]?.text?.length > 0) {
         axios
-          .post("http://localhost:2000/api/jd/extraction", {
+          .post("https://jamblix.com/api/jd/extraction", {
             jobDescription: result[0].text,
           })
           .then((res) => {
