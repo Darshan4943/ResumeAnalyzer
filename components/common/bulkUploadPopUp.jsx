@@ -41,6 +41,7 @@ function BulkUploadPopUp({ setOpenPopup }) {
         const selectedFile = e.target.files[0];
         validateFile(selectedFile);
     };
+
     const handleUpload = async () => {
         if (!file) {
             toast.error("Please select a file");
