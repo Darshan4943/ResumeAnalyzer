@@ -54,17 +54,17 @@ function CreateJd() {
 
   const [formData, setFormData] = useState({
     jobTitle: "",
-    company: "",
-    jobRole: "",
-    employmentType: "",
-    workArrangement: " ",
-    location: "",
-    requiredEducation: "",
-    requiredExperience: "",
-    requiredSkills: "",
-    salaryRange: "",
+    // company: "",
+    // jobRole: "",
+    // employmentType: "",
+    // workArrangement: " ",
+    // location: "",
+    // requiredEducation: "",
+    // requiredExperience: "",
+    // requiredSkills: "",
+    // salaryRange: "",
     jobDescription: "",
-    keyResposibilities: "",
+    // keyResposibilities: "",
   });
   const [jobDescription, setJobDescription] = useState(null);
   const [jobTitle, setJobTitle] = useState();
@@ -91,7 +91,7 @@ function CreateJd() {
   const validateForm = () => {
     const errors = {};
 
-    const requiredFields = ["jobTitle", "company", "jobRole"];
+    const requiredFields = ["jobTitle"];
 
     requiredFields.forEach((field) => {
       if (!formData[field].trim()) {
@@ -119,6 +119,26 @@ function CreateJd() {
     setLoading(true);
     setError(null);
 
+    // <p><span style="font-weight: bold; ">Company Name:</span> ${
+    //     response.data.company
+    //   }</p>
+    //   <p><span style="font-weight: bold; ">Employment Type:</span> ${
+    //     response.data.employmentType
+    //   }</p>
+    //   <p><span style="font-weight: bold; ">Work Arrangement:</span> ${
+    //     response.data.workArrangement
+    //   }</p>
+    //   <p><span style="font-weight: bold; ">Location:</span> ${
+    //     response.data.location
+    //   }</p>
+    //   <p><span style="font-weight: bold; ">Salary Range:</span> ${
+    //     response.data.salaryRange
+    //   }</p>
+    //   <p></p>
+    //   <p style=" font-weight: bold; margin-top: 20px;">Job Role:</p>
+    //   <p>${response.data.jobRole}</p>
+    //   <p></p>
+
     try {
       const response = await axios.post(
         "http://localhost:2000/api/generate/jobDescription",
@@ -129,25 +149,7 @@ function CreateJd() {
       <p><span style="font-weight: bold; ">Job Title:</span> ${
         response.data.jobTitle
       }</p>
-      <p><span style="font-weight: bold; ">Company Name:</span> ${
-        response.data.company
-      }</p>
-      <p><span style="font-weight: bold; ">Employment Type:</span> ${
-        response.data.employmentType
-      }</p>
-      <p><span style="font-weight: bold; ">Work Arrangement:</span> ${
-        response.data.workArrangement
-      }</p>
-      <p><span style="font-weight: bold; ">Location:</span> ${
-        response.data.location
-      }</p>
-      <p><span style="font-weight: bold; ">Salary Range:</span> ${
-        response.data.salaryRange
-      }</p>
-      <p></p>
-      <p style=" font-weight: bold; margin-top: 20px;">Job Role:</p>
-      <p>${response.data.jobRole}</p>
-      <p></p>
+      
       <p style=" font-weight: bold; margin-top: 20px;">Job Description:</p>
       <p>${response.data.jobDescription}</p>
       <p></p>
@@ -362,8 +364,8 @@ function CreateJd() {
           <div className=" gap-[32px] bg-[#FFFFFF] rounded-[14px] w-full scr800:p-6 p-3">
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="grid scr1168:grid-cols-3 ms:grid-cols-2 grid-cols-1 gap-4">
-                  <div className="flex flex-col">
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col w-full">
                     <label className=" mb-1 text-[14px]">
                       Job Title <span className="text-red">*</span>
                     </label>
@@ -380,7 +382,7 @@ function CreateJd() {
                     <p></p>
                   </div>
 
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <label className=" mb-1 text-[14px]">
                       Company <span className="text-red">*</span>
                     </label>
@@ -528,7 +530,7 @@ function CreateJd() {
                       placeholder="Enter Key Responsibilities"
                       className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
-                  </div>
+                  </div> */}
                   <div className="flex flex-col scr1168:col-span-3 ms:col-span-2 col-span-1  ">
                     <label className="text-[14px] mb-1">Job Description</label>
                     <textarea
@@ -537,7 +539,7 @@ function CreateJd() {
                       value={formData.jobDescription}
                       onChange={handleChange}
                       placeholder="Enter Job Description"
-                      className="border text-[14px] border-[#DEDEDE] p-[14px] min-h-[100px]  outline-none justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
+                      className="border text-[14px] border-[#DEDEDE] p-[14px] min-h-[300px]  outline-none justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
                   </div>
                 </div>

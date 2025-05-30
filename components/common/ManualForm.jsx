@@ -221,7 +221,7 @@ function ManualForm({
         </div>
         <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
-            Year of Experience <span className="text-[red]">*</span>
+            Year of Experience 
           </div>
           <input
             type="text"
@@ -264,7 +264,7 @@ function ManualForm({
         </div>
         <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
-            Location <span className="text-[red]">*</span>
+            Location 
           </div>
           <div
             className={`w-full flex gap-2  items-center border h-[41.6px]  rounded-[8px] px-2  ${

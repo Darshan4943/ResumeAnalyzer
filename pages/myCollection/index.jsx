@@ -234,19 +234,19 @@ function Collection() {
       });
   };
 
-  useEffect(() => {
-    getUnSyncFiles();
-    dispatch(setRecallData(!recallData));
-    if (unSyncFiles > 0) {
-      const interval = setInterval(() => {
-        getUnSyncFiles();
-        getData();
-        dispatch(setRecallData(!recallData));
-      }, 30000);
+  // useEffect(() => {
+  //   getUnSyncFiles();
+  //   dispatch(setRecallData(!recallData));
+  //   if (unSyncFiles > 0) {
+  //     const interval = setInterval(() => {
+  //       getUnSyncFiles();
+  //       getData();
+  //       dispatch(setRecallData(!recallData));
+  //     }, 30000);
 
-      return () => clearInterval(interval);
-    }
-  }, [unSyncFiles]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [unSyncFiles]);
 
   const createFolder = () => {
     setFileLoader(true);
@@ -896,10 +896,10 @@ function Collection() {
                       setFailedFiles([]);
                       setDuplicateFiles([]);
                       getData();
-                      getUnSyncFiles();
-                      setTimeout(() => {
-                        getUnSyncFiles();
-                      }, 10000);
+                      // getUnSyncFiles();
+                      // setTimeout(() => {
+                      //   getUnSyncFiles();
+                      // }, 10000);
                       updateCollectionLimit();
                     }}
                   >

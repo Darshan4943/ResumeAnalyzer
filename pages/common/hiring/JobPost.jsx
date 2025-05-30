@@ -36,6 +36,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const { id } = router.query;
   const taskRef = useRef(null);
   const dispatch = useDispatch();
+  const [isSort, setIsSort] = useState(false);
   const [checkedApplicants, setCheckedApplicants] = useState([]);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
@@ -61,6 +62,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false);
   const { recallData } = useSelector((state) => state.recall);
+  const sort = ["Percentage ↑","Percentage ↓","Date ↑" ,"Date ↓" ]; 
+  const [sortSelect, setSortSelect] = useState(null);
+  const [sortOrder, setSortOrder] = useState("desc"); 
+  const [sortedApplications, setSortedApplications] = useState([]);
 
   const [parameters, setParameters] = useState([
     {
@@ -553,6 +558,32 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
   };
 
+  const handleSortSelect = (index) => {
+  const apps = [...(jobDetails?.data?.applications || [])];
+
+  let sorted = [];
+
+  switch (index) {
+    case 0: // Percentage ↑
+      sorted = apps.sort((a, b) => b.matchingPercentage - a.matchingPercentage);
+      break;
+    case 1: // Percentage ↓
+      sorted = apps.sort((a, b) => a.matchingPercentage - b.matchingPercentage);
+      break;
+    case 2: // Date ↑
+      sorted = apps.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      break;
+    case 3: // Date ↓
+      sorted = apps.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      break;
+    default:
+      sorted = apps;
+  }
+
+  setSortedApplications(sorted);
+  setSortSelect(index);
+};
+
   return (
     <>
       {limitPopup && (
@@ -776,7 +807,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                   </div>
-                 
+
                   <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
                     <p
                       onClick={() => {
@@ -803,7 +834,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                   </div>
-                   <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                  <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
                     <p
                       onClick={() => {
                         setOption(1), setActiveOption("JobDetails");
@@ -966,7 +997,64 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         Set Matching Parameters
                       </button>
                     </div>
-                    <div className="flex items-start gap-[8px]">
+                    <div className="flex items-center  gap-[8px]">
+                      <div
+                        onClick={() => setIsSort(!isSort)}
+                        className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer  bg-[#E9eeF6] rounded-[30px] p-2"
+                      >
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g mask="url(#mask0_1142_17256)">
+                            <path
+                              d="M6.30289 9.48938V4.02879L4.17692 6.15476L3.375 5.36439L6.86537 1.87402L10.3557 5.36439L9.55384 6.15476L7.42787 4.02879V9.48938H6.30289ZM11.1274 16.124L7.63701 12.6336L8.43891 11.8432L10.5649 13.9692V8.50864H11.6899V13.9692L13.8158 11.8432L14.6177 12.6336L11.1274 16.124Z"
+                              fill="#333333"
+                            />
+                          </g>
+                        </svg>
+                        <p className="sm:block  hidden">Sort By</p>
+                        {isSort && (
+                          <>
+                            <div
+                              className="absolute flex flex-col text-[14px] text-[#000000] rounded-[8px] right-[-20%] z-10 top-[140%] min-w-[150px] p-4 gap-4 bg-white"
+                              style={{
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
+                            >
+                              {sort?.map((item, index) => (
+                                <div
+                                  key={index}
+                                  onClick={() => handleSortSelect(index)}
+                                  className="flex gap-2 items-center"
+                                >
+                                  {sortSelect === index ? (
+                                    <svg
+                                      width="8"
+                                      height="8"
+                                      viewBox="0 0 8 8"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M4.00295 7.5C3.02876 7.5 2.20139 7.1607 1.52083 6.48211C0.840278 5.80351 0.5 4.97712 0.5 4.00295C0.5 3.02876 0.839296 2.20139 1.51789 1.52083C2.19649 0.840278 3.02288 0.5 3.99705 0.5C4.97124 0.5 5.79861 0.839295 6.47917 1.51789C7.15972 2.19649 7.5 3.02288 7.5 3.99705C7.5 4.97124 7.1607 5.79861 6.48211 6.47917C5.80351 7.15972 4.97712 7.5 4.00295 7.5Z"
+                                        fill="#808080"
+                                      />
+                                    </svg>
+                                  ) : (
+                                    <div className="w-[8px] h-[8px]"> </div>
+                                  )}
+                                  {item}
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
                       <div className="ml:w-[314px] flex py-[8px] px-[10px] gap-[16px] rounded-[8px] border border-[#D6DDEB] bg-[#fff]">
                         <img
                           className="w-[24px] h-[24px]"
@@ -1095,320 +1183,317 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     </div>
 
                     <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible   ">
-                      {!jobDetails?.data?.applications.length == 0 ? (
+                      {!jobDetails?.data?.applications .length == 0 ? (
                         <>
-                          {jobDetails?.data?.applications.map(
-                            (applicant, index) => (
-                              <>
-                                <div
-                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${
-                                    !checkedApplicants[index]
-                                      ? "bg-[#FFFFFF]"
-                                      : "bg-[#FFFFFF]"
-                                  }`}
-                                  key={applicant?._id}
-                                >
-                                  <div className="  gap-[20px]  w-full justify-between flex items-center">
-                                    {userDataGlobal?.role === "employer" && (
-                                      <input
-                                        key={applicant.id}
-                                        className="w-[16px] h-[16px]"
-                                        type="checkbox"
-                                        checked={checkedApplicants.some(
-                                          (a) => a.id === applicant.id
-                                        )}
-                                        onChange={() =>
-                                          handleCheckboxChange(applicant)
-                                        }
-                                        disabled={
-                                          applicant.hiringStage !== "Pending"
-                                        }
-                                      />
-                                    )}
-                                    <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
-                                      <img
-                                        className="w-[40px]"
-                                        src="/images/employer/profile_icon.png"
-                                        alt=""
-                                      />
-                                      <p className="text-[14px] font-[600]">
-                                        {
-                                          applicant?.details?.personal
-                                            ?.firstName
-                                        }{" "}
-                                        {applicant?.details?.personal?.lastName}
-                                      </p>
-                                    </div>
-                                    <div className="flex w-[10%] items-center justify-start pl-6  gap-[8px]">
-                                      <p className="text-[14px] font-[600]">
-                                        {applicant?.source}
-                                      </p>
-                                    </div>
-
-                                    <div className="flex w-[15%] items-center justify-center   gap-[8px]">
-                                      {applicant.matchingPercentage ? (
-                                        <p
-                                          className={`text-[14px] font-[600] `}
-                                        >
-                                          {applicant.matchingPercentage} %
-                                        </p>
-                                      ) : (
-                                        <p className="blur-[3px] text-[14px] font-[600]">
-                                          {randomPercentage} %
-                                        </p>
+                          {(sortedApplications.length
+                            ? sortedApplications
+                            : jobDetails?.data?.applications || []
+                          ).map((applicant, index) => (
+                            <>
+                              <div
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${
+                                  !checkedApplicants[index]
+                                    ? "bg-[#FFFFFF]"
+                                    : "bg-[#FFFFFF]"
+                                }`}
+                                key={applicant?._id}
+                              >
+                                <div className="  gap-[20px]  w-full justify-between flex items-center">
+                                  {userDataGlobal?.role === "employer" && (
+                                    <input
+                                      key={applicant.id}
+                                      className="w-[16px] h-[16px]"
+                                      type="checkbox"
+                                      checked={checkedApplicants.some(
+                                        (a) => a.id === applicant.id
                                       )}
-                                    </div>
-                                    <div className=" flex justify-center w-[20%]">
-                                      <div
-                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                          checkedApplicants[index]
-                                            ? "bg-[#FFFFFF]"
-                                            : applicant?.hiringStage ===
-                                              "Interview"
-                                            ? "bg-[#26A4FF1A]"
-                                            : applicant?.hiringStage === "Task"
-                                            ? "bg-[#EAF6FF]"
-                                            : applicant?.hiringStage ===
-                                              "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant?.hiringStage === "Hired"
-                                            ? "bg-[#4BD06F33]"
-                                            : applicant?.hiringStage ===
-                                              "Shortlisted"
-                                            ? "bg-[#4640DE1A]"
-                                            : applicant?.hiringStage ===
-                                              "Rejected"
-                                            ? "bg-[#FF65501A]"
-                                            : applicant?.hiringStage ===
-                                              "In Review"
-                                            ? "bg-[#EB85331A]"
-                                            : applicant?.hiringStage ===
-                                              "Selected"
-                                            ? "bg-[#56CDAD1A]"
-                                            : ""
-                                        } ${
-                                          applicant?.hiringStage === "Interview"
-                                            ? "text-[#26A4FF]"
-                                            : applicant?.hiringStage === "Task"
-                                            ? "text-[#0B4A78]"
-                                            : applicant?.hiringStage ===
-                                              "Pending"
-                                            ? "text-[#FFB836]"
-                                            : applicant?.hiringStage === "Hired"
-                                            ? "text-[#1D9474]"
-                                            : applicant?.hiringStage ===
-                                              "Shortlisted"
-                                            ? "text-[#4640DE]"
-                                            : applicant?.hiringStage ===
-                                              "Rejected"
-                                            ? "text-[#FF6550]"
-                                            : applicant?.hiringStage ===
-                                              "In Review"
-                                            ? "text-[#FFB836]"
-                                            : applicant?.hiringStage ===
-                                              "Selected"
-                                            ? "text-[#56CDAD]"
-                                            : "text-[#333333]"
-                                        }`}
-                                      >
-                                        {applicant?.hiringStage}
-                                      </div>
-                                    </div>
-                                    <div className=" flex text-[14px] w-[15%] pl-6 font-[600]">
-                                      <p>
-                                        {new Date(applicant?.appliedOn)
-                                          .toLocaleDateString("en-GB", {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric",
-                                          })
-                                          .replace(",", "")}
+                                      onChange={() =>
+                                        handleCheckboxChange(applicant)
+                                      }
+                                      disabled={
+                                        applicant.hiringStage !== "Pending"
+                                      }
+                                    />
+                                  )}
+                                  <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
+                                    <img
+                                      className="w-[40px]"
+                                      src="/images/employer/profile_icon.png"
+                                      alt=""
+                                    />
+                                    <p className="text-[14px] font-[600]">
+                                      {applicant?.details?.personal?.firstName}{" "}
+                                      {applicant?.details?.personal?.lastName}
+                                    </p>
+                                  </div>
+                                  <div className="flex w-[10%] items-center justify-start pl-6  gap-[8px]">
+                                    <p className="text-[14px] font-[600]">
+                                      {applicant?.source}
+                                    </p>
+                                  </div>
+
+                                  <div className="flex w-[15%] items-center justify-center   gap-[8px]">
+                                    {applicant.matchingPercentage ? (
+                                      <p className={`text-[14px] font-[600] `}>
+                                        {applicant.matchingPercentage} %
                                       </p>
+                                    ) : (
+                                      <p className="blur-[3px] text-[14px] font-[600]">
+                                        {randomPercentage} %
+                                      </p>
+                                    )}
+                                  </div>
+                                  <div className=" flex justify-center w-[20%]">
+                                    <div
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                        checkedApplicants[index]
+                                          ? "bg-[#FFFFFF]"
+                                          : applicant?.hiringStage ===
+                                            "Interview"
+                                          ? "bg-[#26A4FF1A]"
+                                          : applicant?.hiringStage === "Task"
+                                          ? "bg-[#EAF6FF]"
+                                          : applicant?.hiringStage === "Pending"
+                                          ? "bg-[#FFF9ED]"
+                                          : applicant?.hiringStage === "Hired"
+                                          ? "bg-[#4BD06F33]"
+                                          : applicant?.hiringStage ===
+                                            "Shortlisted"
+                                          ? "bg-[#4640DE1A]"
+                                          : applicant?.hiringStage ===
+                                            "Rejected"
+                                          ? "bg-[#FF65501A]"
+                                          : applicant?.hiringStage ===
+                                            "In Review"
+                                          ? "bg-[#EB85331A]"
+                                          : applicant?.hiringStage ===
+                                            "Selected"
+                                          ? "bg-[#56CDAD1A]"
+                                          : ""
+                                      } ${
+                                        applicant?.hiringStage === "Interview"
+                                          ? "text-[#26A4FF]"
+                                          : applicant?.hiringStage === "Task"
+                                          ? "text-[#0B4A78]"
+                                          : applicant?.hiringStage === "Pending"
+                                          ? "text-[#FFB836]"
+                                          : applicant?.hiringStage === "Hired"
+                                          ? "text-[#1D9474]"
+                                          : applicant?.hiringStage ===
+                                            "Shortlisted"
+                                          ? "text-[#4640DE]"
+                                          : applicant?.hiringStage ===
+                                            "Rejected"
+                                          ? "text-[#FF6550]"
+                                          : applicant?.hiringStage ===
+                                            "In Review"
+                                          ? "text-[#FFB836]"
+                                          : applicant?.hiringStage ===
+                                            "Selected"
+                                          ? "text-[#56CDAD]"
+                                          : "text-[#333333]"
+                                      }`}
+                                    >
+                                      {applicant?.hiringStage}
                                     </div>
-                                    <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible ">
-                                      <>
-                                        {isPopupVisible && (
-                                          <ShortlistMail
-                                            shortlist={shortlist}
-                                            jobData={jobData}
-                                            setPopupVisible={setPopupVisible}
-                                            id={id}
-                                            statusChange={statusChange}
-                                            setStatusChange={setStatusChange}
-                                            applicantIds={applicantIds}
-                                            newHiringStage={hiringStage}
-                                          />
-                                        )}
-                                      </>
-                                      {moreOption &&
-                                        selectedDotIndex === index && (
-                                          <div
-                                            ref={taskRef}
-                                            style={{
-                                              boxShadow:
-                                                "0px 2px 2px 2px #00000020",
-                                            }}
-                                            className="absolute flex flex-col w-[180px] items-start p-3 gap-2 bg-white rounded-[12px] z-[1000] top-[100%] "
-                                          >
-                                            {userDataGlobal?.role ===
-                                              "recruiter" &&
-                                              applicant?.hiringStage ===
-                                                "Pending" && (
-                                                <button
-                                                  disabled={[
+                                  </div>
+                                  <div className=" flex text-[14px] w-[15%] pl-6 font-[600]">
+                                    <p>
+                                      {new Date(applicant?.appliedOn)
+                                        .toLocaleDateString("en-GB", {
+                                          day: "2-digit",
+                                          month: "short",
+                                          year: "numeric",
+                                        })
+                                        .replace(",", "")}
+                                    </p>
+                                  </div>
+                                  <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible ">
+                                    <>
+                                      {isPopupVisible && (
+                                        <ShortlistMail
+                                          shortlist={shortlist}
+                                          jobData={jobData}
+                                          setPopupVisible={setPopupVisible}
+                                          id={id}
+                                          statusChange={statusChange}
+                                          setStatusChange={setStatusChange}
+                                          applicantIds={applicantIds}
+                                          newHiringStage={hiringStage}
+                                        />
+                                      )}
+                                    </>
+                                    {moreOption &&
+                                      selectedDotIndex === index && (
+                                        <div
+                                          ref={taskRef}
+                                          style={{
+                                            boxShadow:
+                                              "0px 2px 2px 2px #00000020",
+                                          }}
+                                          className="absolute flex flex-col w-[180px] items-start p-3 gap-2 bg-white rounded-[12px] z-[1000] top-[100%] "
+                                        >
+                                          {userDataGlobal?.role ===
+                                            "recruiter" &&
+                                            applicant?.hiringStage ===
+                                              "Pending" && (
+                                              <button
+                                                disabled={[
+                                                  "Rejected",
+                                                  "Shortlisted",
+                                                  "Hired",
+                                                ].includes(
+                                                  applicant?.hiringStage
+                                                )}
+                                                style={{
+                                                  opacity: [
                                                     "Rejected",
                                                     "Shortlisted",
                                                     "Hired",
                                                   ].includes(
                                                     applicant?.hiringStage
-                                                  )}
-                                                  style={{
-                                                    opacity: [
-                                                      "Rejected",
-                                                      "Shortlisted",
-                                                      "Hired",
-                                                    ].includes(
-                                                      applicant?.hiringStage
-                                                    )
-                                                      ? 0.5
-                                                      : 1,
-                                                  }}
-                                                  onClick={() => {
-                                                    setHiringStage(
-                                                      "Shortlisted"
-                                                    );
-                                                    togglePopup(applicant);
-                                                  }}
-                                                  className="text-[14px] font-medium flex justify-center items-center leading-tight rounded-[30px]"
-                                                >
-                                                  Shortlist
-                                                </button>
-                                              )}
-
-                                            <button
-                                              disabled={
-                                                applicant?.hiringStage ===
-                                                "Rejected"
-                                              }
-                                              style={{
-                                                opacity:
-                                                  applicant?.hiringStage ===
-                                                  "Rejected"
+                                                  )
                                                     ? 0.5
                                                     : 1,
-                                              }}
-                                              onClick={() => {
-                                                setHiringStage("Rejected");
-                                                togglePopup(applicant);
-                                              }}
-                                              className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
-                                            >
-                                              Reject
-                                            </button>
-                                            {userDataGlobal?.role ===
-                                              "recruiter" &&
+                                                }}
+                                                onClick={() => {
+                                                  setHiringStage("Shortlisted");
+                                                  togglePopup(applicant);
+                                                }}
+                                                className="text-[14px] font-medium flex justify-center items-center leading-tight rounded-[30px]"
+                                              >
+                                                Shortlist
+                                              </button>
+                                            )}
+
+                                          <button
+                                            disabled={
                                               applicant?.hiringStage ===
-                                                "Shortlisted" && (
-                                                <button
-                                                  disabled={
+                                              "Rejected"
+                                            }
+                                            style={{
+                                              opacity:
+                                                applicant?.hiringStage ===
+                                                "Rejected"
+                                                  ? 0.5
+                                                  : 1,
+                                            }}
+                                            onClick={() => {
+                                              setHiringStage("Rejected");
+                                              togglePopup(applicant);
+                                            }}
+                                            className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
+                                          >
+                                            Reject
+                                          </button>
+                                          {userDataGlobal?.role ===
+                                            "recruiter" &&
+                                            applicant?.hiringStage ===
+                                              "Shortlisted" && (
+                                              <button
+                                                disabled={
+                                                  applicant?.hiringStage !==
+                                                  "Shortlisted"
+                                                }
+                                                style={{
+                                                  opacity:
                                                     applicant?.hiringStage !==
                                                     "Shortlisted"
-                                                  }
-                                                  style={{
-                                                    opacity:
-                                                      applicant?.hiringStage !==
-                                                      "Shortlisted"
-                                                        ? 0.5
-                                                        : 1,
-                                                  }}
-                                                  onClick={() =>
-                                                    hiredCandidate(
-                                                      applicant?.applicantId,
-                                                      applicant?.jobId
-                                                    )
-                                                  }
-                                                  className="text-[14px] font-[500] rounded-[30px] "
-                                                >
-                                                  Hire
-                                                </button>
-                                              )}
-                                          </div>
-                                        )}
-                                      <div className="text-[14px] font-medium text-[#224D90] cursor-pointer">
-                                        View
-                                      </div>
-
-                                      <svg
-                                        className=" cursor-pointer"
-                                        onClick={() =>
-                                          router.push(
-                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
-                                          )
-                                        }
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <g clip-path="url(#clip0_6706_101356)">
-                                          <path
-                                            d="M13.0911 24H2.8901C2.13396 24 1.40878 23.6996 0.874111 23.165C0.339438 22.6303 0.0390625 21.9051 0.0390625 21.149L0.0390625 2.85103C0.0390625 2.09489 0.339438 1.36972 0.874111 0.835048C1.40878 0.300376 2.13396 0 2.8901 0L16.0904 0C16.8465 0 17.5717 0.300376 18.1064 0.835048C18.641 1.36972 18.9414 2.09489 18.9414 2.85103V11.2844C18.9498 11.3737 18.9395 11.4638 18.9111 11.5489C18.8827 11.634 18.8369 11.7123 18.7765 11.7786C18.7161 11.845 18.6425 11.898 18.5604 11.9343C18.4784 11.9705 18.3897 11.9893 18.2999 11.9893C18.2102 11.9893 18.1215 11.9705 18.0394 11.9343C17.9574 11.898 17.8838 11.845 17.8234 11.7786C17.763 11.7123 17.7171 11.634 17.6887 11.5489C17.6603 11.4638 17.65 11.3737 17.6584 11.2844V2.85103C17.6585 2.64763 17.6183 2.44622 17.5403 2.25837C17.4623 2.07052 17.3479 1.89991 17.2038 1.75635C17.0597 1.61278 16.8887 1.49908 16.7006 1.42176C16.5124 1.34444 16.3109 1.30502 16.1075 1.30577H2.8901C2.68573 1.30351 2.48295 1.34181 2.2935 1.41845C2.10404 1.4951 1.93166 1.60856 1.78636 1.75228C1.64105 1.89599 1.52569 2.06711 1.44697 2.25571C1.36825 2.44431 1.32772 2.64666 1.32773 2.85103V21.1661C1.32772 21.3704 1.36825 21.5728 1.44697 21.7614C1.52569 21.95 1.64105 22.1211 1.78636 22.2648C1.93166 22.4085 2.10404 22.522 2.2935 22.5987C2.48295 22.6753 2.68573 22.7136 2.8901 22.7113H13.0911C13.262 22.7113 13.4259 22.7792 13.5467 22.9001C13.6675 23.0209 13.7354 23.1848 13.7354 23.3557C13.7354 23.5266 13.6675 23.6904 13.5467 23.8113C13.4259 23.9321 13.262 24 13.0911 24Z"
-                                            fill="#224D90"
-                                          />
-                                          <path
-                                            d="M14.8904 6.88738H4.05644C3.96712 6.89581 3.87702 6.88549 3.79191 6.85709C3.70681 6.82869 3.62857 6.78282 3.56222 6.72243C3.49586 6.66205 3.44285 6.58847 3.40657 6.50641C3.3703 6.42435 3.35156 6.33562 3.35156 6.2459C3.35156 6.15618 3.3703 6.06744 3.40657 5.98538C3.44285 5.90332 3.49586 5.82974 3.56222 5.76936C3.62857 5.70897 3.70681 5.66311 3.79191 5.6347C3.87702 5.6063 3.96712 5.59598 4.05644 5.60441H14.8904C15.0501 5.61949 15.1984 5.69358 15.3064 5.81222C15.4143 5.93085 15.4742 6.08549 15.4742 6.2459C15.4742 6.4063 15.4143 6.56094 15.3064 6.67957C15.1984 6.79821 15.0501 6.87231 14.8904 6.88738Z"
-                                            fill="#224D90"
-                                          />
-                                          <path
-                                            d="M10.0327 11.8941H4.07402C3.90313 11.8941 3.73924 11.8263 3.61841 11.7054C3.49757 11.5846 3.42969 11.4207 3.42969 11.2498C3.42969 11.0789 3.49757 10.915 3.61841 10.7942C3.73924 10.6734 3.90313 10.6055 4.07402 10.6055H10.0327C10.2036 10.6055 10.3675 10.6734 10.4883 10.7942C10.6091 10.915 10.677 11.0789 10.677 11.2498C10.677 11.4207 10.6091 11.5846 10.4883 11.7054C10.3675 11.8263 10.2036 11.8941 10.0327 11.8941Z"
-                                            fill="#224D90"
-                                          />
-                                          <path
-                                            d="M18.02 22.0655C13.9887 22.0655 12.1925 18.2964 12.1184 18.1367C12.0809 18.0548 12.0649 17.9648 12.0719 17.875C12.0789 17.7852 12.1086 17.6987 12.1583 17.6236C12.2552 17.4753 14.5361 14.0312 18.02 14.0312C21.504 14.0312 23.7848 17.4525 23.8818 17.6178C23.9354 17.7033 23.9639 17.8021 23.9639 17.903C23.9639 18.0038 23.9354 18.1026 23.8818 18.1881C23.819 18.3306 21.7093 22.0655 18.02 22.0655ZM13.2303 17.96C13.6808 18.7526 15.2089 20.9992 18.02 20.9992C20.5518 20.9992 22.2624 18.7469 22.7927 17.9372C22.2225 17.1845 20.375 15.0861 18.02 15.0861C15.6651 15.0861 13.7891 17.2244 13.2303 17.96Z"
-                                            fill="#224D90"
-                                          />
-                                          <path
-                                            d="M18.1621 19.2071C18.7479 19.2071 19.2227 18.7323 19.2227 18.1465C19.2227 17.5608 18.7479 17.0859 18.1621 17.0859C17.5764 17.0859 17.1016 17.5608 17.1016 18.1465C17.1016 18.7323 17.5764 19.2071 18.1621 19.2071Z"
-                                            fill="#224D90"
-                                          />
-                                        </g>
-                                        <defs>
-                                          <clipPath id="clip0_6706_101356">
-                                            <rect
-                                              width="24"
-                                              height="24"
-                                              fill="white"
-                                            />
-                                          </clipPath>
-                                        </defs>
-                                      </svg>
-                                      <img
-                                        onClick={() => {
-                                          if (
-                                            applicant?.hiringStage !==
-                                              "Hired" &&
-                                            applicant?.hiringStage !==
-                                              "Rejected"
-                                          ) {
-                                            handleDotClick(index);
-                                          }
-                                        }}
-                                        className={`min-w-[24px] max-w-[24px] cursor-pointer ${
-                                          applicant?.hiringStage === "Hired" ||
-                                          applicant?.hiringStage === "Rejected"
-                                            ? "opacity-50 pointer-events-none"
-                                            : ""
-                                        }`}
-                                        src="/images/employer/three-dot.png"
-                                        alt=""
-                                      />
+                                                      ? 0.5
+                                                      : 1,
+                                                }}
+                                                onClick={() =>
+                                                  hiredCandidate(
+                                                    applicant?.applicantId,
+                                                    applicant?.jobId
+                                                  )
+                                                }
+                                                className="text-[14px] font-[500] rounded-[30px] "
+                                              >
+                                                Hire
+                                              </button>
+                                            )}
+                                        </div>
+                                      )}
+                                    <div
+                                      onClick={() =>
+                                        router.push(
+                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
+                                        )
+                                      }
+                                      className="text-[14px] font-medium text-[#224D90] cursor-pointer"
+                                    >
+                                      View
                                     </div>
+
+                                    <svg
+                                      className=" cursor-pointer"
+                                      onClick={() =>
+                                        router.push(
+                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
+                                        )
+                                      }
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <g clip-path="url(#clip0_6706_101356)">
+                                        <path
+                                          d="M13.0911 24H2.8901C2.13396 24 1.40878 23.6996 0.874111 23.165C0.339438 22.6303 0.0390625 21.9051 0.0390625 21.149L0.0390625 2.85103C0.0390625 2.09489 0.339438 1.36972 0.874111 0.835048C1.40878 0.300376 2.13396 0 2.8901 0L16.0904 0C16.8465 0 17.5717 0.300376 18.1064 0.835048C18.641 1.36972 18.9414 2.09489 18.9414 2.85103V11.2844C18.9498 11.3737 18.9395 11.4638 18.9111 11.5489C18.8827 11.634 18.8369 11.7123 18.7765 11.7786C18.7161 11.845 18.6425 11.898 18.5604 11.9343C18.4784 11.9705 18.3897 11.9893 18.2999 11.9893C18.2102 11.9893 18.1215 11.9705 18.0394 11.9343C17.9574 11.898 17.8838 11.845 17.8234 11.7786C17.763 11.7123 17.7171 11.634 17.6887 11.5489C17.6603 11.4638 17.65 11.3737 17.6584 11.2844V2.85103C17.6585 2.64763 17.6183 2.44622 17.5403 2.25837C17.4623 2.07052 17.3479 1.89991 17.2038 1.75635C17.0597 1.61278 16.8887 1.49908 16.7006 1.42176C16.5124 1.34444 16.3109 1.30502 16.1075 1.30577H2.8901C2.68573 1.30351 2.48295 1.34181 2.2935 1.41845C2.10404 1.4951 1.93166 1.60856 1.78636 1.75228C1.64105 1.89599 1.52569 2.06711 1.44697 2.25571C1.36825 2.44431 1.32772 2.64666 1.32773 2.85103V21.1661C1.32772 21.3704 1.36825 21.5728 1.44697 21.7614C1.52569 21.95 1.64105 22.1211 1.78636 22.2648C1.93166 22.4085 2.10404 22.522 2.2935 22.5987C2.48295 22.6753 2.68573 22.7136 2.8901 22.7113H13.0911C13.262 22.7113 13.4259 22.7792 13.5467 22.9001C13.6675 23.0209 13.7354 23.1848 13.7354 23.3557C13.7354 23.5266 13.6675 23.6904 13.5467 23.8113C13.4259 23.9321 13.262 24 13.0911 24Z"
+                                          fill="#224D90"
+                                        />
+                                        <path
+                                          d="M14.8904 6.88738H4.05644C3.96712 6.89581 3.87702 6.88549 3.79191 6.85709C3.70681 6.82869 3.62857 6.78282 3.56222 6.72243C3.49586 6.66205 3.44285 6.58847 3.40657 6.50641C3.3703 6.42435 3.35156 6.33562 3.35156 6.2459C3.35156 6.15618 3.3703 6.06744 3.40657 5.98538C3.44285 5.90332 3.49586 5.82974 3.56222 5.76936C3.62857 5.70897 3.70681 5.66311 3.79191 5.6347C3.87702 5.6063 3.96712 5.59598 4.05644 5.60441H14.8904C15.0501 5.61949 15.1984 5.69358 15.3064 5.81222C15.4143 5.93085 15.4742 6.08549 15.4742 6.2459C15.4742 6.4063 15.4143 6.56094 15.3064 6.67957C15.1984 6.79821 15.0501 6.87231 14.8904 6.88738Z"
+                                          fill="#224D90"
+                                        />
+                                        <path
+                                          d="M10.0327 11.8941H4.07402C3.90313 11.8941 3.73924 11.8263 3.61841 11.7054C3.49757 11.5846 3.42969 11.4207 3.42969 11.2498C3.42969 11.0789 3.49757 10.915 3.61841 10.7942C3.73924 10.6734 3.90313 10.6055 4.07402 10.6055H10.0327C10.2036 10.6055 10.3675 10.6734 10.4883 10.7942C10.6091 10.915 10.677 11.0789 10.677 11.2498C10.677 11.4207 10.6091 11.5846 10.4883 11.7054C10.3675 11.8263 10.2036 11.8941 10.0327 11.8941Z"
+                                          fill="#224D90"
+                                        />
+                                        <path
+                                          d="M18.02 22.0655C13.9887 22.0655 12.1925 18.2964 12.1184 18.1367C12.0809 18.0548 12.0649 17.9648 12.0719 17.875C12.0789 17.7852 12.1086 17.6987 12.1583 17.6236C12.2552 17.4753 14.5361 14.0312 18.02 14.0312C21.504 14.0312 23.7848 17.4525 23.8818 17.6178C23.9354 17.7033 23.9639 17.8021 23.9639 17.903C23.9639 18.0038 23.9354 18.1026 23.8818 18.1881C23.819 18.3306 21.7093 22.0655 18.02 22.0655ZM13.2303 17.96C13.6808 18.7526 15.2089 20.9992 18.02 20.9992C20.5518 20.9992 22.2624 18.7469 22.7927 17.9372C22.2225 17.1845 20.375 15.0861 18.02 15.0861C15.6651 15.0861 13.7891 17.2244 13.2303 17.96Z"
+                                          fill="#224D90"
+                                        />
+                                        <path
+                                          d="M18.1621 19.2071C18.7479 19.2071 19.2227 18.7323 19.2227 18.1465C19.2227 17.5608 18.7479 17.0859 18.1621 17.0859C17.5764 17.0859 17.1016 17.5608 17.1016 18.1465C17.1016 18.7323 17.5764 19.2071 18.1621 19.2071Z"
+                                          fill="#224D90"
+                                        />
+                                      </g>
+                                      <defs>
+                                        <clipPath id="clip0_6706_101356">
+                                          <rect
+                                            width="24"
+                                            height="24"
+                                            fill="white"
+                                          />
+                                        </clipPath>
+                                      </defs>
+                                    </svg>
+                                    <img
+                                      onClick={() => {
+                                        if (
+                                          applicant?.hiringStage !== "Hired" &&
+                                          applicant?.hiringStage !== "Rejected"
+                                        ) {
+                                          handleDotClick(index);
+                                        }
+                                      }}
+                                      className={`min-w-[24px] max-w-[24px] cursor-pointer ${
+                                        applicant?.hiringStage === "Hired" ||
+                                        applicant?.hiringStage === "Rejected"
+                                          ? "opacity-50 pointer-events-none"
+                                          : ""
+                                      }`}
+                                      src="/images/employer/three-dot.png"
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
-                              </>
-                            )
-                          )}
+                              </div>
+                            </>
+                          ))}
                         </>
                       ) : (
                         <div className="p-10 w-full flex items-center justify-center">

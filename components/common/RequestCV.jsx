@@ -13,7 +13,7 @@ import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
 import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-function RequestCV() {
+function RequestCV({isCandidate}) {
   const [isResumes, setIsResumes] = useState("post");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [resumeCount, setResumeCount] = useState(5);
@@ -43,12 +43,12 @@ function RequestCV() {
     const errors = {};
 
     if (!data.jobTitle.trim()) errors.jobTitle = "Job title is required";
-    if (!Array.isArray(data.location) || data.location.length === 0)
-      errors.location = "Location is required";
+    // if (!Array.isArray(data.location) || data.location.length === 0)
+    //   errors.location = "Location is required";
     if (!Array.isArray(data.country) || data.country.length === 0)
       errors.country = "Country is required";
-    if (!data.totalExperience)
-      errors.totalExperience = "Total experience is required";
+    // if (!data.totalExperience)
+    //   errors.totalExperience = "Total experience is required";
     if (!Array.isArray(data.mustSkills) || data.mustSkills.length === 0)
       errors.mustSkills = "Must skills are required";
 
@@ -239,12 +239,11 @@ function RequestCV() {
       //     jdSubscriptionResponse.data.message
       //   );
       // }
-           dispatch(updateAiHit(userDataGlobal?._id));
-            setTimeout(() => {
-              dispatch(setRecallData(!recallData));
-              getLimits();
-            }, 1000);
-     
+      dispatch(updateAiHit(userDataGlobal?._id));
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
 
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,
@@ -548,15 +547,15 @@ function RequestCV() {
                 </button>
 
                 {loading1 ? (
-                  <button className="blue_border_Button px-6 h-[38px] rounded-[30px] w-[77px]">
+                  <button className="blue_border_Button px-6 h-[38px] rounded-[30px] flex items-center justify-center w-[179.97px]">
                     <MiniLoader1 />
                   </button>
                 ) : (
                   <button
                     onClick={handleSaveAll}
-                    className="bg_Button px-6 h-[38px] rounded-[30px] w-[77px]"
+                    className="bg_Button px-6 h-[38px] rounded-[30px] "
                   >
-                    Save
+                    Save to My Collection
                   </button>
                 )}
               </div>
@@ -565,7 +564,7 @@ function RequestCV() {
         </>
       )}
       <div className="w-full flex flex-col gap-4  min-h-[calc(95vh-104px)] ">
-        <div className="ml:h-[36px] h-0"></div>
+        <div className={`ml:h-[36px] h-0 ${isCandidate && "hidden"}`}></div>
         <div className="p-4 bg-white rounded-[16px] flex flex-col gap-4 h-full ">
           <div className="bg-[#F9F9F9] scr390:w-[348px] w-[284px] flex rounded-[30px] scr390:text-[14px] text-[10px] font-semibold justify-center">
             <button

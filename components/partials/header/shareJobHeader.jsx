@@ -111,13 +111,13 @@ function ShareJobHeader({ userData }) {
 
 
                     <>
-                        <div className="flex py-3 scr900:gap-9  gap-4 list-none w-full">
+                        <div className="flex py-3 scr900:gap-9  gap-4 list-none w-fit">
                             <div onClick={() => {
                                 handleLogOut(); router.push("/");
 
                             }} className=" cursor-pointer">
                                 <img
-                                    className=" object-contain min-h-[40px] h-[40px] min-w-[119px]"
+                                    className=" object-contain min-h-[40px] h-[40px] "
                                     src="/images/logo_skilotech.png"
                                     alt=""
                                 />
@@ -317,7 +317,7 @@ function ShareJobHeader({ userData }) {
                         <div className="w-[40%] gap-4 flex justify-end items-center h-[40px] mt-[10px]">
                             <motion.button
                                 onClick={() => { handleLogOut(); router.push("/auth/Sign_in?role=user") }}
-                                className="buttonTransparent  rounded-[30px] flex justify-center items-center blue_border_Button py-[10px] h-[38px] px-6 text-[14px] font-semibold border-[1px]  leading-[18px]"
+                                className="buttonTransparent  rounded-[30px] flex justify-center items-center blue_border_Button py-[10px] h-[38px] px-6 text-[14px] font-semibold border-[1px]  leading-[18px] min-w-[92.95px]"
                                 initial={{ opacity: 1, scale: 1 }}
                                 animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}
@@ -329,7 +329,7 @@ function ShareJobHeader({ userData }) {
 
                             <motion.button
                                 onClick={() => { handleLogOut(); router.push("/auth/AiProfileCreation") }}
-                                className="rounded-[30px]  flex justify-center items-center bg_Button py-[10px] h-[38px] px-6  text-[14px] font-semibold border-[1px]  leading-[18px]"
+                                className="rounded-[30px]  sm:flex hidden justify-center items-center bg_Button py-[10px] h-[38px] px-6  text-[14px] font-semibold border-[1px]  leading-[18px] min-w-[98.59px] "
                                 initial={{ opacity: 1, scale: 1 }}
                                 animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
                                 exit={{ opacity: 0, scale: 0.8 }}

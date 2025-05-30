@@ -32,7 +32,7 @@ function MyFolders({
   return (
     <div className=" overflow-y-auto">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] pt-2 flex flex-row gap-y-6 flex-wrap justify-start scr460:justify-start  w-full ">
+        <div className="rounded-[16px] pt-2 flex flex-row gap-y-6 flex-wrap justify-start scr460:justify-start  w-full  pb-12 ">
           {data?.length > 0 ? (
             <>
               {!isList ? (
@@ -51,7 +51,7 @@ function MyFolders({
                       {(select && item.fileName !== "My Clients") && (
                         <input
                           type="checkbox"
-                          className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                          className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] z-[200] font-medium custom-checkbox"
                           style={{ width: "20px", height: "20px" }}
                           onClick={(e) => e.stopPropagation()}
                           checked={selectedIndexes.includes(index)}

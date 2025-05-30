@@ -285,11 +285,14 @@ function Payment() {
     const currency = localStorage.getItem("currency");
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
-      const { data } = await axios.post("http://localhost:2000/api/getPriceId", {
-        amount: Math.ceil(2.3 * exchangeRate) * 100,
-        productName: "prod_SDBxkH83EhOl1p",
-        currency: currency,
-      });
+      const { data } = await axios.post(
+        "http://localhost:2000/api/getPriceId",
+        {
+          amount: Math.ceil(2.3 * exchangeRate) * 100,
+          productName: "prod_SDBxkH83EhOl1p",
+          currency: currency,
+        }
+      );
       if (data.success) {
         return data.id;
       }
@@ -345,7 +348,7 @@ function Payment() {
 
         setPaymentStatus(session.payment_status);
 
-        if (session.payment_status === "paid" && exchangeRate && icon) {
+        if (session.payment_status === "unpaid" && exchangeRate && icon) {
           handlePaidSession(session);
         } else {
           console.error("Payment failed:", session);
@@ -397,6 +400,10 @@ function Payment() {
       } else if (application) {
         await axios.put(
           `http://localhost:2000/api/updateApplication/paymentStatus/${storedId}`
+        );
+      } else {
+        await axios.put(
+          `http://localhost:2000/api/user/updateUserPaymentStatus/${userDataGlobal?._id}`
         );
       }
 
@@ -497,8 +504,8 @@ function Payment() {
   };
   const navigate = async () => {
     try {
-    //   await router.push(`/createResume?isEnhanced=${true}`);
-     await router.push(`/auth/viewResume?isEnhanced=${true}`);
+      //   await router.push(`/createResume?isEnhanced=${true}`);
+      await router.push(`/auth/viewResume?isEnhanced=${true}`);
       localStorage.removeItem("paymentId");
       localStorage.removeItem("attempts");
       localStorage.removeItem("paymentDetails");
@@ -678,7 +685,6 @@ function Payment() {
             <div className="text-[16px] font-[600]  flex gap-2 items-center">
               <svg
                 onClick={() => {
-                
                   router.back();
                 }}
                 className=" cursor-pointer"
@@ -886,7 +892,6 @@ function Payment() {
               <button
                 className="red_border_Button rounded-[30px] h-[38px] px-6"
                 onClick={() => {
-                 
                   router.push("/").then(() => {
                     window.location.reload();
                   });

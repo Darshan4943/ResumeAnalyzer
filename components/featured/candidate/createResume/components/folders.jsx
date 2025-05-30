@@ -532,7 +532,7 @@ function Folders({
                   onChange={(e) => changeHandler(e.target.value)}
                   className="w-full  text-[#333333]"
                   type="text"
-                  placeholder="Search File"
+                  placeholder="Search"
                 />
               </div>
               <div className=" flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] justify-center sm:w-[210px] h-[40px]">

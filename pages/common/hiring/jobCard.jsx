@@ -7,7 +7,7 @@ import CustomPagination from "../../../components/common/CustomPagination";
 import { toast } from "react-toastify";
 import CopyLink from "../../../components/common/copyLink";
 
-const JobCard = ({ filters, setFilters }) => {
+const JobCard = ({ filters, setFilters ,getData}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState();
@@ -60,7 +60,7 @@ const JobCard = ({ filters, setFilters }) => {
       setLoading(true);
       fetchJobs();
     }
-  }, [id, filters]);
+  }, [id, filters,getData]);
 
   useEffect(() => {
     if (id) {

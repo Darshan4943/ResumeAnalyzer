@@ -17,7 +17,7 @@ function JobDetails() {
   const dispatch = useDispatch();
   dispatch(setShareJobOpen());
   const [limitPopup, setLimitPopup] = useState(false);
-  const { id, isShared } = router.query;
+  const { id, isShared ,w,t,f,l} = router.query;
   const [loading, setLoading] = useState(true);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);

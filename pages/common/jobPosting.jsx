@@ -18,6 +18,7 @@ function JobPosting() {
   const [openPopup, setOpenPopup] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [getData,setGetData] = useState(false)
   const [filters, setFilters] = useState({
     Department: "",
     Location: "",
@@ -442,10 +443,10 @@ function JobPosting() {
             </button>
           </div>
         </div>
-        <JobCard filters={filters} setFilters={setFilters} />
+        <JobCard filters={filters} setFilters={setFilters} getData={getData}/>
       </div>
       {/* )} */}
-      {openPopup && <BulkUploadPopUp setOpenPopup={setOpenPopup} />}
+      {openPopup && <BulkUploadPopUp setOpenPopup={setOpenPopup} setGetData={setGetData} />}
     </>
   );
 }
