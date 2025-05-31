@@ -8,36 +8,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Quill from "quill";
 
-
 function EditTemplate() {
-
-
-useEffect(()=>{
-
-const Embed = Quill.import("blots/embed");
-
-class TokenBlot extends Embed {
-  static create(value) {
-    const node = super.create();
-    node.setAttribute("data-token", value);
-    node.innerText = value;
-    return node;
-  }
-
-  static value(node) {
-    return node.getAttribute("data-token");
-  }
-}
-
-TokenBlot.blotName = "token";
-TokenBlot.tagName = "span";
-TokenBlot.className = "custom-token";
-TokenBlot.contentEditable = "false";
-
-Quill.register(TokenBlot);
-},[])
-
-
   const router = useRouter();
   const editorRef = useRef(null);
   const [isShortlist, setIsShortlist] = useState(null);
@@ -46,6 +17,32 @@ Quill.register(TokenBlot);
   const [content, setContent] = useState("");
 
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+
+  useEffect(() => {
+    if(userDataGlobal){
+    const Embed = Quill.import("blots/embed");
+
+    class TokenBlot extends Embed {
+      static create(value) {
+        const node = super.create();
+        node.setAttribute("data-token", value);
+        node.innerText = value;
+        return node;
+      }
+
+      static value(node) {
+        return node.getAttribute("data-token");
+      }
+    }
+
+    TokenBlot.blotName = "token";
+    TokenBlot.tagName = "span";
+    TokenBlot.className = "custom-token";
+    TokenBlot.contentEditable = "false";
+
+    Quill.register(TokenBlot);
+  }
+  }, [userDataGlobal]);
 
   const dynamicTags = ["[Candidate Name]", "[Company Name]", "[Position]"];
 
@@ -266,25 +263,24 @@ Quill.register(TokenBlot);
   );
 
   const header = renderHeader();
-  
- const handleDrop = (e) => {
-  e.preventDefault();
-  const token = e.dataTransfer.getData("text/plain");
-  if (!dynamicTags.includes(token)) return;
 
-  const quill = editorRef.current?.getQuill();
-  if (!quill) return;
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const token = e.dataTransfer.getData("text/plain");
+    if (!dynamicTags.includes(token)) return;
 
-  const range = quill.getSelection(true);
-  quill.insertEmbed(range.index, "token", token);
+    const quill = editorRef.current?.getQuill();
+    if (!quill) return;
 
-  
-  if (token !== "[Candidate Name]") {
-    quill.formatText(range.index, token.length, "bold", true);
-  }
+    const range = quill.getSelection(true);
+    quill.insertEmbed(range.index, "token", token);
 
-  quill.setSelection(range.index + token.length);
-};
+    if (token !== "[Candidate Name]") {
+      quill.formatText(range.index, token.length, "bold", true);
+    }
+
+    quill.setSelection(range.index + token.length);
+  };
 
   const handleDragOver = (e) => {
     e.preventDefault();
