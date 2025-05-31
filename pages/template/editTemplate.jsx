@@ -8,27 +8,27 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Quill from "quill";
 
-// const Embed = Quill.import("blots/embed");
+const Embed = Quill.import("blots/embed");
 
-// class TokenBlot extends Embed {
-//   static create(value) {
-//     const node = super.create();
-//     node.setAttribute("data-token", value);
-//     node.innerText = value;
-//     return node;
-//   }
+class TokenBlot extends Embed {
+  static create(value) {
+    const node = super.create();
+    node.setAttribute("data-token", value);
+    node.innerText = value;
+    return node;
+  }
 
-//   static value(node) {
-//     return node.getAttribute("data-token");
-//   }
-// }
+  static value(node) {
+    return node.getAttribute("data-token");
+  }
+}
 
-// TokenBlot.blotName = "token";
-// TokenBlot.tagName = "span";
-// TokenBlot.className = "custom-token";
-// TokenBlot.contentEditable = "false";
+TokenBlot.blotName = "token";
+TokenBlot.tagName = "span";
+TokenBlot.className = "custom-token";
+TokenBlot.contentEditable = "false";
 
-// Quill.register(TokenBlot);
+Quill.register(TokenBlot);
 
 function EditTemplate() {
   const router = useRouter();
@@ -37,34 +37,6 @@ function EditTemplate() {
   const [isReject, setIsReject] = useState(null);
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Import Quill dynamically
-      import("quill").then((Quill) => {
-        const Embed = Quill.default.import("blots/embed");
-
-        class TokenBlot extends Embed {
-          static create(value) {
-            const node = super.create();
-            node.setAttribute("data-token", value);
-            node.innerText = value;
-            return node;
-          }
-
-          static value(node) {
-            return node.getAttribute("data-token");
-          }
-        }
-
-        TokenBlot.blotName = "token";
-        TokenBlot.tagName = "span";
-        TokenBlot.className = "custom-token";
-        TokenBlot.contentEditable = "false";
-
-        Quill.default.register(TokenBlot);
-      });
-    }
-  }, []);
 
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
