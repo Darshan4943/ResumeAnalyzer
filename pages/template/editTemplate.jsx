@@ -8,6 +8,12 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Quill from "quill";
 
+
+function EditTemplate() {
+
+
+useEffect(()=>{
+
 const Embed = Quill.import("blots/embed");
 
 class TokenBlot extends Embed {
@@ -29,8 +35,9 @@ TokenBlot.className = "custom-token";
 TokenBlot.contentEditable = "false";
 
 Quill.register(TokenBlot);
+},[])
 
-function EditTemplate() {
+
   const router = useRouter();
   const editorRef = useRef(null);
   const [isShortlist, setIsShortlist] = useState(null);
