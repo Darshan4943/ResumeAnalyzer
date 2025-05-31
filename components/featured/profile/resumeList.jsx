@@ -19,7 +19,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
     setLoading(true);
 
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         const resumes = res.data.data;
 
@@ -42,7 +42,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
 
   const deleteHandler = () => {
     axios
-      .delete("http://localhost:2000/api/resume/deleteResume", {
+      .delete("https://jamblix.com/api/resume/deleteResume", {
         data: { ids: deleteData.ids },
       })
       .then((response) => {
@@ -59,7 +59,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
   const handleCheckboxChange = (resumeId) => {
     setIsResumes(resumeId);
     axios
-      .put("http://localhost:2000/api/resume/updateIsDefaultResume/" + resumeId)
+      .put("https://jamblix.com/api/resume/updateIsDefaultResume/" + resumeId)
       .then((res) => {
         getData();
         // toast.success("Resume Deleted successfully");

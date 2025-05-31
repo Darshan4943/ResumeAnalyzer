@@ -44,7 +44,7 @@ function EmployerNotification() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/getnotification/${
+        `https://jamblix.com/api/getnotification/${
           userDataGlobal._id
         }?filter=${encodeURIComponent(filter)}`
       );
@@ -70,7 +70,7 @@ function EmployerNotification() {
 
   const handleNotificationClick = async () => {
     try {
-      await axios.post(`http://localhost:2000/api/updateNotification`, {
+      await axios.post(`https://jamblix.com/api/updateNotification`, {
         selectedIds,
       });
       fetchNotifications();
@@ -86,7 +86,7 @@ function EmployerNotification() {
   const deleteNotification = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/deletnotification/${id}`
+        `https://jamblix.com/api/deletnotification/${id}`
       );
 
       toast.success(response.data.message);

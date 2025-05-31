@@ -189,7 +189,7 @@ function AddWorkExperience({
     if (isEditing) {
       axios
         .put(
-          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateWorkExperience/${Experience._id}`,
+          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateWorkExperience/${Experience._id}`,
           obj
         )
         .then((res) => {
@@ -203,7 +203,7 @@ function AddWorkExperience({
     } else {
       axios
         .post(
-          `http://localhost:2000/api/candidate/addWorkExperience/${userDataGlobal?._id}`,
+          `https://jamblix.com/api/candidate/addWorkExperience/${userDataGlobal?._id}`,
           obj
         )
         .then((res) => {

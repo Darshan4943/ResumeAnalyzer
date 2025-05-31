@@ -64,7 +64,7 @@ function BulkUploadPopUp({ setOpenPopup,setGetData }) {
 
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
+        `https://jamblix.com/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

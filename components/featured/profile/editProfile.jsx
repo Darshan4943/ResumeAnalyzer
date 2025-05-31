@@ -203,7 +203,7 @@ function EditProfile({ setEditProfile }) {
       };
       axios
         .put(
-          "http://localhost:2000/api/candidate/updateProfile/" +
+          "https://jamblix.com/api/candidate/updateProfile/" +
             userDataGlobal?._id,
           requestData
         )
@@ -292,7 +292,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
 
     axios
-      .post("http://localhost:2000/api/otpMailProfile", {
+      .post("https://jamblix.com/api/otpMailProfile", {
         userId: userDataGlobal?._id,
         userEmail: data.email,
       })
@@ -342,7 +342,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://localhost:2000/api/verifyOtpProfile", {
+      .post("https://jamblix.com/api/verifyOtpProfile", {
         userId: userDataGlobal?._id,
         otpEntered,
       })

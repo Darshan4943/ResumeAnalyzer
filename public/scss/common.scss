@@ -791,3 +791,15 @@ a {
   scrollbar-width: none;
 }
 
+
+
+.non-editable-tag {
+  background-color: #e0f2fe;
+  color: #0284c7;
+  padding: 2px 6px;
+  border-radius: 12px;
+  display: inline-block;
+  font-weight: 600;
+  cursor: not-allowed;
+  user-select: none;
+}

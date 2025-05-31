@@ -63,12 +63,12 @@ function EmployerSidebar() {
       title: "Find Candidates",
       route: "/findCandidates",
     },
-    // {
-    //   img: "/images/employer/sidebar/mailTemplate.png",
-    //   img1: "/images/employer/sidebar/mailTemplate2.png",
-    //   title: "Mail Templates",
-    //   route: "/template",
-    // },
+    {
+      img: "/images/employer/sidebar/mailTemplate.png",
+      img1: "/images/employer/sidebar/mailTemplate2.png",
+      title: "Mail Templates",
+      route: "/template",
+    },
     {
       img: "/images/employer/sidebar/resumes.png",
       img1: "/images/employer/sidebar/resumes2.png",
@@ -153,12 +153,12 @@ function EmployerSidebar() {
       title: "Find Candidates",
       route: "/findCandidates",
     },
-    // {
-    //   img: "/images/employer/sidebar/mailTemplate.png",
-    //   img1: "/images/employer/sidebar/mailTemplate2.png",
-    //   title: "Mail Templates",
-    //   route: "/template",
-    // },
+    {
+      img: "/images/employer/sidebar/mailTemplate.png",
+      img1: "/images/employer/sidebar/mailTemplate2.png",
+      title: "Mail Templates",
+      route: "/template",
+    },
 
   ];
 

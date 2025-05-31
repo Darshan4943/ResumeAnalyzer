@@ -20,15 +20,16 @@ function ShortlistMail({
   isByEmployer,
   newHiringStage,
 }) {
-  console.log(jobData)
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [shortlistSubject, setShortlistSubject] = useState("Congratulations! You Have Been Shortlisted for the Next Round");
+  const [shortlistSubject, setShortlistSubject] = useState(
+    "Congratulations! You Have Been Shortlisted for the Next Round"
+  );
 
   const [rejectedSubject, setRejectedSubject] = useState(
-     `Update on Your Application - ${jobData?.jobTitle || "Job Position"}`
+    `Update on Your Application - ${jobData?.jobTitle || "Job Position"}`
   );
 
   const formatCandidateNames = () => {
@@ -42,7 +43,7 @@ function ShortlistMail({
   };
 
   const [shortlistContent, setShortlistContent] = useState(
-   `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
+    `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
   
     <p style="display: block; margin-bottom: 20px;">Dear ${formatCandidateNames()},</p>
   
@@ -70,11 +71,10 @@ function ShortlistMail({
     </p>
   
   </div>`
-     
   );
 
   const [rejectedContent, setRejectedContent] = useState(
-     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
+    `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
   
     <p style="display: block; margin-bottom: 20px;">Dear ${formatCandidateNames()},</p>
   
@@ -105,39 +105,67 @@ function ShortlistMail({
   </div>`
   );
 
+  console.log(shortlist[0]?.details?.personal?.firstName);
+  const fetchTemplates = async () => {
+    try {
+      const response = await fetch(
+        `https://jamblix.com/api/getTemplates/${userDataGlobal._id}`
+      );
+      const result = await response.json();
 
-    const fetchTemplates = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
-        );
-        const result = await response.json();
-  
-        if (response.ok) {
-          result.templates.forEach((template) => {
-            if (template.templateType === "shortlist") {
-              console.log("Shortlist Template Found:", template);
-              setShortlistSubject(template?.tempData?.subject || "No Subject");
-              setShortlistContent(template?.tempData?.content || "No Content");
-            } else if (template.templateType === "reject") {
-              console.log("Reject Template Found:", template);
-              setRejectedSubject(template?.tempData?.subject || "No Subject");
-              setRejectedContent(template?.tempData?.content || "No Content");
-            }
-          });
-        } else {
-          console.error("Error:", result.message);
-        }
-      } catch (error) {
-        console.error("Error fetching templates:", error);
+      if (response.ok) {
+        result.templates.forEach((template) => {
+          const replacePlaceholders = (text) => {
+            return text
+              ?.replace(/\[Position\]/g, jobData?.jobTitle || "[Position]")
+              ?.replace(
+                /\[Company Name\]/g,
+                jobData?.companyName || "[Company Name]"
+              )
+              ?.replace(
+                /\[Candidate Name\]/g,
+                shortlist[0]?.details?.personal?.firstName &&
+                  shortlist[0]?.details?.personal?.lastName
+                  ? `${shortlist[0]?.details?.personal?.firstName} ${shortlist[0]?.details?.personal?.lastName}`
+                  : "[Candidate Name]"
+              );
+          };
+
+          if (template.templateType === "shortlist") {
+            console.log("Shortlist Template Found:", template);
+            const subject = replacePlaceholders(
+              template?.tempData?.subject || "No Subject"
+            );
+            const content = replacePlaceholders(
+              template?.tempData?.content || "No Content"
+            );
+            setShortlistSubject(subject);
+            setShortlistContent(content);
+          } else if (template.templateType === "reject") {
+            console.log("Reject Template Found:", template);
+            const subject = replacePlaceholders(
+              template?.tempData?.subject || "No Subject"
+            );
+            const content = replacePlaceholders(
+              template?.tempData?.content || "No Content"
+            );
+            setRejectedSubject(subject);
+            setRejectedContent(content);
+          }
+        });
+      } else {
+        console.error("Error:", result.message);
       }
-    };
-  
-    useEffect(() => {
-      if (userDataGlobal._id) {
-        fetchTemplates();
-      }
-    }, [userDataGlobal._id]);
+    } catch (error) {
+      console.error("Error fetching templates:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      fetchTemplates();
+    }
+  }, [userDataGlobal._id]);
 
   const [subjectError, setSubjectError] = useState("");
   const [contentError, setContentError] = useState("");
@@ -153,23 +181,30 @@ function ShortlistMail({
   };
 
   const handleSend = async () => {
-
-    if(inputValue){
+    if (inputValue) {
       setTags([...tags, inputValue.trim()]);
       setInputValue("");
-      return
+      return;
     }
-  
+
     let isValid = true;
 
-    if (newHiringStage==="Shortlisted" ? !shortlistSubject?.trim() : !rejectedSubject?.trim()) {
+    if (
+      newHiringStage === "Shortlisted"
+        ? !shortlistSubject?.trim()
+        : !rejectedSubject?.trim()
+    ) {
       setSubjectError("Subject is required.");
       isValid = false;
     } else {
       setSubjectError("");
     }
 
-    if (newHiringStage==="Shortlisted" ? !shortlistContent?.trim() : !rejectedContent?.trim()) {
+    if (
+      newHiringStage === "Shortlisted"
+        ? !shortlistContent?.trim()
+        : !rejectedContent?.trim()
+    ) {
       setContentError("Content is required.");
       isValid = false;
     } else {
@@ -182,8 +217,10 @@ function ShortlistMail({
     const emailDetails = {
       to: shortlist?.map((item) => item?.details?.personal?.email) || "",
       cc: tags,
-      subject:newHiringStage==="Shortlisted" ? shortlistSubject : rejectedSubject,
-      content:newHiringStage==="Shortlisted" ? shortlistContent : rejectedContent,
+      subject:
+        newHiringStage === "Shortlisted" ? shortlistSubject : rejectedSubject,
+      content:
+        newHiringStage === "Shortlisted" ? shortlistContent : rejectedContent,
       applicantId: shortlist?.map((item) => item?.applicantId),
       role: userDataGlobal?.role,
       jobId: id,
@@ -192,7 +229,7 @@ function ShortlistMail({
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/hiring/shortlistCandidate",
+        "https://jamblix.com/api/hiring/shortlistCandidate",
         emailDetails
       );
 
@@ -261,7 +298,10 @@ function ShortlistMail({
           <div className="mb-4 flex items-center">
             <div className="flex w-full flex-col">
               <div
-                onClick={(e) =>{e.stopPropagation(); setPopupVisible(false)}}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPopupVisible(false);
+                }}
                 className="flex w-full justify-end cursor-pointer"
               >
                 <svg
@@ -365,24 +405,28 @@ function ShortlistMail({
                   <div className="text-[16px] font-[600]">Subject</div>
                   <input
                     type="text"
-                    value={newHiringStage === "Shortlisted" ? shortlistSubject : newHiringStage === "Rejected" ? rejectedSubject : ""}
-
+                    value={
+                      newHiringStage === "Shortlisted"
+                        ? shortlistSubject
+                        : newHiringStage === "Rejected"
+                        ? rejectedSubject
+                        : ""
+                    }
                     // onChange={(e) => {
                     //   setSubject(e.target.value);
                     //   setSubjectError("");
                     // }}
                     onChange={(e) => {
                       const value = e.target.value;
-                    
+
                       if (newHiringStage === "Shortlisted") {
                         setShortlistSubject(value);
                       } else if (newHiringStage === "Rejected") {
                         setRejectedSubject(value);
                       }
-                    
+
                       setSubjectError("");
                     }}
-                    
                     className=" p-[4px] w-full"
                     placeholder="Enter Subject"
                   />
@@ -396,8 +440,13 @@ function ShortlistMail({
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>
                   <Editor
                     style={{ minHeight: "120px", overflow: "auto" }}
-                    value={newHiringStage === "Shortlisted" ? shortlistContent : newHiringStage === "Rejected" ? rejectedContent : "subject"}
-
+                    value={
+                      newHiringStage === "Shortlisted"
+                        ? shortlistContent
+                        : newHiringStage === "Rejected"
+                        ? rejectedContent
+                        : "subject"
+                    }
                     headerTemplate={header}
                     // onTextChange={(e) => {
                     //   setContent(e.htmlValue);
@@ -409,10 +458,9 @@ function ShortlistMail({
                       } else if (newHiringStage === "Rejected") {
                         setRejectedContent(e.htmlValue);
                       }
-                     
+
                       setContentError("");
                     }}
-                    
                   />
                   {contentError && (
                     <p className="text-red text-sm mt-1">{contentError}</p>

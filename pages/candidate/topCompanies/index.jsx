@@ -12,7 +12,7 @@ function Index() {
     setError(null);
     try {
       const response = await axios.get(
-        "http://localhost:2000/api/getTopcompanies"
+        "https://jamblix.com/api/getTopcompanies"
       );
       const data = response.data;
       console.log(response.data)

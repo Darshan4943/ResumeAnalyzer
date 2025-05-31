@@ -63,7 +63,7 @@ function BulkCompany({ setOpenPopup ,fetchCompanyData }) {
 
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/company/addBulk/${userDataGlobal?._id}`,
+        `https://jamblix.com/api/company/addBulk/${userDataGlobal?._id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

@@ -46,7 +46,7 @@ const InputBox = ({
     try {
       // if (country) {
       const response = await axios.post(
-        "http://localhost:2000/api/job/getFilterData",
+        "https://jamblix.com/api/job/getFilterData",
         {
           requiredSkills: userSkills?.map((item) => item),
           country,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -6,9 +6,33 @@ import "primeicons/primeicons.css";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Quill from "quill";
+
+const Embed = Quill.import("blots/embed");
+
+class TokenBlot extends Embed {
+  static create(value) {
+    const node = super.create();
+    node.setAttribute("data-token", value);
+    node.innerText = value;
+    return node;
+  }
+
+  static value(node) {
+    return node.getAttribute("data-token");
+  }
+}
+
+TokenBlot.blotName = "token";
+TokenBlot.tagName = "span";
+TokenBlot.className = "custom-token";
+TokenBlot.contentEditable = "false";
+
+Quill.register(TokenBlot);
 
 function EditTemplate() {
   const router = useRouter();
+  const editorRef = useRef(null);
   const [isShortlist, setIsShortlist] = useState(null);
   const [isReject, setIsReject] = useState(null);
   const [subject, setSubject] = useState("");
@@ -16,12 +40,52 @@ function EditTemplate() {
 
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
-  useEffect(() => {
-    if (router.isReady) {
-      setIsShortlist(router.query.isShortlist === "true");
-      setIsReject(router.query.isReject === "true");
+  const dynamicTags = ["[Candidate Name]", "[Company Name]", "[Position]"];
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Backspace") {
+      const editor = editorRef.current?.getElement(); // get underlying contentEditable element
+      if (!editor) return;
+
+      const selection = window.getSelection();
+      if (!selection || !selection.focusNode) return;
+
+      const caretPos = selection.focusOffset;
+      const nodeText = selection.focusNode.textContent;
+
+      if (!nodeText) return;
+
+      // Check if caret is just after one of the placeholders
+      for (const word of dynamicTags) {
+        const startIndex = caretPos - word.length;
+        if (startIndex >= 0) {
+          const possibleWord = nodeText.slice(startIndex, caretPos);
+          if (possibleWord === word) {
+            e.preventDefault();
+
+            // Remove the whole word from the node's textContent
+            const newText =
+              nodeText.slice(0, startIndex) + nodeText.slice(caretPos);
+
+            // Update the text node content
+            selection.focusNode.textContent = newText;
+
+            // Move caret to startIndex
+            const range = document.createRange();
+            range.setStart(selection.focusNode, startIndex);
+            range.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Update editor content state with new HTML
+            setContent(editor.innerHTML);
+
+            break;
+          }
+        }
+      }
     }
-  }, [router.isReady, router.query]);
+  };
 
   const [shortlistSubject, setShortlistSubject] = useState(
     "Congratulations! You Have Been Shortlisted for the Next Round"
@@ -32,8 +96,8 @@ function EditTemplate() {
         <p></p>
        <div style="display: block; ">
          <p style="display: block; ">
-           We are pleased to inform you that after a thorough review of your profile, you have been shortlisted for the next round of the selection process for 
-           <strong>the position</strong> at 
+           We are pleased to inform you that after a thorough review of your profile, you have been shortlisted for the next round of the selection process for the 
+           <strong>[Position]</strong> at 
            <strong>[Company Name]</strong>.
          </p>
          <p></p>
@@ -52,9 +116,9 @@ function EditTemplate() {
      </div>
    `);
 
-  const [rejectedSubject, setRejectedSubject] = useState(
-    `Update on Your Application - "Job Position"`
-  );
+  const [rejectedSubject, setRejectedSubject] = useState(`
+    Update on Your Application - "Job Position"
+  `);
   const [rejectedContent, setRejectedContent] = useState(`
      <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.8;">
        <p style="display: block; ">Dear Candidate,</p>
@@ -84,7 +148,7 @@ function EditTemplate() {
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
+        `https://jamblix.com/api/getTemplates/${userDataGlobal._id}`
       );
       const result = await response.json();
 
@@ -127,13 +191,16 @@ function EditTemplate() {
 
   useEffect(() => {
     if (router.isReady) {
-      const isShortlist = router.query.isShortlist === "true";
-      const isReject = router.query.isReject === "true";
+      const isShortlistParam = router.query.isShortlist === "true";
+      const isRejectParam = router.query.isReject === "true";
 
-      if (isShortlist) {
+      setIsShortlist(isShortlistParam);
+      setIsReject(isRejectParam);
+
+      if (isShortlistParam) {
         setSubject(shortlistSubject);
         setContent(shortlistContent);
-      } else if (isReject) {
+      } else if (isRejectParam) {
         setSubject(rejectedSubject);
         setContent(rejectedContent);
       }
@@ -153,7 +220,7 @@ function EditTemplate() {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/createTemplate/${userDataGlobal._id}`,
+        `https://jamblix.com/api/createTemplate/${userDataGlobal._id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -177,60 +244,53 @@ function EditTemplate() {
     }
   };
 
-  useEffect(() => {
-    if (isShortlist !== null && isReject !== null) {
-      if (isShortlist) {
-        setSubject(shortlistSubject);
-        setContent(shortlistContent);
-      } else if (isReject) {
-        setSubject(rejectedSubject);
-        setContent(rejectedContent);
-      }
-    }
-  }, [isShortlist, isReject]);
-
   const renderHeader = () => (
     <span className="ql-formats">
-      <button className="ql-bold" aria-label="Bold"></button>
-      <button className="ql-italic" aria-label="Italic"></button>
-      <button className="ql-underline" aria-label="Underline"></button>
-      <button className="ql-strike" aria-label="Strike"></button>
-      <button
-        className="ql-list"
-        value="ordered"
-        aria-label="Ordered List"
-      ></button>
-      <button
-        className="ql-list"
-        value="bullet"
-        aria-label="Unordered List"
-      ></button>
-      <button className="ql-align" aria-label="Align Left"></button>
-      <button
-        className="ql-align"
-        value="center"
-        aria-label="Align Center"
-      ></button>
-      <button
-        className="ql-align"
-        value="right"
-        aria-label="Align Right"
-      ></button>
+      <button className="ql-bold" />
+      <button className="ql-italic" />
+      <button className="ql-underline" />
+      <button className="ql-strike" />
+      <button className="ql-list" value="ordered" />
+      <button className="ql-list" value="bullet" />
+      <button className="ql-align" />
+      <button className="ql-align" value="center" />
+      <button className="ql-align" value="right" />
     </span>
   );
 
   const header = renderHeader();
+  
+ const handleDrop = (e) => {
+  e.preventDefault();
+  const token = e.dataTransfer.getData("text/plain");
+  if (!dynamicTags.includes(token)) return;
 
-  if (isShortlist === null || isReject === null) {
-    return <div>Loading...</div>;
+  const quill = editorRef.current?.getQuill();
+  if (!quill) return;
+
+  const range = quill.getSelection(true);
+  quill.insertEmbed(range.index, "token", token);
+
+  
+  if (token !== "[Candidate Name]") {
+    quill.formatText(range.index, token.length, "bold", true);
   }
+
+  quill.setSelection(range.index + token.length);
+};
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  if (isShortlist === null || isReject === null) return <div>Loading...</div>;
 
   return (
     <>
       <div className="text-[18px] font-[600]">Edit Template</div>
       <div className="pt-[16px] flex gap-[24px] w-full">
         <div className="w-1/2 flex flex-col gap-[16px]">
-          <div className="bg-[#FFFFFF] rounded-[16px] p-[26px] flex flex-col gap-[28px] ">
+          <div className="bg-[#FFFFFF] rounded-[16px] p-[26px] flex flex-col gap-[28px]">
             <div className="flex flex-col gap-[6px]">
               <div className="text-[16px] font-[600]">Subject</div>
               <input
@@ -243,6 +303,7 @@ function EditTemplate() {
             <div className="flex flex-col gap-[6px]">
               <div className="text-[16px] font-[600]">Content</div>
               <Editor
+                ref={editorRef}
                 headerTemplate={header}
                 value={content}
                 onTextChange={(e) => handleContentChange(e.htmlValue)}
@@ -253,12 +314,33 @@ function EditTemplate() {
                   padding: "10px",
                   minHeight: "340px",
                 }}
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                onKeyDown={handleKeyDown}
               />
             </div>
           </div>
-          <div className="flex justify-end">
+
+          {/* Drag Tags Section */}
+          <div className="bg-white p-4 rounded-lg  flex gap-4 flex-wrap text-[12px] text-red font-medium">
+            * To insert a keyword, first click inside the editor where you want
+            it to appear, then drag and drop an option below.
+            {dynamicTags.map((tag, idx) => (
+              <div
+                key={idx}
+                draggable
+                onDragStart={(e) => e.dataTransfer.setData("text/plain", tag)}
+                className="cursor-move bg-blue-100   mx-2  text-sm font-bold text-[#333333] border-b border-blue"
+              >
+                {tag}
+              </div>
+            ))}
+          </div>
+
+          {/* Save Button */}
+          <div className="flex justify-end pt-4">
             <button
-              className=" px-[36px] h-[38px] bg_Button rounded-[30px] font-[600]"
+              className="px-[36px] bg_Button h-[38px] bg-blue-600 text-white rounded-[30px] font-[600] transition"
               onClick={handleSave}
             >
               Save Changes
@@ -266,18 +348,16 @@ function EditTemplate() {
           </div>
         </div>
 
-        <div className="w-1/2 ">
-          <div className="bg-gray pt-2 pb-2 pr-8 pl-8 rounded-lg  h-[602px] flex items-center">
-            <div className="bg-white p-6 rounded-lg h-[502px]">
+        {/* Right Preview Panel */}
+        <div className="w-1/2">
+          <div className="bg-gray pt-2 pb-2 pr-8 pl-8 rounded-lg h-[602px] flex items-center overflow-auto">
+            <div className="bg-white p-6 rounded-lg min-h-[502px] w-full">
               <p className="text-sm font-medium text-gray-800">
                 <span className="text-base font-semibold">Subject:</span>{" "}
                 {subject}
               </p>
               <hr className="my-4 border-gray-300" />
-              <div
-                className="text-sm text-gray-700 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: content }}
-              ></div>
+              <div dangerouslySetInnerHTML={{ __html: content }} />
             </div>
           </div>
         </div>

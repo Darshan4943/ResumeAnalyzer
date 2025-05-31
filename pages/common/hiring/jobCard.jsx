@@ -34,7 +34,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getAllJobDetails/${id}`,
+        `https://jamblix.com/api/job/getAllJobDetails/${id}`,
         {
           params: { page, limit, ...filters },
         }
@@ -105,7 +105,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
       }
 
       const response = await axios.post(
-        `http://localhost:2000/api/job/handleChangeStatus`,
+        `https://jamblix.com/api/job/handleChangeStatus`,
         { jobId: id, status: newStatus }
       );
 
@@ -137,7 +137,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
   const handleDelete = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/jobs/deletejob/${selectedJobId}`
+        `https://jamblix.com/api/jobs/deletejob/${selectedJobId}`
       );
 
       if (response.data.success) {

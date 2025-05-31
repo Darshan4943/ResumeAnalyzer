@@ -26,7 +26,7 @@ function SkilotechCollection() {
   const getSkilotechResume = async () => {
     try {
       setLoading1(true);
-      const response = await axios.get("http://localhost:2000/api/resume/get/AllResume", {
+      const response = await axios.get("https://jamblix.com/api/resume/get/AllResume", {
         params: { countryCode }
       });
       
@@ -82,7 +82,7 @@ function SkilotechCollection() {
     setLoading2(true)
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/sendEvaluationMail",
+        "https://jamblix.com/api/sendEvaluationMail",
         {
           userData: applicants.map((app) => ({
             email: app.email,
@@ -114,7 +114,7 @@ function SkilotechCollection() {
     setLoading(applicant._id);
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/sendEvaluationMail",
+        "https://jamblix.com/api/sendEvaluationMail",
         {
           userData: [
             {
