@@ -94,7 +94,7 @@ function AiProfileCreation() {
           content: base64, 
         };
 
-        localStorage.setItem("uploadedResume", JSON.stringify(fileData));
+        // localStorage.setItem("uploadedResume", JSON.stringify(fileData));
         // Adjust file type checks as per your requirement
         sendFile(selectedFile);
       } else {

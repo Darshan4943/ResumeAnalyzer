@@ -406,6 +406,7 @@ function CreateNewJob() {
       );
       router.push("/common/hiring");
       localStorage.removeItem("jdData");
+      
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );

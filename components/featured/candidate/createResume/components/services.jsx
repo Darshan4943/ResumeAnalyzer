@@ -11,7 +11,7 @@ function Services() {
   const [isMove, setIsMove] = useState(false);
   const loginListRecruiter = [
     {
-      name: "Create New Resume",
+      name: "Create Resume",
       imgSrc: "/images/resumeBuilder/servicesResume.png",
       new: "AI",
     },
@@ -116,7 +116,7 @@ function Services() {
   };
   function handleItemClick(itemName) {
     switch (itemName) {
-      case "Create New Resume":
+      case "Create Resume":
         handleNavigation(
           userDataGlobal?.role === "user"
             ? "/home/BuildResume"
@@ -194,13 +194,13 @@ function Services() {
       <p className="text-[20px] font-semibold text-[#333333]">Services</p>
       <div
         // style={{ border: "2px solid red" }}
-        className="flex gap-[16px] scr420:gap-12 flex-wrap justify-start "
+        className="flex gap-[16px] scr420:gap-6 flex-wrap justify-start "
       >
         {list().map((item, index) => (
           <div
             key={index}
             className={
-              "job-card relative scr420:w-[162.67px] w-[132px] scr420:h-[154px] h-[124px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center bg-white"
+              "job-card relative scr420:w-[150px] w-[132px] scr420:h-[140px] h-[124px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center bg-white"
             }
             onClick={() => handleItemClick(item.name)}
           >
