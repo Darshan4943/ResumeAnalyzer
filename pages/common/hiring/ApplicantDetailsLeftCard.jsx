@@ -121,7 +121,13 @@ function ApplicantDetailsLeftCard({
                       Rejected
                     </div>
                   </button>
-                ) : (
+                )  : jobDetails?.hiringStage === "Hired" ? (
+                      <button disabled className="flex gap-2">
+                        <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#1D9474] bg-[#4BD06F33]">
+                          Hired
+                        </div>
+                      </button>
+                    )  : (
                   <button
                     onClick={() => {
                       setHiringStage("Shortlisted");
