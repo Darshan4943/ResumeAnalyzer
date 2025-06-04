@@ -336,7 +336,7 @@ function EditTemplate() {
             </div>
             <div className="bg-white rounded-lg  flex gap-4 flex-wrap text-[12px] text-red font-medium">
               * To insert a keyword, first click inside the editor where you want
-              it to appear, then drag and drop an option below.
+              it to appear, then drag and drop an below option.
               {dynamicTags.map((tag, idx) => (
                 <div
                   key={idx}

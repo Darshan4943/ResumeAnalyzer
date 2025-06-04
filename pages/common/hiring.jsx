@@ -136,7 +136,7 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["All", "Active", "Inactive", "Closed"],
+      options: ["All", "Active", "On Hold", "Filled", "Cancelled", "Expired"],
     },
   ]);
 
@@ -389,57 +389,57 @@ function Hiring() {
                       value={
                         filters[filter.heading]
                           ? {
-                              value: filters[filter.heading],
-                              label:
-                                filters[filter.heading] === "Live"
-                                  ? "Active"
-                                  : filters[filter.heading] === "Closed"
-                                  ? "Inactive"
+                            value: filters[filter.heading],
+                            label:
+                              filters[filter.heading] === "Live"
+                                ? "Active"
+                                : filters[filter.heading] === "Expired"
+                                  ? "On Hold"
                                   : filters[filter.heading],
-                            }
+                          }
                           : ""
                       }
                       placeholder={
                         filter.heading === "JobTitle"
                           ? "Job Title"
                           : filter.heading === "CompanyName"
-                          ? "Company Name"
-                          : filter.heading
+                            ? "Company Name"
+                            : filter.heading
                       }
                       isSearchable={true}
                       noOptionsMessage={() => "No options available"}
                       menuPortalTarget={document.body}
                       menuPosition="absolute"
                       styles={{
-                    ...customStyles,
-                    menu: (base) => ({
-                      ...base,
-                      minWidth: "320px",
-                      maxWidth: "150px",
-                      zIndex: 9999,
-                    }),
-                    menuList: (base) => ({
-                      ...base,
-                      fontSize: "12px",
-                      padding: "4px",
-                    }),
-                    option: (base) => ({
-                      ...base,
-                      padding: "4px 8px",
-                      fontSize: "14px",
-                    }),
-                    menuPortal: (base) => ({
-                      ...base,
-                      zIndex: 9999,
-                    }),
-                    singleValue: (base) => ({
-                      ...base,
-                      whiteSpace: "normal",
-                      overflow: "visible",
-                      textOverflow: "unset",
-                      maxWidth: "100%",
-                    }),
-                  }}
+                        ...customStyles,
+                        menu: (base) => ({
+                          ...base,
+                          minWidth: "320px",
+                          maxWidth: "150px",
+                          zIndex: 9999,
+                        }),
+                        menuList: (base) => ({
+                          ...base,
+                          fontSize: "12px",
+                          padding: "4px",
+                        }),
+                        option: (base) => ({
+                          ...base,
+                          padding: "4px 8px",
+                          fontSize: "14px",
+                        }),
+                        menuPortal: (base) => ({
+                          ...base,
+                          zIndex: 9999,
+                        }),
+                        singleValue: (base) => ({
+                          ...base,
+                          whiteSpace: "normal",
+                          overflow: "visible",
+                          textOverflow: "unset",
+                          maxWidth: "100%",
+                        }),
+                      }}
                     />
                     <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
                   </>

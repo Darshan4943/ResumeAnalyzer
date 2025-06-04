@@ -119,7 +119,7 @@ function JobPosting() {
     },
     {
       heading: "Status",
-      options: ["All", "Active", "Inactive", "Closed"],
+      options: ["All", "Active", "On Hold","Filled", "Cancelled", "Expired"],
     },
   ]);
   const getResponsiveWidth = () => {
@@ -379,12 +379,7 @@ function JobPosting() {
                     filters[filter.heading]
                       ? {
                           value: filters[filter.heading],
-                          label:
-                            filters[filter.heading] === "Live"
-                              ? "Active"
-                              : filters[filter.heading] === "Closed"
-                              ? "Inactive"
-                              : filters[filter.heading],
+                          label: filters[filter.heading],
                         }
                       : ""
                   }

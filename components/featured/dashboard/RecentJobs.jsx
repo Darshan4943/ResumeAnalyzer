@@ -273,9 +273,9 @@ function RecentJobs({ isPending }) {
                             color:
                               applicant.status === "Active"
                                 ? "#0C8A0A"
-                                : applicant.status === "Inactive"
+                                : applicant.status === "On Hold"
                                 ? "rgb(221 218 64)"
-                                : applicant.status === "Closed"
+                                : applicant.status === "Expired"
                                 ? "#B3261E"
                                 : "gray",
                           }}
@@ -288,9 +288,9 @@ function RecentJobs({ isPending }) {
                               backgroundColor:
                                 applicant.status === "Active"
                                   ? "#0C8A0A"
-                                  : applicant.status === "Inactive"
+                                  : applicant.status === "On Hold"
                                   ? "rgb(221 218 64)"
-                                  : applicant.status === "Closed"
+                                  : applicant.status === "Expired"
                                   ? "#B3261E"
                                   : "gray",
                             }}
@@ -414,9 +414,9 @@ function RecentJobs({ isPending }) {
                               color:
                                 applicant.status === "Active"
                                   ? "#0C8A0A"
-                                  : applicant.status === "Inactive"
+                                  : applicant.status === "On Hold"
                                   ? "rgb(221 218 64)"
-                                  : applicant.status === "Closed"
+                                  : applicant.status === "Expired"
                                   ? "#B3261E"
                                   : "gray",
                             }}
@@ -429,9 +429,9 @@ function RecentJobs({ isPending }) {
                                 backgroundColor:
                                   applicant.status === "Active"
                                     ? "#0C8A0A"
-                                    : applicant.status === "Inactive"
+                                    : applicant.status === "On Hold"
                                     ? "rgb(221 218 64)"
-                                    : applicant.status === "Closed"
+                                    : applicant.status === "Expired"
                                     ? "#B3261E"
                                     : "gray",
                               }}

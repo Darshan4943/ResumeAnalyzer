@@ -72,7 +72,7 @@ const JobPostChart = () => {
           tension: 0.4, 
         },
         {
-          label: "Job Closed",
+          label: "Job Expired",
           data: jobClosedData,
           borderColor: "#2E7D32",
           backgroundColor: "rgba(46, 125, 50, 0.2)",
@@ -159,7 +159,7 @@ const JobPostChart = () => {
         </div>
         <div className="flex items-center">
           <span className="w-4 h-4 bg-[#0C8A0A] rounded-[4px] mr-2"></span>
-          <span className="text-sm">Job Closed</span>
+          <span className="text-sm">Job Expired</span>
         </div>
       </div>
     </div>

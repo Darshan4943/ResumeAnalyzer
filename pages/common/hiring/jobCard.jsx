@@ -229,18 +229,34 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                               Active
                             </div>
                           </>
-                        ) : job.status === "Inactive" ? (
+                        ) : job.status === "On Hold" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#FF7802] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#FF7802]">
-                              Inactive
+                              On Hold
                             </div>
                           </>
-                        ) : job.status === "Closed" ? (
+                        )
+                         : job.status === "Filled" ? (
+                          <>
+                            <div className="min-w-[6px] h-[6px] bg-blue rounded-full"></div>
+                            <div className="text-[12px] font-[500] text-blue">
+                              Filled
+                            </div>
+                          </>
+                        )
+                         : job.status === "Cancelled" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#B3261E]">
-                              Closed
+                              Cancelled
+                            </div>
+                          </>
+                        ) : job.status === "Expired" ? (
+                          <>
+                            <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                            <div className="text-[12px] font-[500] text-[#B3261E]">
+                              Expired
                             </div>
                           </>
                         ) : null}
@@ -262,7 +278,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                         {statusToggle[job._id] && (
                           <div
                             ref={popupRef}
-                            className="absolute top-5 z-[3000] bg-white rounded-[6px] shadow-md py-1"
+                            className="absolute top-5 z-[3000] bg-white rounded-[6px] w-[84px] shadow-md py-1"
                           >
                             <p
                               onClick={(e) => {
@@ -278,24 +294,46 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                             <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "Inactive");
+                                handleChangeStatus(job._id, "On Hold");
                               }}
                               className={`${
-                                job.status === "Inactive" ? "hidden" : "block"
+                                job.status === "On Hold" ? "hidden" : "block"
                               } text-[12px] font-[500] text-[#FF7802] hover:bg-[#ffffe5] px-4 cursor-pointer`}
                             >
-                              Inactive
+                              On Hold
+                            </p>
+                              <p
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleChangeStatus(job._id, "Filled");
+                              }}
+                              className={`${
+                                job.status === "Filled" ? "hidden" : "block"
+                              } text-[12px] font-[500] text-blue hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                            >
+                             Filled
+                            </p>
+                              <p
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleChangeStatus(job._id, "Cancelled");
+                              }}
+                              className={`${
+                                job.status === "Cancelled" ? "hidden" : "block"
+                              } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                            >
+                              Cancelled
                             </p>
                             <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "Closed");
+                                handleChangeStatus(job._id, "Expired");
                               }}
                               className={`${
-                                job.status === "Closed" ? "hidden" : "block"
+                                job.status === "Expired" ? "hidden" : "block"
                               } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffe2e1] px-4 cursor-pointer`}
                             >
-                              Closed
+                              Expired
                             </p>
                           </div>
                         )}

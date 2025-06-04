@@ -97,7 +97,7 @@ const Saved = () => {
                             </div>
                           ) : (
                             <div className="border border-[#C00000] text-[#C00000] text-[12px] font-medium px-[16px] bg-[#FFEBEB] h-[24px] rounded-[6px] flex items-center justify-center">
-                              Closed
+                              Expired
                             </div>
                           )}
                         </div>

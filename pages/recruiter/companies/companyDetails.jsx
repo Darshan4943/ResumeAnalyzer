@@ -159,7 +159,7 @@ function CompanyDetails() {
         },
         {
             heading: "Status",
-            options: ["All", "Active", "Inactive", "Closed"],
+            options: ["All", "Active", "On Hold", "Expired"],
         },
     ]);
 
@@ -503,8 +503,8 @@ function CompanyDetails() {
                                                     label:
                                                         filters[filter.heading] === "Live"
                                                             ? "Active"
-                                                            : filters[filter.heading] === "Closed"
-                                                                ? "Inactive"
+                                                            : filters[filter.heading] === "Expired"
+                                                                ? "On Hold"
                                                                 : filters[filter.heading],
                                                 }
                                                 : ""

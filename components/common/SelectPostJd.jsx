@@ -84,7 +84,7 @@ const SelectPostJd = ({
   const statusPriority = {
     Live: 1,
     Hold: 2,
-    Closed: 3,
+    Expired: 3,
   };
 
   const sortedJobs = Array.isArray(jobPost?.jobs)
@@ -212,8 +212,8 @@ const SelectPostJd = ({
             >
               <option value="All">All</option>
               <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-              <option value="Closed">Closed</option>
+              <option value="On Hold">On Hold</option>
+              <option value="Expired">Expired</option>
             </select>
           </div>
         </div>
@@ -251,18 +251,18 @@ const SelectPostJd = ({
                                   Active
                                 </div>
                               </>
-                            ) : item.status === "Inactive" ? (
+                            ) : item.status === "On Hold" ? (
                               <>
                                 <div className="w-[6px] h-[6px] bg-[#FF7802] rounded-full"></div>
                                 <div className="text-[12px] font-[500] text-[#FF7802]">
-                                  Inactive
+                                  On Hold
                                 </div>
                               </>
-                            ) : item.status === "Closed" ? (
+                            ) : item.status === "Expired" ? (
                               <>
                                 <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
                                 <div className="text-[12px] font-[500] text-[#B3261E]">
-                                  Closed
+                                  Expired
                                 </div>
                               </>
                             ) : null}

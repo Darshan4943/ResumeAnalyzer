@@ -40,7 +40,7 @@ const Index = () => {
   const statusPriority = {
     Live: 1,
     Hold: 2,
-    Closed: 3,
+    Expired: 3,
   };
 
   const sortedJobs = jobPost
@@ -132,7 +132,7 @@ const Index = () => {
         >
           <option value="All">All</option>
           <option value="Live">Live</option>
-          <option value="Closed">Closed</option>
+          <option value="Expired">Expired</option>
           <option value="Hold">Hold</option>
         </select>
           {!select && (
@@ -334,9 +334,9 @@ const Index = () => {
                               Live
                             </div>
                           }
-                          {item.status === "Closed" &&
+                          {item.status === "Expired" &&
                             <div className="border border-[#C00000] text-[#C00000] text-[12px] font-medium px-[16px] bg-[#FFEBEB] h-[24px] rounded-[6px] flex items-center justify-center">
-                              Closed
+                              Expired
                             </div>
                           }
                           {item.status === "Hold" &&

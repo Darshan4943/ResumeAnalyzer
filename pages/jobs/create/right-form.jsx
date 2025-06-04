@@ -754,7 +754,7 @@ const Rightform = ({
                 <option value="Live">Live</option>
 
                 <option value="Hold">Hold</option>
-                {id && <option value="Closed">Closed</option>}
+                {id && <option value="Expired">Expired</option>}
               </select>
 
               <img
