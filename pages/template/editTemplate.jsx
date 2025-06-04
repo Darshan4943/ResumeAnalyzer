@@ -4,9 +4,9 @@ import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-// import ReactQuill from "react-quill";
+import ReactQuill from "react-quill";
 // Dynamically import ReactQuill to prevent SSR issues
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function EditTemplate() {
   const router = useRouter();
