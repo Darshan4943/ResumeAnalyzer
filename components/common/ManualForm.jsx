@@ -96,7 +96,7 @@ function ManualForm({
       <div className=" grid grid-cols-12 gap-4">
         <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
-            Designation <span className="text-[red]">*</span>
+            Designation
           </div>
           <input
             type="text"
@@ -108,7 +108,7 @@ function ManualForm({
         </div>
         <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
           <div className="text-sm font-medium">
-            Must have Skills
+            Key Skills
             <span className="text-[red]">*</span>
           </div>
           <ReactSelect
@@ -236,7 +236,7 @@ function ManualForm({
 
         <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
           <div className="text-[14px] font-[500]">
-            Country <span className="text-[red]">*</span>
+            Country
           </div>
 
           <Select

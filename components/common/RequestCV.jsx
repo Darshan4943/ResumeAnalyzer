@@ -42,13 +42,13 @@ function RequestCV({isCandidate}) {
   const validateFormData = () => {
     const errors = {};
 
-    if (!data.jobTitle.trim()) errors.jobTitle = "Job title is required";
-    // if (!Array.isArray(data.location) || data.location.length === 0)
-    //   errors.location = "Location is required";
-    if (!Array.isArray(data.country) || data.country.length === 0)
-      errors.country = "Country is required";
-    // if (!data.totalExperience)
-    //   errors.totalExperience = "Total experience is required";
+    // if (!data.jobTitle.trim()) errors.jobTitle = "Job title is required";
+    // // if (!Array.isArray(data.location) || data.location.length === 0)
+    // //   errors.location = "Location is required";
+    // if (!Array.isArray(data.country) || data.country.length === 0)
+    //   errors.country = "Country is required";
+    // // if (!data.totalExperience)
+    // //   errors.totalExperience = "Total experience is required";
     if (!Array.isArray(data.mustSkills) || data.mustSkills.length === 0)
       errors.mustSkills = "Must skills are required";
 
