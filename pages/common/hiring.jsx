@@ -135,6 +135,22 @@ function Hiring() {
       options: [],
     },
     {
+      heading: "Aging",
+      options: [
+        "Today",
+        "1 Day ago",
+        "2 Days ago",
+        "3 Days ago",
+        "1 Week ago",
+        "2 Weeks ago",
+        "3 Weeks ago",
+        "1 Month ago",
+        "2 Months ago",
+        "3+ Months ago"
+      ]
+
+    },
+    {
       heading: "Status",
       options: ["All", "Active", "On Hold", "Filled", "Cancelled", "Expired"],
     },

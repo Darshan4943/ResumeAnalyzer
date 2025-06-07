@@ -10,71 +10,87 @@ function Services() {
   const [isServices, setServices] = useState(true);
   const [isMove, setIsMove] = useState(false);
   const loginListRecruiter = [
-    {
-      name: "Create Resume",
-      imgSrc: "/images/resumeBuilder/servicesResume.png",
-      new: "AI",
-    },
+   
     // {
     //   name: "Create New Cover Letter",
     //   imgSrc: "/images/resumeBuilder/servicesCover.png",
     // },
     // { name: "My Candidates", imgSrc: "/images/resumeBuilder/servicesCandidate.png" },
 
-    {
-      name: "JD Matching",
-      imgSrc: "/images/resumeBuilder/servicesJd.png",
-      new: "AI",
-    },
+  
     {
       name: "My Collection",
 
       imgSrc: "/images/resumeBuilder/servicesCollection.png",
     },
+     {
+      name: "Mail Template",
+      imgSrc: "/images/resumeBuilder/template2.png",
+      // new: "AI",
+    },
+     {
+      name: "JD Creation",
+      imgSrc: "/images/resumeBuilder/jdCreation1.png",
+      new: "AI",
+    },
+      {
+      name: "JD Matching",
+      imgSrc: "/images/resumeBuilder/servicesJd.png",
+      new: "AI",
+    },
 
     {
       name: "Job Posting",
       imgSrc: "/images/resumeBuilder/servicesJob.png",
-      // new: "AI",
+      new: "AI",
     },
 
     {
       name: "Hiring",
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
-      // new: "AI",
-    },
-    {
-      name: "JD Creation",
-      imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
     },
-    {
-      name: "Mail Template",
-      imgSrc: "/images/resumeBuilder/template2.png",
+     {
+      name: "Create Resume",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
       // new: "AI",
     },
+   
+   
   ];
   const loginListEmployer = [
-    {
-      name: "JD Matching",
-      imgSrc: "/images/resumeBuilder/servicesJd.png",
-      new: "AI",
-    },
+   
     {
       name: "My Collection",
 
       imgSrc: "/images/resumeBuilder/servicesCollection.png",
     },
-
-    {
-      name: "Job Posting",
-      imgSrc: "/images/resumeBuilder/servicesJob.png",
+      {
+      name: "Mail Template",
+      imgSrc: "/images/resumeBuilder/template2.png",
       // new: "AI",
+    },
+     {
+      name: "JD Creation",
+      imgSrc: "/images/resumeBuilder/jdCreation1.png",
+      new: "AI",
+    },
+
+   
+     {
+      name: "JD Matching",
+      imgSrc: "/images/resumeBuilder/servicesJd.png",
+      new: "AI",
     },
     {
       name: "Requisition",
       imgSrc: "/images/resumeBuilder/servicesRequisition.png",
       
+    },
+     {
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
+      new: "AI",
     },
     {
       name: "Hiring",
@@ -84,18 +100,10 @@ function Services() {
     {
       name: "Preboarding",
       imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
-      new: "AI",
-    },
-    {
-      name: "JD Creation",
-      imgSrc: "/images/resumeBuilder/jdCreation1.png",
-      new: "AI",
-    },
-    {
-      name: "Mail Template",
-      imgSrc: "/images/resumeBuilder/template2.png",
       // new: "AI",
     },
+   
+  
   ];
 
   const handleNavigation = (page) => {

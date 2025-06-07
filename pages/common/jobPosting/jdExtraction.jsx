@@ -426,7 +426,7 @@ function JdExtraction() {
           onClick={() => router.push("/common/jobPosting/CreateNewJob")}
           className=" text-[14px] px-6 font-[600] rounded-[30px] h-[38px]  blue_border_Button"
         >
-          Skip
+          Enter Manually
         </button>
 
         <button
@@ -436,7 +436,7 @@ function JdExtraction() {
           } `}
           onClick={navigate}
         >
-          Continue
+         Extract Jd
         </button>
       </div>
     </div>

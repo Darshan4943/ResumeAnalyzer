@@ -85,6 +85,7 @@ function Analytics({ jobDetails }) {
     setSelectedOption(option);
     setIsOpen(false);
   };
+  console.log(jobDetails);
   return (
     <>
       <div className="flex w-full md:w-[66.03%] flex-col gap-3 md:gap-[24px] mt-3 md:mt-4">
@@ -192,7 +193,7 @@ function Analytics({ jobDetails }) {
             <div className="flex flex-col items-start gap-[2px]">
               <div className="flex gap-2 items-center">
                 <p className="  text-[#333] flex items font-Montserrat font-semibold sm:text-[26px] text-[18px] ml:text-[36px]">
-                  <CountUp end={jobDetails.data.applications?.length} />
+                  <CountUp end={jobDetails?.pagination?.totalApplications} />
                 </p>
                 <div className="flex text-center items-center">
                   <p className={`${percentageChangeApplications > 0 ? "text-[#56CDAD]" : percentageChangeApplications < 0 ? "text-[#FF6550]" : ""} items-center text-[18px] font-medium`}>

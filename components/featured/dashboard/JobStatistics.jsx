@@ -25,7 +25,7 @@ function JobStatistics({ setSelected, selected, data }) {
 
   return (
     <div
-      className="scr1300:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:px-4 px-2 py-3"
+      className="scr1300:w-[70.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:px-4 px-2 py-3"
       style={{
         borderRadius: "16px",
         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",

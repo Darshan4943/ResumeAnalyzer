@@ -21,6 +21,8 @@ function CreateCompany() {
   const [loading, setLoading] = useState(false);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
+  const [hrEmailText, setHrEmailText] = useState("");
+  const [hrContactText, setHrContactText] = useState("");
   const { companyId } = router.query;
   const [errors, setErrors] = useState({});
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -33,10 +35,11 @@ function CreateCompany() {
     companyWebsite: "",
     companyMail: "",
     companySize: "",
-    hrEmail: "",
-    hrContact: "",
+    hrEmail: [],
+    hrContact: [],
   });
-  console.log(data);
+
+
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
 
@@ -56,7 +59,7 @@ function CreateCompany() {
       setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
-  console.log(id);
+
 
   useEffect(() => {
     if (!companyId) return;
@@ -66,15 +69,15 @@ function CreateCompany() {
         const response = await axios.get(
           `https://jamblix.com/api/company/fetchCompaniDetails/${companyId}`
         );
-        console.log(response.data);
+
         if (response.data) {
           setData({
             companyName: response.data.companyName,
             companySector: response.data.companySector
               ? response.data.companySector.map((sector) => ({
-                  value: sector,
-                  label: sector,
-                }))
+                value: sector,
+                label: sector,
+              }))
               : [],
             companyLogo: response.data.companyLogo,
             companyDescription: response.data.companyDescription,
@@ -117,6 +120,11 @@ function CreateCompany() {
     setData({ ...data, companySector: selectedOptions });
     setShowDropdown(false);
   };
+  const handleSelectSize = (selectedOption) => {
+    console.log(selectedOption);
+    setData({ ...data, companySize: selectedOption?.value || "" });
+  };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -181,8 +189,8 @@ function CreateCompany() {
       companyWebsite: "",
       companyMail: "",
       companySize: "",
-      hrEmail: "",
-      hrContact: "",
+      hrEmail: [],
+      hrContact: [],
     });
     setCroppedImage(null);
     setFile(null);
@@ -279,6 +287,8 @@ function CreateCompany() {
     setButtonLoading(true);
     if (!validateForm()) return;
 
+    // setData(prev => ({ ...prev, hrContact: [...prev.hrContact, hrContactText] }))
+
     try {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
@@ -291,8 +301,8 @@ function CreateCompany() {
       formData.append("companyWebsite", data.companyWebsite);
       formData.append("companyMail", data.companyMail);
       formData.append("companySize", data.companySize);
-      formData.append("hrEmail", data.hrEmail);
-      formData.append("hrContact", data.hrContact);
+      formData.append("hrEmail", hrEmailText.length > 0 ? [...data.hrEmail, hrEmailText] : data.hrEmail);
+      formData.append("hrContact", hrContactText.length > 0 ? [...data.hrContact, hrContactText] : data.hrContact);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();
@@ -366,81 +376,91 @@ function CreateCompany() {
 
   const header = renderHeader();
 
- const [options, setOptions] = useState([
-  "Aerospace & Defense",
-  "Agriculture",
-  "Artificial Intelligence",
-  "Automotive",
-  "Banking",
-  "Biotechnology",
-  "Blockchain",
-  "Chemicals",
-  "Cloud Computing",
-  "Construction",
-  "Consulting",
-  "Consumer Electronics",
-  "Cybersecurity",
-  "Defense",
-  "Design",
-  "E-commerce",
-  "EdTech",
-  "Education",
-  "Electrical & Electronics",
-  "Energy",
-  "Engineering",
-  "Entertainment",
-  "Environmental Services",
-  "Fashion & Apparel",
-  "Finance",
-  "FinTech",
-  "Food & Beverage",
-  "Gaming",
-  "Government",
-  "Healthcare",
-  "HealthTech",
-  "Hospitality",
-  "Human Resources",
-  "Import & Export",
-  "Industrial Automation",
-  "Information Technology",
-  "Insurance",
-  "InsurTech",
-  "Interior Design",
-  "IT Services",
-  "Legal Services",
-  "Logistics",
-  "Manufacturing",
-  "MarTech",
-  "Marketing & Advertising",
-  "Media & Entertainment",
-  "Mining & Metals",
-  "Nonprofit & NGOs",
-  "Oil & Gas",
-  "Pharmaceuticals",
-  "Photography",
-  "Professional Services",
-  "PropTech",
-  "Real Estate",
-  "Renewable Energy",
-  "Retail",
-  "Robotics",
-  "Scientific Research",
-  "Security Services",
-  "Shipping & Ports",
-  "Social Media",
-  "Software Development",
-  "Sports & Recreation",
-  "Supply Chain",
-  "Telecommunications",
-  "Tourism",
-  "Toys & Games",
-  "Transportation",
-  "Travel",
-  "Utilities",
-  "Veterinary",
-  "Waste Management",
-  "Wholesale & Distribution"
-]);
+  const [options, setOptions] = useState([
+    "Aerospace & Defense",
+    "Agriculture",
+    "Artificial Intelligence",
+    "Automotive",
+    "Banking",
+    "Biotechnology",
+    "Blockchain",
+    "Chemicals",
+    "Cloud Computing",
+    "Construction",
+    "Consulting",
+    "Consumer Electronics",
+    "Cybersecurity",
+    "Defense",
+    "Design",
+    "E-commerce",
+    "EdTech",
+    "Education",
+    "Electrical & Electronics",
+    "Energy",
+    "Engineering",
+    "Entertainment",
+    "Environmental Services",
+    "Fashion & Apparel",
+    "Finance",
+    "FinTech",
+    "Food & Beverage",
+    "Gaming",
+    "Government",
+    "Healthcare",
+    "HealthTech",
+    "Hospitality",
+    "Human Resources",
+    "Import & Export",
+    "Industrial Automation",
+    "Information Technology",
+    "Insurance",
+    "InsurTech",
+    "Interior Design",
+    "IT Services",
+    "Legal Services",
+    "Logistics",
+    "Manufacturing",
+    "MarTech",
+    "Marketing & Advertising",
+    "Media & Entertainment",
+    "Mining & Metals",
+    "Nonprofit & NGOs",
+    "Oil & Gas",
+    "Pharmaceuticals",
+    "Photography",
+    "Professional Services",
+    "PropTech",
+    "Real Estate",
+    "Renewable Energy",
+    "Retail",
+    "Robotics",
+    "Scientific Research",
+    "Security Services",
+    "Shipping & Ports",
+    "Social Media",
+    "Software Development",
+    "Sports & Recreation",
+    "Supply Chain",
+    "Telecommunications",
+    "Tourism",
+    "Toys & Games",
+    "Transportation",
+    "Travel",
+    "Utilities",
+    "Veterinary",
+    "Waste Management",
+    "Wholesale & Distribution"
+  ]);
+  const companySizeOptions = [
+    { value: "1-10", label: "1–10 employees" },
+    { value: "11-50", label: "11–50 employees" },
+    { value: "51-200", label: "51–200 employees" },
+    { value: "201-500", label: "201–500 employees" },
+    { value: "501-1000", label: "501–1000 employees" },
+    { value: "1001-5000", label: "1001–5000 employees" },
+    { value: "5001-10000", label: "5001–10,000 employees" },
+    { value: "10000+", label: "10,000+ employees" },
+  ];
 
 
   const [filteredOptions, setFilteredOptions] = useState(options);
@@ -489,7 +509,7 @@ function CreateCompany() {
                       className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                  {/* <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <div className="gap-1"> Company Mail</div>
                     <input
                       type="text"
@@ -499,21 +519,8 @@ function CreateCompany() {
                       placeholder="Enter Company Mail"
                       className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
-                  </div>
-                </div>
-                <div className="flex w-full md:flex-row  flex-col  md:gap-[24px] gap-4">
+                  </div> */}
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1"> Company Website</div>
-                    <input
-                      type="text"
-                      name="companyWebsite"
-                      value={data.companyWebsite}
-                      onChange={handleInputChange}
-                      placeholder="Enter Company Website"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
-                    />
-                  </div>
-                    <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <div className="gap-1">
                       Company Sector <span className="text-red">*</span>
                     </div>
@@ -532,35 +539,11 @@ function CreateCompany() {
                       classNamePrefix="select"
                     />
                   </div>
-                  
-                </div>
-                <div className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1"> Company Address</div>
-                    <input
-                      type="text"
-                      name="companyAddress"
-                      value={data.companyAddress}
-                      onChange={handleInputChange}
-                      placeholder="Enter Company Address"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
-                    />
-                  </div>
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                    <div className="gap-1"> Company Size</div>
-                    <input
-                      type="text"
-                      name="companySize"
-                      value={data.companySize}
-                      onChange={handleInputChange}
-                      placeholder="Enter Company Size"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
-                    />
-                  </div>
-                
+
+
                 </div>
                 <div className="flex w-full flex-col md:flex-row gap-4 md:gap-[24px]">
-                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                  {/* <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <label className="gap-1">HR POC Contact</label>
                     <input
                       type="text"
@@ -582,8 +565,277 @@ function CreateCompany() {
                       placeholder="Enter HR Email Address"
                       className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#DEDEDE] outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
+                  </div> */}
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <label className="gap-1">HR POC Contact</label>
+                    <div
+                      className={`w-full flex ${data?.hrContact ? "justify-between" : ""
+                        } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${"border-[#DEDEDE]"
+                        }`}
+                    >
+                      <div className="flex gap-4 w-[90%]  items-center">
+                        {data?.hrContact.length > 0 && (
+                          <div
+                            style={{
+                              scrollbarWidth: "none",
+                              msOverflowStyle: "none",
+                            }}
+                            id="scroll"
+                            className="overflow-x-auto flex gap-2 "
+                          >
+                            {Array.isArray(data?.hrContact) &&
+                              data.hrContact.map((item, index) => (
+                                <div
+                                  key={index}
+                                  className="h-[28px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px]"
+                                >
+                                  <span className="flex text-[#06A9EF] text-[14px] font-[400] text-nowrap">
+                                    {item}
+                                  </span>
+
+                                  <svg
+                                    onClick={() =>
+                                      setData({
+                                        ...data,
+                                        hrContact: data?.hrContact.filter(
+                                          (data) => data != item
+                                        ),
+                                      })
+                                    }
+                                    width="11"
+                                    height="10"
+                                    viewBox="0 0 11 10"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      clip-rule="evenodd"
+                                      d="M0.937354 0.435637C1.08738 0.28566 1.29082 0.201408 1.50295 0.201408C1.71509 0.201408 1.91853 0.28566 2.06855 0.435637L5.50295 3.87004L8.93735 0.435637C9.01115 0.359229 9.09943 0.298283 9.19703 0.256356C9.29463 0.214429 9.39961 0.19236 9.50583 0.191436C9.61206 0.190513 9.7174 0.210755 9.81572 0.250979C9.91403 0.291204 10.0034 0.350607 10.0785 0.425721C10.1536 0.500835 10.213 0.590157 10.2532 0.688474C10.2934 0.786791 10.3137 0.892135 10.3128 0.998358C10.3118 1.10458 10.2898 1.20956 10.2478 1.30716C10.2059 1.40476 10.145 1.49304 10.0686 1.56684L6.63415 5.00124L10.0686 8.43564C10.2143 8.58652 10.2949 8.7886 10.2931 8.99836C10.2913 9.20812 10.2071 9.40877 10.0588 9.55709C9.91048 9.70542 9.70983 9.78955 9.50007 9.79138C9.29032 9.7932 9.08823 9.71256 8.93735 9.56684L5.50295 6.13244L2.06855 9.56684C1.91767 9.71256 1.71559 9.7932 1.50583 9.79138C1.29608 9.78955 1.09543 9.70542 0.947099 9.55709C0.798773 9.40877 0.714637 9.20812 0.712815 8.99836C0.710992 8.7886 0.791628 8.58652 0.937354 8.43564L4.37175 5.00124L0.937354 1.56684C0.787377 1.41681 0.703125 1.21337 0.703125 1.00124C0.703125 0.789106 0.787377 0.585659 0.937354 0.435637V0.435637Z"
+                                      fill="#9A4545"
+                                    />
+                                  </svg>
+                                </div>
+                              ))}
+                          </div>
+                        )}
+                        <input
+                          type="text"
+                          name=""
+                          id=""
+                          placeholder="Enter email"
+                          className="input w-[130px] placeholder:text-[12px] placeholder:font-[400] outline-none"
+                          value={hrContactText}
+                          onChange={(e) => {
+                            setHrContactText(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <button
+                        disabled={hrContactText?.length == 0}
+                        onClick={() => {
+                          setData({
+                            ...data,
+                            hrContact: [...data.hrContact, hrContactText],
+                          });
+                          setHrContactText("");
+
+                          setTimeout(() => {
+                            const scrollDiv =
+                              document.getElementById("scroll");
+                            if (scrollDiv) {
+                              scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                            }
+                          }, 100);
+
+                        }}
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M5.14286 6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714H6.85714V12H5.14286V6.85714Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <label className="gap-1">HR POC Email</label>
+                    <div
+                      className={`w-full flex ${data?.hrEmail ? "justify-between" : ""
+                        } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${"border-[#DEDEDE]"
+                        }`}
+                    >
+                      <div className="flex gap-4 w-[90%]  items-center">
+                        {data?.hrEmail.length > 0 && (
+                          <div
+                            style={{
+                              scrollbarWidth: "none",
+                              msOverflowStyle: "none",
+                            }}
+                            id="scroll"
+                            className="overflow-x-auto flex gap-2 "
+                          >
+                            {Array.isArray(data?.hrEmail) &&
+                              data.hrEmail.map((item, index) => (
+                                <div
+                                  key={index}
+                                  className="h-[28px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px]"
+                                >
+                                  <span className="flex text-[#06A9EF] text-[14px] font-[400] text-nowrap">
+                                    {item}
+                                  </span>
+
+                                  <svg
+                                    onClick={() =>
+                                      setData({
+                                        ...data,
+                                        hrEmail: data?.hrEmail.filter(
+                                          (data) => data != item
+                                        ),
+                                      })
+                                    }
+                                    width="11"
+                                    height="10"
+                                    viewBox="0 0 11 10"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      clip-rule="evenodd"
+                                      d="M0.937354 0.435637C1.08738 0.28566 1.29082 0.201408 1.50295 0.201408C1.71509 0.201408 1.91853 0.28566 2.06855 0.435637L5.50295 3.87004L8.93735 0.435637C9.01115 0.359229 9.09943 0.298283 9.19703 0.256356C9.29463 0.214429 9.39961 0.19236 9.50583 0.191436C9.61206 0.190513 9.7174 0.210755 9.81572 0.250979C9.91403 0.291204 10.0034 0.350607 10.0785 0.425721C10.1536 0.500835 10.213 0.590157 10.2532 0.688474C10.2934 0.786791 10.3137 0.892135 10.3128 0.998358C10.3118 1.10458 10.2898 1.20956 10.2478 1.30716C10.2059 1.40476 10.145 1.49304 10.0686 1.56684L6.63415 5.00124L10.0686 8.43564C10.2143 8.58652 10.2949 8.7886 10.2931 8.99836C10.2913 9.20812 10.2071 9.40877 10.0588 9.55709C9.91048 9.70542 9.70983 9.78955 9.50007 9.79138C9.29032 9.7932 9.08823 9.71256 8.93735 9.56684L5.50295 6.13244L2.06855 9.56684C1.91767 9.71256 1.71559 9.7932 1.50583 9.79138C1.29608 9.78955 1.09543 9.70542 0.947099 9.55709C0.798773 9.40877 0.714637 9.20812 0.712815 8.99836C0.710992 8.7886 0.791628 8.58652 0.937354 8.43564L4.37175 5.00124L0.937354 1.56684C0.787377 1.41681 0.703125 1.21337 0.703125 1.00124C0.703125 0.789106 0.787377 0.585659 0.937354 0.435637V0.435637Z"
+                                      fill="#9A4545"
+                                    />
+                                  </svg>
+                                </div>
+                              ))}
+                          </div>
+                        )}
+                        <input
+                          type="text"
+                          name=""
+                          id=""
+                          placeholder="Enter email"
+                          className="input w-[130px] placeholder:text-[12px] placeholder:font-[400] outline-none"
+                          value={hrEmailText}
+                          onChange={(e) => {
+                            setHrEmailText(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <button
+                        disabled={hrEmailText?.length == 0}
+                        onClick={() => {
+                          setData({
+                            ...data,
+                            hrEmail: [...data.hrEmail, hrEmailText],
+                          });
+                          setHrEmailText("");
+
+                          setTimeout(() => {
+                            const scrollDiv =
+                              document.getElementById("scroll");
+                            if (scrollDiv) {
+                              scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                            }
+                          }, 100);
+
+                        }}
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M5.14286 6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714H6.85714V12H5.14286V6.85714Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
+                <div className="flex w-full md:flex-row  flex-col  md:gap-[24px] gap-4">
+
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Website</div>
+                    <input
+                      type="text"
+                      name="companyWebsite"
+                      value={data.companyWebsite}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Website"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
+                    />
+                  </div>
+
+                  {/* <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Size</div>
+                    <input
+                      type="text"
+                      name="companySize"
+                      value={data.companySize}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Size"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
+                    />
+                  </div> */}
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1">
+                      Company Size <span className="text-red">*</span>
+                    </div>
+                    <Select
+                      name="companySize"
+                      options={companySizeOptions}
+                      value={companySizeOptions.find(opt => opt.value === data.companySize)}
+                      onChange={handleSelectSize}
+                      placeholder="Enter or Select Company Size"
+                      className="w-full"
+                      classNamePrefix="select"
+                      styles={{
+                        singleValue: (base) => ({
+                          ...base,
+                          whiteSpace: "normal",
+                          overflow: "visible",
+                          textOverflow: "unset",
+                          wordBreak: "break-word",
+                        }),
+
+                      }}
+                    />
+
+                  </div>
+
+
+
+
+                </div>
+                <div className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Address</div>
+                    <input
+                      type="text"
+                      name="companyAddress"
+                      value={data.companyAddress}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Address"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
+                    />
+                  </div>
+
+                </div>
+
               </div>
             </div>
 
@@ -604,17 +856,17 @@ function CreateCompany() {
                   {(croppedImage ||
                     data?.companyLogo ||
                     "/images/jobs/logo.png") && (
-                    <ImageContainer
-                      value={data?.companyLogo}
-                      src={
-                        croppedImage?.url ||
-                        data?.companyLogo ||
-                        "/images/jobs/logo.png"
-                      }
-                      alt="Selected File"
-                      className="w-[143.95%] h-[60px] object-contain"
-                    />
-                  )}
+                      <ImageContainer
+                        value={data?.companyLogo}
+                        src={
+                          croppedImage?.url ||
+                          data?.companyLogo ||
+                          "/images/jobs/logo.png"
+                        }
+                        alt="Selected File"
+                        className="w-[143.95%] h-[60px] object-contain"
+                      />
+                    )}
 
                   <input
                     type="file"
@@ -659,12 +911,11 @@ function CreateCompany() {
                     minHeight: "296px",
                     height: "212px",
                   }}
-                  className={`editor-container ${
-                    window.location.pathname ===
+                  className={`editor-container ${window.location.pathname ===
                     "/recruiter/companies/createCompany"
-                      ? "create-company-height"
-                      : ""
-                  } editor-container `}
+                    ? "create-company-height"
+                    : ""
+                    } editor-container `}
                   onPaste={(e) => e.preventDefault()}
                 />
                 <div className="text-[12px] text-gray-500">
@@ -711,6 +962,9 @@ function CreateCompany() {
           </div>
         </div>
       )}
+
+
+
       {modelView && (
         <ImageCropper
           setModelView={setModelView}

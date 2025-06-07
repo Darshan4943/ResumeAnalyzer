@@ -87,24 +87,34 @@ const JobPostChart = () => {
     };
   };
 
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true },
+const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: true },
+  },
+  scales: {
+    x: {
+      grid: { display: false },
     },
-    scales: {
-      x: { grid: { display: false } },
-      y: {
-        beginAtZero: true,
-        grid: { color: "#E0E0E0" },
+    y: {
+      beginAtZero: true,
+      grid: { color: "#E0E0E0" },
+      ticks: {
+        stepSize: 1,
+        precision: 0, 
+        callback: function (value) {
+          return Number(value); 
+        },
       },
     },
-    animation: {
-      duration: 1000, 
-      easing: "easeInOutQuad",
-    },
-  };
+  },
+  animation: {
+    duration: 1000,
+    easing: "easeInOutQuad",
+  },
+};
+
 
   return (
     <div
@@ -112,9 +122,9 @@ const JobPostChart = () => {
         borderRadius: "16px",
         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="p-5 bg-white rounded-xl w-full flex flex-col h-[426px]"
+     className="scr1300:w-[70.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:px-4 px-2 py-3 h-[426px]"
     >
-      <div className="flex pb-2 flex-col gap-4 border-b border-[#DEDEDE] mb-[38px]">
+      <div className="flex pb-2 flex-col gap-4 border-b border-[#DEDEDE] mb-[38px] w-full">
         <div className="flex justify-between items-center flex-wrap">
           <div>
             <p className="text-[16px] font-[500]">

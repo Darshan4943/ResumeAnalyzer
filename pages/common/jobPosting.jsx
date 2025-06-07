@@ -18,7 +18,7 @@ function JobPosting() {
   const [openPopup, setOpenPopup] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [getData,setGetData] = useState(false)
+  const [getData, setGetData] = useState(false)
   const [filters, setFilters] = useState({
     Department: "",
     Location: "",
@@ -118,8 +118,24 @@ function JobPosting() {
       options: [],
     },
     {
+      heading: "Aging",
+      options: [
+        "Today",
+        "1 Day ago",
+        "2 Days ago",
+        "3 Days ago",
+        "1 Week ago",
+        "2 Weeks ago",
+        "3 Weeks ago",
+        "1 Month ago",
+        "2 Months ago",
+        "3+ Months ago"
+      ]
+
+    },
+    {
       heading: "Status",
-      options: ["All", "Active", "On Hold","Filled", "Cancelled", "Expired"],
+      options: ["All", "Active", "On Hold", "Filled", "Cancelled", "Expired"],
     },
   ]);
   const getResponsiveWidth = () => {
@@ -230,7 +246,20 @@ function JobPosting() {
 
     router.push(`/common/jobPosting/CreateNewJob?companyId=${selectedId}`);
   };
+  const taskRef = useRef(null);
 
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setIsUpload(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+  
   return (
     <>
       {/* {loading ? (
@@ -243,7 +272,7 @@ function JobPosting() {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-            <div className=" w-fit flex flex-col gap-3 rounded-[12px] bg-white">
+            <div   ref={taskRef} className=" w-fit flex flex-col gap-3 rounded-[12px] bg-white">
               <JdExtraction />
             </div>
           </div>
@@ -286,7 +315,7 @@ function JobPosting() {
             )} */}
 
             <div className="flex flex-col bg-white rounded-[16px] p-4">
-              <p className="text-[16px] font-medium">
+              <p className="text-[14px] font-medium">
                 Enter job descriptions, requirements, <br />
                 and other necessary details
               </p>
@@ -296,7 +325,7 @@ function JobPosting() {
                   //   router.push(`/common/jobPosting/CreateNewJob`)
                   // }
                   onClick={() => setIsUpload(true)}
-                  className="w-[212px] rounded-[30px] flex text-[14px] font-semibold bg-blue text-white h-[42px] items-center justify-center"
+                  className=" rounded-[30px] flex w-[180px] bg_Button  h-[40px] items-center justify-center"
                 >
                   <svg
                     width="18"
@@ -323,14 +352,14 @@ function JobPosting() {
             </div>
 
             <div className="flex flex-col bg-white rounded-[16px] p-4">
-              <p className="text-[16px] font-medium">
+              <p className="text-[14px] font-medium">
                 Download the template, fill in job <br />
                 details & upload in one click
               </p>
               <div className="flex gap-2 items-end">
                 <button
                   onClick={() => setOpenPopup(true)}
-                  className="w-[212px] gap-1 rounded-[30px] flex text-[14px] font-semibold bg-blue text-white h-[42px] items-center justify-center"
+                  className="w-[180px] gap-1 rounded-[30px] flex t bg_Button  h-[40px] items-center justify-center"
                 >
                   <svg
                     width="18"
@@ -378,17 +407,17 @@ function JobPosting() {
                   value={
                     filters[filter.heading]
                       ? {
-                          value: filters[filter.heading],
-                          label: filters[filter.heading],
-                        }
+                        value: filters[filter.heading],
+                        label: filters[filter.heading],
+                      }
                       : ""
                   }
                   placeholder={
                     filter.heading === "JobTitle"
                       ? "Job Title"
                       : filter.heading === "CompanyName"
-                      ? "Company Name"
-                      : filter.heading
+                        ? "Company Name"
+                        : filter.heading
                   }
                   isSearchable={true}
                   noOptionsMessage={() => "No options available"}
@@ -438,7 +467,7 @@ function JobPosting() {
             </button>
           </div>
         </div>
-        <JobCard filters={filters} setFilters={setFilters} getData={getData}/>
+        <JobCard filters={filters} setFilters={setFilters} getData={getData} />
       </div>
       {/* )} */}
       {openPopup && <BulkUploadPopUp setOpenPopup={setOpenPopup} setGetData={setGetData} />}

@@ -6,8 +6,9 @@ import { useRouter } from "next/router";
 import CustomPagination from "../../../components/common/CustomPagination";
 import { toast } from "react-toastify";
 import CopyLink from "../../../components/common/copyLink";
+import { getRelativeTime } from "../../../utils/data";
 
-const JobCard = ({ filters, setFilters ,getData}) => {
+const JobCard = ({ filters, setFilters, getData }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState();
@@ -60,7 +61,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
       setLoading(true);
       fetchJobs();
     }
-  }, [id, filters,getData]);
+  }, [id, filters, getData]);
 
   useEffect(() => {
     if (id) {
@@ -148,7 +149,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
       }
     } catch (error) {
       console.error("Error deleting job:", error);
-      toast.error("Error deleting the job. Please try again.");
+      toast.error("Error deleting the job?. Please try again.");
     } finally {
       setDeletePopup(false);
       setSelectedJobId(null);
@@ -192,44 +193,42 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                 <div
                   key={index}
                   onClick={() =>
-                    router.push(`/common/hiring/JobPost?id=${job._id}`)
+                    router.push(`/common/hiring/JobPost?id=${job?._id}`)
                   }
                   className="flex w-full sm:w-[380px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
                   <div
-                    className={`flex justify-between w-[100%] gap-2 ${
-                      hasLongTitle ? "h-[42px]" : ""
-                    }`}
+                    className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
+                      }`}
                   >
                     <div
-                      className={`flex justify-between ${
-                        job?.jobTitle?.length > 35 && "group"
-                      } relative gap-[20px] items-start`}
+                      className={`flex justify-between ${job?.jobTitle?.length > 35 && "group"
+                        } relative gap-[20px] items-start`}
                     >
                       <p className="text-[14px] font-[600]">
                         {job?.jobTitle?.length > 35
-                          ? `${job.jobTitle.slice(0, 35)} ...`
-                          : job.jobTitle}
+                          ? `${job?.jobTitle.slice(0, 35)} ...`
+                          : job?.jobTitle}
                       </p>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                        {job.jobTitle}
+                        {job?.jobTitle}
                       </div>
 
                       <div
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleToggle(job._id);
+                          handleToggle(job?._id);
                         }}
                         className="flex gap-[3px] items-center relative"
                       >
-                        {job.status === "Active" ? (
+                        {job?.status === "Active" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#0C8A0A]">
                               Active
                             </div>
                           </>
-                        ) : job.status === "On Hold" ? (
+                        ) : job?.status === "On Hold" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#FF7802] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#FF7802]">
@@ -237,31 +236,31 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                             </div>
                           </>
                         )
-                         : job.status === "Filled" ? (
-                          <>
-                            <div className="min-w-[6px] h-[6px] bg-blue rounded-full"></div>
-                            <div className="text-[12px] font-[500] text-blue">
-                              Filled
-                            </div>
-                          </>
-                        )
-                         : job.status === "Cancelled" ? (
-                          <>
-                            <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
-                            <div className="text-[12px] font-[500] text-[#B3261E]">
-                              Cancelled
-                            </div>
-                          </>
-                        ) : job.status === "Expired" ? (
-                          <>
-                            <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
-                            <div className="text-[12px] font-[500] text-[#B3261E]">
-                              Expired
-                            </div>
-                          </>
-                        ) : null}
+                          : job?.status === "Filled" ? (
+                            <>
+                              <div className="min-w-[6px] h-[6px] bg-blue rounded-full"></div>
+                              <div className="text-[12px] font-[500] text-blue">
+                                Filled
+                              </div>
+                            </>
+                          )
+                            : job?.status === "Cancelled" ? (
+                              <>
+                                <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                                <div className="text-[12px] font-[500] text-[#B3261E]">
+                                  Cancelled
+                                </div>
+                              </>
+                            ) : job?.status === "Expired" ? (
+                              <>
+                                <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                                <div className="text-[12px] font-[500] text-[#B3261E]">
+                                  Expired
+                                </div>
+                              </>
+                            ) : null}
                         <svg
-                          className={statusToggle[job._id] ? "rotate-180" : ""}
+                          className={statusToggle[job?._id] ? "rotate-180" : ""}
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
@@ -275,7 +274,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                             />
                           </g>
                         </svg>
-                        {statusToggle[job._id] && (
+                        {statusToggle[job?._id] && (
                           <div
                             ref={popupRef}
                             className="absolute top-5 z-[3000] bg-white rounded-[6px] w-[84px] shadow-md py-1"
@@ -283,55 +282,50 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                             <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "Active");
+                                handleChangeStatus(job?._id, "Active");
                               }}
-                              className={`${
-                                job.status === "Active" ? "hidden" : "block"
-                              } text-[12px] font-[500] text-[#0C8A0A] hover:bg-[#ccffcb] px-4 cursor-pointer`}
+                              className={`${job?.status === "Active" ? "hidden" : "block"
+                                } text-[12px] font-[500] text-[#0C8A0A] hover:bg-[#ccffcb] px-4 cursor-pointer`}
                             >
                               Active
                             </p>
                             <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "On Hold");
+                                handleChangeStatus(job?._id, "On Hold");
                               }}
-                              className={`${
-                                job.status === "On Hold" ? "hidden" : "block"
-                              } text-[12px] font-[500] text-[#FF7802] hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                              className={`${job?.status === "On Hold" ? "hidden" : "block"
+                                } text-[12px] font-[500] text-[#FF7802] hover:bg-[#ffffe5] px-4 cursor-pointer`}
                             >
                               On Hold
                             </p>
-                              <p
+                            <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "Filled");
+                                handleChangeStatus(job?._id, "Filled");
                               }}
-                              className={`${
-                                job.status === "Filled" ? "hidden" : "block"
-                              } text-[12px] font-[500] text-blue hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                              className={`${job?.status === "Filled" ? "hidden" : "block"
+                                } text-[12px] font-[500] text-blue hover:bg-[#ffffe5] px-4 cursor-pointer`}
                             >
-                             Filled
+                              Filled
                             </p>
-                              <p
+                            <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "Cancelled");
+                                handleChangeStatus(job?._id, "Cancelled");
                               }}
-                              className={`${
-                                job.status === "Cancelled" ? "hidden" : "block"
-                              } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                              className={`${job?.status === "Cancelled" ? "hidden" : "block"
+                                } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffffe5] px-4 cursor-pointer`}
                             >
                               Cancelled
                             </p>
                             <p
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleChangeStatus(job._id, "Expired");
+                                handleChangeStatus(job?._id, "Expired");
                               }}
-                              className={`${
-                                job.status === "Expired" ? "hidden" : "block"
-                              } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffe2e1] px-4 cursor-pointer`}
+                              className={`${job?.status === "Expired" ? "hidden" : "block"
+                                } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffe2e1] px-4 cursor-pointer`}
                             >
                               Expired
                             </p>
@@ -343,7 +337,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                       <svg
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleClick(job._id);
+                          handleClick(job?._id);
                         }}
                         width="20"
                         height="20"
@@ -362,7 +356,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                         onClick={(e) => {
                           e.stopPropagation();
                           router.push(
-                            `/common/jobPosting/CreateNewJob?id=${job._id}`
+                            `/common/jobPosting/CreateNewJob?id=${job?._id}`
                           );
                         }}
                         width="20"
@@ -382,8 +376,8 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                       <svg
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleOpenDeletePopup(job._id);
-                          // handleDelete(job._id);
+                          handleOpenDeletePopup(job?._id);
+                          // handleDelete(job?._id);
                         }}
                         width="20"
                         height="20"
@@ -406,21 +400,17 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                       Total Applications
                     </p>
                     <p className="text-[#333] items-center text-[36px] font-[600]  leading-tight">
-                      {job.totalApplicationCount}
+                      {job?.totalApplicationCount}
                     </p>
                   </div>
 
                   <div className="flex w-[100%] justify-between items-center ">
                     <div className="flex flex-col items-start gap-[4px]">
                       <p className="text-[12px] font-[600] text-[#646464]">
-                        Date Posted
+                        Posted Since
                       </p>
                       <p className="text-[#333] font-[500] text-[12px]">
-                        {new Date(job.createdAt).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })}
+                        {getRelativeTime(job?.createdAt)}
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-[4px]">
@@ -428,7 +418,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                         Due Date
                       </p>
                       <p className="text-[#333] font-[500] text-[12px]">
-                        {new Date(job.deadLine).toLocaleDateString("en-GB", {
+                        {new Date(job?.deadLine).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
                           year: "numeric",
@@ -438,7 +428,7 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                   </div>
 
                   <div className="flex gap-[10px] flex-wrap">
-                    {job.revalentExp && (
+                    {job?.revalentExp && (
                       <div className="flex gap-[4px] items-center">
                         <div>
                           <svg
@@ -455,11 +445,11 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                           </svg>
                         </div>
                         <div className="text-[12px] font-[400]">
-                          {job.revalentExp}
+                          {job?.revalentExp}
                         </div>
                       </div>
                     )}
-                    {job.revalentExp && (
+                    {job?.revalentExp && (
                       <div className="border-[1px] border-[#AFAFAF]"></div>
                     )}
                     <div className="flex gap-[4px] items-center">
@@ -478,13 +468,13 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                         </svg>
                       </div>
                       <div className="text-[12px] font-[400]">
-                        {job.jobType}
+                        {job?.jobType}
                       </div>
                     </div>
-                    {job.location.length > 0 && (
+                    {job?.location.length > 0 && (
                       <div className="border-[1px] border-[#AFAFAF]"></div>
                     )}{" "}
-                    {job.location.length > 0 && (
+                    {job?.location.length > 0 && (
                       <div className="flex gap-[4px] items-center">
                         <div>
                           <svg
@@ -501,15 +491,14 @@ const JobCard = ({ filters, setFilters ,getData}) => {
                           </svg>
                         </div>
                         <div
-                          className={`text-[12px] font-[400] ${
-                            job.location.length > 1 && "group"
-                          } relative`}
+                          className={`text-[12px] font-[400] ${job?.location.length > 1 && "group"
+                            } relative`}
                         >
-                          {job.location.length > 1
-                            ? job.location
-                                .map((loc) => loc.split(",")[0]) // Get the first part before the comma (e.g., "Pune" or "Nashik")
-                                .join(", ") // Join them with commas
-                            : job.location[0]?.split(",")[0]}{" "}
+                          {job?.location.length > 1
+                            ? job?.location
+                              .map((loc) => loc.split(",")[0]) // Get the first part before the comma (e.g., "Pune" or "Nashik")
+                              .join(", ") // Join them with commas
+                            : job?.location[0]?.split(",")[0]}{" "}
                           {/* If only one location, show the first part */}
                           <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                             {job?.location

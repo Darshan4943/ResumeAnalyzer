@@ -8,13 +8,14 @@ import CustomPagination from "../../../components/common/CustomPagination";
 import BulkUploadPopUp from "../../../components/common/bulkUploadPopUp";
 import BulkCompany from "../../../components/common/bulkCompany";
 
+
 function Index() {
   const router = useRouter();
   const [companyData, setCompanyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [id, setId] = useState("");
-  const [page, setPage] = useState();
+  const [page, setPage] = useState(1);
   const [miniloading, setMiniloading] = useState(false);
   const [limit, setLimit] = useState(12);
   const [totalPages, setTotalPages] = useState(1);
@@ -23,6 +24,25 @@ function Index() {
   const [deletePopup, setDeletePopup] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [openPopup, setOpenPopup] = useState(false);
+  const [search, setSearch] = useState("");
+  const [input, setInput] = useState("");
+
+  const useDebounce = (value, delay) => {
+    const [debouncedVal, setDebouncedVal] = useState(value);
+
+    useEffect(() => {
+      const handler = setTimeout(() => setDebouncedVal(value), delay);
+      return () => clearTimeout(handler);
+    }, [value, delay]);
+
+    return debouncedVal;
+  };
+
+  const debouncedInput = useDebounce(input, 500);
+
+  useEffect(() => {
+    setSearch(debouncedInput || "");
+  }, [debouncedInput]);
 
   useEffect(() => {
     setId(userDataGlobal?._id || "");
@@ -33,7 +53,7 @@ function Index() {
       const response = await axios.get(
         `https://jamblix.com/api/company/getCompaniesById/${id}`,
         {
-          params: { page, limit },
+          params: { page, limit, search },
         }
       );
       setCompanyData(response.data.companies || []);
@@ -65,15 +85,17 @@ function Index() {
     if (id) {
       fetchCompanyData();
     }
-  }, [page, limit]);
+  }, [page, limit, search]);
 
   const handleEditCompany = (companyId) => {
     router.push(`/recruiter/companies/createCompany?companyId=${companyId}`);
   };
+
   const handleOpenDeletePopup = (companyId) => {
     setSelectedJobId(companyId);
     setDeletePopup(true);
   };
+
   const handleDelete = async () => {
     if (!selectedJobId) {
       toast.error("No company selected for deletion.");
@@ -104,205 +126,217 @@ function Index() {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <div className="flex gap-2">
-        <button
-          onClick={() => router.push("/recruiter/companies/createCompany")}
-          className="bg-[#06A9EF] text-[#FFFFFF] w-[200px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+      <div className="flex gap-2 justify-between">
+        <div className="flex gap-2">
+          <button
+            onClick={() => router.push("/recruiter/companies/createCompany")}
+            className=" h-[40px]  bg_Button rounded-[30px] px-6 py-3 flex items-center justify-center"
           >
-            <g mask="url(#mask0_6706_95211)">
-              <path
-                d="M8.25 9.75H4.5C4.2875 9.75 4.10938 9.67812 3.96562 9.53438C3.82187 9.39062 3.75 9.2125 3.75 9C3.75 8.7875 3.82187 8.60938 3.96562 8.46562C4.10938 8.32188 4.2875 8.25 4.5 8.25H8.25V4.5C8.25 4.2875 8.32188 4.10938 8.46562 3.96562C8.60938 3.82187 8.7875 3.75 9 3.75C9.2125 3.75 9.39062 3.82187 9.53438 3.96562C9.67812 4.10938 9.75 4.2875 9.75 4.5V8.25H13.5C13.7125 8.25 13.8906 8.32188 14.0344 8.46562C14.1781 8.60938 14.25 8.7875 14.25 9C14.25 9.2125 14.1781 9.39062 14.0344 9.53438C13.8906 9.67812 13.7125 9.75 13.5 9.75H9.75V13.5C9.75 13.7125 9.67812 13.8906 9.53438 14.0344C9.39062 14.1781 9.2125 14.25 9 14.25C8.7875 14.25 8.60938 14.1781 8.46562 14.0344C8.32188 13.8906 8.25 13.7125 8.25 13.5V9.75Z"
-                fill="white"
-              />
-            </g>
-          </svg>
-          Create Company
-        </button>
-        <button
-         onClick={() => setOpenPopup(true)} 
-          className="bg-[#06A9EF] text-[#FFFFFF] w-[235px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-between"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_6706_95211)">
+                <path
+                  d="M8.25 9.75H4.5C4.2875 9.75 4.10938 9.67812 3.96562 9.53438C3.82187 9.39062 3.75 9.2125 3.75 9C3.75 8.7875 3.82187 8.60938 3.96562 8.46562C4.10938 8.32188 4.2875 8.25 4.5 8.25H8.25V4.5C8.25 4.2875 8.32188 4.10938 8.46562 3.96562C8.60938 3.82187 8.7875 3.75 9 3.75C9.2125 3.75 9.39062 3.82187 9.53438 3.96562C9.67812 4.10938 9.75 4.2875 9.75 4.5V8.25H13.5C13.7125 8.25 13.8906 8.32188 14.0344 8.46562C14.1781 8.60938 14.25 8.7875 14.25 9C14.25 9.2125 14.1781 9.39062 14.0344 9.53438C13.8906 9.67812 13.7125 9.75 13.5 9.75H9.75V13.5C9.75 13.7125 9.67812 13.8906 9.53438 14.0344C9.39062 14.1781 9.2125 14.25 9 14.25C8.7875 14.25 8.60938 14.1781 8.46562 14.0344C8.32188 13.8906 8.25 13.7125 8.25 13.5V9.75Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+            Create Company
+          </button>
+          <button
+            onClick={() => setOpenPopup(true)}
+            className=" bg_Button h-[40px] rounded-[30px] px-6 py-3 flex items-center gap-1 justify-between"
           >
-            <g mask="url(#mask0_9696_113372)">
-              <path
-                d="M4.875 15C3.7375 15 2.76562 14.6062 1.95938 13.8188C1.15313 13.0312 0.75 12.0688 0.75 10.9312C0.75 9.95625 1.04375 9.0875 1.63125 8.325C2.21875 7.5625 2.9875 7.075 3.9375 6.8625C4.25 5.7125 4.875 4.78125 5.8125 4.06875C6.75 3.35625 7.8125 3 9 3C10.4625 3 11.7031 3.50938 12.7219 4.52813C13.7406 5.54688 14.25 6.7875 14.25 8.25C15.1125 8.35 15.8281 8.72188 16.3969 9.36563C16.9656 10.0094 17.25 10.7625 17.25 11.625C17.25 12.5625 16.9219 13.3594 16.2656 14.0156C15.6094 14.6719 14.8125 15 13.875 15H9.75C9.3375 15 8.98438 14.8531 8.69063 14.5594C8.39688 14.2656 8.25 13.9125 8.25 13.5V9.6375L7.05 10.8L6 9.75L9 6.75L12 9.75L10.95 10.8L9.75 9.6375V13.5H13.875C14.4 13.5 14.8438 13.3188 15.2062 12.9563C15.5687 12.5938 15.75 12.15 15.75 11.625C15.75 11.1 15.5687 10.6563 15.2062 10.2938C14.8438 9.93125 14.4 9.75 13.875 9.75H12.75V8.25C12.75 7.2125 12.3844 6.32812 11.6531 5.59688C10.9219 4.86563 10.0375 4.5 9 4.5C7.9625 4.5 7.07812 4.86563 6.34688 5.59688C5.61562 6.32812 5.25 7.2125 5.25 8.25H4.875C4.15 8.25 3.53125 8.50625 3.01875 9.01875C2.50625 9.53125 2.25 10.15 2.25 10.875C2.25 11.6 2.50625 12.2188 3.01875 12.7313C3.53125 13.2438 4.15 13.5 4.875 13.5H6.75V15H4.875Z"
-                fill="white"
-              />
-            </g>
-          </svg>
-          Bulk Company Upload
-        </button>
-      </div>
-      {loading ? (
-        <div className=" min-h-[360px] ">
-          <MiniLoader />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_9696_113372)">
+                <path
+                  d="M4.875 15C3.7375 15 2.76562 14.6062 1.95938 13.8188C1.15313 13.0312 0.75 12.0688 0.75 10.9312C0.75 9.95625 1.04375 9.0875 1.63125 8.325C2.21875 7.5625 2.9875 7.075 3.9375 6.8625C4.25 5.7125 4.875 4.78125 5.8125 4.06875C6.75 3.35625 7.8125 3 9 3C10.4625 3 11.7031 3.50938 12.7219 4.52813C13.7406 5.54688 14.25 6.7875 14.25 8.25C15.1125 8.35 15.8281 8.72188 16.3969 9.36563C16.9656 10.0094 17.25 10.7625 17.25 11.625C17.25 12.5625 16.9219 13.3594 16.2656 14.0156C15.6094 14.6719 14.8125 15 13.875 15H9.75C9.3375 15 8.98438 14.8531 8.69063 14.5594C8.39688 14.2656 8.25 13.9125 8.25 13.5V9.6375L7.05 10.8L6 9.75L9 6.75L12 9.75L10.95 10.8L9.75 9.6375V13.5H13.875C14.4 13.5 14.8438 13.3188 15.2062 12.9563C15.5687 12.5938 15.75 12.15 15.75 11.625C15.75 11.1 15.5687 10.6563 15.2062 10.2938C14.8438 9.93125 14.4 9.75 13.875 9.75H12.75V8.25C12.75 7.2125 12.3844 6.32812 11.6531 5.59688C10.9219 4.86563 10.0375 4.5 9 4.5C7.9625 4.5 7.07812 4.86563 6.34688 5.59688C5.61562 6.32812 5.25 7.2125 5.25 8.25H4.875C4.15 8.25 3.53125 8.50625 3.01875 9.01875C2.50625 9.53125 2.25 10.15 2.25 10.875C2.25 11.6 2.50625 12.2188 3.01875 12.7313C3.53125 13.2438 4.15 13.5 4.875 13.5H6.75V15H4.875Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+            Bulk Company Upload
+          </button>
         </div>
-      ) : (
-        <div className="flex w-full flex-wrap gap-[24px] md:justify-start justify-center">
-          {companyData?.length > 0 ? (
-            companyData?.map((item, index) => (
-              <div
-                onClick={() =>
-                  router.push(
-                    `/recruiter/companies/companyDetails?companyId=${item?._id}`
-                  )
-                }
-                key={index}
-                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] cursor-pointer flex flex-col items-center justify-between shadow-md gap-1 w-[300px]"
-              >
-                <div className="gap-1 flex flex-col">
-                  <img
-                    src={item?.companyLogo || "/images/jobs/logo.png"}
-                    alt="Company logo"
-                    className="h-[60px] object-contain"
-                  />
-                  <div className="flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]">
-                    {item?.companyName?.length > 25
-                      ? item?.companyName.substring(0, 25) + "..."
-                      : item?.companyName}
+        <input
+          type="text"
+          className="rounded-[30px] text-[13px] border border-[#DEDEDE] "
+          placeholder="Search company name..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          style={{ padding: "8px", width: "220px" }}
+        />
+      </div>
+      {
+        loading ? (
+          <div className=" min-h-[360px] ">
+            <MiniLoader />
+          </div>
+        ) : (
+          <div className="flex w-full flex-wrap gap-[24px] md:justify-start justify-center">
+            {companyData?.length > 0 ? (
+              companyData?.map((item, index) => (
+                <div
+                  onClick={() =>
+                    router.push(
+                      `/recruiter/companies/companyDetails?companyId=${item?._id}`
+                    )
+                  }
+                  key={index}
+                  className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] cursor-pointer flex flex-col items-center justify-between shadow-md gap-1 w-[300px]"
+                >
+                  <div className="gap-1 flex flex-col">
+                    <img
+                      src={item?.companyLogo || "/images/jobs/logo.png"}
+                      alt="Company logo"
+                      className="h-[60px] object-contain"
+                    />
+                    <div className="flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]">
+                      {item?.companyName?.length > 25
+                        ? item?.companyName.substring(0, 25) + "..."
+                        : item?.companyName}
 
-                    <div className="w-full text-[12px] font-[400] text-[#646464] text-center line-clamp-2">
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            item?.companyDescription?.length > 50
-                              ? item?.companyDescription?.substring(0, 50) +
+                      <div className="w-full text-[12px] font-[400] text-[#646464] text-center line-clamp-2">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              item?.companyDescription?.length > 50
+                                ? item?.companyDescription?.substring(0, 50) +
                                 "..."
-                              : item?.companyDescription,
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="w-full flex justify-end gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEditCompany(item?._id);
-                    }}
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_7809_106553)">
-                        <path
-                          d="M11.6693 17.5013V16.1263C11.6693 16.0152 11.6901 15.9076 11.7318 15.8034C11.7734 15.6992 11.8359 15.6055 11.9193 15.5221L16.2734 11.1888C16.3984 11.0638 16.5373 10.9735 16.6901 10.918C16.8429 10.8624 16.9957 10.8346 17.1484 10.8346C17.3151 10.8346 17.4748 10.8659 17.6276 10.9284C17.7804 10.9909 17.9193 11.0846 18.0443 11.2096L18.8151 11.9805C18.9262 12.1055 19.013 12.2444 19.0755 12.3971C19.138 12.5499 19.1693 12.7027 19.1693 12.8555C19.1693 13.0082 19.1415 13.1645 19.0859 13.3242C19.0304 13.4839 18.9401 13.6263 18.8151 13.7513L14.4818 18.0846C14.3984 18.168 14.3047 18.2305 14.2005 18.2721C14.0964 18.3138 13.9887 18.3346 13.8776 18.3346H12.5026C12.2665 18.3346 12.0686 18.2548 11.9089 18.0951C11.7491 17.9353 11.6693 17.7374 11.6693 17.5013ZM12.9193 17.0846H13.7109L16.2318 14.543L15.4609 13.7721L12.9193 16.293V17.0846ZM5.0026 18.3346C4.54427 18.3346 4.15191 18.1714 3.82552 17.8451C3.49913 17.5187 3.33594 17.1263 3.33594 16.668V3.33464C3.33594 2.8763 3.49913 2.48394 3.82552 2.15755C4.15191 1.83116 4.54427 1.66797 5.0026 1.66797H10.9818C11.204 1.66797 11.4158 1.70964 11.6172 1.79297C11.8186 1.8763 11.9957 1.99436 12.1484 2.14714L16.1901 6.1888C16.3429 6.34158 16.4609 6.51866 16.5443 6.72005C16.6276 6.92144 16.6693 7.13325 16.6693 7.35547V8.54297C16.6693 8.77908 16.5894 8.977 16.4297 9.13672C16.27 9.29644 16.072 9.3763 15.8359 9.3763C15.5998 9.3763 15.4019 9.29644 15.2422 9.13672C15.0825 8.977 15.0026 8.77908 15.0026 8.54297V7.5013H11.6693C11.4332 7.5013 11.2352 7.42144 11.0755 7.26172C10.9158 7.102 10.8359 6.90408 10.8359 6.66797V3.33464H5.0026V16.668H9.16927C9.40538 16.668 9.6033 16.7478 9.76302 16.9076C9.92274 17.0673 10.0026 17.2652 10.0026 17.5013C10.0026 17.7374 9.92274 17.9353 9.76302 18.0951C9.6033 18.2548 9.40538 18.3346 9.16927 18.3346H5.0026ZM15.8568 14.1471L15.4609 13.7721L16.2318 14.543L15.8568 14.1471Z"
-                          fill="#646464"
+                                : item?.companyDescription,
+                          }}
                         />
-                      </g>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleOpenDeletePopup(item?._id);
-                    }}
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_7761_107696)">
-                        <path
-                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                          fill="#646464"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                </div>
-                {deletePopup && (
-                  <>
-                    <div className="opacity-25 fixed inset-0 z-[99998] bg-black"></div>
-
-                    <div className="fixed top-0 left-0 w-full h-full z-[99999] flex justify-center items-center">
-                      <div className="bg-white rounded-[12px] p-6 flex flex-col gap-4 justify-center items-center max-w-[330px]">
-                        <img
-                          src="/images/icons/delete_icon.png"
-                          className="h-[60px] w-[60px]"
-                          alt="Delete"
-                        />
-                        <div className="w-full flex flex-col justify-center items-center">
-                          <h1 className="text-[24px] text-center">Delete</h1>
-                          <p className="text-[16px] text-center">
-                            Are you sure you want to delete this Company?
-                          </p>
-                        </div>
-                        <div className="w-full flex justify-between">
-                          <button
-                            className="blue_border_Button h-[38px] px-6 rounded-[30px]"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setDeletePopup(false);
-                            }}
-                          >
-                            No
-                          </button>
-                          <button
-                            className="red_border_Button h-[38px] px-6 rounded-[30px]"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDelete();
-                            }}
-                          >
-                            Yes
-                          </button>
-                        </div>
                       </div>
                     </div>
-                  </>
-                )}
+                  </div>
+
+                  <div className="w-full flex justify-end gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditCompany(item?._id);
+                      }}
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_7809_106553)">
+                          <path
+                            d="M11.6693 17.5013V16.1263C11.6693 16.0152 11.6901 15.9076 11.7318 15.8034C11.7734 15.6992 11.8359 15.6055 11.9193 15.5221L16.2734 11.1888C16.3984 11.0638 16.5373 10.9735 16.6901 10.918C16.8429 10.8624 16.9957 10.8346 17.1484 10.8346C17.3151 10.8346 17.4748 10.8659 17.6276 10.9284C17.7804 10.9909 17.9193 11.0846 18.0443 11.2096L18.8151 11.9805C18.9262 12.1055 19.013 12.2444 19.0755 12.3971C19.138 12.5499 19.1693 12.7027 19.1693 12.8555C19.1693 13.0082 19.1415 13.1645 19.0859 13.3242C19.0304 13.4839 18.9401 13.6263 18.8151 13.7513L14.4818 18.0846C14.3984 18.168 14.3047 18.2305 14.2005 18.2721C14.0964 18.3138 13.9887 18.3346 13.8776 18.3346H12.5026C12.2665 18.3346 12.0686 18.2548 11.9089 18.0951C11.7491 17.9353 11.6693 17.7374 11.6693 17.5013ZM12.9193 17.0846H13.7109L16.2318 14.543L15.4609 13.7721L12.9193 16.293V17.0846ZM5.0026 18.3346C4.54427 18.3346 4.15191 18.1714 3.82552 17.8451C3.49913 17.5187 3.33594 17.1263 3.33594 16.668V3.33464C3.33594 2.8763 3.49913 2.48394 3.82552 2.15755C4.15191 1.83116 4.54427 1.66797 5.0026 1.66797H10.9818C11.204 1.66797 11.4158 1.70964 11.6172 1.79297C11.8186 1.8763 11.9957 1.99436 12.1484 2.14714L16.1901 6.1888C16.3429 6.34158 16.4609 6.51866 16.5443 6.72005C16.6276 6.92144 16.6693 7.13325 16.6693 7.35547V8.54297C16.6693 8.77908 16.5894 8.977 16.4297 9.13672C16.27 9.29644 16.072 9.3763 15.8359 9.3763C15.5998 9.3763 15.4019 9.29644 15.2422 9.13672C15.0825 8.977 15.0026 8.77908 15.0026 8.54297V7.5013H11.6693C11.4332 7.5013 11.2352 7.42144 11.0755 7.26172C10.9158 7.102 10.8359 6.90408 10.8359 6.66797V3.33464H5.0026V16.668H9.16927C9.40538 16.668 9.6033 16.7478 9.76302 16.9076C9.92274 17.0673 10.0026 17.2652 10.0026 17.5013C10.0026 17.7374 9.92274 17.9353 9.76302 18.0951C9.6033 18.2548 9.40538 18.3346 9.16927 18.3346H5.0026ZM15.8568 14.1471L15.4609 13.7721L16.2318 14.543L15.8568 14.1471Z"
+                            fill="#646464"
+                          />
+                        </g>
+                      </svg>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenDeletePopup(item?._id);
+                      }}
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_7761_107696)">
+                          <path
+                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                            fill="#646464"
+                          />
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                  {deletePopup && (
+                    <>
+                      <div className="opacity-25 fixed inset-0 z-[99998] bg-black"></div>
+
+                      <div className="fixed top-0 left-0 w-full h-full z-[99999] flex justify-center items-center">
+                        <div className="bg-white rounded-[12px] p-6 flex flex-col gap-4 justify-center items-center max-w-[330px]">
+                          <img
+                            src="/images/icons/delete_icon.png"
+                            className="h-[60px] w-[60px]"
+                            alt="Delete"
+                          />
+                          <div className="w-full flex flex-col justify-center items-center">
+                            <h1 className="text-[24px] text-center">Delete</h1>
+                            <p className="text-[16px] text-center">
+                              Are you sure you want to delete this Company?
+                            </p>
+                          </div>
+                          <div className="w-full flex justify-between">
+                            <button
+                              className="blue_border_Button h-[38px] px-6 rounded-[30px]"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDeletePopup(false);
+                              }}
+                            >
+                              No
+                            </button>
+                            <button
+                              className="red_border_Button h-[38px] px-6 rounded-[30px]"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete();
+                              }}
+                            >
+                              Yes
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="p-3 w-full flex flex-col gap-[2px] items-center justify-center h-[60vh]">
+                {" "}
+                <img
+                  className="w-[15%]"
+                  src="/images/employer/NOCom.png"
+                  alt="No data available"
+                />
+                <div>No Companies Available</div>
               </div>
-            ))
-          ) : (
-            <div className="p-3 w-full flex flex-col gap-[2px] items-center justify-center h-[60vh]">
-              {" "}
-              <img
-                className="w-[15%]"
-                src="/images/employer/NOCom.png"
-                alt="No data available"
+            )}
+            {totalCompanies > 12 && (
+              <CustomPagination
+                setMiniloading={setMiniloading}
+                miniLoading={miniloading}
+                setPage={setPage}
+                title={"Companies"}
+                setLimit={setLimit}
+                totalPages={totalPages}
+                limit={limit}
+                defaultLimit={12}
+                page={page}
               />
-              <div>No Companies Available</div>
-            </div>
-          )}
-          {totalCompanies > 12 && (
-            <CustomPagination
-              setMiniloading={setMiniloading}
-              miniLoading={miniloading}
-              setPage={setPage}
-              title={"Jobs"}
-              setLimit={setLimit}
-              totalPages={totalPages}
-              limit={limit}
-              defaultLimit={12}
-              page={page}
-            />
-          )}
-        </div>
-      )}
-        {openPopup && <BulkCompany setOpenPopup={setOpenPopup} fetchCompanyData={fetchCompanyData} />}
-    </div>
+            )}
+          </div>
+        )
+      }
+      {openPopup && <BulkCompany setOpenPopup={setOpenPopup} fetchCompanyData={fetchCompanyData} />}
+    </div >
   );
 }
 

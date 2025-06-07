@@ -3,6 +3,89 @@ import Template1 from "../components/featured/resumeTemplates/Template1";
 import Template2 from "../components/featured/resumeTemplates/Template2";
 import axios from "axios";
 
+
+export const getRelativeTime = (date) => {
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+  const now = new Date();
+  const posted = new Date(date);
+  const diff = now - posted;
+
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+
+  if (months >= 1) return `${months} month${months > 1 ? "s" : ""} ago`;
+  if (weeks >= 1) return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+  if (days >= 1) return `${days} day${days > 1 ? "s" : ""} ago`;
+  if (hours >= 1) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+  if (minutes >= 1) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+  return "Just now";
+};
+
+export const defaultParameters =
+  [
+    {
+      label: "Skills and Competencies",
+      description:
+        "Identify and highlight any skills and competencies in the resume that match the required and preferred skills and competencies in the job description.",
+      percentage: 25,
+      enabled: true,
+    },
+    {
+      label: "Relevant Experience in the Required Field",
+      description:
+        "Compare the candidate's experience in the relevant field with the job requirements, noting any areas where the candidate meets, exceeds, or falls short of the required experience.",
+      percentage: 20,
+      enabled: true,
+    },
+    {
+      label: "Roles and Responsibilities",
+      description:
+        "Evaluate the roles and responsibilities listed in the candidate's work experience and compare them with those required by the job description.",
+      percentage: 15,
+      enabled: true,
+    },
+    {
+      label: "Objective and Professional Summary from Resume",
+      description:
+        "Assess the candidate's objective and professional summary in the resume to determine alignment with the job role and company values.",
+      percentage: 5,
+      enabled: true,
+    },
+    {
+      label: "Total Experience",
+      description:
+        "Summarize the candidate's total professional experience, including all relevant fields, and compare it with the job requirements.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Educational Qualification",
+      description:
+        "Compare the candidate's educational qualifications with the required and preferred educational background mentioned in the job description.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Keywords",
+      description:
+        "Identify any keywords from the job description that are present in the candidate's resume.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Achievements",
+      description:
+        "Review the candidate's achievements and assess their relevance and impact in relation to the job role.",
+      percentage: 5,
+      enabled: true,
+    },
+  ]
+
+
 export const uploadFile = async (file, fieldName) => {
   if (!file) return null;
 

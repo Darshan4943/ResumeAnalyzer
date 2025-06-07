@@ -102,7 +102,7 @@ function CreateNewJob() {
         const response = await axios.get(
           `https://jamblix.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
-            params: { page: 1, limit: 100 },
+            params: { page: 1, limit: 1000 },
           }
         );
         setCompanyData(response.data.companies);
@@ -931,6 +931,20 @@ function CreateNewJob() {
     { value: "International", label: "International" },
   ];
 
+  const companyOptions = [
+    {
+      label: "➕ Create New Company",
+      value: "__create_new__",
+    },
+    ...companyData
+      .filter((item) => item.companyName.trim() !== "")
+      .map((item) => ({
+        value: item.companyName,
+        label: camelCase(item.companyName),
+        _id: item._id,
+      })),
+  ];
+
   return (
     <>
       {!isCreate && (
@@ -1001,23 +1015,13 @@ function CreateNewJob() {
                           Company Name <span className="text-[red]">*</span>
                         </div>
 
-                        <CreatableSelect
+                        <Select
                           isClearable
                           isDisabled={
-                            (userDataGlobal?.role === "employer" && !reqId) ||
-                            companyId
+                            (userDataGlobal?.role === "employer" && !reqId) || companyId
                           }
-                          onInputChange={() => { }}
-                          options={companyData
-                            .filter((item) => item.companyName.trim() !== "")
-                            .map((item) => ({
-                              value: item.companyName,
-                              label: camelCase(item.companyName),
-                              _id: item._id,
-                            }))}
-                          className={`w-full  ${formError.companyName
-                              ? "border-red"
-                              : "border-[#DEDEDE] outline-none"
+                          options={companyOptions}
+                          className={`w-full ${formError.companyName ? "border-red" : "border-[#DEDEDE] outline-none"
                             }`}
                           value={
                             data.companyName
@@ -1028,6 +1032,11 @@ function CreateNewJob() {
                               : null
                           }
                           onChange={(selectedOption) => {
+                            if (selectedOption?.value === "__create_new__") {
+                              router.push("/recruiter/companies");
+                              return;
+                            }
+
                             const selectedValue = selectedOption?.value || "";
                             setFormError((prevErrors) => ({
                               ...prevErrors,
@@ -1037,6 +1046,7 @@ function CreateNewJob() {
                               ...data,
                               companyName: selectedValue,
                             });
+
                             if (selectedOption?._id) {
                               getcompaniesdetails(selectedOption._id);
                             }
@@ -1045,8 +1055,7 @@ function CreateNewJob() {
                             const newCompany = inputValue.trim();
                             const companyExists = companyData.some(
                               (c) =>
-                                c.companyName.toLowerCase() ===
-                                newCompany.toLowerCase()
+                                c.companyName.toLowerCase() === newCompany.toLowerCase()
                             );
 
                             if (!companyExists) {
@@ -1061,6 +1070,16 @@ function CreateNewJob() {
                               companyName: newCompany,
                             });
                           }}
+                          formatOptionLabel={(data, { context }) => {
+                            if (data.value === "__create_new__") {
+                              return (
+                                <span className="text-blue font-medium">
+                                  + Create New Company
+                                </span>
+                              );
+                            }
+                            return data.label;
+                          }}
                           styles={{
                             control: (provided, state) => ({
                               ...provided,
@@ -1069,9 +1088,7 @@ function CreateNewJob() {
                                 : "1px solid #DEDEDE",
                               borderRadius: "8px",
                               padding: "2px 8px",
-                              boxShadow: state.isFocused
-                                ? "0 0 0 1px #DEDEDE"
-                                : "none",
+                              boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
                             }),
                             placeholder: (provided) => ({
                               ...provided,
@@ -1094,19 +1111,20 @@ function CreateNewJob() {
                               whiteSpace: "nowrap",
                               textOverflow: "ellipsis",
                             }),
-                            singleValue: (provided, { data }) => ({
+                            singleValue: (provided) => ({
                               ...provided,
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               maxWidth: "100%",
-                              fontSize: "12px", // 👈 this sets font size of selected value
+                              fontSize: "12px",
                               fontWeight: "400",
-                              color: "#000", // optional
+                              color: "#000",
                             }),
                           }}
                         />
                       </div>
+
 
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4 ">
                         <div className="text-[14px] font-[500]">
@@ -1115,8 +1133,8 @@ function CreateNewJob() {
                         <div>
                           <input
                             className={`border-[1px] h-[42px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
                               }`}
                             placeholder="Add job title / role"
                             type="text"
@@ -1143,8 +1161,8 @@ function CreateNewJob() {
                               label: camelCase(item),
                             }))}
                           className={`w-full withoutBorder ${formError.Keywords
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
                             }`}
                           value={
                             data.Keywords
@@ -1313,8 +1331,8 @@ function CreateNewJob() {
                           placeholder="Select countries"
                           styles={customStylesss}
                           className={`border rounded-[8px] withoutBorder ${formError.country
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
                             }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
@@ -1349,8 +1367,8 @@ function CreateNewJob() {
                           classNamePrefix="select"
                           styles={customStylesss}
                           className={`border rounded-[8px] withoutBorder ${formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
                             }`}
                         />
                       </div>
@@ -1794,8 +1812,8 @@ function CreateNewJob() {
                               }),
                             }}
                             className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
                               }`}
                           />
                         </div>
@@ -1904,8 +1922,8 @@ function CreateNewJob() {
                           </div>
                           <input
                             className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
                               }`}
                             placeholder="Required Qualification"
                             type="text"
@@ -1930,8 +1948,8 @@ function CreateNewJob() {
                                 label: camelCase(item),
                               }))}
                             className={`w-full withoutBorder ${formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
                               }`}
                             value={
                               data.mustSkills
@@ -2059,8 +2077,8 @@ function CreateNewJob() {
                               label: camelCase(item),
                             }))}
                             className={`w-full withoutBorder ${formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
                               }`}
                             value={
                               data.goodSkills

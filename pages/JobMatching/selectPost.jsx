@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import MiniLoader from "../../components/common/miniLoader";
 import { dateSeter } from "../../utils/middleware";
 import CustomPagination from "../../components/common/CustomPagination";
+import { getRelativeTime } from "../../utils/data";
 
 const SelectPost = () => {
   const router = useRouter();
@@ -199,6 +200,8 @@ const SelectPost = () => {
                   <option value="All">All</option>
                   <option value="Active">Active</option>
                   <option value="On Hold">On Hold</option>
+                  <option value="Filled">Filled</option>
+                  <option value="Cancelled">Cancelled</option>
                   <option value="Expired">Expired</option>
                 </select>
               </div>
@@ -260,7 +263,23 @@ const SelectPost = () => {
                                       On Hold
                                     </div>
                                   </>
-                                ) : item.status === "Expired" ? (
+                                )
+                                : item.status === "Filled" ? (
+                                  <>
+                                    <div className="w-[6px] h-[6px] bg-blue rounded-full"></div>
+                                    <div className="text-[12px] font-[500] text-blue">
+                                     Filled
+                                    </div>
+                                  </>
+                                )
+                                : item.status === "Cancelled" ? (
+                                  <>
+                                    <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                                    <div className="text-[12px] font-[500] text-[#B3261E]">
+                                      Cancelled
+                                    </div>
+                                  </>
+                                ): item.status === "Expired" ? (
                                   <>
                                     <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
                                     <div className="text-[12px] font-[500] text-[#B3261E]">
@@ -284,17 +303,10 @@ const SelectPost = () => {
                           <div className="flex w-[100%] justify-between items-center">
                             <div className="flex flex-col items-start gap-[4px]">
                               <p className="text-[12px] font-[600] text-[#646464]">
-                                Date Posted
+                               Posted Since
                               </p>
                               <p className="text-[#333] font-[500] text-[12px]">
-                                {new Date(item?.createdAt).toLocaleDateString(
-                                  "en-GB",
-                                  {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric",
-                                  }
-                                )}
+                                {getRelativeTime(item?.createdAt)}
                               </p>
                             </div>
                             <div className="flex flex-col items-end gap-[4px]">

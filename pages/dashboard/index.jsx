@@ -25,7 +25,7 @@ function Dashboard({ toggleContentt }) {
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState("Daily");
   const [isPending, setIsPending] = useState("");
-  const [status,setStatus]= useState()
+  const [status, setStatus] = useState()
   const router = useRouter();
   const pendingJobsRef = useRef(null);
 
@@ -110,25 +110,25 @@ function Dashboard({ toggleContentt }) {
         />
       </div>
 
-      <div className="grid scr1300:grid-cols-[1fr,2fr] grid-cols-1 w-full  scr1300:justify-between gap-4">
+      <div className="scr1300:flex scr1300:flex-row flex flex-col w-full  scr1300:justify-between gap-4">
         <div>
           <CandidateOverviewChart statistics={statistics} />
         </div>
-        <div>
+     
           <JobPostChart />
-        </div>
+      
       </div>
-
+      <Services />
       <div ref={pendingJobsRef}>
         {/* {userDataGlobal?.role === "employer" ? (
           <RecentApplications isPending={isPending} />
         ) : ( */}
-         <RecentApplications status={status} />
-          {/* <RecentJobs /> */}
+        <RecentApplications status={status} />
+        {/* <RecentJobs /> */}
         {/* )} */}
       </div>
 
-      <Services />
+
       <div className="py-6  flex flex-col gap-6">
         <p className="text-[20px] font-semibold text-[#333333]">
           Purchase Plans
