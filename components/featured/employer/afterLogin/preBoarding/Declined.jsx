@@ -60,7 +60,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal?._id}`,
         {
           params: {
             page: page,

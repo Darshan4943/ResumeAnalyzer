@@ -102,7 +102,7 @@ const AboutMe = ({ data, setData,isEnhanced }) => {
     }
     getAttempts();
     if (userDataGlobal?.resumeUrl) {
-      const Summery = userDataGlobal.summary;
+      const Summery = userDataGlobal?.summary;
       setText(Summery);
     }
   }, [userDataGlobal]);

@@ -37,8 +37,8 @@ const JobPrefrenceModal = ({ setEditView }) => {
   useEffect(() => {
     if (
       userDataGlobal &&
-      userDataGlobal.jobPrefrences &&
-      userDataGlobal.jobPrefrences.preferedLocation
+      userDataGlobal?.jobPrefrences &&
+      userDataGlobal?.jobPrefrences.preferedLocation
     ) {
       const locations = userDataGlobal?.jobPrefrences?.preferedLocation?.map(
         (loc) => ({

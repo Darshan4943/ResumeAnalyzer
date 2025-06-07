@@ -56,7 +56,7 @@ function RecentJobs({ isPending }) {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getAllJobDetails/${userDataGlobal._id}`,
+        `https://jamblix.com/api/job/getAllJobDetails/${userDataGlobal?._id}`,
         {
           params: { page, limit, search: searchQuery },
         }

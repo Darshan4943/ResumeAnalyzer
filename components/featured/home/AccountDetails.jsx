@@ -233,13 +233,13 @@ function AccountDetails({
           });
       } else {
         setData({
-          email: userDataGlobal.email,
-          firstName: userDataGlobal.firstName ? userDataGlobal.firstName : "",
-          lastName: userDataGlobal.lastName ? userDataGlobal.lastName : "",
-          mobileNo: userDataGlobal.mobileNo ? userDataGlobal.mobileNo : "",
-          dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_code : "",
+          email: userDataGlobal?.email,
+          firstName: userDataGlobal?.firstName ? userDataGlobal?.firstName : "",
+          lastName: userDataGlobal?.lastName ? userDataGlobal?.lastName : "",
+          mobileNo: userDataGlobal?.mobileNo ? userDataGlobal?.mobileNo : "",
+          dial_code: userDataGlobal?.dial_code ? userDataGlobal?.dial_code : "",
         });
-        const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal.dial_code);
+        const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
 
         if (selectedItem) {
           setSelectedItem(selectedItem);

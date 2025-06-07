@@ -109,7 +109,7 @@ function ShortlistMail({
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/getTemplates/${userDataGlobal._id}`
+        `https://jamblix.com/api/getTemplates/${userDataGlobal?._id}`
       );
       const result = await response.json();
 
@@ -162,10 +162,10 @@ function ShortlistMail({
   };
 
   useEffect(() => {
-    if (userDataGlobal._id) {
+    if (userDataGlobal?._id) {
       fetchTemplates();
     }
-  }, [userDataGlobal._id]);
+  }, [userDataGlobal?._id]);
 
   const [subjectError, setSubjectError] = useState("");
   const [contentError, setContentError] = useState("");

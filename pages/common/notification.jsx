@@ -45,7 +45,7 @@ function EmployerNotification() {
     try {
       const response = await fetch(
         `https://jamblix.com/api/getnotification/${
-          userDataGlobal._id
+          userDataGlobal?._id
         }?filter=${encodeURIComponent(filter)}`
       );
 
@@ -66,7 +66,7 @@ function EmployerNotification() {
     if (userDataGlobal?._id) {
       fetchNotifications(notificationFilters[selectedIndex] || "");
     }
-  }, [userDataGlobal._id, selectedIndex]);
+  }, [userDataGlobal?._id, selectedIndex]);
 
   const handleNotificationClick = async () => {
     try {

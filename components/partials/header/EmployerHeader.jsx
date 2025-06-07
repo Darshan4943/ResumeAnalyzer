@@ -69,7 +69,7 @@ function EmployerHeader() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/getNotificationLength/${userDataGlobal._id}`
+        `https://jamblix.com/api/getNotificationLength/${userDataGlobal?._id}`
       );
 
       if (!response.ok) {
@@ -87,7 +87,7 @@ function EmployerHeader() {
     if (userDataGlobal?._id) {
       fetchNotifications();
     }
-  }, [userDataGlobal._id]);
+  }, [userDataGlobal?._id]);
 
   return (
     <>
@@ -138,7 +138,7 @@ function EmployerHeader() {
         </div>
 
         <div className="flex ms:px-4    justify-end scr420:gap-4 gap-2 w-[60%]  ">
-          {userDataGlobal.role !== "bpo" && (
+          {userDataGlobal?.role !== "bpo" && (
             <div className="flex gap-1 text-[12px] font-medium items-center">
               <p className="hidden scr420:block">Remaining AI Hits</p>
               <div
@@ -193,7 +193,7 @@ function EmployerHeader() {
             </div>
           )}
           <div className="flex items-center xlg:gap-5 gap-3">
-            {userDataGlobal.role !== "bpo" && (
+            {userDataGlobal?.role !== "bpo" && (
               <>
                 <svg
                   className="relative cursor-pointer"

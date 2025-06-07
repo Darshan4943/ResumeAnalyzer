@@ -30,7 +30,7 @@ const ResetPasswordModal = ({ visible }) => {
   const submitHandler = () => {
   
 
-    if (userDataGlobal.tempPassword !== data.current) {
+    if (userDataGlobal?.tempPassword !== data.current) {
       setError("Current password does not match");
       return true;
     }
@@ -38,7 +38,7 @@ const ResetPasswordModal = ({ visible }) => {
       setError("New password must have at least 6 characters");
       return true;
     }
-    if (data.new == null || userDataGlobal.tempPassword == data?.new) {
+    if (data.new == null || userDataGlobal?.tempPassword == data?.new) {
       setError("New password and current password cannot be same");
       return true;
     }
@@ -53,7 +53,7 @@ const ResetPasswordModal = ({ visible }) => {
     setLoading(true);
     axios
       .post("https://jamblix.com/api/updatePassword", {
-        email: userDataGlobal.email,
+        email: userDataGlobal?.email,
         newPassword: data.new,
       })
       .then((res) => {

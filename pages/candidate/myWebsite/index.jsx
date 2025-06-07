@@ -108,9 +108,9 @@ const Index = () => {
           
             const updatedCandidate = response.data;
             toast.success("Link Generated successfully");
-            // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
+            // setSelectedLink(`www.skilotech.com/${userDataGlobal?.firstName}/${selectedResumeName}`)
             setSelectedLink(
-              `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
+              `https://www.skilotech.com/${userDataGlobal?.id}/${userDataGlobal?.firstName}`
             );
           } else {
             console.error("Error Generating Link:", response.data.message);

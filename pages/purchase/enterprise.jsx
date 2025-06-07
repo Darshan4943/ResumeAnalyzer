@@ -16,7 +16,7 @@ function Index() {
   const [data, setData] = useState({
     firstName: userDataGlobal?.firstName || "",
     lastName: userDataGlobal?.lastName || "",
-    mobileNo: userDataGlobal?.mobileNo ? String(userDataGlobal.mobileNo) : "",
+    mobileNo: userDataGlobal?.mobileNo ? String(userDataGlobal?.mobileNo) : "",
     email: userDataGlobal?.email || "",
     dial_code: userDataGlobal?.dial_code || "",
     role: userDataGlobal?.role || "",
@@ -40,13 +40,13 @@ function Index() {
     setFilteredTelCode(combinedCodes);
 
     const initialDialCode = combinedCodes.find(
-      (code) => code.dial_code === userDataGlobal.dial_code
+      (code) => code.dial_code === userDataGlobal?.dial_code
     );
 
     if (initialDialCode) {
       setSelectedItem(initialDialCode);
     }
-  }, [userDataGlobal.dial_code]);
+  }, [userDataGlobal?.dial_code]);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);

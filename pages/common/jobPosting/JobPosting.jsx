@@ -171,7 +171,7 @@ function JobPosting() {
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          `https://jamblix.com/api/getrequisitions/${userDataGlobal._id}`,
+          `https://jamblix.com/api/getrequisitions/${userDataGlobal?._id}`,
           {
             params: {
               ...filterData,

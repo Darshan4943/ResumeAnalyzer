@@ -290,7 +290,7 @@ function SkillAssessment() {
   };
 
   const toggleContent = () => {
-    if (assesmentType !== "Normal" && !userDataGlobal.firstName) {
+    if (assesmentType !== "Normal" && !userDataGlobal?.firstName) {
       setEditProfilePopUp(true);
     } else if (selectedSkill) {
       setLoading(true);

@@ -225,7 +225,7 @@ const MyCollection = () => {
           ) : (
             <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
               <div
-                className={`flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE] ${userDataGlobal.role === "user" ? "bg-transparent" : "bg-white"
+                className={`flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE] ${userDataGlobal?.role === "user" ? "bg-transparent" : "bg-white"
                   }`}
               >
                 <div className="flex gap-4  w-full items-center h-[38px] ">

@@ -12,7 +12,7 @@ function Index() {
       .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         const selectedResume = res.data.data.find(
-          (resume) => resume._id === userDataGlobal.selectedResume
+          (resume) => resume._id === userDataGlobal?.selectedResume
         );
 
         if (selectedResume) {
