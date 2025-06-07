@@ -10,14 +10,17 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function EditTemplate() {
   const router = useRouter();
+  const {isReject,isShortlist}= router.query
+  console.log("isShortlist",isShortlist);
+  console.log("isReject",isReject);
   const editorRef = useRef(null);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
 
-  const [isShortlist, setIsShortlist] = useState(null);
-  const [isReject, setIsReject] = useState(null);
+  // const [isShortlist, setIsShortlist] = useState(null);
+  // const [isReject, setIsReject] = useState(null);
 
   const dynamicTags = ["[Candidate Name]", "[Company Name]", "[Position]"];
 
@@ -205,8 +208,8 @@ function EditTemplate() {
       const isShortlistParam = router.query.isShortlist === "true";
       const isRejectParam = router.query.isReject === "true";
 
-      setIsShortlist(isShortlistParam);
-      setIsReject(isRejectParam);
+      // setIsShortlist(isShortlistParam);
+      // setIsReject(isRejectParam);
 
       if (isShortlistParam) {
         setSubject(shortlistSubject);
@@ -225,9 +228,10 @@ function EditTemplate() {
     rejectedContent,
   ]);
 
+
   const handleContentChange = (newContent) => setContent(newContent);
   const handleSubjectChange = (event) => setSubject(event.target.value);
-
+ 
   const handleSave = async () => {
     try {
       const response = await fetch(
@@ -238,7 +242,7 @@ function EditTemplate() {
           body: JSON.stringify({
             subject,
             content,
-            templateType: subject === shortlistSubject ? "shortlist" : "reject",
+            templateType: isShortlist  ? "shortlist" : "reject",
           }),
         }
       );
@@ -285,7 +289,7 @@ function EditTemplate() {
     const dropPos = quill.getSelection(true);
     if (!dropPos) return;
 
-    const isBold = token === "[Company Name]" || token === "[Position]" ;
+    const isBold = token === "[Company Name]" || token === "[Position]";
 
     // Apply text with formatting
     quill.insertText(dropPos.index, token, isBold ? { bold: true } : {});
@@ -315,13 +319,13 @@ function EditTemplate() {
                 className="border border-[#DEDEDE] rounded-[8px] text-[14px] font-[400] p-[12px] w-full"
               />
             </div>
+
             <div className="flex flex-col gap-[6px]">
               <div className="text-[16px] font-[600]">Content</div>
               <ReactQuill
                 ref={editorRef}
-                headerTemplate={header}
                 value={content}
-                onTextChange={(e) => handleContentChange(e.htmlValue)}
+                onChange={handleContentChange}
                 className="editor-container border-none p-1 h-[416px]"
                 style={{
                   fontSize: "16px",
@@ -334,6 +338,7 @@ function EditTemplate() {
                 onKeyDown={handleKeyDown}
               />
             </div>
+
             <div className="bg-white rounded-lg  flex gap-4 flex-wrap text-[12px] text-red font-medium">
               * To insert a keyword, first click inside the editor where you want
               it to appear, then drag and drop an below option.
