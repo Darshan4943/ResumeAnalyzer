@@ -134,7 +134,13 @@ function Collection() {
     } else if (trash == "true") {
       setTab(2);
       setTabIndex(0);
-      getTrashed();
+
+      if (parentId) {
+        setParentId(parentId);
+        getParentData(parentId);
+      } else {
+        getTrashed();
+      }
     } else {
       setTab(1);
       setTabIndex(0);
