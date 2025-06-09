@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   convertBytes,
   dateSeter,
@@ -8,6 +8,7 @@ import {
   formatDate,
 } from "../../../../../utils/middleware";
 import SyncLoader from "../../../../common/SyncLoader";
+import axios from "axios";
 
 function MyFolders({
   toggleSelect,
@@ -19,7 +20,68 @@ function MyFolders({
   select,
   selectedIndexes,
   openFolder,
+  getData,
+  setRename,
+  rename,
+  setSelectedIndexes
 }) {
+  const inputRef = useRef(null);
+  const [newName, setNewName] = useState('');
+
+const handleClickOutside = async (e) => {
+  if (inputRef.current && !inputRef.current.contains(e.target)) {
+    if (newName.trim()) {
+      try {
+        const response = await axios.post("https://jamblix.com/api/folder/rename", {
+          _id: selectedIndexes[0],
+          newName: newName.trim(),
+        });
+
+        if (response.status === 200) {
+          getData();
+          setRename(false);
+          setNewName("");
+        }
+      } catch (error) {
+        console.error("Rename failed:", error);
+      }
+    }
+  }
+};
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [newName]);
+  useEffect(() => {
+    const fileNames = data
+      ?.filter((item) => selectedIndexes.includes(item._id))
+      .map((item) => item.fileName);
+    setNewName(fileNames[0])
+  }, [selectedIndexes])
+
+  const handleKeyDown = async (e, _id) => {
+
+    if (e.key === 'Enter' && newName.trim()) {
+
+      try {
+        const response = await axios.post('https://jamblix.com/api/folder/rename', {
+          _id,
+          newName: newName.trim(),
+        });
+
+        if (response.status === 200) {
+          getData()
+          setRename(false)
+          setNewName('');
+        }
+      } catch (error) {
+        console.error('Rename failed:', error);
+      }
+    }
+  };
   function sortFoldersAndFiles(data) {
     return data.sort((a, b) => {
       if (a.type === b.type) {
@@ -28,6 +90,7 @@ function MyFolders({
       return a.type === "folder" ? -1 : 1;
     });
   }
+
 
   return (
     <div className=" overflow-y-auto">
@@ -39,23 +102,24 @@ function MyFolders({
                 sortFoldersAndFiles(data)?.map((item, index) => (
 
                   <div
-                    onClick={() => {
+
+                    key={index}
+                    className=" break-all h-[74px] flex flex-col gap-[8px]  relative items-center text-center cursor-pointer  scr460:w-[142px] w-[98px] px-[8px]"
+                  >
+                    <div className=" relative" onClick={() => {
                       !select &&
                         openFolder(index, item._id, item.fileName, item);
-                    }}
-                    key={index}
-                    className=" break-all h-[74px] flex flex-col gap-[8px] group relative items-center text-center cursor-pointer  scr460:w-[142px] w-[98px] px-[8px]"
-                  >
-                    <div className=" relative">
+                    }}>
+
                       {fileIconSeter(item)}
-                      {(select && item.fileName !== "My Clients") && (
+                      {(select && item.fileName !== "CVs From Skilotech") && (
                         <input
                           type="checkbox"
                           className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] z-[200] font-medium custom-checkbox"
                           style={{ width: "20px", height: "20px" }}
                           onClick={(e) => e.stopPropagation()}
-                          checked={selectedIndexes.includes(index)}
-                          onChange={() => toggleSelect(index)}
+                          checked={selectedIndexes.includes(item._id)}
+                          onChange={() => toggleSelect(item)}
                         />
                       )}
                       {/* {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
@@ -73,15 +137,30 @@ function MyFolders({
                         </div>
                       }
                     </div>
-                    <span
-                      style={{ overflow: "hidden" }}
-                      className="text-[12px]"
-                    >
-                      {item.fileName}{" "}
-                    </span>
-                    <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                      {item.fileName}
+                    <div className={`${(rename && !selectedIndexes.includes(item._id)) && "group"}`}>
+                      {rename && selectedIndexes.includes(item._id) ? (
+                        <input
+                          ref={inputRef}
+                          type="text"
+                          value={newName}
+                          onChange={(e) => setNewName(e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(e, item._id)}
+                          onFocus={(e) => e.target.select()}
+                          className="border px-2 py-1 rounded w-full text-[12px]"
+                          autoFocus
+                        />
+                      ) : (
+                        <span onClick={() => { item.fileName !== "CVs From Skilotech" && setSelectedIndexes([item._id]); setRename(true) }} style={{ overflow: 'hidden' }} className="text-[12px]">
+                          {item.fileName}
+                        </span>
+                      )}
+
+
+                      <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                        {item.fileName}
+                      </div>
                     </div>
+
                   </div>
 
                 ))
@@ -117,8 +196,8 @@ function MyFolders({
                               className="   rounded-[4.5px]  w-full outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"
                               style={{ width: "20px", height: "20px" }}
                               onClick={(e) => e.stopPropagation()}
-                              checked={selectedIndexes.includes(index)}
-                              onChange={() => toggleSelect(index)}
+                              checked={selectedIndexes.includes(item._id)}
+                              onChange={() => toggleSelect(item)}
                             />
                           )}
                           <div className="h-[24px] min-w-[21px]">

@@ -27,7 +27,9 @@ function Folders({
   setIsFile,
   setIsCreateFolder,
   unSyncFiles,
-  getLimits
+  getLimits,
+  getData,
+  rename
 }) {
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
@@ -40,11 +42,14 @@ function Folders({
   const [select, setSelect] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [isList, setIsList] = useState(false);
   const [previousPage, setpreviousPage] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
   const [isOption, setIsOption] = useState(false);
+  const [isMove, setIsMove] = useState(false)
+  const [isCopy, setIsCopy] = useState(false)
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
@@ -70,8 +75,20 @@ function Folders({
       setMainDataAll(clientData);
     }
   }, [data, clientData]);
+
+  useEffect(() => {
+    const selectedId = localStorage.getItem("selectedIds")
+    setSelectedIds([selectedId])
+    const move = localStorage.getItem("isMove")
+    const copy = localStorage.getItem("isCopy")
+    setIsMove(move)
+    setIsCopy(copy)
+  }, []);
+
+
+
   const deleteFiles = () => {
-    const ids = selectedIndexes.map((item) => data[item]._id);
+    const ids = selectedIndexes
     if (ids.length == 0) {
       toast.error("Please select file to delete");
       return;
@@ -92,7 +109,7 @@ function Folders({
       });
   };
   const restoreFile = () => {
-    const ids = selectedIndexes.map((item) => data[item]._id);
+    const ids = selectedIndexes
     if (ids.length == 0) {
       toast.error("Please select file to restore");
       return;
@@ -179,6 +196,72 @@ function Folders({
       setSelectAll(false);
     }
   }, [selectedIndexes]);
+
+
+  const moveHere = async () => {
+    try {
+      const response = await axios.post('https://jamblix.com/api/folder/move', {
+        parentId,
+        selectedIds,
+      });
+
+      if (response.status === 200) {
+        console.log('Move successful:', response.data);
+        localStorage.removeItem("isMove")
+        localStorage.removeItem("selectedIds")
+        setIsMove(false)
+        getData()
+      } else {
+        console.warn('Move failed with status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error moving items:', error);
+    }
+  };
+  const copyHere = async () => {
+    try {
+      const response = await axios.post('https://jamblix.com/api/folder/copy', {
+        parentId,
+        selectedIds,
+      });
+
+      if (response.status === 200) {
+        console.log('Copy successful:', response.data);
+        localStorage.removeItem("isCopy")
+        localStorage.removeItem("selectedIds")
+        setIsCopy(false)
+        getData()
+      } else {
+        console.warn('Move failed with status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error moving items:', error);
+    }
+  };
+
+
+  const move = () => {
+    setIsMove(true)
+    localStorage.setItem("isMove", true)
+    const ids = selectedIndexes
+    localStorage.setItem("selectedIds", ids)
+    setSelect(false)
+    router.push("/myCollection?folders=true")
+
+
+  }
+  const copy = () => {
+    setIsCopy(true)
+    localStorage.setItem("isCopy", true)
+    const ids = selectedIndexes
+
+    localStorage.setItem("selectedIds", ids)
+    setSelect(false)
+    router.push("/myCollection?folders=true")
+
+
+  }
+
 
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%]  min-h-[calc(95vh-104px)]">
@@ -271,16 +354,16 @@ function Folders({
                         checked={
                           clientData?.length > 0 &&
                           clientData
-                            .filter((client) => client.fileName !== "My Clients")
-                            .every((client) => selectedIndexes.includes(clientData.indexOf(client)))
+                            .filter((client) => client.fileName !== "CVs From Skilotech")
+                            .every((client) => selectedIndexes.includes(client._id))
                         }
                         onChange={() => {
-                          const selectableIndexes = clientData
-                            ?.map((client, index) => (client.fileName !== "My Clients" ? index : null))
-                            .filter((index) => index !== null);
+                          const selectableIds = clientData
+                            ?.filter((client) => client.fileName !== "CVs From Skilotech")
+                            .map((client) => client._id);
 
                           setSelectedIndexes((prev) =>
-                            prev.length === selectableIndexes.length ? [] : selectableIndexes
+                            prev.length === selectableIds.length ? [] : selectableIds
                           );
                         }}
                       />
@@ -291,22 +374,27 @@ function Folders({
                   <div className=" scr540:flex hidden gap-3 justify-end">
                     {trash ? (
                       <>
-                        <svg
-                          onClick={restoreFile}
-                          className=" cursor-pointer"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g mask="url(#mask0_1721_19645)">
-                            <path
-                              d="M10 14C10.9722 14 11.7986 13.6597 12.4792 12.9792C13.1597 12.2986 13.5 11.4722 13.5 10.5C13.5 9.52778 13.1597 8.70139 12.4792 8.02083C11.7986 7.34028 10.9722 7 10 7C9.46715 7 8.96935 7.11458 8.5066 7.34375C8.04387 7.57292 7.65278 7.875 7.33333 8.25V7H6.33333V10H9.33333V9H8C8.23611 8.69444 8.52778 8.45139 8.875 8.27083C9.22222 8.09028 9.59722 8 10 8C10.6923 8 11.282 8.24381 11.7692 8.73144C12.2564 9.21905 12.5 9.80933 12.5 10.5023C12.5 11.1952 12.2564 11.7847 11.7692 12.2708C11.282 12.7569 10.6923 13 10 13C9.59722 13 9.22222 12.9097 8.875 12.7292C8.52778 12.5486 8.23611 12.3056 8 12H6.85417C7.13194 12.5972 7.54861 13.0799 8.10417 13.4479C8.65972 13.816 9.29167 14 10 14ZM5.4941 18C5.08137 18 4.72917 17.8531 4.4375 17.5594C4.14583 17.2656 4 16.9125 4 16.5V3.5C4 3.0875 4.14687 2.73438 4.44062 2.44063C4.73437 2.14688 5.0875 2 5.5 2H12L16 6V16.5C16 16.9125 15.853 17.2656 15.5591 17.5594C15.2652 17.8531 14.9119 18 14.4992 18H5.4941ZM5.5 16.5H14.5V6.625L11.375 3.5H5.5V16.5Z"
-                              fill="#333333"
-                            />
-                          </g>
-                        </svg>
+                        <div className="group">
+                          <svg
+                            onClick={restoreFile}
+                            className=" cursor-pointer"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g mask="url(#mask0_1721_19645)">
+                              <path
+                                d="M10 14C10.9722 14 11.7986 13.6597 12.4792 12.9792C13.1597 12.2986 13.5 11.4722 13.5 10.5C13.5 9.52778 13.1597 8.70139 12.4792 8.02083C11.7986 7.34028 10.9722 7 10 7C9.46715 7 8.96935 7.11458 8.5066 7.34375C8.04387 7.57292 7.65278 7.875 7.33333 8.25V7H6.33333V10H9.33333V9H8C8.23611 8.69444 8.52778 8.45139 8.875 8.27083C9.22222 8.09028 9.59722 8 10 8C10.6923 8 11.282 8.24381 11.7692 8.73144C12.2564 9.21905 12.5 9.80933 12.5 10.5023C12.5 11.1952 12.2564 11.7847 11.7692 12.2708C11.282 12.7569 10.6923 13 10 13C9.59722 13 9.22222 12.9097 8.875 12.7292C8.52778 12.5486 8.23611 12.3056 8 12H6.85417C7.13194 12.5972 7.54861 13.0799 8.10417 13.4479C8.65972 13.816 9.29167 14 10 14ZM5.4941 18C5.08137 18 4.72917 17.8531 4.4375 17.5594C4.14583 17.2656 4 16.9125 4 16.5V3.5C4 3.0875 4.14687 2.73438 4.44062 2.44063C4.73437 2.14688 5.0875 2 5.5 2H12L16 6V16.5C16 16.9125 15.853 17.2656 15.5591 17.5594C15.2652 17.8531 14.9119 18 14.4992 18H5.4941ZM5.5 16.5H14.5V6.625L11.375 3.5H5.5V16.5Z"
+                                fill="#333333"
+                              />
+                            </g>
+                          </svg>
+                          <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                            Restore
+                          </div>
+                        </div>
                         <div className="min-w-[1px] h-full bg-[#06A9EF] " />
                       </>
                     ) : (
@@ -350,49 +438,95 @@ function Folders({
                         )} */}
                       </>
                     )}
+                    <div className="group">
+                      <svg
+                        onClick={() =>
+                          selectedIndexes.length > 0 && setShowDelete(true)
+                        }
+                        className=" cursor-pointer"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_1381_18138)">
+                          <path
+                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                      <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                        Delete
+                      </div>
+                    </div>
+                    <div className="min-w-[1px] h-full bg-[#06A9EF] ">
+                      {" "}
+                    </div>
+                    {!trash &&
+                      <div className=" group">
+                        <svg className=" cursor-pointer" onClick={() => selectedIndexes.length > 0 && move()} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                    <svg
-                      onClick={() =>
-                        selectedIndexes.length > 0 && setShowDelete(true)
-                      }
-                      className=" cursor-pointer"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_1381_18138)">
-                        <path
-                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
+                          <g mask="url(#mask0_10742_103487)">
+                            <path d="M10.1641 11.6654L8.8099 13.0195L9.97656 14.1862L13.3307 10.832L9.97656 7.47786L8.8099 8.64453L10.1641 9.9987H6.66406V11.6654H10.1641ZM3.33073 16.6654C2.8724 16.6654 2.48003 16.5022 2.15365 16.1758C1.82726 15.8494 1.66406 15.457 1.66406 14.9987V4.9987C1.66406 4.54036 1.82726 4.148 2.15365 3.82161C2.48003 3.49523 2.8724 3.33203 3.33073 3.33203H8.33073L9.9974 4.9987H16.6641C17.1224 4.9987 17.5148 5.16189 17.8411 5.48828C18.1675 5.81467 18.3307 6.20703 18.3307 6.66536V14.9987C18.3307 15.457 18.1675 15.8494 17.8411 16.1758C17.5148 16.5022 17.1224 16.6654 16.6641 16.6654H3.33073ZM3.33073 14.9987H16.6641V6.66536H9.3099L7.64323 4.9987H3.33073V14.9987Z" fill="#333333" />
+                          </g>
+                        </svg>
+                        <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                          Move
+                        </div>
+                      </div>
+                    }
 
-                    {/* {trash || selectedIndexes.length > 1 ? null : (
+                    {!trash &&
                       <>
-                        {" "}
                         <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                           {" "}
                         </div>
-                        <svg
-                          onClick={() => setRename(selectedIndexes[0])}
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g mask="url(#mask0_1381_18142)">
-                            <path
-                              d="M2 20V16H18V20H2ZM5.5 12.5H6.5625L12.375 6.6875L11.8333 6.125L11.3125 5.625L5.5 11.4375V12.5ZM4 14V10.8142L12.375 2.4375C12.5278 2.28472 12.6933 2.17361 12.8716 2.10417C13.0499 2.03472 13.2374 2 13.4341 2C13.6308 2 13.8194 2.03472 14 2.10417C14.1806 2.17361 14.3479 2.28431 14.5022 2.43627L15.5625 3.5C15.7153 3.65278 15.8264 3.81944 15.8958 4C15.9653 4.18056 16 4.37081 16 4.57077C16 4.75823 15.9656 4.94256 15.8969 5.12377C15.8281 5.30498 15.7188 5.47057 15.5688 5.62054L7.1875 14H4ZM12.375 6.6875L11.8333 6.125L11.3125 5.625L12.375 6.6875Z"
-                              fill="#333333"
-                            />
-                          </g>
-                        </svg>
+                        <div className=" group">
+                          <svg className=" cursor-pointer" onClick={() => selectedIndexes.length > 0 && copy()} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                            <g mask="url(#mask0_10742_103491)">
+                              <path d="M7.5 15.0013C7.04167 15.0013 6.64931 14.8381 6.32292 14.5117C5.99653 14.1853 5.83333 13.793 5.83333 13.3346V3.33464C5.83333 2.8763 5.99653 2.48394 6.32292 2.15755C6.64931 1.83116 7.04167 1.66797 7.5 1.66797H15C15.4583 1.66797 15.8507 1.83116 16.1771 2.15755C16.5035 2.48394 16.6667 2.8763 16.6667 3.33464V13.3346C16.6667 13.793 16.5035 14.1853 16.1771 14.5117C15.8507 14.8381 15.4583 15.0013 15 15.0013H7.5ZM7.5 13.3346H15V3.33464H7.5V13.3346ZM4.16667 18.3346C3.70833 18.3346 3.31597 18.1714 2.98958 17.8451C2.66319 17.5187 2.5 17.1263 2.5 16.668V5.0013H4.16667V16.668H13.3333V18.3346H4.16667Z" fill="#333333" />
+                            </g>
+                          </svg>
+                          <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                            Copy
+                          </div>
+                        </div>
                       </>
-                    )} */}
+                    }
+
+                    {trash || selectedIndexes.length > 1 ? null : (
+                      <>
+
+
+                        <div className="min-w-[1px] h-full bg-[#06A9EF] ">
+                          {" "}
+                        </div>
+                        <div className="group">
+                          <svg
+                            className=" cursor-pointer"
+                            onClick={() =>{ setRename(selectedIndexes[0]);setSelect(false)}}
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g mask="url(#mask0_1381_18142)">
+                              <path
+                                d="M2 20V16H18V20H2ZM5.5 12.5H6.5625L12.375 6.6875L11.8333 6.125L11.3125 5.625L5.5 11.4375V12.5ZM4 14V10.8142L12.375 2.4375C12.5278 2.28472 12.6933 2.17361 12.8716 2.10417C13.0499 2.03472 13.2374 2 13.4341 2C13.6308 2 13.8194 2.03472 14 2.10417C14.1806 2.17361 14.3479 2.28431 14.5022 2.43627L15.5625 3.5C15.7153 3.65278 15.8264 3.81944 15.8958 4C15.9653 4.18056 16 4.37081 16 4.57077C16 4.75823 15.9656 4.94256 15.8969 5.12377C15.8281 5.30498 15.7188 5.47057 15.5688 5.62054L7.1875 14H4ZM12.375 6.6875L11.8333 6.125L11.3125 5.625L12.375 6.6875Z"
+                                fill="#333333"
+                              />
+                            </g>
+                          </svg>
+                          <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                            Rename
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                   {!trash && (
                     <div>
@@ -510,6 +644,26 @@ function Folders({
                 </div>
               )}
             </div>
+
+            {isMove &&
+              <button disabled={
+                !parentId ||
+                data?.some((item) => selectedIds.includes(item._id))
+              }
+                onClick={() => moveHere()} className={`bg_Button h-[40px] rounded-[30px] px-4 ${(!parentId ||
+                  data?.some((item) => selectedIds.includes(item._id))) && " opacity-50"}`}>
+                Move Here
+              </button>
+            }
+            {isCopy &&
+              <button disabled={
+                !parentId ||
+                data?.some((item) => selectedIds.includes(item._id))
+              } onClick={() => copyHere()} className={`bg_Button h-[40px] rounded-[30px] px-4 ${(!parentId ||
+                data?.some((item) => selectedIds.includes(item._id))) && " opacity-50"}`}>
+                Copy Here
+              </button>
+            }
             <div className=" ml:w-[65%] w-[100%] flex justify-end ml:gap-4 gap-2 items-center h-[38px] ">
               <div className="rounded-[30px] py-2 px-3 flex gap-2  w-[80%]  items-center h-[40px] sm:min-w-[138px] min-w-[60%] border border-[#DEDEDE]  ">
                 <svg
@@ -737,6 +891,9 @@ function Folders({
             parentId={parentId}
             setFolderList={setFolderList}
             query={query}
+            rename={rename}
+            getData={getData}
+            setRename={setRename}
           />
         )}
 

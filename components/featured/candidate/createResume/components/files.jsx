@@ -25,6 +25,9 @@ function Files({
   parentId,
   setFolderList,
   query,
+  rename,
+  getData,
+  setRename
 }) {
   const [clientId, setClientId] = useState();
   const router = useRouter();
@@ -55,15 +58,18 @@ function Files({
       });
     }
   };
-  const toggleSelect = (index) => {
-    if (clientData[index]?.fileName === "My Clients") {
-      return; // Prevent selection for "My Clients"
+  const toggleSelect = (item) => {
+    if (clientData[item]?._id && clientData[item]?.fileName === "CVs From Skilotech") {
+      return;
     }
 
     setSelectedIndexes((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+      prev.includes(item._id)
+        ? prev.filter((i) => i !== item._id)
+        : [...prev, item._id]
     );
   };
+
 
   useEffect(() => {
     if (clientId) {
@@ -105,6 +111,10 @@ function Files({
             tab={tab}
             openFolder={openFolder}
             toggleSelect={toggleSelect}
+            rename={rename}
+            getData={getData}
+            setRename={setRename}
+
           />
         </>
       )}

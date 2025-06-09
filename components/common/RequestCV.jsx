@@ -479,7 +479,7 @@ function RequestCV({isCandidate}) {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="bg-white rounded-[12px] p-4 w-[700px] flex flex-col justify-between h-[400px] ">
+            <div className="bg-white rounded-[12px] px-4 pt-4 w-[700px] flex flex-col relative justify-between h-[440px] gap-4 overflow-y-scroll overflow-x-hidden ">
               {resumeList?.length > 0 ? (
                 <div>
                   <div className="text-[16px] font-medium">
@@ -538,12 +538,12 @@ function RequestCV({isCandidate}) {
                 </div>
               )}
 
-              <div className="flex justify-between ">
+              <div className="flex justify-between p-4 sticky bottom-0 bg-white">
                 <button
                   onClick={() => setShowResume(false)}
                   className="blue_border_Button px-6 h-[38px] rounded-[30px]"
                 >
-                  cancel
+                  Cancel
                 </button>
 
                 {loading1 ? (

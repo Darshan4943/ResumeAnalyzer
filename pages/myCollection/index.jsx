@@ -1015,7 +1015,7 @@ function Collection() {
                         />
                       </g>
                     </svg>
-                    Request CVs From Skilotech
+                    Find Candidates
                   </button>
                 }
                 <button
@@ -1068,12 +1068,14 @@ function Collection() {
               query={router.query}
               setRecall={setRecall}
               setRename={setRename}
+              rename={rename}
               isCreate={isCreate}
               setIsCreate={setIsCreate}
               setIsFile={setIsFile}
               setIsCreateFolder={setIsCreateFolder}
               getLimits={getLimits}
               parentId={parentId}
+              getData={getData}
             />
           ) : (
             <RequestCV />
