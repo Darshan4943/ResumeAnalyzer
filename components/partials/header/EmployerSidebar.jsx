@@ -57,12 +57,12 @@ function EmployerSidebar() {
       title: "My Collection",
       route: "/myCollection?folders=true",
     },
-     {
-      img: "/images/employer/sidebar/findCandidate.png",
-      img1: "/images/employer/sidebar/findCandidate1.png",
-      title: "Find Candidates",
-      route: "/findCandidates",
-    },
+    //  {
+    //   img: "/images/employer/sidebar/findCandidate.png",
+    //   img1: "/images/employer/sidebar/findCandidate1.png",
+    //   title: "Find Candidates",
+    //   route: "/findCandidates",
+    // },
     {
       img: "/images/employer/sidebar/mailTemplate.png",
       img1: "/images/employer/sidebar/mailTemplate2.png",
@@ -147,12 +147,12 @@ function EmployerSidebar() {
       title: "My Collection",
       route: "/myCollection?folders=true",
     },
-      {
-      img: "/images/employer/sidebar/findCandidate.png",
-      img1: "/images/employer/sidebar/findCandidate1.png",
-      title: "Find Candidates",
-      route: "/findCandidates",
-    },
+    //   {
+    //   img: "/images/employer/sidebar/findCandidate.png",
+    //   img1: "/images/employer/sidebar/findCandidate1.png",
+    //   title: "Find Candidates",
+    //   route: "/findCandidates",
+    // },
     {
       img: "/images/employer/sidebar/mailTemplate.png",
       img1: "/images/employer/sidebar/mailTemplate2.png",

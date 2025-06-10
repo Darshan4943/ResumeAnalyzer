@@ -566,7 +566,7 @@ function RequestCV({ isCandidate }) {
         //   </div>
         // </>
 
-        <div className="w-full">
+        <div className="w-full pt-[52px]">
           <JdMatchCard
             resumeList={resumeList}
             extratctedData={data}

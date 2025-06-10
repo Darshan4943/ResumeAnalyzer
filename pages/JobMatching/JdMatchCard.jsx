@@ -352,7 +352,7 @@ function JdMatchCard({
   return (
     <div className="w-full flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] scr390:px-4 scr390:py-4 px-2 py-4 bg-white ">
       <div className="text-[18px] font-[500] flex justify-between">
-        <p>{resumeList.length} results found for {extratctedData?.jobTitle}</p>
+        <p>{resumeList.length} results found for {extratctedData?.jobTitle ? extratctedData?.jobTitle : extratctedData?.mustSkills[0]}</p>
         <div className="flex gap-4">
           {select &&
             <>
@@ -569,7 +569,7 @@ function JdMatchCard({
                     </div>
                   </div>
                 )}
-                {(user?.totalExperience && user?.totalExperience !=="0 Years" )&& (
+                {(user?.totalExperience && user?.totalExperience !== "0 Years") && (
                   <div className="flex items-center gap-[8px]">
                     <svg
                       width="25"

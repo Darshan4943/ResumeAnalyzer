@@ -13,6 +13,7 @@ function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("matchingParameters");
   const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
+  console.log(jobDetails);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -44,7 +45,12 @@ function ApplicantDetails({ setTogglee }) {
       );
 
       if (response.data) {
-        setJobDetails(response.data.data);
+        setJobDetails(response?.data?.data);
+   
+        if (!response.data?.data?.matchingPercentage) {
+          setToggle("Resume")
+          setActiveOption("Resume")
+        }
         setTimeout(() => {
           setLoading(false);
         }, 3000);
@@ -62,7 +68,7 @@ function ApplicantDetails({ setTogglee }) {
   useEffect(() => {
     if (id && applicantId) {
       getData();
-     
+
 
     }
   }, [statusChange]);
@@ -130,39 +136,39 @@ function ApplicantDetails({ setTogglee }) {
       </div>
     );
   };
-   const DocumentViewer = ({ fileUrl }) => {
-      const [loading, setLoading] = useState(true);
-  
-  
-      return (
-        <div className="relative w-full flex flex-col items-center">
-          {loading && (
-            <div className=" inset-0 flex items-center w-full justify-center bg-gray-100 h-[600px]">
-              <MiniLoader />
-            </div>
-          )}
-          <iframe
-            src={`https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`}
-            className="w-[80%] h-[700px]"
-            onLoad={() => setLoading(false)}
-          />
-        </div>
-      );
+  const DocumentViewer = ({ fileUrl }) => {
+    const [loading, setLoading] = useState(true);
+
+
+    return (
+      <div className="relative w-full flex flex-col items-center">
+        {loading && (
+          <div className=" inset-0 flex items-center w-full justify-center bg-gray-100 h-[600px]">
+            <MiniLoader />
+          </div>
+        )}
+        <iframe
+          src={`https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`}
+          className="w-[80%] h-[700px]"
+          onLoad={() => setLoading(false)}
+        />
+      </div>
+    );
+  };
+  const downloadResume = (url) => {
+    return () => {
+      if (!url) return alert("Resume URL not found!");
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "";
+      // link.target = "_blank"; 
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     };
-    const downloadResume = (url) => {
-      return () => {
-        if (!url) return alert("Resume URL not found!");
-    
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = ""; 
-        // link.target = "_blank"; 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      };
-    };
-    
+  };
+
 
   return (
     <div>
@@ -228,14 +234,13 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div> */}
-                       {jobDetails?.matchingParameters.length > 0 && (
+                      {jobDetails?.matchingParameters.length > 0 && (
                         <div>
                           <p
-                            className={`min-w-[156px] ${
-                              activeOption === "matchingParameters"
+                            className={`min-w-[156px] ${activeOption === "matchingParameters"
                                 ? "text-[#333]"
                                 : "text-[#646464]"
-                            } cursor-pointer `}
+                              } cursor-pointer `}
                             onClick={() =>
                               handleOptionClick("matchingParameters")
                             }
@@ -261,14 +266,13 @@ function ApplicantDetails({ setTogglee }) {
                         </div>
                       )}
                       {userDataGlobal?.role === "employer" &&
-                        jobDetails?.hiringStage !== "Pending" && jobDetails.hiringLevel.length>0 && (
+                        jobDetails?.hiringStage !== "Pending" && jobDetails.hiringLevel.length > 0 && (
                           <div>
                             <p
-                              className={`min-w-[115px] ${
-                                activeOption === "HiringProgress"
+                              className={`min-w-[115px] ${activeOption === "HiringProgress"
                                   ? "text-[#333]"
                                   : "text-[#646464]"
-                              } cursor-pointer`}
+                                } cursor-pointer`}
                               onClick={() =>
                                 handleOptionClick("HiringProgress")
                               }
@@ -295,11 +299,10 @@ function ApplicantDetails({ setTogglee }) {
                         )}
                       <div>
                         <p
-                          className={` min-w-[60px] ${
-                            activeOption === "Resume"
+                          className={` min-w-[60px] ${activeOption === "Resume"
                               ? "text-[#333]"
                               : "text-[#646464]"
-                          } cursor-pointer`}
+                            } cursor-pointer`}
                           onClick={() => handleOptionClick("Resume")}
                         >
                           Resume
@@ -319,7 +322,7 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                     
+
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
@@ -329,28 +332,28 @@ function ApplicantDetails({ setTogglee }) {
                 )}
                 {toggle === "Resume" && (
                   <div onClick={downloadResume(jobDetails?.resumeUrl)} className=" flex items-center justify-center py-[16px] resumes2 cursor-pointer ">
-                    
+
                     {isImage ? (
-                    <img
-                      src={userDetails?.file}
-                      alt="Uploaded Document"
-                      className="max-w-full max-h-full object-contain rounded-lg"
-                    />
-                  ) : isPDF ? (
-                   
-                     <PdfViewer
-                      pdfUrl={jobDetails?.resumeUrl}
-                      loadingg={loadingg}
-                      setLoadingg={setLoadingg}
-                    />
-               
-                  ) : isDoc ? (
-                    <DocumentViewer fileUrl={jobDetails?.resumeUrl} />
+                      <img
+                        src={userDetails?.file}
+                        alt="Uploaded Document"
+                        className="max-w-full max-h-full object-contain rounded-lg"
+                      />
+                    ) : isPDF ? (
+
+                      <PdfViewer
+                        pdfUrl={jobDetails?.resumeUrl}
+                        loadingg={loadingg}
+                        setLoadingg={setLoadingg}
+                      />
+
+                    ) : isDoc ? (
+                      <DocumentViewer fileUrl={jobDetails?.resumeUrl} />
 
 
-                  ) : (
-                    <InlineSVG imageUrl={jobDetails?.resumeUrl} />
-                  )}
+                    ) : (
+                      <InlineSVG imageUrl={jobDetails?.resumeUrl} />
+                    )}
                   </div>
                 )}
                 {toggle === "matchingParameters" && (
