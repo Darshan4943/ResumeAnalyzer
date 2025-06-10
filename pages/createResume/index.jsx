@@ -27,11 +27,11 @@ function CreateResume() {
   const allData = JSON.parse(localStorage.getItem("userData"));
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (isLogin && userDataGlobal?.role !== "user") {
-      dispatch(setPageOpened());
-    }
-  }, [userDataGlobal]);
+  // useEffect(() => {
+  //   if (isLogin && userDataGlobal?.role !== "user") {
+  //     dispatch(setPageOpened());
+  //   }
+  // }, [userDataGlobal]);
 
   useEffect(() => {
 

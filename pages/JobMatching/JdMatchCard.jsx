@@ -26,11 +26,12 @@ function JdMatchCard({
   selectedJob,
   selectedResumes,
   setSelectedResumes,
-  select, setSelect
+  select, setSelect,
+  findCandidates
 }) {
   const router = useRouter();
   const [parentId, setParentId] = useState()
-const [saveLoading,setSaveLoading]= useState()
+  const [saveLoading, setSaveLoading] = useState()
 
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loading, setLoading] = useState(false);
@@ -365,14 +366,16 @@ const [saveLoading,setSaveLoading]= useState()
                   }
                 </button>
               }
-              <button disabled={hiringLoading1} onClick={addAllApplicant} className="rounded-[30px] h-[38px] px-6 bg_Button w-[180px] flex justify-center items-center">
-                {hiringLoading1 ?
+              {selectedJob &&
+                <button disabled={hiringLoading1} onClick={addAllApplicant} className="rounded-[30px] h-[38px] px-6 bg_Button w-[180px] flex justify-center items-center">
+                  {hiringLoading1 ?
 
-                  <MiniLoader />
-                  :
-                  " Move to Hiring"
-                }
-              </button>
+                    <MiniLoader />
+                    :
+                    " Move to Hiring"
+                  }
+                </button>
+              }
             </>
           }
           {!select &&
@@ -566,7 +569,7 @@ const [saveLoading,setSaveLoading]= useState()
                     </div>
                   </div>
                 )}
-                {user?.totalExperience && (
+                {(user?.totalExperience && user?.totalExperience !=="0 Years" )&& (
                   <div className="flex items-center gap-[8px]">
                     <svg
                       width="25"
@@ -625,8 +628,8 @@ const [saveLoading,setSaveLoading]= useState()
               {fromSkilotechCollection &&
                 <>
                   {saveLoading === user?._id ?
-                  <div className="w-full flex justify-center"> <MiniLoader /></div>
-                   
+                    <div className="w-full flex justify-center"> <MiniLoader /></div>
+
 
                     :
                     <p onClick={() => addData(user)} className=" h-[24px] cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to My Collection</p>
@@ -663,17 +666,19 @@ const [saveLoading,setSaveLoading]= useState()
               </div>
 
               <div className="flex scr390:flex-row flex-col gap-[16px] items-center">
-                <div
-                  onClick={() => {
-                    setTab(1);
-                    setUserDetails(user);
-                  }}
-                  className={`flex justify-center ${(data || !byMyCollection) ? "w-full " : "scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] "}cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]`}
-                >
-                  <button className="text-[14px] font-[600] ">
-                    See Application
-                  </button>
-                </div>
+                {!findCandidates &&
+                  <div
+                    onClick={() => {
+                      setTab(1);
+                      setUserDetails(user);
+                    }}
+                    className={`flex justify-center ${(data || !byMyCollection) ? "w-full " : "scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] "}cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]`}
+                  >
+                    <button className="text-[14px] font-[600] ">
+                      See Application
+                    </button>
+                  </div>
+                }
                 {!data &&
                   <div className="  w-full ">
                     {jobData?.applications?.some((item) => item?.fileName === user?.fileName)

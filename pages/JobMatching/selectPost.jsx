@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import MiniLoader from "../../components/common/miniLoader";
-import { dateSeter } from "../../utils/middleware";
+import { camelCase, dateSeter } from "../../utils/middleware";
 import CustomPagination from "../../components/common/CustomPagination";
-import { getRelativeTime } from "../../utils/data";
-
+import { getRelativeTime, SkillList } from "../../utils/data";
+import ReactSelect from "react-select";
 const SelectPost = () => {
   const router = useRouter();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const [skills, setSkills] = useState(SkillList);
   const [filterStatus, setFilterStatus] = useState("All");
   const [loading, setLoading] = useState(true);
   const [jobPost, setJobPost] = useState([]);
@@ -446,7 +447,7 @@ const SelectPost = () => {
           <div className="text-[18px] font-[500] py-2 px-3">Manual JD</div>
           <div className="w-full bg-[#FFFFFF] flex flex-col rounded-[16px] p-[16px] gap-[16px]">
             <div className="flex flex-col gap-[8px]">
-              <div className="text-[14px] font-[500]">Job Title</div>
+              <div className="text-[14px] font-[500]">Job Title  <span className="text-[red]">*</span></div>
               <div>
                 <input
                   type="text"
@@ -460,8 +461,122 @@ const SelectPost = () => {
                 />
               </div>{" "}
             </div>
+             <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
+                      <div className="text-sm font-medium">
+                        Key Skills <span className="text-[red]">*</span>
+
+                      </div>
+                      <ReactSelect
+                        isMulti
+                        onInputChange={(data) => {}}
+                        options={skills
+                          .filter((item) => item.trim() !== "")
+                          .map((item) => ({
+                            value: item,
+                            label: camelCase(item),
+                          }))}
+                        className={`w-full withoutBorder ${
+                          errors.mustSkills ? "border-red" : "border-[#DEDEDE]"
+                        }`}
+                        value={
+                          data.mustSkills
+                            ? data.mustSkills.map((skill) => ({
+                                value: skill,
+                                label: camelCase(skill),
+                              }))
+                            : []
+                        }
+                        onChange={(selectedOptions) => {
+                          const newMustSkills = selectedOptions
+                            ? selectedOptions.map((option) => option.value)
+                            : [];
+            
+                          if (newMustSkills.length > data?.mustSkills?.length) {
+                            setErrors((prevErrors) => ({
+                              ...prevErrors,
+                              mustSkills: "",
+                            }));
+                          }
+            
+                          setData({
+                            ...data,
+                            mustSkills: newMustSkills,
+                          });
+                        }}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" && event.target.value.trim()) {
+                            const newSkill = event.target.value.trim();
+            
+                            if (!skills.includes(newSkill)) {
+                              setSkills((prevSkills) => [...prevSkills, newSkill]);
+                            }
+            
+                            event.target.value = "";
+                          }
+                        }}
+                        styles={{
+                          control: (provided, state) => ({
+                            ...provided,
+                            border: errors.mustSkills
+                              ? "1px solid red"
+                              : "1px solid #DEDEDE",
+                            borderRadius: "8px",
+                            padding: "2px 8px",
+                            flexWrap: "wrap",
+                            boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+                          }),
+                          valueContainer: (base) => ({
+                            ...base,
+                            display: "flex",
+                            flexWrap: "nowrap",
+                            gap: "4px",
+                            padding: "2px 4px",
+                            overflowX: "auto",
+                            scrollbarWidth: "none",
+                            "-ms-overflow-style": "none",
+                            "&::-webkit-scrollbar": {
+                              display: "none",
+                            },
+                          }),
+                          placeholder: (provided) => ({
+                            ...provided,
+                            color: "#767676",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                          }),
+                          menu: (provided) => ({
+                            ...provided,
+                            zIndex: 10,
+                            scrollbarWidth: "none",
+                            "-ms-overflow-style": "none",
+                            "&::-webkit-scrollbar": {
+                              display: "none",
+                            },
+                          }),
+                          multiValue: (provided) => ({
+                            ...provided,
+                            backgroundColor: "#EFFAFF",
+                            borderRadius: "4px",
+                            minWidth: "90px",
+                          }),
+                          multiValueLabel: (provided) => ({
+                            ...provided,
+                            color: "#06A9EF",
+                            fontWeight: "500",
+                          }),
+                          multiValueRemove: (provided) => ({
+                            ...provided,
+                            color: "#9A4545",
+                            "&:hover": {
+                              backgroundColor: "transparent",
+                            },
+                          }),
+                        }}
+                      />
+                    </div>
+            
             <div className="flex flex-col gap-[8px]">
-              <div className="text-[14px] font-[500]">Job Description</div>
+              <div className="text-[14px] font-[500]">Job Description  <span className="text-[red]">*</span></div>
               <div>
                 <textarea
                   name="description"
