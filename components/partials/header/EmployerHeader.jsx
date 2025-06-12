@@ -88,6 +88,13 @@ function EmployerHeader() {
       fetchNotifications();
     }
   }, [userDataGlobal?._id]);
+  const formatNotificationCount = (count) => {
+    if (count >= 1000) {
+      return (count / 1000).toFixed(count >= 10000 ? 0 : 1) + 'k';
+    }
+    return count.toString();
+  };
+
 
   return (
     <>
@@ -210,10 +217,11 @@ function EmployerHeader() {
                   />
                 </svg>
                 {notifications > 0 && (
-                  <span className="absolute flex pt-[2px] items-center justify-center w-4 h-4 text-[10px] font-[400] text-white bg-[#06A9EF] rounded-full transform translate-x-1/2 -translate-y-1/2">
-                    {notifications}
+                  <span className="absolute flex  items-center justify-center w-fit min-w-5 h-5 p-1 leading-[9px]   text-[9px] font-[400] text-white bg-[#06A9EF] rounded-full transform translate-x-1/2 -translate-y-1/2">
+                    {formatNotificationCount(notifications)}
                   </span>
                 )}
+
               </>
             )}
             <div className="flex items-center gap-2">
@@ -423,8 +431,8 @@ function EmployerHeader() {
                 backdropFilter: "blur(10px)",
                 ...(navigator.userAgent.includes("Safari") &&
                   !navigator.userAgent.includes("Chrome") && {
-                    WebkitBackdropFilter: "blur(10px)",
-                  }),
+                  WebkitBackdropFilter: "blur(10px)",
+                }),
                 willChange: "transform",
                 // opacity: isSidebar ? 1 : 0,
                 // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",

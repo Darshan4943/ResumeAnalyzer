@@ -22,12 +22,13 @@ function Services() {
       name: "My Collection",
 
       imgSrc: "/images/resumeBuilder/servicesCollection.png",
+      new: "AI",
     },
-     {
-      name: "Mail Template",
-      imgSrc: "/images/resumeBuilder/template2.png",
-      // new: "AI",
-    },
+    //  {
+    //   name: "Mail Template",
+    //   imgSrc: "/images/resumeBuilder/template2.png",
+    //   // new: "AI",
+    // },
      {
       name: "JD Creation",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
@@ -53,7 +54,7 @@ function Services() {
      {
       name: "Create Resume",
       imgSrc: "/images/resumeBuilder/servicesResume.png",
-      // new: "AI",
+      new: "AI",
     },
    
    
@@ -64,12 +65,13 @@ function Services() {
       name: "My Collection",
 
       imgSrc: "/images/resumeBuilder/servicesCollection.png",
+      new: "AI",
     },
-      {
-      name: "Mail Template",
-      imgSrc: "/images/resumeBuilder/template2.png",
-      // new: "AI",
-    },
+    //   {
+    //   name: "Mail Template",
+    //   imgSrc: "/images/resumeBuilder/template2.png",
+    //   // new: "AI",
+    // },
      {
       name: "JD Creation",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
@@ -82,11 +84,11 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesJd.png",
       new: "AI",
     },
-    {
-      name: "Requisition",
-      imgSrc: "/images/resumeBuilder/servicesRequisition.png",
+    // {
+    //   name: "Requisition",
+    //   imgSrc: "/images/resumeBuilder/servicesRequisition.png",
       
-    },
+    // },
      {
       name: "Job Posting",
       imgSrc: "/images/resumeBuilder/servicesJob.png",
@@ -97,11 +99,11 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
       new: "AI",
     },
-    {
-      name: "Preboarding",
-      imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
-      // new: "AI",
-    },
+    // {
+    //   name: "Preboarding",
+    //   imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
+    //   // new: "AI",
+    // },
    
   
   ];
@@ -199,7 +201,7 @@ function Services() {
 
   return (
     <div className="py-6 px-1 flex flex-col gap-6 ">
-      <p className="text-[20px] font-semibold text-[#333333]">Services</p>
+      <p className="text-[20px] font-semibold text-[#333333]">AI Services</p>
       <div
         // style={{ border: "2px solid red" }}
         className="flex gap-[16px] scr420:gap-6 flex-wrap justify-start "
