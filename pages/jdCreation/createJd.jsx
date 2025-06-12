@@ -185,12 +185,12 @@ function CreateJd() {
       <p style=" font-weight: bold; margin-top: 20px;">Required Skills:</p>
       <ul>
           ${
-            Array.isArray(response.data.requiredSkills)
-              ? response.data.requiredSkills
+            Array.isArray(response.data.skills)
+              ? response.data.skills
                   .map((skill) => `<li>${skill.trim()}</li>`)
                   .join("")
-              : response.data.requiredSkills
-              ? response.data.requiredSkills
+              : response.data.skills
+              ? response.data.skills
                   .toString()
                   .split(",")
                   .map((skill) => `<li>${skill.trim()}</li>`)
