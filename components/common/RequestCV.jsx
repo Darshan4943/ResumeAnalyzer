@@ -14,7 +14,7 @@ import Docxtemplater from "docxtemplater";
 import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
 import JdMatchCard from "../../pages/JobMatching/JdMatchCard";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-function RequestCV({ isCandidate }) {
+function RequestCV({ isCandidate,skilotechCollection }) {
   const [isResumes, setIsResumes] = useState("post");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [resumeCount, setResumeCount] = useState(5);
@@ -566,7 +566,7 @@ function RequestCV({ isCandidate }) {
         //   </div>
         // </>
 
-        <div className="w-full pt-[52px]">
+        <div className="w-full ml:pt-[52px]">
           <JdMatchCard
             resumeList={resumeList}
             extratctedData={data}
@@ -587,6 +587,7 @@ function RequestCV({ isCandidate }) {
           select={select}
           setSelect={setSelect}
           findCandidates={true}
+          skilotechCollection={skilotechCollection}
           />
         </div>
       ):

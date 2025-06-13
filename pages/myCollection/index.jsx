@@ -965,8 +965,8 @@ function Collection() {
       )}
       <div className="">
         <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4   relative  ">
-          <div className="flex flex-col gap-5  justify-between ml:w-[25%] w-[100%]   ">
-            <div className="flex flex-col gap-4 min-h-[calc(95vh-104px)]">
+          <div className="flex flex-col gap-5  justify-between ml:w-[25%] w-[100%] min-w-[312px]  ">
+            <div className="flex flex-col gap-4 ml:min-h-[calc(95vh-104px)] ">
               <p className="text-[18px] font-semibold h-[36px] min-h-[36px] ">
                 My Collection
               </p>
@@ -1084,7 +1084,7 @@ function Collection() {
               getData={getData}
             />
           ) : (
-            <RequestCV />
+            <RequestCV skilotechCollection={skilotechCollection} />
           )}
         </div>
       </div>
