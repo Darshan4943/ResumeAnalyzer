@@ -28,26 +28,26 @@ function MyFolders({
   const inputRef = useRef(null);
   const [newName, setNewName] = useState('');
 
-const handleClickOutside = async (e) => {
-  if (inputRef.current && !inputRef.current.contains(e.target)) {
-    if (newName.trim()) {
-      try {
-        const response = await axios.post("https://jamblix.com/api/folder/rename", {
-          _id: selectedIndexes[0],
-          newName: newName.trim(),
-        });
+  const handleClickOutside = async (e) => {
+    if (inputRef.current && !inputRef.current.contains(e.target)) {
+      if (newName.trim()) {
+        try {
+          const response = await axios.post("https://jamblix.com/api/folder/rename", {
+            _id: selectedIndexes[0],
+            newName: newName.trim(),
+          });
 
-        if (response.status === 200) {
-          getData();
-          setRename(false);
-          setNewName("");
+          if (response.status === 200) {
+            getData();
+            setRename(false);
+            setNewName("");
+          }
+        } catch (error) {
+          console.error("Rename failed:", error);
         }
-      } catch (error) {
-        console.error("Rename failed:", error);
       }
     }
-  }
-};
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -137,7 +137,7 @@ const handleClickOutside = async (e) => {
                         </div>
                       }
                     </div>
-                    <div className={`${(rename && !selectedIndexes.includes(item._id)) && "group"}`}>
+                    <div className={`${(!rename && !selectedIndexes.includes(item._id)) && "group"}`}>
                       {rename && selectedIndexes.includes(item._id) ? (
                         <input
                           ref={inputRef}
@@ -150,9 +150,19 @@ const handleClickOutside = async (e) => {
                           autoFocus
                         />
                       ) : (
-                        <span onClick={() => { item.fileName !== "CVs From Skilotech" && setSelectedIndexes([item._id]); setRename(true) }} style={{ overflow: 'hidden' }} className="text-[12px]">
-                          {item.fileName}
+                        <span
+                          onClick={() => {
+                            item.fileName !== "CVs From Skilotech" && setSelectedIndexes([item._id]);
+                            setRename(true);
+                          }}
+                          style={{ overflow: 'hidden' }}
+                          className="text-[12px]"
+                        >
+                          {item.fileName.length > 14
+                            ? `${item.fileName.slice(0, 14)}...`
+                            : item.fileName}
                         </span>
+
                       )}
 
 

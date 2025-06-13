@@ -94,7 +94,7 @@ function ManualForm({
         Please fill out the form to request a CV from Skilotech
       </div>
       <div className=" grid grid-cols-12 gap-4">
-        <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12">
+        <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-6 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
             Designation
           </div>
@@ -106,7 +106,7 @@ function ManualForm({
             className="border rounded-[8px] p-2 border-[#DEDEDE] placeholder:text-[12px] font-normal h-[41.6px] "
           />
         </div>
-        <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
+        <div className="flex flex-col gap-[8px] scr1300:col-span-6 scr1024:col-span-6 col-span-12 ">
           <div className="text-sm font-medium">
             Key Skills
             <span className="text-[red]">*</span>
@@ -219,7 +219,7 @@ function ManualForm({
             }}
           />
         </div>
-        <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12">
+        <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-6 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
             Year of Experience 
           </div>
@@ -234,7 +234,7 @@ function ManualForm({
           />
         </div>
 
-        <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
+        <div className="flex flex-col gap-[8px] scr1300:col-span-6 scr1024:col-span-6 col-span-12 ">
           <div className="text-[14px] font-[500]">
             Country
           </div>
@@ -262,7 +262,7 @@ function ManualForm({
             }}
           />
         </div>
-        <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12">
+        {/* <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
             Location 
           </div>
@@ -358,8 +358,8 @@ function ManualForm({
               </svg>
             </button>
           </div>
-        </div>
-        <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12">
+        </div> */}
+        {/* <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12">
           <div className="text-[14px] font-[500]">
             Set Filter Limit <span className="text-[red]">*</span>
           </div>
@@ -370,7 +370,7 @@ function ManualForm({
             onChange={(e) => setResumeCount(e.target.value)}
             className="border rounded-[8px] p-2 border-[#DEDEDE] placeholder:text-[12px] font-normal h-[41.6px] "
           />
-        </div>
+        </div> */}
       </div>
       <div className="flex justify-end">
         <button
