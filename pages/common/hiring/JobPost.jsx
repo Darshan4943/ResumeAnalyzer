@@ -10,7 +10,7 @@ import MiniLoaderr from "../../../components/common/mini-loader";
 import ShortlistMail from "./ShortlistMail";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { DownSvg, UpSvg } from "../../../utils/svg";
+import { AiGenerate, DownSvg, UpSvg } from "../../../utils/svg";
 import { useDispatch, useSelector } from "react-redux";
 import Analytics from "../../../components/featured/employer/Analytics";
 import { fa } from "@faker-js/faker";
@@ -62,12 +62,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false);
   const { recallData } = useSelector((state) => state.recall);
- const sort = [
-  { label: "Profile Match ↑", value: "profileMatchAsc" },
-  { label: "Profile Match ↓", value: "profileMatchDesc" },
-  { label: "Applied Date ↑", value: "appliedDateAsc" },
-  { label: "Applied Date ↓", value: "appliedDateDesc" }
-];
+  const sort = [
+    { label: "Profile Match ↑", value: "profileMatchAsc" },
+    { label: "Profile Match ↓", value: "profileMatchDesc" },
+    { label: "Applied Date ↑", value: "appliedDateAsc" },
+    { label: "Applied Date ↓", value: "appliedDateDesc" }
+  ];
 
   const [sortSelect, setSortSelect] = useState("appliedDateAsc");
   const [sortOrder, setSortOrder] = useState("desc");
@@ -328,7 +328,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             limit: limit,
             selectedFilters: JSON.stringify(selectedFilters),
             search: searchQuery,
-            sort:sortSelect,
+            sort: sortSelect,
             isSelected:
               activeOption === "Selected Candidate for Hiring" ? true : false,
           },
@@ -384,7 +384,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //     setAiLoading(false);
   //   }
   // };
-console.log(sortSelect);
+  console.log(sortSelect);
   const aiMatch = async () => {
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
@@ -443,7 +443,7 @@ console.log(sortSelect);
 
   useEffect(() => {
     fetchJobDetails();
-  }, [searchQuery,sortSelect]);
+  }, [searchQuery, sortSelect]);
 
   useEffect(() => {
     if (id) {
@@ -872,8 +872,8 @@ console.log(sortSelect);
                             setActiveOption("Selected Candidate for Hiring");
                         }}
                         className={` ${activeOption === "Selected Candidate for Hiring"
-                            ? ""
-                            : "text-[#646464]"
+                          ? ""
+                          : "text-[#646464]"
                           } cursor-pointer font-[600]`}
                       >
                         Selected Candidate for Hiring
@@ -1102,7 +1102,118 @@ console.log(sortSelect);
                     />
                   )}
 
-                  <div className="web">
+                  <div className="web relative">
+                    {aiLoading &&
+
+                      <div className="backdrop-blur-[3px] bg-transparent absolute w-full h-full z-10 flex  justify-center items-center">
+                        <div className="relative w-[130px] h-[130px] flex items-center justify-center">
+
+                          <div
+                            className="absolute w-full h-full rounded-full animate-spin"
+                            style={{
+                              background: 'conic-gradient(from 0deg, #FFDA1D 0deg, rgba(255, 218, 29, 0) 300deg)',
+                              mask: 'radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)',
+                              WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)',
+                            }}
+                          ></div>
+
+                          <svg className={`transition-all duration-700 ease-in-out animate-pulse scale-90" `}
+                            width="51" height="47" viewBox="0 0 51 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z" fill="#4C43CD" />
+                            <path d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z" fill="url(#paint0_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z" fill="url(#paint1_radial_10719_124239)" />
+                            <path d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z" fill="#4C43CD" />
+                            <path d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z" fill="url(#paint2_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z" fill="url(#paint3_radial_10719_124239)" />
+                            <path d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z" fill="#4C43CD" />
+                            <path d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z" fill="url(#paint4_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z" fill="url(#paint5_radial_10719_124239)" />
+                            <path d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z" fill="#4C43CD" />
+                            <path d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z" fill="url(#paint6_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z" fill="url(#paint7_radial_10719_124239)" />
+                            <path d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z" fill="#4C43CD" />
+                            <path d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z" fill="url(#paint8_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z" fill="url(#paint9_radial_10719_124239)" />
+                            <path d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z" fill="#4C43CD" />
+                            <path d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z" fill="url(#paint10_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z" fill="url(#paint11_radial_10719_124239)" />
+                            <path d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z" fill="#4C43CD" />
+                            <path d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z" fill="url(#paint12_radial_10719_124239)" fill-opacity="0.7" />
+                            <path d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z" fill="url(#paint13_radial_10719_124239)" />
+                            <defs>
+                              <radialGradient id="paint0_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(18.4751 16.3802) rotate(51.0326) scale(22.4064 22.4083)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint1_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(34.4709 34.1719) rotate(-93.672) scale(22.8425 25.4693)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint2_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.2344 3.22223) rotate(51.0615) scale(11.7843 11.7828)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint3_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(46.6419 12.5834) rotate(-93.6682) scale(12.0186 13.3869)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint4_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(3.70314 9.49373) rotate(51.0429) scale(11.7796 11.7797)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint5_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.1106 18.8486) rotate(-93.6706) scale(12.0106 13.3869)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint6_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(39.7969 35.8785) rotate(51.0616) scale(11.7843 11.7828)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint7_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(48.2044 45.2396) rotate(-93.6682) scale(12.0186 13.3869)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint8_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(44.1445 23.349) rotate(51.0706) scale(7.44729 7.44581)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint9_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49.4567 29.2656) rotate(-93.667) scale(7.59628 8.45843)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint10_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(10.0452 37.8958) rotate(51.0429) scale(7.4502 7.45026)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint11_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(15.3627 43.8125) rotate(-93.6706) scale(7.59631 8.46675)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint12_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(16.3617 1.73244) rotate(51.0052) scale(6.16551 6.1673)">
+                                <stop stop-color="white" stop-opacity="0.59" />
+                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                              </radialGradient>
+                              <radialGradient id="paint13_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(20.7658 6.62625) rotate(-93.6756) scale(6.28312 7.01245)">
+                                <stop stop-opacity="0.23" />
+                                <stop offset="0.861815" stop-opacity="0" />
+                              </radialGradient>
+                            </defs>
+                          </svg>
+
+                        </div>
+
+
+
+                      </div>
+
+                    }
                     <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
                       {userDataGlobal?.role === "employer" && (
                         <input
@@ -1183,6 +1294,7 @@ console.log(sortSelect);
                       ))}
                     </div>
 
+
                     <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible   ">
                       {!jobDetails?.data?.applications.length == 0 ? (
                         <>
@@ -1193,8 +1305,8 @@ console.log(sortSelect);
                             <>
                               <div
                                 className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${!checkedApplicants[index]
-                                    ? "bg-[#FFFFFF]"
-                                    : "bg-[#FFFFFF]"
+                                  ? "bg-[#FFFFFF]"
+                                  : "bg-[#FFFFFF]"
                                   }`}
                                 key={applicant?._id}
                               >
@@ -1246,29 +1358,29 @@ console.log(sortSelect);
                                   <div className=" flex justify-center w-[20%]">
                                     <div
                                       className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                          ? "bg-[#FFFFFF]"
-                                          : applicant?.hiringStage ===
-                                            "Interview"
-                                            ? "bg-[#26A4FF1A]"
-                                            : applicant?.hiringStage === "Task"
-                                              ? "bg-[#EAF6FF]"
-                                              : applicant?.hiringStage === "Pending"
-                                                ? "bg-[#FFF9ED]"
-                                                : applicant?.hiringStage === "Hired"
-                                                  ? "bg-[#4BD06F33]"
+                                        ? "bg-[#FFFFFF]"
+                                        : applicant?.hiringStage ===
+                                          "Interview"
+                                          ? "bg-[#26A4FF1A]"
+                                          : applicant?.hiringStage === "Task"
+                                            ? "bg-[#EAF6FF]"
+                                            : applicant?.hiringStage === "Pending"
+                                              ? "bg-[#FFF9ED]"
+                                              : applicant?.hiringStage === "Hired"
+                                                ? "bg-[#4BD06F33]"
+                                                : applicant?.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? "bg-[#4640DE1A]"
                                                   : applicant?.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? "bg-[#4640DE1A]"
+                                                    "Rejected"
+                                                    ? "bg-[#FF65501A]"
                                                     : applicant?.hiringStage ===
-                                                      "Rejected"
-                                                      ? "bg-[#FF65501A]"
+                                                      "In Review"
+                                                      ? "bg-[#EB85331A]"
                                                       : applicant?.hiringStage ===
-                                                        "In Review"
-                                                        ? "bg-[#EB85331A]"
-                                                        : applicant?.hiringStage ===
-                                                          "Selected"
-                                                          ? "bg-[#56CDAD1A]"
-                                                          : ""
+                                                        "Selected"
+                                                        ? "bg-[#56CDAD1A]"
+                                                        : ""
                                         } ${applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant?.hiringStage === "Task"
@@ -1479,9 +1591,9 @@ console.log(sortSelect);
                                         }
                                       }}
                                       className={`min-w-[24px] max-w-[24px] cursor-pointer ${applicant?.hiringStage === "Hired" ||
-                                          applicant?.hiringStage === "Rejected"
-                                          ? "opacity-50 pointer-events-none"
-                                          : ""
+                                        applicant?.hiringStage === "Rejected"
+                                        ? "opacity-50 pointer-events-none"
+                                        : ""
                                         }`}
                                       src="/images/employer/three-dot.png"
                                       alt=""
@@ -1565,25 +1677,25 @@ console.log(sortSelect);
                                       </p>
                                       <div
                                         className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                            ? "bg-[#FFFFFF]"
+                                          ? "bg-[#FFFFFF]"
+                                          : applicant.hiringStage ===
+                                            "Interview"
+                                            ? "bg-[#26A4FF1A]"
                                             : applicant.hiringStage ===
-                                              "Interview"
-                                              ? "bg-[#26A4FF1A]"
-                                              : applicant.hiringStage ===
-                                                "Pending"
-                                                ? "bg-[#FFF9ED]"
-                                                : applicant.hiringStage === "Hired"
-                                                  ? "bg-[#56CDAD1A]"
+                                              "Pending"
+                                              ? "bg-[#FFF9ED]"
+                                              : applicant.hiringStage === "Hired"
+                                                ? "bg-[#56CDAD1A]"
+                                                : applicant.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? "bg-[#4640DE1A]"
                                                   : applicant.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? "bg-[#4640DE1A]"
+                                                    "Rejected"
+                                                    ? "bg-[#FF65501A]"
                                                     : applicant.hiringStage ===
-                                                      "Rejected"
-                                                      ? "bg-[#FF65501A]"
-                                                      : applicant.hiringStage ===
-                                                        "In Review"
-                                                        ? "bg-[#EB85331A]"
-                                                        : ""
+                                                      "In Review"
+                                                      ? "bg-[#EB85331A]"
+                                                      : ""
                                           } ${applicant.hiringStage === "Interview"
                                             ? "text-[#26A4FF]"
                                             : applicant.hiringStage ===
@@ -1859,8 +1971,8 @@ console.log(sortSelect);
                                 <>
                                   <div
                                     className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
-                                        ? "bg-[#D3F1FF]"
-                                        : "bg-[#FFFFFF]"
+                                      ? "bg-[#D3F1FF]"
+                                      : "bg-[#FFFFFF]"
                                       }`}
                                     key={applicant?._id}
                                   >
@@ -1912,29 +2024,29 @@ console.log(sortSelect);
                                       <div className=" flex justify-center w-[20%]">
                                         <div
                                           className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                              ? "bg-[#FFFFFF]"
+                                            ? "bg-[#FFFFFF]"
+                                            : applicant?.hiringStage ===
+                                              "Interview"
+                                              ? "bg-[#26A4FF1A]"
                                               : applicant?.hiringStage ===
-                                                "Interview"
-                                                ? "bg-[#26A4FF1A]"
+                                                "Pending"
+                                                ? "bg-[#FFF9ED]"
                                                 : applicant?.hiringStage ===
-                                                  "Pending"
-                                                  ? "bg-[#FFF9ED]"
+                                                  "Hired"
+                                                  ? "bg-[#56CDAD1A]"
                                                   : applicant?.hiringStage ===
-                                                    "Hired"
-                                                    ? "bg-[#56CDAD1A]"
+                                                    "Shortlisted"
+                                                    ? "bg-[#4640DE1A]"
                                                     : applicant?.hiringStage ===
-                                                      "Shortlisted"
-                                                      ? "bg-[#4640DE1A]"
+                                                      "Rejected"
+                                                      ? "bg-[#FF65501A]"
                                                       : applicant?.hiringStage ===
-                                                        "Rejected"
-                                                        ? "bg-[#FF65501A]"
+                                                        "In Review"
+                                                        ? "bg-[#EB85331A]"
                                                         : applicant?.hiringStage ===
-                                                          "In Review"
-                                                          ? "bg-[#EB85331A]"
-                                                          : applicant?.hiringStage ===
-                                                            "Selected"
-                                                            ? "bg-[#56CDAD1A]"
-                                                            : ""
+                                                          "Selected"
+                                                          ? "bg-[#56CDAD1A]"
+                                                          : ""
                                             } ${applicant?.hiringStage ===
                                               "Interview"
                                               ? "text-[#26A4FF]"
@@ -2083,26 +2195,26 @@ console.log(sortSelect);
                                         </p>
                                         <div
                                           className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                              ? "bg-[#FFFFFF]"
+                                            ? "bg-[#FFFFFF]"
+                                            : applicant.hiringStage ===
+                                              "Interview"
+                                              ? "bg-[#26A4FF1A]"
                                               : applicant.hiringStage ===
-                                                "Interview"
-                                                ? "bg-[#26A4FF1A]"
+                                                "Pending"
+                                                ? "bg-[#FFF9ED]"
                                                 : applicant.hiringStage ===
-                                                  "Pending"
-                                                  ? "bg-[#FFF9ED]"
+                                                  "Hired"
+                                                  ? "bg-[#56CDAD1A]"
                                                   : applicant.hiringStage ===
-                                                    "Hired"
-                                                    ? "bg-[#56CDAD1A]"
+                                                    "Shortlisted"
+                                                    ? "bg-[#4640DE1A]"
                                                     : applicant.hiringStage ===
-                                                      "Shortlisted"
-                                                      ? "bg-[#4640DE1A]"
+                                                      "Rejected"
+                                                      ? "bg-[#FF65501A]"
                                                       : applicant.hiringStage ===
-                                                        "Rejected"
-                                                        ? "bg-[#FF65501A]"
-                                                        : applicant.hiringStage ===
-                                                          "In Review"
-                                                          ? "bg-[#EB85331A]"
-                                                          : ""
+                                                        "In Review"
+                                                        ? "bg-[#EB85331A]"
+                                                        : ""
                                             } ${applicant.hiringStage ===
                                               "Interview"
                                               ? "text-[#26A4FF]"
