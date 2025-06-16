@@ -87,9 +87,10 @@ function Layout({ children }) {
       {shareJob &&
         <ShareJobHeader />
       }
-      <div className="flex bg-[#f3f3f3] relative min-h-[100vh]  ">
+      <div className="flex bg-[#f3f3f3] relative z-10 min-h-[100vh]">
+
         {(!pageOpened && !shareJob) &&
-          <div className=" ml:max-h-[100vh] min-h-[100vh] ml:block hidden overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
+<div className="ml:max-h-[100vh] min-h-[100vh] ml:block hidden top-0 min-w-[120px] bg-white sticky z-30"
             style={{ scrollbarWidth: "none" }}>
             <EmployerSidebar />
           </div>

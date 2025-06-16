@@ -153,7 +153,7 @@ const MatchJob = () => {
     if (data) {
       try {
         const decodedData = typeof data === "string" ? data : JSON.stringify(data);
-        
+
         const parsedData = JSON.parse(decodedData);
         setExtractedData(parsedData);
       } catch (error) {
@@ -749,15 +749,15 @@ const MatchJob = () => {
                   </span>
                 </div>
               )}
-              <div className="flex scr420:flex-row flex-col gap-4 scr420:items-center items-start">
+              <div className="flex scr420:flex-row flex-col gap-4 scr420:items-center items-start flex-wrap">
                 <button
                   onClick={() => setOpenParamenters(true)}
-                  className=" rounded-[30px] text-[14px] font-semibold blue_border_Button flex justify-center items-center h-[38px] px-6"
+                  className=" rounded-[30px] text-[14px] font-semibold blue_border_Button flex justify-center items-center h-[38px] px-6 min-w-[206.41px]"
                 >
                   Set Matching Parameters
                 </button>
                 <div className="flex flex-row  gap-4 items-center">
-                  <span className=" text-[14px] font-[500] text-[#333333]">
+                  <span className=" text-[14px] font-[500] text-[#333333] min-w-[104px]">
                     Set Filter Limit{" "}
                   </span>
                   <input
@@ -775,7 +775,7 @@ const MatchJob = () => {
                 {collection === "SkilotechCollection" ? (
                   <button
                     onClick={() => JobMatchforSkilotechCollection()}
-                    className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px]"
+                    className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
                   >
                     Find Match
                   </button>
@@ -784,7 +784,7 @@ const MatchJob = () => {
                     disabled={!selectedIndexes.length > 0}
                     onClick={() => MatchJob()}
                     style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
-                    className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px]"
+                    className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
                   >
                     Find Match
                   </button>
@@ -817,23 +817,143 @@ const MatchJob = () => {
                   />
                 </div>
               ) : (
-                <div className="bg-[#FFFFFF] p-[24px] w-full max-w-[1140px] flex flex-col items-center rounded-[12px] mt-10">
+                <div className="bg-[#FFFFFF] p-[24px] w-full  flex flex-col items-center rounded-[12px] mt-10">
                   <div className="text-[18px] font-[500] text-center mb-6">
                     JD Matching Steps
                   </div>
 
-                  <div className="flex flex-col items-center gap-12 w-full">
-                    <div className="flex flex-col md:flex-row justify-center items-center w-full gap-8">
-                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                  <div className="scr1024:flex hidden items-center gap-4 w-full max-w-[1200px]">
+                    <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
                         <img
-                          className="w-28 h-28 md:w-32 md:h-32"
+                          className="w-14 h-14 md:w-[100px] md:h-[100px]"
                           src="/images/recruiter/jdstep1.png"
                           alt="Step 1"
                         />
-                        <p className="text-base md:text-lg font-bold">
+                        <p className="text-[14px] font-bold">
                           Step 1: Choose Your JD Source
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-[12px] text-gray-600">
+                          Begin by selecting where you&apos;d like to find the
+                          Job Description you want to use for matching.
+                        </p>
+                      </div>
+
+
+                      <svg
+                        className="min-w-[80px]"
+                        width="80"
+                        height="20"
+                        viewBox="0 0 100 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 10 L90 10 M90 10 L85 5 M90 10 L85 15"
+                          stroke="#000"
+                          strokeWidth="1"
+                          strokeDasharray="5,5"
+                          fill="none"
+                        />
+                      </svg>
+
+
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
+                        <img
+                          className="w-14 h-14 md:w-[100px] md:h-[100px]"
+                          src="/images/recruiter/jdstep2.png"
+                          alt="Step 2"
+                        />
+                        <p className="text-[14px] font-bold">
+                          Step 2: Set Matching Parameter
+                        </p>
+                        <p className="text-[12px] text-gray-600">
+                          Define a specific order of importance for different
+                          aspects of the Job Description.
+                        </p>
+                      </div>
+                    </div>
+
+                    <svg
+                      className="min-w-[80px]"
+                      width="80"
+                      height="20"
+                      viewBox="0 0 100 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 10 L90 10 M90 10 L85 5 M90 10 L85 15"
+                        stroke="#000"
+                        strokeWidth="1"
+                        strokeDasharray="5,5"
+                        fill="none"
+                      />
+                    </svg>
+
+
+                    <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
+                        <img
+                          className="w-14 h-14 md:w-[100px] md:h-[100px]"
+                          src="/images/recruiter/jdstep3.png"
+                          alt="Step 3"
+                        />
+                        <p className="text-[14px] font-bold">
+                          Step 3: Set Filter Limit
+                        </p>
+                        <p className="text-[12px] text-gray-600">
+                          Specify the maximum number of candidate profiles you
+                          want to retrieve.
+                        </p>
+                      </div>
+
+
+                      <svg
+                        className="min-w-[80px]"
+                        width="80"
+                        height="20"
+                        viewBox="0 0 100 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 10 L90 10 M90 10 L85 5 M90 10 L85 15"
+                          stroke="#000"
+                          strokeWidth="1"
+                          strokeDasharray="5,5"
+                          fill="none"
+                        />
+                      </svg>
+
+
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
+                        <img
+                          className="w-14 h-14 md:w-[100px] md:h-[100px]"
+                          src="/images/recruiter/jdstep4.png"
+                          alt="Step 4"
+                        />
+                        <p className="text-[14px] font-bold">
+                          Step 4: Click the &quot;Find Match&quot; button
+                        </p>
+                        <p className="text-[12px] text-gray-600">
+                          Specify the maximum number of candidate profiles you
+                          want to retrieve for matching.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div className="scr1024:hidden flex flex-col items-center gap-12 w-full">
+                    <div className="flex flex-col md:flex-row justify-center items-center w-full gap-8">
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
+                        <img
+                          className="w-[100px] h-[100px]"
+                          src="/images/recruiter/jdstep1.png"
+                          alt="Step 1"
+                        />
+                        <p className="text-[14px] font-bold">
+                          Step 1: Choose Your JD Source
+                        </p>
+                        <p className="text-[12px] text-gray-600">
                           Begin by selecting where you&apos;d like to find the
                           Job Description you want to use for matching.
                         </p>
@@ -842,7 +962,7 @@ const MatchJob = () => {
                       <div className="hidden md:block w-32 h-0 relative">
                         <svg
                           className="absolute left-0 top-1/2 -translate-y-1/2"
-                          width="100"
+                          width="80"
                           height="20"
                           viewBox="0 0 100 20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -857,16 +977,16 @@ const MatchJob = () => {
                         </svg>
                       </div>
 
-                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
                         <img
-                          className="w-28 h-28 md:w-32 md:h-32"
+                          className="w-[100px] h-[100px]"
                           src="/images/recruiter/jdstep2.png"
                           alt="Step 2"
                         />
-                        <p className="text-base md:text-lg font-bold">
+                        <p className="text-[14px] font-bold">
                           Step 2: Set Matching Parameter
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-[12px] text-gray-600">
                           Define a specific order of importance for different
                           aspects of the Job Description.
                         </p>
@@ -892,16 +1012,16 @@ const MatchJob = () => {
                     </div>
 
                     <div className="flex flex-col md:flex-row-reverse justify-center items-center w-full gap-8">
-                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
                         <img
-                          className="w-28 h-28 md:w-32 md:h-32"
+                          className="w-[100px] h-[100px]"
                           src="/images/recruiter/jdstep3.png"
                           alt="Step 3"
                         />
-                        <p className="text-base md:text-lg font-bold">
+                        <p className="text-[14px] font-bold">
                           Step 3: Set Filter Limit
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-[12px] text-gray-600">
                           Specify the maximum number of candidate profiles you
                           want to retrieve.
                         </p>
@@ -910,7 +1030,7 @@ const MatchJob = () => {
                       <div className="hidden md:block w-32 h-0 relative">
                         <svg
                           className="absolute left-0 top-1/2 -translate-y-1/2"
-                          width="100"
+                          width="80"
                           height="20"
                           viewBox="0 0 100 20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -925,16 +1045,16 @@ const MatchJob = () => {
                         </svg>
                       </div>
 
-                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                      <div className="flex flex-col items-center gap-4 w-50 text-center">
                         <img
-                          className="w-28 h-28 md:w-32 md:h-32"
+                          className="w-[100px] h-[100px]"
                           src="/images/recruiter/jdstep4.png"
                           alt="Step 4"
                         />
-                        <p className="text-base md:text-lg font-bold">
+                        <p className="text-[14px] font-bold">
                           Step 4: Click the &quot;Find Match&quot; button
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-[12px] text-gray-600">
                           Specify the maximum number of candidate profiles you
                           want to retrieve for matching.
                         </p>
