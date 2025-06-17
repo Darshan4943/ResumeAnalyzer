@@ -85,7 +85,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   }, [currentPage, sortValue]);
 
-  console.log(page, sortSelect);
+
 
 
   const [parameters, setParameters] = useState([

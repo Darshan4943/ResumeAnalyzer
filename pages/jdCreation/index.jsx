@@ -72,29 +72,29 @@ function Index() {
   }, [selectedJD]);
 
 
-const handleDownload = (title) => {
-  const contentElement = document.getElementById("resumeContent");
+const handleDownload = (title, id) => {
+  const contentElement = document.getElementById(`resumeContent-${id}`);
   if (!contentElement) return;
 
-  const plainText = contentElement.innerText;
   const pdf = new jsPDF({
     orientation: "p",
     unit: "mm",
     format: "a4",
   });
 
-  const lines = pdf.splitTextToSize(plainText, 180);
-  pdf.setFont("Times", "Normal");
-  pdf.setFontSize(12);
-  pdf.text(lines, 10, 10);
+  const safeTitle = title?.replace(/[<>:"/\\|?*]+/g, "") || "resume";
 
-  // Clean the title to be a valid file name (optional)
-  console.log(title);
-  const safeTitle = title?.replace(/[<>:"/\\|?*]+/g, "") || "";
-
-  pdf.save(`${safeTitle}_jd.pdf`);
+  pdf.html(contentElement, {
+    x: 10,
+    y: 10,
+    html2canvas: {
+      scale: 1,
+    },
+    callback: function (doc) {
+      doc.save(`${safeTitle}_jd.pdf`);
+    },
+  });
 };
-
 
   return (
     <div className="flex flex-col gap-5">
@@ -112,7 +112,7 @@ const handleDownload = (title) => {
             <div key={jd._id} className="flex gap-2 flex-col items-center">
               <div className="bg-white rounded-[12px] p-4 w-[192px] h-[256px] relative overflow-hidden group">
                 <div
-                 id="resumeContent"
+                  id={`resumeContent-${jd._id}`}
                   className="text-[5px] font-[400]"
                   dangerouslySetInnerHTML={{
                     __html: jd.jd,
@@ -173,7 +173,7 @@ const handleDownload = (title) => {
                     <div
 
                       className="flex items-center flex-col cursor-pointer"
-                      onClick={() => handleDownload(jd?.jobTitle)}
+                     onClick={() => handleDownload(jd?.jobTitle, jd?._id)}
                     >
                       <img
                         src="/images/icons/download.png"
