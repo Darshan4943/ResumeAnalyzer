@@ -1555,7 +1555,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       className=" cursor-pointer"
                                       onClick={() =>
                                         router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
+                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
                                         )
                                       }
                                       width="24"
@@ -1641,7 +1641,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 <div
                                   onClick={() =>
                                     router.push(
-                                      `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
+                                      `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}&currentPage=${page}&sortValue=${sortSelect}`
                                     )
                                   }
                                   key={index}
@@ -2105,7 +2105,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           className="cursor-pointer"
                                           onClick={() =>
                                             router.push(
-                                              `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
+                                              `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
                                             )
                                           }
                                         >
@@ -2167,7 +2167,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   <div
                                     onClick={() =>
                                       router.push(
-                                        `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
+                                        `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}&currentPage=${page}&sortValue=${sortSelect}`
                                       )
                                     }
                                     key={index}
