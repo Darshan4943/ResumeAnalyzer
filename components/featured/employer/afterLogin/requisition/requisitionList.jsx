@@ -23,7 +23,7 @@ function RequisitionList({
   const [loading, setLoading] = useState(false);
   const [miniLoading, setMiniloading] = useState(true);
   const [totalPages, setTotalpages] = useState(0);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);

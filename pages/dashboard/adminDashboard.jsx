@@ -14,7 +14,7 @@ import StackedBarChartCan from "../../components/common/StackedBarChartCand";
 import StackedBarChartCand from "../../components/common/StackedBarChartCand";
 
 function AdminDashboard({ toggleContentt }) {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [recruiterData, setRecruiterData] = useState([]);

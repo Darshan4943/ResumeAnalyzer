@@ -13,12 +13,12 @@ function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("matchingParameters");
   const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
-  console.log(jobDetails);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
-  const { id, applicantId } = router.query;
+  const { id, applicantId,sortValue,currentPage } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
@@ -180,7 +180,7 @@ function ApplicantDetails({ setTogglee }) {
         <div className="flex flex-col gap-[8px] relative ">
           <div className=" flex w-full gap-2 justify-between rounded-[16px] items-center">
             <img
-              onClick={() => router.back()}
+              onClick={() => router.push(`/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}`)}
               className="w-[24px] cursor-pointer"
               src="/images/employer/Icon_left.png"
               alt=""

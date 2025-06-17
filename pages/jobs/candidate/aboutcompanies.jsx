@@ -16,7 +16,7 @@ function Aboutcompanies() {
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const [miniLoading, setMiniloading] = useState(true);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);

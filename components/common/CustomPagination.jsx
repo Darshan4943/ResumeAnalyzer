@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import MiniLoader from './mini-loader';
 
-function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading, miniLoading,title,isBackground,defaultLimit }) {
+function CustomPagination({ setPage,page, setLimit, totalPages, limit, setMiniloading, miniLoading,title,isBackground,defaultLimit }) {
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(page);
 
     const nextPage = (e) => {
         e.stopPropagation();

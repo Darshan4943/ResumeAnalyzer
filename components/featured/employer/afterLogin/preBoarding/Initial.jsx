@@ -13,7 +13,7 @@ import { formatInterviewDate } from "../../../../../utils/middleware";
 import { AnimatePresence, motion } from "framer-motion";
 import MiniLoader from "../../../../common/miniLoader";
 const Initial = ({ setToggle, setHeadings, headings }) => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   const [checkedjob, setCheckedJob] = useState({});

@@ -17,7 +17,7 @@ function JobPosting() {
   const [openSort, setOpenSort] = useState(false);
   const [toggle, setToggle] = useState(0);
   const [filterData, setFilterData] = useState({ Status: "Approved" });
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [requisitions, setRequisitions] = useState([]);
   const [totalCount, setTotalCount] = useState(0);

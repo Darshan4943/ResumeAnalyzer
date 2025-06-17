@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 function RecentApplications({ status }) {
   const [id, setId] = useState("");
   const router = useRouter();
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [moreOption, setMoreOption] = useState(false);
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(5);

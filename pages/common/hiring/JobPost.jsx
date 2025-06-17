@@ -33,7 +33,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [openParameters, setOpenParamenters] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
+  const { id, currentPage, sortValue } = router.query;
   const taskRef = useRef(null);
   const dispatch = useDispatch();
   const [isSort, setIsSort] = useState(false);
@@ -49,7 +49,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [miniloading, setMiniloading] = useState(false);
   const [error, setError] = useState(null);
   const [totalPages, setTotalpages] = useState(0);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [filterType, setfilterType] = useState();
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
@@ -72,6 +72,21 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [sortSelect, setSortSelect] = useState("appliedDateAsc");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortedApplications, setSortedApplications] = useState([]);
+
+
+  useEffect(() => {
+    if (sortValue) {
+      setSortSelect(sortValue)
+    }
+    if (currentPage) {
+      setPage(currentPage)
+    }
+
+
+  }, [currentPage, sortValue]);
+
+  console.log(page, sortSelect);
+
 
   const [parameters, setParameters] = useState([
     {
@@ -384,7 +399,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //     setAiLoading(false);
   //   }
   // };
-  console.log(sortSelect);
+
   const aiMatch = async () => {
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
@@ -1528,7 +1543,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     <div
                                       onClick={() =>
                                         router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
+                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
                                         )
                                       }
                                       className="text-[14px] font-medium text-[#224D90] cursor-pointer"

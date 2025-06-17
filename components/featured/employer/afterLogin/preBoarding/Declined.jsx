@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 
 const Declined = ({ toggleContentt, setPreview }) => {
   const [openSort, setOpenSort] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [checkedApplicants, setCheckedApplicants] = useState({});

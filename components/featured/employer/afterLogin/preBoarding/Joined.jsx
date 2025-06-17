@@ -14,7 +14,7 @@ import CustomPagination from "../../../../common/CustomPagination";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 
 const Joined = ({ toggleContentt, setPreview }) => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [checkedApplicants, setCheckedApplicants] = useState({});

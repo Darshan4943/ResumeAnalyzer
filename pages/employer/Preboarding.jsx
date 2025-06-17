@@ -30,7 +30,7 @@ function Preboarding() {
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(10);
   const {recallData } = useSelector((state) => state.recall);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [preboardingData, setPreboardingData] = useState([]);
   const [headings, setHeadings] = useState([
     {

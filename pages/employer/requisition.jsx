@@ -30,7 +30,7 @@ function Requisition() {
     setToggle((prevToggle) => !prevToggle);
   };
 
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {

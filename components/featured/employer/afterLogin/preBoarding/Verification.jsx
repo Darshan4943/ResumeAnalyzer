@@ -22,7 +22,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const [documentation, setDocumentation] = useState(false);
   const [option, setOption] = useState(0);
   const [isRemind, setIsRemind] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [openSort, setOpenSort] = useState(false);
   const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
