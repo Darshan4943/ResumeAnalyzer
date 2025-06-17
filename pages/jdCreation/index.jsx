@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { MdDelete, MdEdit, MdVisibility } from "react-icons/md";
 import { toast } from "react-toastify";
+  import jsPDF from "jspdf";
 
 function Index() {
   const router = useRouter();
@@ -70,6 +71,31 @@ function Index() {
     };
   }, [selectedJD]);
 
+
+const handleDownload = (title) => {
+  const contentElement = document.getElementById("resumeContent");
+  if (!contentElement) return;
+
+  const plainText = contentElement.innerText;
+  const pdf = new jsPDF({
+    orientation: "p",
+    unit: "mm",
+    format: "a4",
+  });
+
+  const lines = pdf.splitTextToSize(plainText, 180);
+  pdf.setFont("Times", "Normal");
+  pdf.setFontSize(12);
+  pdf.text(lines, 10, 10);
+
+  // Clean the title to be a valid file name (optional)
+  console.log(title);
+  const safeTitle = title?.replace(/[<>:"/\\|?*]+/g, "") || "";
+
+  pdf.save(`${safeTitle}_jd.pdf`);
+};
+
+
   return (
     <div className="flex flex-col gap-5">
       <p className="text-[17px] font-medium">JD Creation</p>
@@ -86,6 +112,7 @@ function Index() {
             <div key={jd._id} className="flex gap-2 flex-col items-center">
               <div className="bg-white rounded-[12px] p-4 w-[192px] h-[256px] relative overflow-hidden group">
                 <div
+                 id="resumeContent"
                   className="text-[5px] font-[400]"
                   dangerouslySetInnerHTML={{
                     __html: jd.jd,
@@ -93,15 +120,15 @@ function Index() {
                 />
 
                 <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-opacity duration-200">
-                  <div className="flex flex-col bg-[#333333] rounded-[16px] p-[12px] gap-2">
+                  <div className="flex flex-col bg-[#333333] rounded-[16px] px-3 py-2 gap-2  items-center justify-center">
                     <div
                       onClick={() => handlePreview(jd)}
-                      className="flex flex-col gap-[2px] items-center"
+                      className="flex flex-col gap-[2px] items-center cursor-pointer"
                     >
-                      <button className="flex items-center justify-center p-2 ">
+                      <button className="flex items-center justify-center p-1 ">
                         <svg
-                          width="22"
-                          height="15"
+                          width="20"
+                          height="14"
                           viewBox="0 0 22 15"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -112,22 +139,22 @@ function Index() {
                           />
                         </svg>
                       </button>
-                      <p className="text-[12px] font-[600] text-white">
+                      <p className="text-[11px] font-[600] text-white">
                         Preview
                       </p>
                     </div>
                     <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
 
-                    <div className="flex flex-col gap-[2px] items-center">
-                      <button
-                        onClick={() =>
+                    <div onClick={() =>
                           router.push(`/jdCreation/createJd?id=${jd?._id}`)
-                        }
-                        className="flex items-center justify-center  p-2 "
+                        } className="flex flex-col gap-[2px] items-center cursor-pointer">
+                      <button
+                        
+                        className="flex items-center justify-center  p-1 "
                       >
                         <svg
-                          width="24"
-                          height="24"
+                          width="20"
+                          height="20"
                           viewBox="0 0 24 24"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -140,18 +167,33 @@ function Index() {
                           </g>
                         </svg>
                       </button>
-                      <p className="text-[12px] font-[600] text-white">Edit</p>
+                      <p className="text-[11px] font-[600] text-white">Edit</p>
+                    </div>
+                      <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
+                    <div
+
+                      className="flex items-center flex-col cursor-pointer"
+                      onClick={() => handleDownload(jd?.jobTitle)}
+                    >
+                      <img
+                        src="/images/icons/download.png"
+                        className="h-[20px] w-[20px]"
+                        alt=""
+                      />
+                      <span className="text-[11px] font-semibold text-white ">
+                        Download
+                      </span>
                     </div>
                     <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
 
                     <div
                       onClick={() => handleDelete(jd._id)}
-                      className="flex flex-col gap-[2px] items-center"
+                      className="flex flex-col gap-[2px] items-center cursor-pointer"
                     >
-                      <button className="flex items-center justify-center  p-2 ">
+                      <button className="flex items-center justify-center  p-1 ">
                         <MdDelete size={20} color="red" />
                       </button>
-                      <p className="text-[12px] font-[600] text-white">
+                      <p className="text-[11px] font-[600] text-white">
                         Delete
                       </p>
                     </div>
@@ -232,7 +274,7 @@ function Index() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] px-4 animate-fadeIn">
           <div
             ref={popupRef}
-            className="bg-white p-6 rounded-3xl w-full max-w-[450px] shadow-2xl relative"
+            className="bg-white p-6 rounded-3xl w-full max-w-[750px] h-[70vh] overflow-hidden shadow-2xl relative"
           >
             <button
               onClick={() => setSelectedJD(null)}
