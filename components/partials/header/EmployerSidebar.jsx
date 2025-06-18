@@ -65,6 +65,12 @@ function EmployerSidebar() {
       route: "/myCollection?folders=true",
     },
     {
+      img: "/images/employer/sidebar/findCandidate.png",
+      img1: "/images/employer/sidebar/findCandidate1.png",
+      title: "Find Candidates",
+      route: "/findCandidates",
+    },
+    {
       img: "/images/employer/sidebar/mailTemplate.png",
       img1: "/images/employer/sidebar/mailTemplate2.png",
       title: "Mail Templates",
@@ -188,8 +194,8 @@ function EmployerSidebar() {
             <div
               key={index}
               className="relative group"
-              // onMouseEnter={() => setBlurContent(true)}
-              // onMouseLeave={() => setBlurContent(false)}
+            // onMouseEnter={() => setBlurContent(true)}
+            // onMouseLeave={() => setBlurContent(false)}
             >
               <div className="p-2 cursor-pointer">
                 <div

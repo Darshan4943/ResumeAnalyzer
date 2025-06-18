@@ -59,7 +59,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
   const handleCheckboxChange = (resumeId) => {
     setIsResumes(resumeId);
     axios
-      .put("https://jamblix.com/api/resume/updateIsDefaultResume/" + resumeId)
+      .put("http://localhost:2000/api/resume/updateIsDefaultResume/" + resumeId)
       .then((res) => {
         getData();
         // toast.success("Resume Deleted successfully");

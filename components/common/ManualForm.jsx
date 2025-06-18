@@ -9,6 +9,7 @@ function ManualForm({
   JobMatchforSkilotechCollection,
   data,
   setData,
+  
 }) {
   const [loactionText, setLoactionText] = useState("");
   const [skills, setSkills] = useState(SkillList);
@@ -113,22 +114,21 @@ function ManualForm({
           </div>
           <ReactSelect
             isMulti
-            onInputChange={(data) => {}}
+            onInputChange={(data) => { }}
             options={skills
               .filter((item) => item.trim() !== "")
               .map((item) => ({
                 value: item,
                 label: camelCase(item),
               }))}
-            className={`w-full withoutBorder ${
-              formError.mustSkills ? "border-red" : "border-[#DEDEDE]"
-            }`}
+            className={`w-full withoutBorder ${formError.mustSkills ? "border-red" : "border-[#DEDEDE]"
+              }`}
             value={
               data.mustSkills
                 ? data.mustSkills.map((skill) => ({
-                    value: skill,
-                    label: camelCase(skill),
-                  }))
+                  value: skill,
+                  label: camelCase(skill),
+                }))
                 : []
             }
             onChange={(selectedOptions) => {
@@ -219,19 +219,45 @@ function ManualForm({
             }}
           />
         </div>
-        <div className="flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-6 scr1024:col-span-6 col-span-12">
-          <div className="text-[14px] font-[500]">
-            Year of Experience 
+        <div className="flex flex-col gap-[8px] scr1300:col-span-6 scr1024:col-span-6 col-span-12">
+          <label className="text-[#333333] text-[14px] font-medium">
+            Experience (Years)
+          </label>
+          <div className="flex  gap-2 items-center">
+            <input
+              type="number"
+              min="0"
+              value={data.totalExpMin}
+              onChange={(e) => {
+                const newMin = e.target.value;
+                setData((prev) => ({
+                  ...prev,
+                  totalExpMin: newMin,
+                  experience: `${newMin}-${prev.totalExpMax || ""
+                    } years`,
+                }));
+              }}
+              placeholder="Min"
+              className="w-full border border-[#DEDEDE] rounded-lg p-2 h-[38px] text-[14px]"
+            />
+
+            <input
+              type="number"
+              min={data.totalExpMin || 0}
+              value={data.totalExpMax}
+              onChange={(e) => {
+                const newMax = e.target.value;
+                setData((prev) => ({
+                  ...prev,
+                  totalExpMax: newMax,
+                  experience: `${prev.totalExpMin || ""
+                    }-${newMax} years`,
+                }));
+              }}
+              placeholder="Max"
+              className="w-full border border-[#DEDEDE] rounded-lg p-2 h-[38px] text-[14px]"
+            />
           </div>
-          <input
-            type="text"
-            value={data.totalExperience}
-            placeholder="Enter a year of experience"
-            onChange={(e) =>
-              setData({ ...data, totalExperience: e.target.value })
-            }
-            className="border rounded-[8px] p-2 border-[#DEDEDE] placeholder:text-[12px] font-normal h-[41.6px] "
-          />
         </div>
 
         <div className="flex flex-col gap-[8px] scr1300:col-span-6 scr1024:col-span-6 col-span-12 ">
@@ -248,9 +274,8 @@ function ManualForm({
             )}
             placeholder="Select countries"
             styles={customStylesss}
-            className={`border rounded-[8px] h-[41.6px]  withoutBorder ${
-              formError.country ? "border-red" : "border-[#DEDEDE]"
-            }`}
+            className={`border rounded-[8px] h-[41.6px]  withoutBorder ${formError.country ? "border-red" : "border-[#DEDEDE]"
+              }`}
             classNamePrefix="select"
             onMenuClose={() => {
               setTimeout(() => {
