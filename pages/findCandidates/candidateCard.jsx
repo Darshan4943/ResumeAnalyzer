@@ -1,7 +1,8 @@
 import React from "react";
 import { MdLocationOn, MdWork, MdSchool } from "react-icons/md";
+import { PDFSvg, PDFSvg1 } from "../../utils/svg";
 
-const CandidateCard = ({ candidate,save }) => {
+const CandidateCard = ({ candidate, save,   setSelectedCandidates,selectedCandidates,allSave }) => {
     const {
         basics,
         workExperiance,
@@ -9,8 +10,44 @@ const CandidateCard = ({ candidate,save }) => {
         resumeUrl,
         jobPrefrences,
         skills,
-        
+     
+
     } = candidate;
+
+    const downloadResume = async (resumeUrl, firstName, lastName) => {
+        try {
+            if (!resumeUrl) {
+                return alert("No resume available for download.");
+            }
+
+
+            const response = await fetch(resumeUrl);
+            if (!response.ok) {
+                throw new Error(`Error fetching resume: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+
+            const filename = `${firstName || "Candidate"}_${lastName || "Resume"}.pdf`;
+
+            const link = document.createElement("a");
+            const fileUrl = URL.createObjectURL(blob);
+            link.href = fileUrl;
+            link.download = filename;
+
+
+            document.body.appendChild(link);
+            link.click();
+
+
+            document.body.removeChild(link);
+            URL.revokeObjectURL(fileUrl);
+        } catch (error) {
+            console.error(error);
+            alert("Error downloading resume. Please try again.");
+        }
+    };
+
 
     const getTotalExperience = (candidate) => {
         const jobs = candidate?.workExperiance || [];
@@ -45,16 +82,38 @@ const CandidateCard = ({ candidate,save }) => {
     };
 
     const currentJob = workExperiance?.find((exp) => exp.isCurrent);
-  
+
     const topEdu = education?.[0];
     const keySkills = skills?.map((s) => s.label).join(" | ");
     const locations = jobPrefrences?.preferedLocation?.map((l) => l.location).join(", ");
 
+    const handleCheckboxChange = (candidate) => {
+        setSelectedCandidates((prev) => {
+            const isSelected = prev.some((c) => c._id === candidate._id);
+            if (isSelected) {
+                // Remove candidate
+                return prev.filter((c) => c._id !== candidate._id);
+            } else {
+                // Add candidate
+                return [...prev, candidate];
+            }
+        });
+    };
+
+
     return (
-        <div className="border border-[#DEDEDE] rounded-lg p-4 mb-4 shadow-sm bg-white flex justify-between">
+        <div className="border border-[#DEDEDE] rounded-lg p-4  shadow-sm bg-white flex justify-between">
 
             <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2 text-lg font-medium">{basics?.firstName} {basics?.lastName}</div>
+                <div className="flex items-center gap-2 text-lg font-medium">
+                    <input
+                        type="checkbox"
+                        checked={selectedCandidates?.some((c) => c._id === candidate._id)}
+                        onChange={() => handleCheckboxChange(candidate)}
+                        className="rounded border h-[16px] w-[16px] cursor-pointer"
+                    />
+                    {basics?.firstName} {basics?.lastName}
+                </div>
                 <div className="text-[12px] text-gray-600 flex items-center gap-2 mt-1">
                     <svg width="16" height="14" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.97176 17.4999C1.46663 17.4999 1.03906 17.3249 0.689063 16.9749C0.339063 16.6249 0.164062 16.1973 0.164062 15.6922V5.30765C0.164062 4.80252 0.339063 4.37495 0.689063 4.02495C1.03906 3.67495 1.46663 3.49995 1.97176 3.49995H6.16406V1.80768C6.16406 1.30256 6.33906 0.875 6.68906 0.525C7.03906 0.175 7.46663 0 7.97176 0H11.3563C11.8614 0 12.289 0.175 12.639 0.525C12.989 0.875 13.164 1.30256 13.164 1.80768V3.49995H17.3563C17.8614 3.49995 18.289 3.67495 18.639 4.02495C18.989 4.37495 19.164 4.80252 19.164 5.30765V15.6922C19.164 16.1973 18.989 16.6249 18.639 16.9749C18.289 17.3249 17.8614 17.4999 17.3563 17.4999H1.97176ZM7.66404 3.49995H11.664V1.80768C11.664 1.73074 11.632 1.66023 11.5679 1.59613C11.5038 1.53201 11.4332 1.49995 11.3563 1.49995H7.97176C7.89483 1.49995 7.8243 1.53201 7.76019 1.59613C7.69609 1.66023 7.66404 1.73074 7.66404 1.80768V3.49995ZM17.664 11.7499H12.164V13.4999H7.16406V11.7499H1.66404V15.6922C1.66404 15.7691 1.69609 15.8397 1.76019 15.9038C1.8243 15.9679 1.89483 15.9999 1.97176 15.9999H17.3563C17.4332 15.9999 17.5038 15.9679 17.5679 15.9038C17.632 15.8397 17.664 15.7691 17.664 15.6922V11.7499ZM8.66404 11.9999H10.664V9.99993H8.66404V11.9999ZM1.66404 10.25H7.16406V8.49995H12.164V10.25H17.664V5.30765C17.664 5.23072 17.632 5.16019 17.5679 5.09608C17.5038 5.03198 17.4332 4.99993 17.3563 4.99993H1.97176C1.89483 4.99993 1.8243 5.03198 1.76019 5.09608C1.69609 5.16019 1.66404 5.23072 1.66404 5.30765V10.25Z" fill="#333333" />
@@ -66,8 +125,8 @@ const CandidateCard = ({ candidate,save }) => {
                         <span className="flex items-center gap-1">
 
                             <svg
-                                width="14"
-                                height="18"
+                                width="12"
+                                height="16"
                                 viewBox="0 0 16 20"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -83,51 +142,69 @@ const CandidateCard = ({ candidate,save }) => {
 
                 </div>
 
-                {currentJob &&
-                    <div className="mt-2 text-[12px] flex">
-                        <div className="w-[100px] font-medium">Current</div>
-                        <div className="flex-1">
-                            {currentJob?.jobTitle} {currentJob?.companyName && "at"} {currentJob?.companyName}
-                        </div>
+                {/* {currentJob && */}
+                <div className="mt-2 text-[12px] flex">
+                    <div className="w-[100px] font-medium">Current</div>
+                    <div className="flex-1">
+                        {
+                            currentJob?.jobTitle || currentJob?.companyName
+                                ? (
+                                    <>
+                                        {currentJob?.jobTitle && currentJob.jobTitle !== "N/A" ? currentJob.jobTitle : ""}
+                                        {currentJob?.companyName && currentJob.companyName !== "N/A" ? ` at ${currentJob.companyName}` : ""}
+                                    </>
+                                )
+                                : "N/A"
+                        }
+
                     </div>
+                </div>
 
-                }
-                {topEdu && (
-                    <div className="mt-1 text-[12px] flex">
-                        <div className="w-[100px] font-medium">Education</div>
-                        <div className="flex-1">
-                            {topEdu?.education} {topEdu?.institute && "at"} {topEdu?.institute}
-                        </div>
+                {/* } */}
+                <div className="mt-1 text-[12px] flex">
+                    <div className="w-[100px] font-medium">Education</div>
+                    <div className="flex-1">
+                        {topEdu?.education || topEdu?.institute
+                            ? (
+                                <>
+                                    {topEdu?.education && topEdu.education !== "N/A" ? topEdu.education : ""}
+                                    {topEdu?.institute && topEdu.institute !== "N/A" ? ` at ${topEdu.institute}` : ""}
+                                </>
+                            )
+                            : "N/A"}
                     </div>
-                )}
+                </div>
 
 
-                {locations && (
-                    <div className="mt-1 text-[12px] flex">
-                        <div className="w-[100px] font-medium">Pref. locations</div>
-                        <div className="flex-1">
-                            {locations || "Any"}
-                        </div>
+
+                <div className="mt-1 text-[12px] flex">
+                    <div className="w-[100px] font-medium">Pref. locations</div>
+                    <div className="flex-1">
+                        {locations && locations.trim() !== "" ? locations : "Any"}
                     </div>
-                )}
+                </div>
 
 
-                {skills?.length > 0 && (
-                    <div className="mt-1 text-[12px] flex">
-                        <div className="w-[100px] font-medium">Key skills</div>
-                        <div className="flex-1 flex flex-wrap">
-                            {skills.map((s, i) => (
+
+                <div className="mt-1 text-[12px] flex">
+                    <div className="w-[100px] font-medium">Key skills</div>
+                    <div className="flex-1 flex flex-wrap">
+                        {skills?.length > 0 ? (
+                            skills.map((s, i) => (
                                 <span key={i} className="mr-1">
                                     {s.label}
                                     {i !== skills.length - 1 && " | "}
                                 </span>
-                            ))}
-                        </div>
+                            ))
+                        ) : (
+                            "N/A"
+                        )}
                     </div>
-                )}
+                </div>
 
 
-                <div className="mt-3 flex items-center gap-3 text-[12px]">
+
+                {/* <div className="mt-3 flex items-center gap-3 text-[12px]">
                     {resumeUrl && (
                         <a
                             href={resumeUrl}
@@ -139,29 +216,79 @@ const CandidateCard = ({ candidate,save }) => {
                         </a>
                     )}
 
-                </div>
+                </div> */}
             </div>
 
+            <div className="flex justify-between gap-4">
+                <div className="text-center flex flex-col gap-4 items-center justify-between w-[200px]">
+                    {candidate?.profilePicture?.img ?
+                        <img
+                            src={candidate?.profilePicture?.img}
+                            alt="Profile"
+                            className="w-14 h-14 rounded-full border"
+                        />
+                        :
+                        <svg width="56" height="56" viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M56 112C86.9279 112 112 86.9279 112 56C112 25.0721 86.9279 0 56 0C25.0721 0 0 25.0721 0 56C0 86.9279 25.0721 112 56 112Z" fill="#EFFAFF" />
+                            <path d="M72.848 57.683C82.1817 49.1898 82.1817 35.4196 72.848 26.9264C63.5142 18.4332 48.3812 18.4332 39.0475 26.9264C29.7137 35.4196 29.7137 49.1898 39.0475 57.683C48.3812 66.1762 63.5142 66.1762 72.848 57.683Z" fill="#D4E5EF" />
+                            <path d="M55.9997 112C73.0335 112 88.2887 104.393 98.5596 92.3928C93.1092 75.6573 76.1189 66.7705 55.9997 66.7705C35.8804 66.7705 18.89 75.6573 13.4397 92.3928C23.7105 104.393 38.9659 112 55.9997 112Z" fill="#D4E5EF" />
+                        </svg>
 
-            <div className="text-center flex flex-col items-end justify-between min-w-[100px]">
-                {candidate?.profilePicture?.img ?
-                    <img
-                        src={candidate?.profilePicture?.img}
-                        alt="Profile"
-                        className="w-14 h-14 rounded-full border"
-                    />
-                    :
-                    <svg width="56" height="56" viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M56 112C86.9279 112 112 86.9279 112 56C112 25.0721 86.9279 0 56 0C25.0721 0 0 25.0721 0 56C0 86.9279 25.0721 112 56 112Z" fill="#EFFAFF" />
-                        <path d="M72.848 57.683C82.1817 49.1898 82.1817 35.4196 72.848 26.9264C63.5142 18.4332 48.3812 18.4332 39.0475 26.9264C29.7137 35.4196 29.7137 49.1898 39.0475 57.683C48.3812 66.1762 63.5142 66.1762 72.848 57.683Z" fill="#D4E5EF" />
-                        <path d="M55.9997 112C73.0335 112 88.2887 104.393 98.5596 92.3928C93.1092 75.6573 76.1189 66.7705 55.9997 66.7705C35.8804 66.7705 18.89 75.6573 13.4397 92.3928C23.7105 104.393 38.9659 112 55.9997 112Z" fill="#D4E5EF" />
-                    </svg>
 
+                    }
+                    <div className="flex-1 text-[12px] font-medium text-center">
+                        {currentJob ?
+                            <>
+                                {currentJob?.jobTitle} {currentJob?.companyName && "at"} {currentJob?.companyName}</>
+                            :
+                            <>
+                                {topEdu?.education} {topEdu?.institute && "at"} {topEdu?.institute}
 
-                }
-                <button onClick={()=>save(candidate)} className="mt-2 text-[12px]  rounded-[30px] px-6 h-[36px] bg_Button">
-                    Save
-                </button>
+                            </>
+                        }
+                    </div>
+                    {resumeUrl &&
+                        <div onClick={() => downloadResume(resumeUrl, basics?.firstName, basics?.lastName)} className="flex gap-2 text-[13px] font-medium items-center cursor-pointer">
+                            <div className="flex h-[30px] w-[30px]">
+
+                                <PDFSvg1 />
+                            </div>
+
+                            {basics?.firstName}_{basics?.lastName}.pdf
+                        </div>
+                    }
+                </div>
+                <div className=" h-full w-[1px] bg-[#DEDEDE]"></div>
+                <div className="flex flex-col gap-4">
+                    <button
+                        disabled={!resumeUrl}
+                        onClick={() => save(candidate)}
+                        className={`p-2 rounded-full ${resumeUrl && "hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer"}`}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="24px"
+                            viewBox="0 -960 960 960"
+                            width="24px"
+                            className={`fill-[#8993a4] ${resumeUrl && "hover:fill-black"}`}
+                        >
+                            <path d="M440-240h80v-120h120v-80H520v-120h-80v120H320v80h120v120ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
+                        </svg>
+                    </button>
+
+                    <div className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="24px"
+                            viewBox="0 -960 960 960"
+                            width="24px"
+                            className="fill-[#8993a4] hover:fill-black"
+                        >
+                            <path d="m640-280-57-56 184-184-184-184 57-56 240 240-240 240ZM80-200v-160q0-83 58.5-141.5T280-560h247L383-704l57-56 240 240-240 240-57-56 144-144H280q-50 0-85 35t-35 85v160H80Z" />
+                        </svg>
+                    </div>
+                </div>
+
             </div>
         </div>
     );

@@ -49,7 +49,7 @@ function CustomPagination({ setPage,page, setLimit, totalPages, limit, setMinilo
                         value={limit}
                         onClick={(e) => e.stopPropagation()}
                         onChange={(e) => handleChange(e)}
-                        className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
+                        className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600 outline-none"
                     >
                         <option value={defaultLimit ? defaultLimit : "10"}>{defaultLimit ? defaultLimit : "10"}</option>
                         {/* <option value="10">10</option> */}

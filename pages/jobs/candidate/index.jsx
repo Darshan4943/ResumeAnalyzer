@@ -217,7 +217,7 @@ function Index() {
       )
   );
 
-  console.log(country,location);
+  
   const getAllData = async () => {
     try {
       const res = await axios.post(

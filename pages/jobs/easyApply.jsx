@@ -449,7 +449,7 @@ function EasyApply() {
         );
 
         axios
-            .post(`https://jamblix.com/api/job/easyApply/${id}`, formDataToSend, {
+            .post(`http://localhost:2000/api/job/easyApply/${id}`, formDataToSend, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

@@ -23,7 +23,7 @@ function Filter({
     : filteredChildren.slice(0, 3);
   return (
     <div className="flex flex-col col-span-3 rounded-[8px] gap-3">
-      <div className="flex justify-between items-start text-[16px] font-[600]">
+      <div className="flex justify-between items-start text-[14px] font-[600]">
         {title}
         <svg
           onClick={() => toggleVisibility(id)}
@@ -72,7 +72,7 @@ function Filter({
                 placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className=" w-full text-[14px]"
+                className=" w-full text-[12px]"
               />
             </div>
           )}
@@ -81,10 +81,10 @@ function Filter({
             {childrenToDisplay.map((itemValue, index) => {
               const isObject = typeof itemValue === "object";
               return (
-                <div key={index} className="flex items-center gap-2">
+                <div key={index} className="flex items-start gap-2">
                   <input
                     type="checkbox"
-                    className="rounded-md border h-[16px] w-[16px] border-blue bg-white object-cover cursor-pointer"
+                    className="rounded-md border mt-[2px]  h-[14px] w-[14px] min-w-[14px] border-blue bg-white object-cover cursor-pointer"
                     onChange={(e) =>
                       onChange(
                         e,
@@ -96,7 +96,7 @@ function Filter({
                       isObject ? itemValue?.value : itemValue
                     )}
                   />
-                  <p className="font-montserrat font-normal text-[14px] text-black">
+                  <p className="font-montserrat font-normal text-[12px] text-black">
                     {isObject ? itemValue?.label : itemValue}
                   </p>
                 </div>
@@ -107,7 +107,7 @@ function Filter({
           {filteredChildren.length > 3 && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-[14px] font-[600] text-blue pl-6 -mt-1"
+              className="text-[12px] font-[600] text-blue pl-6 -mt-1"
             >
               {isExpanded ? "Show Less" : "View More"}
             </button>
