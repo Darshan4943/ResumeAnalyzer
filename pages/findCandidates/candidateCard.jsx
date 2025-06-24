@@ -1,8 +1,9 @@
 import React from "react";
 import { MdLocationOn, MdWork, MdSchool } from "react-icons/md";
 import { PDFSvg, PDFSvg1 } from "../../utils/svg";
+import { useRouter } from "next/router";
 
-const CandidateCard = ({ candidate, save,   setSelectedCandidates,selectedCandidates,allSave }) => {
+const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandidates, allSave }) => {
     const {
         basics,
         workExperiance,
@@ -10,9 +11,12 @@ const CandidateCard = ({ candidate, save,   setSelectedCandidates,selectedCandid
         resumeUrl,
         jobPrefrences,
         skills,
-     
+        userId
+
 
     } = candidate;
+
+    const router= useRouter()
 
     const downloadResume = async (resumeUrl, firstName, lastName) => {
         try {
@@ -106,13 +110,19 @@ const CandidateCard = ({ candidate, save,   setSelectedCandidates,selectedCandid
 
             <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2 text-lg font-medium">
-                    <input
+                    {/* <input
                         type="checkbox"
                         checked={selectedCandidates?.some((c) => c._id === candidate._id)}
                         onChange={() => handleCheckboxChange(candidate)}
                         className="rounded border h-[16px] w-[16px] cursor-pointer"
-                    />
-                    {basics?.firstName} {basics?.lastName}
+                    /> */}
+                    <div 
+                    // onClick={()=>router.push(`/findCandidates/showProfile?id=${userId}`)}
+                    //  className=" cursor-pointer"
+                     >
+                        {basics?.firstName} {basics?.lastName}
+                    </div>
+
                 </div>
                 <div className="text-[12px] text-gray-600 flex items-center gap-2 mt-1">
                     <svg width="16" height="14" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -276,7 +286,7 @@ const CandidateCard = ({ candidate, save,   setSelectedCandidates,selectedCandid
                         </svg>
                     </button>
 
-                    <div className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
+                    {/* <div className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             height="24px"
@@ -286,7 +296,7 @@ const CandidateCard = ({ candidate, save,   setSelectedCandidates,selectedCandid
                         >
                             <path d="m640-280-57-56 184-184-184-184 57-56 240 240-240 240ZM80-200v-160q0-83 58.5-141.5T280-560h247L383-704l57-56 240 240-240 240-57-56 144-144H280q-50 0-85 35t-35 85v160H80Z" />
                         </svg>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

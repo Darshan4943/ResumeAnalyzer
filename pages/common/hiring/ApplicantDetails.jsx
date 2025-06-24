@@ -64,6 +64,7 @@ function ApplicantDetails({ setTogglee }) {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     if (id && applicantId) {
