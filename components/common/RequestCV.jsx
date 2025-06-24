@@ -292,7 +292,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
       setTimeout(() => {
         setMatchLoader(false);
         setMiniloading(false);
-      }, 500);
+      }, 200);
 
     }
   };
@@ -653,16 +653,16 @@ function RequestCV({ isCandidate, skilotechCollection }) {
       img: "/images/filter/education.png",
       child: jobtypeData?.educationLevels || [],
     },
-    {
-      title: "Education Stream",
-      img: "/images/filter/stream.png",
-      child: jobtypeData?.educationStreams || [],
-    },
-    {
-      title: "Preferred Department",
-      img: "/images/filter/department.png",
-      child: jobtypeData?.preferredDepartments || [],
-    },
+    // {
+    //   title: "Education Stream",
+    //   img: "/images/filter/stream.png",
+    //   child: jobtypeData?.educationStreams || [],
+    // },
+    // {
+    //   title: "Preferred Department",
+    //   img: "/images/filter/department.png",
+    //   child: jobtypeData?.preferredDepartments || [],
+    // },
     {
       title: "Preferred Job Role",
       img: "/images/filter/jobrole.png",
@@ -698,7 +698,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
 
 
   return (
-    <>
+    <div className="min-h-[100vh]">
       {selectFolder &&
 
         <>
@@ -775,7 +775,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px] ">
               <div className="w-[165px] h-[124px] flex items-center justify-center">
                 <motion.img
                   src="/images/resumeBuilder/bot.png"
@@ -800,7 +800,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
       {showResume ? (
         <>
           <div className="flex gap-4 items-center">
-            <svg className=" cursor-pointer" onClick={() => router.back()} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className=" cursor-pointer" onClick={() => router.push("/findCandidates")} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
               <g mask="url(#mask0_6706_93858)">
                 <path d="M7.371 12.7481L12.5402 17.9174C12.6889 18.066 12.7623 18.24 12.7605 18.4394C12.7585 18.6387 12.68 18.8159 12.525 18.9711C12.3698 19.1159 12.1942 19.1909 11.998 19.1961C11.8018 19.2013 11.6262 19.1263 11.471 18.9711L5.13075 12.6309C5.03708 12.5372 4.97108 12.4384 4.93275 12.3346C4.89425 12.2308 4.875 12.1186 4.875 11.9981C4.875 11.8776 4.89425 11.7654 4.93275 11.6616C4.97108 11.5578 5.03708 11.459 5.13075 11.3654L11.471 5.0251C11.6095 4.8866 11.781 4.81577 11.9855 4.8126C12.19 4.80943 12.3698 4.88027 12.525 5.0251C12.68 5.18027 12.7575 5.35844 12.7575 5.5596C12.7575 5.76094 12.68 5.93918 12.525 6.09435L7.371 11.2481H18.748C18.9608 11.2481 19.139 11.3199 19.2825 11.4636C19.4262 11.6071 19.498 11.7853 19.498 11.9981C19.498 12.2109 19.4262 12.3891 19.2825 12.5326C19.139 12.6763 18.9608 12.7481 18.748 12.7481H7.371Z" fill="#1C1B1F" />
@@ -958,6 +958,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
               totalPages={totalPages}
               page={page}
               setPage={setPage}
+              data={data}
               setMiniloading={setMiniloading}
               miniLoading={miniLoading}
               setCurrentPage={setPage}
@@ -1010,7 +1011,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
 
         </div>
       }
-    </>
+    </div>
   );
 }
 

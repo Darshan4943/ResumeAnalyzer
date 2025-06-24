@@ -27,7 +27,7 @@ function Layout({ children }) {
   const [selectedPage, setSelectedPage] = useState("");
   const pageOpened = useSelector((state) => state?.website?.pageOpened);
   const shareJob = useSelector((state) => state?.shareJob?.shareJob);
- 
+
   const [isSubscribe, setIsSubscrib] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);
@@ -90,7 +90,7 @@ function Layout({ children }) {
       <div className="flex bg-[#f3f3f3] relative z-10 min-h-[100vh]">
 
         {(!pageOpened && !shareJob) &&
-<div className="ml:max-h-[100vh] min-h-[100vh] ml:block hidden top-0 min-w-[120px] bg-white sticky z-30"
+          <div className="ml:max-h-[100vh] min-h-[100vh] ml:block hidden top-0 min-w-[120px] bg-white sticky z-[5000] "
             style={{ scrollbarWidth: "none" }}>
             <EmployerSidebar />
           </div>
@@ -114,7 +114,7 @@ function Layout({ children }) {
   );
   return (
     <>
-      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "bpo") ? <Temp2 /> :  userDataGlobal?.role === "admin" ? <Temp3/> : <Temp />}
+      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "bpo") ? <Temp2 /> : userDataGlobal?.role === "admin" ? <Temp3 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

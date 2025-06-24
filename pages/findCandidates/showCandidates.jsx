@@ -13,6 +13,7 @@ function ShowCandidates({ candidates, save, setMiniloading,
   setPage,
   allSave,
   totalCount,
+  data
 }) {
 
 
@@ -52,7 +53,7 @@ function ShowCandidates({ candidates, save, setMiniloading,
       </div>
       <div className='flex flex-col gap-4'>
         {candidates.map((candidate) => (
-          <CandidateCard key={candidate._id} candidate={candidate} save={save}
+          <CandidateCard key={candidate._id} candidate={candidate} save={save} data={data}
             setSelectedCandidates={setSelectedCandidates}
             selectedCandidates={selectedCandidates} allSave={allSave} />
         ))}

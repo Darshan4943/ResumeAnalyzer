@@ -3,7 +3,7 @@ import { MdLocationOn, MdWork, MdSchool } from "react-icons/md";
 import { PDFSvg, PDFSvg1 } from "../../utils/svg";
 import { useRouter } from "next/router";
 
-const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandidates, allSave }) => {
+const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandidates, allSave, data }) => {
     const {
         basics,
         workExperiance,
@@ -16,7 +16,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
 
     } = candidate;
 
-    const router= useRouter()
+    const router = useRouter()
 
     const downloadResume = async (resumeUrl, firstName, lastName) => {
         try {
@@ -103,6 +103,25 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
             }
         });
     };
+    // Place this helper somewhere above your component:
+    function highlightSkills(text, mustSkills) {
+        if (!text || mustSkills.length === 0) return text;
+        const regex = new RegExp(`(${mustSkills.join('|')})`, 'gi');
+
+        return text.split(regex).map((part, index) => {
+            const isMatch = mustSkills.some(
+                (skill) => skill.toLowerCase() === part.toLowerCase()
+            );
+
+            return isMatch ? (
+                <span key={index} className="bg-[#faf29a]">
+                    {part}
+                </span>
+            ) : (
+                part
+            );
+        });
+    }
 
 
     return (
@@ -116,10 +135,10 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                         onChange={() => handleCheckboxChange(candidate)}
                         className="rounded border h-[16px] w-[16px] cursor-pointer"
                     /> */}
-                    <div 
+                    <div
                     // onClick={()=>router.push(`/findCandidates/showProfile?id=${userId}`)}
                     //  className=" cursor-pointer"
-                     >
+                    >
                         {basics?.firstName} {basics?.lastName}
                     </div>
 
@@ -202,13 +221,14 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                         {skills?.length > 0 ? (
                             skills.map((s, i) => (
                                 <span key={i} className="mr-1">
-                                    {s.label}
+                                    {highlightSkills(s.label, data?.mustSkills)}
                                     {i !== skills.length - 1 && " | "}
                                 </span>
                             ))
                         ) : (
                             "N/A"
                         )}
+
                     </div>
                 </div>
 
