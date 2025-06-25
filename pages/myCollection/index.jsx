@@ -998,7 +998,7 @@ function Collection() {
                   </svg>
                   My Folders
                 </button>
-                {userDataGlobal?.role !== "bpo" &&
+                {/* {userDataGlobal?.role !== "bpo" &&
                   <button
                     onClick={() => {
                       router.push("/myCollection?skilotechCollection=true");
@@ -1023,7 +1023,7 @@ function Collection() {
                     </svg>
                     Find Candidates
                   </button>
-                }
+                } */}
                 <button
                   onClick={() => {
                     router.push("/myCollection?trash=true");
