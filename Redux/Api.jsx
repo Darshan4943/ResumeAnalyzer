@@ -347,6 +347,20 @@ export const Api = ({}) => {
         });
     }
   }, [userDataGlobal]);
+   useEffect(() => {
+    if (!userDataGlobal) return; 
+
+    const updateLastActive = async () => {
+      try {
+        const response = await axios.put(`https://jamblix.com/api/candidates/${userDataGlobal?._id}/lastActive`);
+        console.log('Updated lastActive successfully:', response.data.candidate);
+      } catch (error) {
+        console.error('Error updating lastActive:', error);
+      }
+    };
+
+    updateLastActive();
+  }, [userDataGlobal]);
 
   const getLocation = () => {
     if (navigator.geolocation) {

@@ -90,7 +90,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
         if (res.data.success) {
           toast.success("Summary added successfully");
           dispatch(fetchUserData());
-          handleImageClick(false);
+          handleImageClick(handleImageClick);
         }
       })
       .catch((err) => console.log(err));
