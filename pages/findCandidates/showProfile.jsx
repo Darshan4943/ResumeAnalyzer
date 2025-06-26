@@ -13,7 +13,7 @@ import ApplicantProfile from "../common/hiring/ApplicantProfile";
 import InlineSVG from "../../components/common/InlineSvg";
 import CandidateDetails from "./profileView";
 
-function ApplicantDetails({ id,setExpandedUser }) {
+function ApplicantDetails({ id, setExpandedUser }) {
     const [toggle, setToggle] = useState("Resume");
     const [activeOption, setActiveOption] = useState("Resume");
     const [jobDetails, setJobDetails] = useState(null);
@@ -49,7 +49,22 @@ function ApplicantDetails({ id,setExpandedUser }) {
             }
         }
     };
+    const updateViewCount = async () => {
+        try {
+            const response = await axios.put(`https://jamblix.com/api/candidates/${id}/updateViewCount`);
+            console.log('Updated view count successfully:', response.data.candidate);
+        } catch (error) {
+            console.error('Error updating view count:', error);
+        }
+    };
 
+    useEffect(() => {
+        if (id) {
+            updateViewCount();
+
+
+        }
+    }, []);
     useEffect(() => {
         if (id) {
             getCandidateByUserId();
@@ -144,7 +159,7 @@ function ApplicantDetails({ id,setExpandedUser }) {
         };
     };
 
-        const getTotalExperience = (candidate) => {
+    const getTotalExperience = (candidate) => {
         const jobs = candidate?.workExperiance || [];
 
         let totalMonths = 0;
@@ -216,12 +231,12 @@ function ApplicantDetails({ id,setExpandedUser }) {
                                             <p className="text-[16px]   text-start text-[#646464]   font-normal  ">
                                                 {currentJob?.jobTitle} at {currentJob?.companyName}
                                             </p>
-                                           
+
                                         </div>
                                     </div>
-                                   
 
-                                   
+
+
 
                                     <div className="min-h-[1px] bg-[#D6DDEB]"></div>
                                     <div className="flex flex-col gap-4 text-[14px] font-normal">
@@ -280,28 +295,28 @@ function ApplicantDetails({ id,setExpandedUser }) {
                                             </div>
                                         )}
 
-                                       
-                                            <div className="flex gap-2">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                >
-                                                    <g mask="url(#mask0_4754_62210)">
-                                                        <path
-                                                            d="M4.3077 20.5C3.80257 20.5 3.375 20.325 3.025 19.975C2.675 19.625 2.5 19.1975 2.5 18.6923V8.30777C2.5 7.80264 2.675 7.37507 3.025 7.02507C3.375 6.67507 3.80257 6.50007 4.3077 6.50007H8.5V4.8078C8.5 4.30268 8.675 3.87512 9.025 3.52512C9.375 3.17512 9.80257 3.00012 10.3077 3.00012H13.6923C14.1974 3.00012 14.625 3.17512 14.975 3.52512C15.325 3.87512 15.5 4.30268 15.5 4.8078V6.50007H19.6923C20.1974 6.50007 20.625 6.67507 20.975 7.02507C21.325 7.37507 21.5 7.80264 21.5 8.30777V18.6923C21.5 19.1975 21.325 19.625 20.975 19.975C20.625 20.325 20.1974 20.5 19.6923 20.5H4.3077ZM9.99998 6.50007H14V4.8078C14 4.73086 13.9679 4.66035 13.9038 4.59625C13.8397 4.53213 13.7692 4.50007 13.6923 4.50007H10.3077C10.2308 4.50007 10.1602 4.53213 10.0961 4.59625C10.032 4.66035 9.99998 4.73086 9.99998 4.8078V6.50007ZM20 14.75H14.5V16.5H9.5V14.75H3.99998V18.6923C3.99998 18.7693 4.03202 18.8398 4.09613 18.9039C4.16024 18.968 4.23077 19 4.3077 19H19.6923C19.7692 19 19.8397 18.968 19.9038 18.9039C19.9679 18.8398 20 18.7693 20 18.6923V14.75ZM11 15H13V13H11V15ZM3.99998 13.2501H9.5V11.5001H14.5V13.2501H20V8.30777C20 8.23084 19.9679 8.16031 19.9038 8.0962C19.8397 8.0321 19.7692 8.00005 19.6923 8.00005H4.3077C4.23077 8.00005 4.16024 8.0321 4.09613 8.0962C4.03202 8.16031 3.99998 8.23084 3.99998 8.30777V13.2501Z"
-                                                            fill="#333333"
-                                                        />
-                                                    </g>
-                                                </svg>
 
-                                                <p>
-                                                  { getTotalExperience(jobDetails)}
-                                                </p>
-                                            </div>
-                                      
+                                        <div className="flex gap-2">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                            >
+                                                <g mask="url(#mask0_4754_62210)">
+                                                    <path
+                                                        d="M4.3077 20.5C3.80257 20.5 3.375 20.325 3.025 19.975C2.675 19.625 2.5 19.1975 2.5 18.6923V8.30777C2.5 7.80264 2.675 7.37507 3.025 7.02507C3.375 6.67507 3.80257 6.50007 4.3077 6.50007H8.5V4.8078C8.5 4.30268 8.675 3.87512 9.025 3.52512C9.375 3.17512 9.80257 3.00012 10.3077 3.00012H13.6923C14.1974 3.00012 14.625 3.17512 14.975 3.52512C15.325 3.87512 15.5 4.30268 15.5 4.8078V6.50007H19.6923C20.1974 6.50007 20.625 6.67507 20.975 7.02507C21.325 7.37507 21.5 7.80264 21.5 8.30777V18.6923C21.5 19.1975 21.325 19.625 20.975 19.975C20.625 20.325 20.1974 20.5 19.6923 20.5H4.3077ZM9.99998 6.50007H14V4.8078C14 4.73086 13.9679 4.66035 13.9038 4.59625C13.8397 4.53213 13.7692 4.50007 13.6923 4.50007H10.3077C10.2308 4.50007 10.1602 4.53213 10.0961 4.59625C10.032 4.66035 9.99998 4.73086 9.99998 4.8078V6.50007ZM20 14.75H14.5V16.5H9.5V14.75H3.99998V18.6923C3.99998 18.7693 4.03202 18.8398 4.09613 18.9039C4.16024 18.968 4.23077 19 4.3077 19H19.6923C19.7692 19 19.8397 18.968 19.9038 18.9039C19.9679 18.8398 20 18.7693 20 18.6923V14.75ZM11 15H13V13H11V15ZM3.99998 13.2501H9.5V11.5001H14.5V13.2501H20V8.30777C20 8.23084 19.9679 8.16031 19.9038 8.0962C19.8397 8.0321 19.7692 8.00005 19.6923 8.00005H4.3077C4.23077 8.00005 4.16024 8.0321 4.09613 8.0962C4.03202 8.16031 3.99998 8.23084 3.99998 8.30777V13.2501Z"
+                                                        fill="#333333"
+                                                    />
+                                                </g>
+                                            </svg>
+
+                                            <p>
+                                                {getTotalExperience(jobDetails)}
+                                            </p>
+                                        </div>
+
                                         <div className="flex flex-col gap-4 text-[16px] font-normal  overflow-y-auto">
 
                                             <div className="flex flex-col gap-4">

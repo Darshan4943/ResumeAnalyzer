@@ -10,7 +10,7 @@ function ManualForm({
   JobMatchforSkilotechCollection,
   data,
   setData,
-  
+
 }) {
   const [loactionText, setLoactionText] = useState("");
   const [skills, setSkills] = useState(SkillList);
@@ -110,11 +110,11 @@ function ManualForm({
         </div> */}
         <div className="flex flex-col gap-[8px] scr1300:col-span-6 scr1024:col-span-6 col-span-12 ">
           <div className="text-sm font-medium">
-            Key Skills
+            Must have skills
             <span className="text-[red]">*</span>
           </div>
           <CreatableSelect
-          
+
             isMulti
             onInputChange={(data) => { }}
             options={skills
@@ -165,6 +165,119 @@ function ManualForm({
               control: (provided, state) => ({
                 ...provided,
                 border: formError.mustSkills
+                  ? "1px solid red"
+                  : "1px solid #DEDEDE",
+                borderRadius: "8px",
+                padding: "2px 8px",
+                flexWrap: "wrap",
+                boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+              }),
+              valueContainer: (base) => ({
+                ...base,
+                display: "flex",
+                flexWrap: "nowrap",
+                gap: "4px",
+                padding: "2px 4px",
+                overflowX: "auto",
+                scrollbarWidth: "none",
+                "-ms-overflow-style": "none",
+                "&::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }),
+              placeholder: (provided) => ({
+                ...provided,
+                color: "#767676",
+                fontSize: "12px",
+                fontWeight: "400",
+              }),
+              menu: (provided) => ({
+                ...provided,
+                zIndex: 10,
+                scrollbarWidth: "none",
+                "-ms-overflow-style": "none",
+                "&::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }),
+              multiValue: (provided) => ({
+                ...provided,
+                backgroundColor: "#EFFAFF",
+                borderRadius: "4px",
+                minWidth: "90px",
+              }),
+              multiValueLabel: (provided) => ({
+                ...provided,
+                color: "#06A9EF",
+                fontWeight: "500",
+              }),
+              multiValueRemove: (provided) => ({
+                ...provided,
+                color: "#9A4545",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }),
+            }}
+          />
+        </div>
+        <div className="flex flex-col gap-[8px] scr1300:col-span-6 scr1024:col-span-6 col-span-12 ">
+          <div className="text-sm font-medium">
+            Other Skills
+            
+          </div>
+          <CreatableSelect
+
+            isMulti
+            onInputChange={(data) => { }}
+            options={skills
+              .filter((item) => item.trim() !== "")
+              .map((item) => ({
+                value: item,
+                label: camelCase(item),
+              }))}
+            className={`w-full withoutBorder ${formError.otherSkills ? "border-red" : "border-[#DEDEDE]"
+              }`}
+            value={
+              data.otherSkills
+                ? data.otherSkills.map((skill) => ({
+                  value: skill,
+                  label: camelCase(skill),
+                }))
+                : []
+            }
+            onChange={(selectedOptions) => {
+              const newOtherSkills = selectedOptions
+                ? selectedOptions.map((option) => option.value)
+                : [];
+
+              if (newOtherSkills.length > data?.otherSkills?.length) {
+                setFormError((prevErrors) => ({
+                  ...prevErrors,
+                  otherSkills: "",
+                }));
+              }
+
+              setData({
+                ...data,
+                otherSkills: newOtherSkills,
+              });
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && event.target.value.trim()) {
+                const newSkill = event.target.value.trim();
+
+                if (!skills.includes(newSkill)) {
+                  setSkills((prevSkills) => [...prevSkills, newSkill]);
+                }
+
+                event.target.value = "";
+              }
+            }}
+            styles={{
+              control: (provided, state) => ({
+                ...provided,
+                border: formError.otherSkills
                   ? "1px solid red"
                   : "1px solid #DEDEDE",
                 borderRadius: "8px",

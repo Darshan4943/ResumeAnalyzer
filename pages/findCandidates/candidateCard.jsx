@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdLocationOn, MdWork, MdSchool } from "react-icons/md";
 import { PDFSvg, PDFSvg1 } from "../../utils/svg";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ApplicantDetails from "./showProfile";
+import { toast } from "react-toastify";
+import MiniLoader from "../../components/common/mini-loader";
 
 const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandidates, allSave, data, setExpandedUser,
     expandedUser }) => {
@@ -20,13 +22,15 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
         lastActive,
         lastModified,
         downloadCount,
+        viewCount
 
 
 
     } = candidate;
 
     const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+    const [shareCv, setShareCv] = useState()
+    const [loading, setLoading] = useState(false)
     const handleToggle = (userId) => {
         setExpandedUser((prev) => (prev === userId ? null : userId));
     };
@@ -149,12 +153,22 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
         });
     };
     // Place this helper somewhere above your component:
-    function highlightSkills(text, mustSkills) {
-        if (!text || mustSkills.length === 0) return text;
-        const regex = new RegExp(`(${mustSkills.join('|')})`, 'gi');
+    function highlightSkills(text, mustSkills = [], otherSkills = []) {
+        if (!text) return text;
+
+        // Combine both skill arrays
+        const allSkills = [...mustSkills, ...otherSkills].filter(Boolean);
+        if (allSkills.length === 0) return text;
+
+        // Escape regex metacharacters
+        const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Build regex pattern with word boundaries
+        const pattern = allSkills.map((skill) => `\\b${escapeRegex(skill)}\\b`).join('|');
+        const regex = new RegExp(`(${pattern})`, 'gi');
 
         return text.split(regex).map((part, index) => {
-            const isMatch = mustSkills.some(
+            const isMatch = allSkills.some(
                 (skill) => skill.toLowerCase() === part.toLowerCase()
             );
 
@@ -168,9 +182,174 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
         });
     }
 
+    const [recipient, setRecipient] = useState("");
+    const [message, setMessage] = useState("");
+    const [attachResume, setAttachResume] = useState(true);
+
+    // ✅ Derived states
+    const [fullName, setFullName] = useState("");
+    const [experience, setExperience] = useState("");
+    const [location, setLocation] = useState("");
+    const [subject, setSubject] = useState("");
+
+
+    useEffect(() => {
+        if (selectedCandidates) {
+            const fName = `${selectedCandidates.basics?.firstName || ""} ${selectedCandidates.basics?.lastName || ""
+                }`.trim();
+
+
+            const subj = `Resume of ${fName}`;
+
+            // ✅ Save to state
+            setFullName(fName);
+
+            setSubject(subj);
+        }
+    }, [selectedCandidates]);
+
+
+
+    const sendResume = async () => {
+        setLoading(true)
+        try {
+            const payload = {
+                to: recipient,
+                subject,
+                message,
+                attachResume,
+                resumeUrl: selectedCandidates?.resumeUrl,
+            };
+
+            const response = await axios.post(
+                "https://jamblix.com/api/candidate/sendResume",
+                payload
+            );
+
+            toast.success("Cv forwarded successfully");
+            setShareCv(false)
+            setLoading(false)
+            return response.data;
+        } catch (error) {
+            setLoading(false)
+            const errorMessage = error?.response?.data?.message || error.message;
+            console.error("Error sending resume:", errorMessage);
+            throw new Error(errorMessage);
+
+        }
+    };
+
+
+
 
     return (
         <>
+            {shareCv &&
+                <>
+                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+                        <div className="bg-white w-[60%]  rounded-lg p-6 space-y-4 h-fit mt-12 overflow-scroll ">
+                            {/* Header */}
+                            <div className="flex justify-between items-center ">
+                                <div className="flex items-center gap-2">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 -960 960 960"
+                                        fill="#000"
+                                    >
+                                        <g transform="translate(960,0) scale(-1,1)">
+                                            <path d="M760-200v-160q0-50-35-85t-85-35H273l144 144-57 56-240-240 240-240 57 56-144 144h367q83 0 141.5 58.5T840-360v160h-80Z" />
+                                        </g>
+                                    </svg>
+                                    <h2 className="text-xl font-semibold">Forward CV</h2>
+                                </div>
+                                <svg onClick={() => setShareCv(false)} className=" cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg>
+                            </div>
+
+
+                            {/* <div>
+                                <p className="text-[14px] "> <span className="text-[14px] font-medium">From: </span>{selectedCandidates?.basics.email}</p>
+                                <p></p>
+                            </div> */}
+
+
+                            <div>
+                                <label className="text-[14px] font-[500]">To <span className="text-red">*</span></label>
+                                <input
+                                    className="mt-1 w-full border border-[#DEDEDE] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter recipient's email id"
+                                    value={recipient}
+                                    onChange={(e) => setRecipient(e.target.value)}
+                                />
+                            </div>
+
+
+                            <div>
+                                <label className="text-[14px] font-[500]">Subject <span className="text-red">*</span></label>
+                                <input
+                                    className="mt-1 w-full border border-[#DEDEDE] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={subject}
+                                    onChange={(e) => setSubject(e.target.value)}
+                                />
+                            </div>
+
+
+                            <div>
+                                <label className="text-[14px] font-[500]">Message <span className="text-red">*</span></label>
+                                <textarea
+                                    className="mt-1 w-full border border-[#DEDEDE] rounded px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Write your message here"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                ></textarea>
+                            </div>
+
+                            <div className=" flex justify-end gap-4 items-center">
+
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        id="attach-resume"
+                                        type="checkbox"
+                                        className=" cursor-pointer w-[16px] h-[16px]"
+                                        checked={attachResume}
+                                        onChange={(e) => setAttachResume(e.target.checked)}
+                                    />
+                                    <label htmlFor="attach-resume" className="text-sm">
+                                        Send Resume as an attachment
+                                    </label>
+                                </div>
+
+
+                                <div className="flex justify-end">
+                                    {loading? 
+                                    <div className="h-[40px] w-[124.24px] bg-blue rounded-[30px] flex justify-center items-center">
+                                        <MiniLoader/>
+
+                                    </div>
+:
+                                    <button
+                                        onClick={() => {
+                                            sendResume()
+
+                                        }}
+                                        className="bg_Button  px-4 py-2 rounded-[30px] flex items-center gap-2 h-[40px]"
+                                    >
+                                        Forward CV
+                                        <span>➤</span>
+                                    </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </>
+
+            }
 
             <div className="flex flex-col gap-2">
                 <div className="border border-[#DEDEDE] rounded-lg p-4  shadow-sm bg-white flex justify-between">
@@ -270,7 +449,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                                 {skills?.length > 0 ? (
                                     skills.map((s, i) => (
                                         <span key={i} className="mr-1">
-                                            {highlightSkills(s.label, data?.mustSkills)}
+                                            {highlightSkills(s.label, data?.mustSkills, data?.otherSkills)}
                                             {i !== skills.length - 1 && " | "}
                                         </span>
                                     ))
@@ -355,33 +534,35 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                                 </svg>
                             </button>
 
-                            {/* <div className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="24px"
-                            viewBox="0 -960 960 960"
-                            width="24px"
-                            className="fill-[#8993a4] hover:fill-black"
-                        >
-                            <path d="m640-280-57-56 184-184-184-184 57-56 240 240-240 240ZM80-200v-160q0-83 58.5-141.5T280-560h247L383-704l57-56 240 240-240 240-57-56 144-144H280q-50 0-85 35t-35 85v160H80Z" />
-                        </svg>
-                    </div> */}
+                            <div onClick={() => { setSelectedCandidates(candidate); setShareCv(true) }} className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 -960 960 960"
+                                    width="24px"
+                                    className="fill-[#8993a4] hover:fill-black"
+                                >
+                                    <path d="m640-280-57-56 184-184-184-184 57-56 240 240-240 240ZM80-200v-160q0-83 58.5-141.5T280-560h247L383-704l57-56 240 240-240 240-57-56 144-144H280q-50 0-85 35t-35 85v160H80Z" />
+                                </svg>
+                            </div>
                         </div>
 
                     </div>
                 </div>
                 <div className="flex justify-between px-2">
                     <div className="flex gap-8 ">
-                        {/* <div className="flex gap-2 text-[14px] font-medium text-[#8993A4] items-center ">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#8993A4"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" /></svg>
 
-                        </div> */}
-                        {downloadCount &&
+                        <div className="flex gap-2 text-[14px] font-medium text-[#8993A4] items-center ">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#8993A4"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" /></svg>
+                            {viewCount ? viewCount : 0}
+                        </div>
+
+
                         <div className="flex gap-2 text-[14px] font-medium text-[#8993A4] items-center ">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#8993A4"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
-                            {downloadCount}
+                            {downloadCount ? downloadCount : 0}
                         </div>
-    }
+
                     </div>
 
                     <div className="flex gap-8">
