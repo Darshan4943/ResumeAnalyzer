@@ -204,7 +204,7 @@ function EditProfile({ setEditProfile }) {
       axios
         .put(
           "https://jamblix.com/api/candidate/updateProfile/" +
-            userDataGlobal?._id,
+          userDataGlobal?._id,
           requestData
         )
 
@@ -446,9 +446,8 @@ function EditProfile({ setEditProfile }) {
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
                 // onChange={(e) => setData({ ...data, profile: e.target.value })}
                 placeholder="Enter First Name"
-                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
-                  formError.firstName ? "border-red" : "border-[#DEDEDE]"
-                }`}
+                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.firstName ? "border-red" : "border-[#DEDEDE]"
+                  }`}
               />
             </div>
             <div className="personal_name w-[50%]">
@@ -461,9 +460,8 @@ function EditProfile({ setEditProfile }) {
                 name="lastName"
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
                 placeholder="Enter Last Name"
-                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
-                  formError.lastName ? "border-red" : "border-[#DEDEDE]"
-                }`}
+                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.lastName ? "border-red" : "border-[#DEDEDE]"
+                  }`}
               />
             </div>
           </div>
@@ -484,9 +482,8 @@ function EditProfile({ setEditProfile }) {
                   setOtp(new Array(4).fill(""));
                 }}
                 placeholder="Enter Email"
-                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
-                  formError.email ? "border-red" : "border-[#DEDEDE]"
-                }`}
+                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.email ? "border-red" : "border-[#DEDEDE]"
+                  }`}
               />
               {!verified && (
                 <>
@@ -585,11 +582,10 @@ function EditProfile({ setEditProfile }) {
               Contact Number <span className="star">*</span>
             </p>
             <div
-              className={`flex gap-4 border border-[#DEDEDE] rounded-[8px] ${
-                formError.mobileNo || formError.dial_code
+              className={`flex gap-4 border border-[#DEDEDE] rounded-[8px] ${formError.mobileNo || formError.dial_code
                   ? "border-red"
                   : "border-[#DEDEDE]"
-              }`}
+                }`}
             >
               <div className="flex items-center  gap-1 cursor-pointer  ">
                 <ReactSelect
@@ -601,9 +597,8 @@ function EditProfile({ setEditProfile }) {
                   onChange={handleItemClick}
                   getOptionLabel={(option) => (
                     <div
-                      className={`flex items-center ${
-                        formError.dial_code ? "border-red" : "border-[#DEDEDE]"
-                      }`}
+                      className={`flex items-center ${formError.dial_code ? "border-red" : "border-[#DEDEDE]"
+                        }`}
                     >
                       <img
                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
@@ -659,9 +654,8 @@ function EditProfile({ setEditProfile }) {
                 handleInputChange("currentLocation", e.target.value)
               }
               placeholder="Enter Current location"
-              className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
-                formError.currentLocation ? "border-red" : "border-[#DEDEDE]"
-              }`}
+              className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.currentLocation ? "border-red" : "border-[#DEDEDE]"
+                }`}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -672,14 +666,16 @@ function EditProfile({ setEditProfile }) {
             <div className={`flex gap-2 w-[100%]  flex-col `}>
               <div className=" flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid border-[#DEDEDE] justify-between h-[40px]">
                 <input
-                  type={showPassword ? "Text" : "Password"}
+                  type={showPassword ? "text" : "password"}
                   className="text-[12px] font-normal"
                   placeholder="Create New Password"
                   value={data.password}
-                  onChange={(e) =>
-                    handleInputChange("password", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("password", e.target.value)}
+                  autoComplete="new-password"
+                  autoCorrect="off"
+                  spellCheck="false"
                 />
+
 
                 {!isEdge() &&
                   (showPassword ? (
