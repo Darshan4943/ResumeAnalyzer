@@ -211,6 +211,10 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
 
 
     const sendResume = async () => {
+        if (!recipient || !subject || !message) {
+            toast.error("Please fill in all required fields");
+            return;
+        }
         setLoading(true)
         try {
             const payload = {
@@ -234,7 +238,11 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
             setLoading(false)
             const errorMessage = error?.response?.data?.message || error.message;
             console.error("Error sending resume:", errorMessage);
-            throw new Error(errorMessage);
+            if (errorMessage === "No recipients defined") {
+                toast.warning("Please enter valid email");
+            }
+
+
 
         }
     };
@@ -323,22 +331,22 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
 
 
                                 <div className="flex justify-end">
-                                    {loading? 
-                                    <div className="h-[40px] w-[124.24px] bg-blue rounded-[30px] flex justify-center items-center">
-                                        <MiniLoader/>
+                                    {loading ?
+                                        <div className="h-[40px] w-[124.24px] bg-blue rounded-[30px] flex justify-center items-center">
+                                            <MiniLoader />
 
-                                    </div>
-:
-                                    <button
-                                        onClick={() => {
-                                            sendResume()
+                                        </div>
+                                        :
+                                        <button
+                                            onClick={() => {
+                                                sendResume()
 
-                                        }}
-                                        className="bg_Button  px-4 py-2 rounded-[30px] flex items-center gap-2 h-[40px]"
-                                    >
-                                        Forward CV
-                                        <span>➤</span>
-                                    </button>
+                                            }}
+                                            className="bg_Button  px-4 py-2 rounded-[30px] flex items-center gap-2 h-[40px]"
+                                        >
+                                            Forward CV
+                                            <span>➤</span>
+                                        </button>
                                     }
                                 </div>
                             </div>
