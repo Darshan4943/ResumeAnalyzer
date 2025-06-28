@@ -2333,7 +2333,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               <img
                                 src="/images/employer/OBJECTS.png"
                                 alt="No data available"
-                                className="h-[200px] w-[300px]"
+                                className="h-[200px] w-[300px] object-contain"
                               />
                             </div>
                           )}

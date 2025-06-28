@@ -515,7 +515,7 @@ function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTa
                 </div>
 
               )}
-              {toggle === "matchingParameters" &&
+              {/* {toggle === "matchingParameters" &&
                 <div className="flex flex-col gap-[8px] p-6 ">
                   {userDetails?.matching_parameters?.slice(0, 8)?.map((item, i) => (
                     <div
@@ -540,7 +540,24 @@ function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTa
                   ))}
                 </div>
 
-              }
+              } */}
+               {toggle === "matchingParameters" && (
+                  <div>
+                    {userDetails?.matching_parameters?.map((param, index) => (
+                      <div key={index} className="px-6 py-2">
+                        <h3 className="text-[16px] font-semibold">
+                          {param.title}
+                        </h3>
+                        <p className="text-[14px] font-normal ">
+                          Matching Points: {param.matching_points}
+                        </p>
+                        <p className="text-[14px] font-normal ">
+                          {param.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
             </div>
           )}

@@ -283,7 +283,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
       setTotalpages(response.data.totalPages);
       setResumeList(response.data.candidates);
       setShowResume(true);
-      updateJobMatchLimit();
+      // updateJobMatchLimit();
       setCount(1)
       setTimeout(() => {
         getLimits();

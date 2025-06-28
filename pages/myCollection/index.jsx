@@ -85,23 +85,34 @@ function Collection() {
     getLimits();
   }, []);
 
-  const fileToText = (file, pageNumber) => {
+  const fileToText = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
+
       reader.onload = function (event) {
         const typedarray = new Uint8Array(event.target.result);
-        pdfjs.getDocument(typedarray).promise.then(function (pdf) {
-          pdf.getPage(pageNumber).then(function (page) {
-            page.getTextContent().then(function (textContent) {
+
+        pdfjs.getDocument(typedarray).promise
+          .then(async function (pdf) {
+            let fullText = "";
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+              const page = await pdf.getPage(i);
+              const textContent = await page.getTextContent();
               const textItems = textContent.items.map((item) => item.str);
-              resolve(textItems.join(" "));
-            });
-          });
-        });
+              fullText += textItems.join(" ") + "\n\n";
+            }
+
+            resolve(fullText);
+          })
+          .catch(reject);
       };
+
+      reader.onerror = reject;
       reader.readAsArrayBuffer(file);
     });
   };
+
 
   useEffect(() => {
     if (inputRef.current) {
@@ -367,10 +378,11 @@ function Collection() {
               resolve();
             });
           } else if (file.type === "application/pdf") {
-            fileToText(file, 1).then((text) => {
+            fileToText(file).then((text) => {
               textData.push({ index, text });
               resolve();
             });
+
           } else {
             resolve(); // For unsupported file types
           }

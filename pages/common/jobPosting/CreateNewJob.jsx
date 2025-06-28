@@ -1014,115 +1014,122 @@ function CreateNewJob() {
                         <div className="text-sm font-medium">
                           Company Name <span className="text-[red]">*</span>
                         </div>
-
-                        <Select
-                          isClearable
-                          isDisabled={
-                            (userDataGlobal?.role === "employer" && !reqId) || companyId
-                          }
-                          options={companyOptions}
-                          className={`w-full ${formError.companyName ? "border-red" : "border-[#DEDEDE] outline-none"
-                            }`}
-                          value={
-                            data.companyName
-                              ? {
-                                value: data.companyName,
-                                label: camelCase(data.companyName),
+                        {userDataGlobal?.role === "employer" ? (
+                          <div
+                            className={`w-full border ${formError.companyName ? "border-red" : "border-[#DEDEDE]"} h-[42px] rounded-[8px] flex items-center px-2 py-2 text-[12px] text-[#000] bg-[#f5f5f5]`}
+                          >
+                            {camelCase(data.companyName || "No Company Selected")}
+                          </div>
+                        ) : (
+                          <Select
+                            isClearable
+                            isDisabled={
+                              (userDataGlobal?.role === "employer" && !reqId) || companyId
+                            }
+                            options={companyOptions}
+                            className={`w-full ${formError.companyName ? "border-red" : "border-[#DEDEDE] outline-none"
+                              }`}
+                            value={
+                              data.companyName
+                                ? {
+                                  value: data.companyName,
+                                  label: camelCase(data.companyName),
+                                }
+                                : null
+                            }
+                            onChange={(selectedOption) => {
+                              if (selectedOption?.value === "__create_new__") {
+                                router.push("/recruiter/companies");
+                                return;
                               }
-                              : null
-                          }
-                          onChange={(selectedOption) => {
-                            if (selectedOption?.value === "__create_new__") {
-                              router.push("/recruiter/companies");
-                              return;
-                            }
 
-                            const selectedValue = selectedOption?.value || "";
-                            setFormError((prevErrors) => ({
-                              ...prevErrors,
-                              companyName: "",
-                            }));
-                            setData({
-                              ...data,
-                              companyName: selectedValue,
-                            });
+                              const selectedValue = selectedOption?.value || "";
+                              setFormError((prevErrors) => ({
+                                ...prevErrors,
+                                companyName: "",
+                              }));
+                              setData({
+                                ...data,
+                                companyName: selectedValue,
+                              });
 
-                            if (selectedOption?._id) {
-                              getcompaniesdetails(selectedOption._id);
-                            }
-                          }}
-                          onCreateOption={(inputValue) => {
-                            const newCompany = inputValue.trim();
-                            const companyExists = companyData.some(
-                              (c) =>
-                                c.companyName.toLowerCase() === newCompany.toLowerCase()
-                            );
-
-                            if (!companyExists) {
-                              setCompanyData((prev) => [
-                                ...prev,
-                                { companyName: newCompany },
-                              ]);
-                            }
-
-                            setData({
-                              ...data,
-                              companyName: newCompany,
-                            });
-                          }}
-                          formatOptionLabel={(data, { context }) => {
-                            if (data.value === "__create_new__") {
-                              return (
-                                <span className="text-blue font-medium">
-                                  + Create New Company
-                                </span>
+                              if (selectedOption?._id) {
+                                getcompaniesdetails(selectedOption._id);
+                              }
+                            }}
+                            onCreateOption={(inputValue) => {
+                              const newCompany = inputValue.trim();
+                              const companyExists = companyData.some(
+                                (c) =>
+                                  c.companyName.toLowerCase() === newCompany.toLowerCase()
                               );
-                            }
-                            return data.label;
-                          }}
-                          styles={{
-                            control: (provided, state) => ({
-                              ...provided,
-                              border: formError.companyName
-                                ? "1px solid red"
-                                : "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "2px 8px",
-                              boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
-                            }),
-                            placeholder: (provided) => ({
-                              ...provided,
-                              color: "#767676",
-                              fontSize: "12px",
-                              fontWeight: "400",
-                            }),
-                            menu: (provided) => ({
-                              ...provided,
-                              zIndex: 10,
-                              scrollbarWidth: "none",
-                              "-ms-overflow-style": "none",
-                              "&::-webkit-scrollbar": {
-                                display: "none",
-                              },
-                            }),
-                            valueContainer: (provided) => ({
-                              ...provided,
-                              overflow: "visible",
-                              whiteSpace: "nowrap",
-                              textOverflow: "ellipsis",
-                            }),
-                            singleValue: (provided) => ({
-                              ...provided,
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              maxWidth: "100%",
-                              fontSize: "12px",
-                              fontWeight: "400",
-                              color: "#000",
-                            }),
-                          }}
-                        />
+
+                              if (!companyExists) {
+                                setCompanyData((prev) => [
+                                  ...prev,
+                                  { companyName: newCompany },
+                                ]);
+                              }
+
+                              setData({
+                                ...data,
+                                companyName: newCompany,
+                              });
+                            }}
+                            formatOptionLabel={(data, { context }) => {
+                              if (data.value === "__create_new__") {
+                                return (
+                                  <span className="text-blue font-medium">
+                                    + Create New Company
+                                  </span>
+                                );
+                              }
+                              return data.label;
+                            }}
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                border: formError.companyName
+                                  ? "1px solid red"
+                                  : "1px solid #DEDEDE",
+                                borderRadius: "8px",
+                                padding: "2px 8px",
+                                boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+                              }),
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "#767676",
+                                fontSize: "12px",
+                                fontWeight: "400",
+                              }),
+                              menu: (provided) => ({
+                                ...provided,
+                                zIndex: 10,
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
+                              }),
+                              valueContainer: (provided) => ({
+                                ...provided,
+                                overflow: "visible",
+                                whiteSpace: "nowrap",
+                                textOverflow: "ellipsis",
+                              }),
+                              singleValue: (provided) => ({
+                                ...provided,
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                maxWidth: "100%",
+                                fontSize: "12px",
+                                fontWeight: "400",
+                                color: "#000",
+                              }),
+                            }}
+                          />
+                        )}
                       </div>
 
 
