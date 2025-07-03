@@ -13,7 +13,7 @@ function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("matchingParameters");
   const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
-
+console.log(222,jobDetails);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -336,9 +336,9 @@ function ApplicantDetails({ setTogglee }) {
 
                     {isImage ? (
                       <img
-                        src={jobDetails?.file}
+                        src={jobDetails?.resumeUrl}
                         alt="Uploaded Document"
-                        className="max-w-full max-h-full object-contain rounded-lg"
+                        className="max-w-[70%] max-h-full object-contain rounded-lg"
                       />
                     ) : isPDF ? (
 
