@@ -25,7 +25,7 @@ import ApplicantDetails from "./ApplicantDetails";
 import { setRecallData } from "../../Redux/slices/recallSlice";
 import JdParameters from "../../components/common/jdParameters";
 import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
-import socket from "../socket";
+import socket from "../../utils/socket";
 
 
 const MatchJob = () => {
