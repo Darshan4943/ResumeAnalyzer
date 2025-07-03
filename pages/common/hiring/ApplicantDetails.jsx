@@ -336,7 +336,7 @@ function ApplicantDetails({ setTogglee }) {
 
                     {isImage ? (
                       <img
-                        src={userDetails?.file}
+                        src={jobDetails?.file}
                         alt="Uploaded Document"
                         className="max-w-full max-h-full object-contain rounded-lg"
                       />

@@ -34,7 +34,7 @@ function JdMatchCard({
   const [parentId, setParentId] = useState()
   const [saveLoading, setSaveLoading] = useState()
 
-  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user?.userData);
   const [loading, setLoading] = useState(false);
   const [hiringLoading1, setHiringLoading1] = useState(false);
   const downloadResume = (resumeUrl) => {
@@ -467,7 +467,7 @@ function JdMatchCard({
                     type="checkbox"
                     className="absolute left-[10px] top-[10px] rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
                     style={{ width: "18px", height: "18px" }}
-                    checked={selectedResumes.some((resume) => resume._id === user._id)}
+                    checked={selectedResumes.some((resume) => resume._id === user?._id)}
                     onChange={() => handleCheckboxChange(user)}
                   />
                 }
@@ -548,7 +548,7 @@ function JdMatchCard({
                       <div className="text-[14px] font-[400]">{user?.Mobile}</div>
                     </div>
                   )}
-                  {user.location && (
+                  {user?.location && (
                     <div className="flex items-center gap-[8px]">
                       <svg
                         width="25"
@@ -646,7 +646,7 @@ function JdMatchCard({
                     Profile Match Score
                   </div>
                   <div className="text-[26px] font-[500]">
-                    {user.matching_percentage}
+                    {user?.matching_percentage}
                   </div>
                 </div>
                 <div

@@ -25,6 +25,8 @@ import ApplicantDetails from "./ApplicantDetails";
 import { setRecallData } from "../../Redux/slices/recallSlice";
 import JdParameters from "../../components/common/jdParameters";
 import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
+import socket from "../socket";
+
 
 const MatchJob = () => {
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ const MatchJob = () => {
   const [error, setError] = useState("");
   const [loadingg, setLoadingg] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
+  
   const [files, setFiles] = useState([]);
   const { clientId, selectedJob, data } = router.query;
   const [selectedIndexes, setSelectedIndexes] = useState([]);
@@ -79,6 +82,10 @@ const MatchJob = () => {
   const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false);
   const [byMyCollection, setMatchByCOllection] = useState(false);
   const [select, setSelect] = useState(false);
+
+
+
+
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
@@ -143,12 +150,92 @@ const MatchJob = () => {
   const [weightage, setWeightage] = useState(false);
   const [priority, setPriority] = useState(false);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const dataa = JSON.parse(decodeURIComponent(data));
-  //     setExtractedData(dataa);
-  //   }
-  // }, [data]);
+  const [progress, setProgress] = useState({ current: 0, total: 0 });
+  const [matchedResults, setMatchedResults] = useState([]);
+  const receivedRef = useRef([]);
+  const [totalToProcess, setTotalToProcess] = useState(0);
+
+
+
+
+
+  const JobMatchforSkilotechCollection = async () => {
+    try {
+      setProgress(0);
+
+      receivedRef.current = [];
+      setResumeList([]);
+        setIsMatched(false)
+ setLoadingg(true)
+      await axios.post("https://jamblix.com/api/skiloCollection/jobMatching", {
+        jd: extratctedData,
+        resumeCount: Number(resumeCount),  
+        parameters,
+        weightage,
+        priority,
+        socketId: socket.id,
+      });
+    } catch (err) {
+      console.error("Job match failed:", err);
+    }
+  };
+
+useEffect(() => {
+  if (!socket.connected) {
+    socket.connect();
+  }
+
+  const received = []; // local array to avoid stale refs
+
+  socket.on("connect", () => {
+    console.log("✅ Connected to socket:", socket.id);
+  });
+
+  socket.on("jobMatchingStarted", ({ total }) => {
+    console.log("Matching started, total resumes to process:", total);
+    setTotalToProcess(total);
+    setProgress(0);
+    setResumeList([]); // clear old data
+    setLoadingg(true);
+    received.length = 0; // clear previous results
+  });
+
+  socket.on("jobMatchingProgress", ({ current, total, result }) => {
+    received.push(result);
+    setResumeList((prev) => [...prev, result]);
+     setMatchLoader(true);
+     setLoadingg(false);
+    setProgress(Math.round((current / total) * 100));
+  });
+
+  socket.on("jobMatchingComplete", ({ results, error }) => {
+    if (error) {
+      alert(error);
+      setMatchLoader(false);
+      
+      return;
+    }
+
+    const sorted = (results?.length ? results : received)
+      .filter((item) => item?.matching_percentage)
+      .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage));
+
+    setResumeList(sorted);
+    setIsMatched(true);
+    setMatchLoader(false);
+    setLoadingg(false);
+  });
+
+  return () => {
+    socket.off("connect");
+    socket.off("jobMatchingStarted");
+    socket.off("jobMatchingProgress");
+    socket.off("jobMatchingComplete");
+  };
+}, []);
+
+
+
   useEffect(() => {
     if (data) {
       try {
@@ -161,6 +248,12 @@ const MatchJob = () => {
       }
     }
   }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     const dataa = JSON.parse(decodeURIComponent(data));
+  //     setExtractedData(dataa);
+  //   }
+  // }, [data]);
 
 
 
@@ -316,75 +409,6 @@ const MatchJob = () => {
         console.log(err);
       });
   };
-  useEffect(() => {
-    if (selectedJob) {
-      getData();
-    }
-  }, [tab]);
-
-  const JobMatchforSkilotechCollection = async () => {
-    setSelectedResumes([]);
-    setSelect(false);
-    try {
-      if (jdCountMonthly >= jdCountMonthlyLimit) {
-        setLimitPopup(true);
-        return;
-      }
-      const outputData = [];
-      setMatchLoader(true);
-      const response = await axios.post(
-        "https://jamblix.com/api/skiloCollection/jobMatching",
-
-        {
-          jd: extratctedData,
-          resumeCount,
-          parameters,
-          weightage,
-          priority,
-        }
-      );
-      setFromSkilotechCollection(true);
-      if (Array.isArray(response.data)) {
-        outputData.push(...response.data);
-      } else {
-        outputData.push(response.data);
-        // outputData.push([response.data]);
-      }
-
-      const dataArray = outputData
-        .filter((item) => item.matching_percentage)
-        .sort((a, b) => {
-          const parsePercentage = (percentage) => {
-            return parseInt(
-              isNaN(percentage) ? percentage.slice(0, 2) : percentage
-            );
-          };
-          return (
-            parsePercentage(b.matching_percentage) -
-            parsePercentage(a.matching_percentage)
-          );
-        })
-        .slice(0, resumeCount);
-
-      setResumeList(dataArray);
-      setIsMatched(true);
-      updateJobMatchLimit();
-      setTimeout(() => {
-        getLimits();
-      }, 5000);
-      // setCollection("");
-      setMatchByCOllection(false);
-      setButtonToggle(false);
-
-      setMatchLoader(false);
-    } catch (error) {
-      console.error("Error in JobMatchforSkilotechCollection:", error);
-      toast.error("Something went wrong, try again");
-    } finally {
-      setMatchLoader(false);
-    }
-  };
-
   // useEffect(() => {
   //   if (count > 3) {
   //     setLoading(false);
@@ -394,6 +418,78 @@ const MatchJob = () => {
   //     jobMatching();
   //   }
   // }, [count]);
+  useEffect(() => {
+    if (selectedJob) {
+      getData();
+    }
+  }, [tab]);
+
+  // const JobMatchforSkilotechCollection = async () => {
+  //   setSelectedResumes([]);
+  //   setSelect(false);
+  //   try {
+  //     if (jdCountMonthly >= jdCountMonthlyLimit) {
+  //       setLimitPopup(true);
+  //       return;
+  //     }
+  //     const outputData = [];
+  //     setMatchLoader(true);
+  //     const response = await axios.post(
+  //       "https://jamblix.com/api/skiloCollection/jobMatching",
+
+  //       {
+  //         jd: extratctedData,
+  //         resumeCount,
+  //         parameters,
+  //         weightage,
+  //         priority,
+
+  //       }
+  //     );
+  //     setFromSkilotechCollection(true);
+  //     if (Array.isArray(response.data)) {
+  //       outputData.push(...response.data);
+  //     } else {
+  //       outputData.push(response.data);
+  //       // outputData.push([response.data]);
+  //     }
+
+  //     const dataArray = outputData
+  //       .filter((item) => item.matching_percentage)
+  //       .sort((a, b) => {
+  //         const parsePercentage = (percentage) => {
+  //           return parseInt(
+  //             isNaN(percentage) ? percentage.slice(0, 2) : percentage
+  //           );
+  //         };
+  //         return (
+  //           parsePercentage(b.matching_percentage) -
+  //           parsePercentage(a.matching_percentage)
+  //         );
+  //       })
+  //       .slice(0, resumeCount);
+
+  //     setResumeList(dataArray);
+  //     setIsMatched(true);
+  //     updateJobMatchLimit();
+  //     setTimeout(() => {
+  //       getLimits();
+  //     }, 5000);
+  //     // setCollection("");
+  //     setMatchByCOllection(false);
+  //     setButtonToggle(false);
+
+  //     setMatchLoader(false);
+  //   } catch (error) {
+  //     console.error("Error in JobMatchforSkilotechCollection:", error);
+  //     toast.error("Something went wrong, try again");
+  //   } finally {
+  //     setMatchLoader(false);
+  //   }
+  // };
+
+
+
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -430,7 +526,7 @@ const MatchJob = () => {
       {
         jd,
         ids,
-        resumeCount,
+         resumeCount: Number(resumeCount),  
         parameters,
         weightage,
         priority,
@@ -659,11 +755,37 @@ const MatchJob = () => {
               </>
             )}
 
-            {findMatchLoader && (
+            {/* {findMatchLoader && (
               <>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                  <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+
+                  <div style={{ marginTop: "10px" }}>
+                    <div style={{ width: "100%", background: "#eee", height: "8px", borderRadius: "4px" }}>
+                      <div
+                        style={{
+                          width: `${progress}%`,
+                          height: "100%",
+                          background: "#4caf50",
+                          transition: "width 0.3s ease-in-out",
+                        }}
+                      />
+                    </div>
+                    <p style={{ fontSize: "12px", textAlign: "right", marginTop: "4px" }}>
+                      {progress}% matched
+                    </p>
+                  </div>
+
+                </div>
+              </>
+            )} */}
+
+            {findMatchLoader && (
+              <>
+
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                  <div className="text-white flex flex-col justify-center items-center " style={{ marginTop: "20px" }}>
                     <div className="w-[165px] h-[124px] flex items-center justify-center">
                       <motion.img
                         src="/images/resumeBuilder/bot.png"
@@ -673,13 +795,13 @@ const MatchJob = () => {
                         transition={{ duration: 1.5, repeat: Infinity }}
                       />
                     </div>
-                    <div className="flex flex-col items-center justify-center relative z-100">
-                      <span className="text-center text-[#fff] text-[16px]">
-                        {mainMessage},
-                      </span>
-                      <span className="text-left text-[#fff] text-[16px] loading_dots">
-                        Please wait
-                      </span>
+                    <div>Progress: {progress}%</div>
+
+                    <div className="w-full bg-white rounded-full h-3 mt-4">
+                      <div
+                        className="bg-blue h-3 rounded-full transition-all duration-300 ease-in-out "
+                        style={{ width: `${progress}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
