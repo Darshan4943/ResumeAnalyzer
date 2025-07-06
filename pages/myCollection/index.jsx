@@ -1140,7 +1140,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
               <p className="text-[14px] font-normal">400 mb of 2 GB used</p>
             </div> */}
           </div>
-          {tab === 0 || tab === 2 ? (
+          {tab === 0 || tab === 2 && (
             <Folders
               folderData={folderData}
               unSyncFiles={unSyncFiles}
@@ -1165,9 +1165,11 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
               parentId={parentId}
               getData={getData}
             />
-          ) : (
-            <RequestCV skilotechCollection={skilotechCollection} />
-          )}
+          ) 
+          // : (
+          //   <RequestCV skilotechCollection={skilotechCollection} />
+          // )
+          }
         </div>
       </div>
     </>
