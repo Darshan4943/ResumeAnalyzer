@@ -355,7 +355,7 @@ function Folders({
                           clientData?.length > 0 &&
                           clientData
                             .filter((client) => client.fileName !== "CVs From Skilotech")
-                            .every((client) => selectedIndexes.includes(client._id))
+                            .every((client) => selectedIndexes?.includes(client._id))
                         }
                         onChange={() => {
                           const selectableIds = clientData
@@ -363,7 +363,7 @@ function Folders({
                             .map((client) => client._id);
 
                           setSelectedIndexes((prev) =>
-                            prev.length === selectableIds.length ? [] : selectableIds
+                            prev?.length === selectableIds?.length ? [] : selectableIds
                           );
                         }}
                       />
@@ -441,7 +441,7 @@ function Folders({
                     <div className="group">
                       <svg
                         onClick={() =>
-                          selectedIndexes.length > 0 && setShowDelete(true)
+                          selectedIndexes?.length > 0 && setShowDelete(true)
                         }
                         className=" cursor-pointer"
                         width="20"
@@ -466,7 +466,7 @@ function Folders({
                     </div>
                     {!trash &&
                       <div className=" group">
-                        <svg className=" cursor-pointer" onClick={() => selectedIndexes.length > 0 && move()} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className=" cursor-pointer" onClick={() => selectedIndexes?.length > 0 && move()} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                           <g mask="url(#mask0_10742_103487)">
                             <path d="M10.1641 11.6654L8.8099 13.0195L9.97656 14.1862L13.3307 10.832L9.97656 7.47786L8.8099 8.64453L10.1641 9.9987H6.66406V11.6654H10.1641ZM3.33073 16.6654C2.8724 16.6654 2.48003 16.5022 2.15365 16.1758C1.82726 15.8494 1.66406 15.457 1.66406 14.9987V4.9987C1.66406 4.54036 1.82726 4.148 2.15365 3.82161C2.48003 3.49523 2.8724 3.33203 3.33073 3.33203H8.33073L9.9974 4.9987H16.6641C17.1224 4.9987 17.5148 5.16189 17.8411 5.48828C18.1675 5.81467 18.3307 6.20703 18.3307 6.66536V14.9987C18.3307 15.457 18.1675 15.8494 17.8411 16.1758C17.5148 16.5022 17.1224 16.6654 16.6641 16.6654H3.33073ZM3.33073 14.9987H16.6641V6.66536H9.3099L7.64323 4.9987H3.33073V14.9987Z" fill="#333333" />
@@ -484,7 +484,7 @@ function Folders({
                           {" "}
                         </div>
                         <div className=" group">
-                          <svg className=" cursor-pointer" onClick={() => selectedIndexes.length > 0 && copy()} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <svg className=" cursor-pointer" onClick={() => selectedIndexes?.length > 0 && copy()} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                             <g mask="url(#mask0_10742_103491)">
                               <path d="M7.5 15.0013C7.04167 15.0013 6.64931 14.8381 6.32292 14.5117C5.99653 14.1853 5.83333 13.793 5.83333 13.3346V3.33464C5.83333 2.8763 5.99653 2.48394 6.32292 2.15755C6.64931 1.83116 7.04167 1.66797 7.5 1.66797H15C15.4583 1.66797 15.8507 1.83116 16.1771 2.15755C16.5035 2.48394 16.6667 2.8763 16.6667 3.33464V13.3346C16.6667 13.793 16.5035 14.1853 16.1771 14.5117C15.8507 14.8381 15.4583 15.0013 15 15.0013H7.5ZM7.5 13.3346H15V3.33464H7.5V13.3346ZM4.16667 18.3346C3.70833 18.3346 3.31597 18.1714 2.98958 17.8451C2.66319 17.5187 2.5 17.1263 2.5 16.668V5.0013H4.16667V16.668H13.3333V18.3346H4.16667Z" fill="#333333" />
@@ -497,7 +497,7 @@ function Folders({
                       </>
                     }
 
-                    {trash || selectedIndexes.length > 1 ? null : (
+                    {trash || selectedIndexes?.length > 1 ? null : (
                       <>
 
 
@@ -532,7 +532,7 @@ function Folders({
                     <div>
                       <svg
                         onClick={() =>
-                          selectedIndexes.length > 0 && setShowDelete(true)
+                          selectedIndexes?.length > 0 && setShowDelete(true)
                         }
                         className=" cursor-pointer scr540:hidden"
                         width="20"
@@ -551,7 +551,7 @@ function Folders({
                     </div>
                   )}
                   <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
-                    {selectedIndexes.length} selected
+                    {selectedIndexes?.length} selected
                   </div>
                   {trash && (
                     <svg
@@ -585,7 +585,7 @@ function Folders({
                         <p onClick={restoreFile} className="text-[14px] font-medium">Restore</p>
                       }
                       <p onClick={() =>
-                        selectedIndexes.length > 0 && setShowDelete(true)
+                        selectedIndexes?.length > 0 && setShowDelete(true)
                       } className="text-[14px] text-red font-medium">Delete</p>
                     </div>
 

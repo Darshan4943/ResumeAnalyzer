@@ -55,12 +55,19 @@ function MyFolders({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [newName]);
+
   useEffect(() => {
-    const fileNames = data
-      ?.filter((item) => selectedIndexes.includes(item._id))
-      .map((item) => item.fileName);
-    setNewName(fileNames[0])
-  }, [selectedIndexes])
+  const fileNames = data
+    ?.filter((item) => selectedIndexes?.includes(item._id))
+    .map((item) => item.fileName);
+
+  if (fileNames && fileNames.length > 0) {
+    setNewName(fileNames[0]);
+  } else {
+    setNewName(""); // Or keep it unchanged
+  }
+}, [selectedIndexes]);
+
 
   const handleKeyDown = async (e, _id) => {
 
@@ -118,7 +125,7 @@ function MyFolders({
                           className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] z-[200] font-medium custom-checkbox"
                           style={{ width: "20px", height: "20px" }}
                           onClick={(e) => e.stopPropagation()}
-                          checked={selectedIndexes.includes(item._id)}
+                          checked={selectedIndexes?.includes(item._id)}
                           onChange={() => toggleSelect(item)}
                         />
                       )}
@@ -137,8 +144,8 @@ function MyFolders({
                         </div>
                       }
                     </div>
-                    <div className={`${(!rename && !selectedIndexes.includes(item._id)) && "group"}`}>
-                      {rename && selectedIndexes.includes(item._id) ? (
+                    <div className={`${(!rename && !selectedIndexes?.includes(item._id)) && "group"}`}>
+                      {rename && selectedIndexes?.includes(item._id) ? (
                         <input
                           ref={inputRef}
                           type="text"
@@ -206,7 +213,7 @@ function MyFolders({
                               className="   rounded-[4.5px]  w-full outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"
                               style={{ width: "20px", height: "20px" }}
                               onClick={(e) => e.stopPropagation()}
-                              checked={selectedIndexes.includes(item._id)}
+                              checked={selectedIndexes?.includes(item._id)}
                               onChange={() => toggleSelect(item)}
                             />
                           )}

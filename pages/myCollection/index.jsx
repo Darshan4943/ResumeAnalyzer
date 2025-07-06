@@ -43,6 +43,7 @@ function Collection() {
   const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
   const [fileLoader, setFileLoader] = useState(false);
+  const [fileLoader1, setFileLoader1] = useState(false);
   const [textData, setTextData] = useState([]);
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
@@ -55,7 +56,7 @@ function Collection() {
   const [refresh, setRefresh] = useState(true);
   const [collectionCount, setCollectionCount] = useState(0);
   const [error, setError] = useState("");
-
+  console.log(collectionCount);
   const getLimits = () => {
     const collectionCountDaily = JSON.parse(
       localStorage.getItem("collectionCountDaily")
@@ -159,20 +160,70 @@ function Collection() {
     }
   };
 
-  const getParentData = (parentId) => {
-    axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
-      .then((res) => {
-        setFolderList(res.data.data);
+  // const getParentData = (parentId) => {
+  //   axios
+  //     .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+  //     .then((res) => {
+  //       setFolderList(res.data.data);
 
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //       setTimeout(() => {
+  //         setLoading(false);
+  //       }, 1000);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  const getParentData = async (parentId) => {
+  setLoading(true); // Only show loading for first 500
+  const limit = 500;
+  let skip = 0;
+  let allFiles = [];
+
+  try {
+    // Fetch the first chunk (show loading)
+    const res = await axios.get(
+      `https://jamblix.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+    );
+    const { data, hasMore } = res.data;
+    allFiles = [...data];
+    setFolderList(allFiles); // Show initial 500
+    setLoading(false); // Hide loader
+
+    skip += limit;
+
+    // Now fetch the rest silently (no loading spinner)
+    if (hasMore) {
+      fetchRemainingChunks(parentId, skip, limit, allFiles);
+    }
+  } catch (err) {
+    console.log("Error fetching initial files:", err);
+    setLoading(false);
+  }
+};
+
+// Background loader for remaining files
+const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
+  let allFiles = [...currentFiles];
+  let hasMore = true;
+
+  while (hasMore) {
+    try {
+      const res = await axios.get(
+        `https://jamblix.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+      );
+      const { data, hasMore: more } = res.data;
+      allFiles = [...allFiles, ...data];
+      setFolderList([...allFiles]); // Update silently
+      skip += limit;
+      hasMore = more;
+    } catch (err) {
+      console.log("Error fetching background files:", err);
+      break;
+    }
+  }
+};
+
 
   const getClientData = (clientId) => {
     axios
@@ -190,7 +241,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`https://jamblix.com/api/folder/getRootFoldersByUserId/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -302,19 +353,26 @@ function Collection() {
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           ) {
             const reader = new FileReader();
-            reader.onload = (e) => {
-              const content = e.target.result;
-              const doc = new Docxtemplater(new PizZip(content), {
-                delimiters: {
-                  start: "12op1j2po1j2poj1po",
-                  end: "op21j4po21jp4oj1op24j",
-                },
-              });
-              const text = doc.getFullText();
-              resolve({ text, index });
+            reader.onload = async (e) => {
+              try {
+                const content = e.target.result;
+                const zip = new PizZip(content); // This may throw
+                const doc = new Docxtemplater(zip, {
+                  delimiters: {
+                    start: "12op1j2po1j2poj1po",
+                    end: "op21j4po21jp4oj1op24j",
+                  },
+                });
+                const text = doc.getFullText();
+                textData.push({ index, text });
+              } catch (error) {
+                console.warn(`Skipping invalid .docx file: ${file.name}`, error);
+              }
+              resolve();
             };
             reader.readAsBinaryString(file);
-          } else if (file.type === "image/png") {
+          }
+          else if (file.type === "image/png") {
             Tesseract.recognize(file, "eng", {
               logger: (m) => console.log(m),
             }).then(({ data: { text } }) => {
@@ -342,12 +400,14 @@ function Collection() {
   };
 
   const handleFileChange = async (e) => {
+    setFileLoader1(true);
     const selectedFiles = e.target.files;
     const textData = [];
 
+    const maxFiles = 200;
     const allowedFiles = userDataGlobal?.role === "bpo"
-      ? Array.from(selectedFiles)
-      : Array.from(selectedFiles).slice(0, collectionCount);
+      ? Array.from(selectedFiles).slice(0, maxFiles)
+      : Array.from(selectedFiles).slice(0, Math.min(collectionCount, maxFiles));
 
     if (allowedFiles.length) {
       const promises = allowedFiles.map((file, index) => {
@@ -378,11 +438,19 @@ function Collection() {
               resolve();
             });
           } else if (file.type === "application/pdf") {
-            fileToText(file).then((text) => {
-              textData.push({ index, text });
-              resolve();
-            });
-
+            if (file.size === 0) {
+              console.warn(`Skipping empty PDF: ${file.name}`);
+              return resolve();
+            }
+            fileToText(file)
+              .then((text) => {
+                textData.push({ index, text });
+                resolve();
+              })
+              .catch((err) => {
+                console.error(`Error reading PDF: ${file.name}`, err);
+                resolve(); // Skip problematic PDFs
+              });
           } else {
             resolve(); // For unsupported file types
           }
@@ -394,7 +462,9 @@ function Collection() {
 
     setTextData(textData); // Store extracted text globally
     setFiles(allowedFiles);
+    setFileLoader1(false);
   };
+
 
   const addFiles = async () => {
     setCount(0);
@@ -585,7 +655,7 @@ function Collection() {
                   onDrop={handleFileChange}
                   className="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] p-4 items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
                 >
-                  {fileLoader ? (
+                  {fileLoader || fileLoader1 ? (
                     <>
                       <div className="miniLoader">
                         <div className="box max-h-[80px]">
