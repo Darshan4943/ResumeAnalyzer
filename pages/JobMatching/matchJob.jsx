@@ -43,7 +43,7 @@ const MatchJob = () => {
   const [error, setError] = useState("");
   const [loadingg, setLoadingg] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
-  
+
   const [files, setFiles] = useState([]);
   const { clientId, selectedJob, data } = router.query;
   const [selectedIndexes, setSelectedIndexes] = useState([]);
@@ -162,77 +162,135 @@ const MatchJob = () => {
   const JobMatchforSkilotechCollection = async () => {
     try {
       setProgress(0);
-
       receivedRef.current = [];
       setResumeList([]);
-        setIsMatched(false)
- setLoadingg(true)
-      await axios.post("https://api.skilotech.com/api/skiloCollection/jobMatching", {
+      setIsMatched(false);
+      setLoadingg(true);
+
+      const res = await axios.post("https://api.skilotech.com/api/skiloCollection/jobMatching", {
         jd: extratctedData,
-        resumeCount: Number(resumeCount),  
+        resumeCount: Number(resumeCount),
         parameters,
         weightage,
         priority,
         socketId: socket.id,
       });
+
+      if (res.data.error) {
+        setLoadingg(false);
+        setIsMatched(true);
+        return;
+      }
+
+      if (res.data.status === "processing") {
+        console.log("Job match started... waiting for results via socket.");
+      }
     } catch (err) {
       console.error("Job match failed:", err);
+      setLoadingg(false);
+
     }
   };
 
-useEffect(() => {
-  if (!socket.connected) {
-    socket.connect();
-  }
-
-  const received = []; // local array to avoid stale refs
-
-  socket.on("connect", () => {
-    console.log("✅ Connected to socket:", socket.id);
-  });
-
-  socket.on("jobMatchingStarted", ({ total }) => {
-    console.log("Matching started, total resumes to process:", total);
-    setTotalToProcess(total);
+  const MatchJob = async () => {
     setProgress(0);
-    setResumeList([]); // clear old data
-    setLoadingg(true);
-    received.length = 0; // clear previous results
-  });
 
-  socket.on("jobMatchingProgress", ({ current, total, result }) => {
-    received.push(result);
-    setResumeList((prev) => [...prev, result]);
-     setMatchLoader(true);
-     setLoadingg(false);
-    setProgress(Math.round((current / total) * 100));
-  });
+    receivedRef.current = [];
+    setResumeList([]);
+    setIsMatched(false)
+    setLoadingg(true)
 
-  socket.on("jobMatchingComplete", ({ results, error }) => {
-    if (error) {
-      alert(error);
-      setMatchLoader(false);
-      
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
       return;
     }
 
-    const sorted = (results?.length ? results : received)
-      .filter((item) => item?.matching_percentage)
-      .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage));
+    if (Object?.keys(extratctedData).length <= 1) {
+      toast.error("Something went wrong, please try again");
+      return;
+    }
 
-    setResumeList(sorted);
-    setIsMatched(true);
-    setMatchLoader(false);
-    setLoadingg(false);
-  });
 
-  return () => {
-    socket.off("connect");
-    socket.off("jobMatchingStarted");
-    socket.off("jobMatchingProgress");
-    socket.off("jobMatchingComplete");
+
+    try {
+
+
+      // ✅ Send all selectedIndexesFileTypes at once
+      const response = await axios.post("https://api.skilotech.com/api/external/jobMatching", {
+        jd: extratctedData,
+        ids: selectedIndexesFileTypes, // full array at once
+        resumeCount: Number(resumeCount),
+        parameters,
+        weightage,
+        priority,
+        socketId: socket.id,
+      });
+
+      // Note: response will be ignored — real-time updates come via socket
+
+    } catch (error) {
+      console.error("Job match failed:", error);
+      toast.error("Matching failed. Please try again.");
+      setMatchLoader(false);
+      setLoadingg(false);
+      setLoadingg(false);
+      setIsMatched(true);
+    }
   };
-}, []);
+
+  useEffect(() => {
+    if (!socket.connected) {
+      socket.connect();
+    }
+
+    const received = []; // local array to avoid stale refs
+
+    socket.on("connect", () => {
+      console.log("✅ Connected to socket:", socket.id);
+    });
+
+    socket.on("jobMatchingStarted", ({ total }) => {
+      console.log("Matching started, total resumes to process:", total);
+      setTotalToProcess(total);
+      setProgress(0);
+      setResumeList([]); // clear old data
+      setLoadingg(true);
+      received.length = 0; // clear previous results
+    });
+
+    socket.on("jobMatchingProgress", ({ current, total, result }) => {
+      received.push(result);
+      setResumeList((prev) => [...prev, result]);
+      setMatchLoader(true);
+      setLoadingg(false);
+      setProgress(Math.round((current / total) * 100));
+    });
+
+    socket.on("jobMatchingComplete", ({ results, error }) => {
+      if (error) {
+        alert(error);
+        setMatchLoader(false);
+
+        return;
+      }
+
+      const sorted = (results?.length ? results : received)
+        .filter((item) => item?.matching_percentage)
+        .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage));
+
+      setResumeList(sorted);
+      setIsMatched(true);
+      setMatchLoader(false);
+      setLoadingg(false);
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("jobMatchingStarted");
+      socket.off("jobMatchingProgress");
+      socket.off("jobMatchingComplete");
+    };
+  }, []);
 
 
 
@@ -342,33 +400,95 @@ useEffect(() => {
     }
   }, [clientId, parentId, userDataGlobal]);
 
-  const getParentData = (parentId) => {
-    axios
-      .get(`https://api.skilotech.com/api/folder/getByParentId/${parentId}`)
-      .then((res) => {
-        const filteredData = res.data.data.filter((item) => {
-          if (item.type == "file"
-            //  && item.isSync === true
-          ) {
-            return true;
-          } else if (item.type == "folder") {
-            return true;
-          }
-        });
-        setDetails(filteredData);
+  // const getParentData = (parentId) => {
+  //    setLoading(true);
+  //   axios
+  //     .get(`https://api.skilotech.com/api/folder/getByParentId/${parentId}`)
+  //     .then((res) => {
+  //       const filteredData = res.data.data.filter((item) => {
+  //         if (item.type == "file"
+  //           //  && item.isSync === true
+  //         ) {
+  //           return true;
+  //         } else if (item.type == "folder") {
+  //           return true;
+  //         }
+  //       });
+  //       setDetails(filteredData);
 
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  //       setTimeout(() => {
+  //         setLoading(false);
+  //       }, 1000);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
+  const getParentData = async (parentId) => {
+    const limit = 500;
+    let skip = 0;
+    let allItems = [];
+
+    setLoading(true); // Show loading only for first chunk
+
+    try {
+      // Fetch the first chunk
+      const res = await axios.get(
+        `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+      );
+      const { data, hasMore } = res.data;
+
+      const filtered = data.filter(
+        (item) => item.type === "file" || item.type === "folder"
+      );
+      allItems = [...filtered];
+      setDetails(allItems); // Show initial data
+      setLoading(false); // Stop loading after first chunk
+
+      skip += limit;
+
+      // Fetch remaining in background
+      if (hasMore) {
+        fetchRemainingChunks(parentId, skip, limit, allItems);
+      }
+    } catch (err) {
+      console.error("Error loading folder:", err);
+      setLoading(false);
+    }
   };
+
+  const fetchRemainingChunks = async (parentId, skip, limit, currentItems) => {
+    let allItems = [...currentItems];
+    let hasMore = true;
+
+    while (hasMore) {
+      try {
+        const res = await axios.get(
+          `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+        );
+        const { data, hasMore: more } = res.data;
+
+        const filtered = data.filter(
+          (item) => item.type === "file" || item.type === "folder"
+        );
+
+        allItems = [...allItems, ...filtered];
+        setDetails([...allItems]);
+
+        skip += limit;
+        hasMore = more;
+      } catch (err) {
+        console.error("Error loading more chunks:", err);
+        break;
+      }
+    }
+  };
+
+
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://api.skilotech.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`https://api.skilotech.com/api/folder/getRootFoldersByUserId/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
@@ -526,7 +646,7 @@ useEffect(() => {
       {
         jd,
         ids,
-         resumeCount: Number(resumeCount),  
+        resumeCount: Number(resumeCount),
         parameters,
         weightage,
         priority,
@@ -543,70 +663,8 @@ useEffect(() => {
     counter.count++;
   };
 
-  const MatchJob = async () => {
-    setSelectedResumes([]);
-    setSelect(false);
-    setFromSkilotechCollection(false);
-    if (jdCountMonthly >= jdCountMonthlyLimit) {
-      setLimitPopup(true);
-      return;
-    }
-    setMatchLoader(true);
-    setIsAnimate(false);
-    setShowsideBar(false);
-    if (Object?.keys(extratctedData).length > 1) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 24);
-      const outputData = [];
-      const counter = { count: 0 };
 
-      if (selectedIndexesFileTypes.length > 50) {
-        for (const [index, chunk] of chunks.entries()) {
-          processChunk(chunk, extratctedData, outputData, counter);
-          if (index < chunks.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-          }
-        }
-      } else {
-        for (const [index, chunk] of chunks.entries()) {
-          await processChunk(chunk, extratctedData, outputData, counter);
-          if (index < chunks.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-          }
-        }
-      }
 
-      const dataArray = outputData
-        .filter((item) => item.matching_percentage)
-        .sort((a, b) => {
-          const parsePercentage = (percentage) => {
-            return parseInt(
-              isNaN(percentage) ? percentage.slice(0, 2) : percentage
-            );
-          };
-          return (
-            parsePercentage(b.matching_percentage) -
-            parsePercentage(a.matching_percentage)
-          );
-        })
-        .slice(0, resumeCount);
-
-      setResumeList(dataArray);
-      setIsMatched(true);
-      // setSelectedIndexes([]);
-      // setCollection("");
-      setMatchByCOllection(true);
-      updateJobMatchLimit();
-      setTimeout(() => {
-        getLimits();
-      }, 5000);
-      // setSelectedIndexesFilesType([]);
-      setButtonToggle(false);
-      // setLoadingg(false);
-      setMatchLoader(false);
-    } else {
-      toast.error("Something went wrong, please try again");
-    }
-  };
 
   const addApplicant = async (applicantData) => {
     setHiringLoading(true);

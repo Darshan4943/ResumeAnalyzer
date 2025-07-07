@@ -13,7 +13,7 @@ import ApplicantProfile from "../common/hiring/ApplicantProfile";
 import InlineSVG from "../../components/common/InlineSvg";
 import CandidateDetails from "./profileView";
 
-function ApplicantDetails({ id, setExpandedUser }) {
+function ApplicantDetails({ id, setExpandedUser, }) {
     const [toggle, setToggle] = useState("Resume");
     const [activeOption, setActiveOption] = useState("Resume");
     const [jobDetails, setJobDetails] = useState(null);

@@ -92,6 +92,7 @@ function CreateJd() {
     try {
       const response = await axios.get(
         `https://api.skilotech.com/api/jd/getById/${id}`
+        `https://api.skilotech.com/api/jd/getById/${id}`
       );
       setJobDescription(response.data.data.jd);
     } catch (error) {

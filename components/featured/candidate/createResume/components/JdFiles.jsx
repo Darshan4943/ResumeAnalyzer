@@ -116,6 +116,7 @@ function JdFiles({
     } else {
       localStorage.setItem("parentId", "");
       localStorage.setItem("fileName", "");
+      setIsOpen(!isOpen);
     }
   };
 
@@ -317,7 +318,7 @@ function JdFiles({
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    ">
-        <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit ml:w-[60%] w-[90%] ">
+        <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit ml:w-[58%] w-[90%] ">
           <div className="flex scr1200:flex-row  flex-col items-center justify-between gap-[12px] relative ">
             <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
               {fileName && (
@@ -357,7 +358,7 @@ function JdFiles({
               </div>
             </div>
             <div className="w-full  flex justify-end">
-              <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
+              <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[250px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
                 <div className="flex gap-2 text-[14px] font-medium">
                   <label className="flex items-center gap-2 text-[14px] font-medium">
                     Select All
@@ -379,7 +380,7 @@ function JdFiles({
           </div>
           <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
           <div
-            className="flex flex-row flex-wrap gap-4  py-4  h-[50vh] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
+            className="flex flex-row flex-wrap gap-4  py-4  h-[50vh]  overflow-y-auto overflow-x-hidden bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
             // style={{ overflowX: "auto" }}
           >
             {loading ? (
@@ -436,6 +437,9 @@ function JdFiles({
               onClick={() => {
                 setIsCollection(false);
                 setCollection("");
+                localStorage.removeItem("folderHistory");
+                  setIsOpen(!isOpen);
+                  localStorage.removeItem("parentId")
               }}
               className="red_border_Button px-6 py-2 text-[14px] font-medium rounded-[30px] h-[38px]"
             >
@@ -443,7 +447,7 @@ function JdFiles({
               Cancel
             </button>
             <button
-              onClick={() => setIsCollection(false)}
+              onClick={() => {setIsCollection(false); localStorage.removeItem("folderHistory");  setIsOpen(!isOpen);localStorage.removeItem("parentId")}}
               className="bg_Button px-6 py-2 text-[14px] text-white font-medium rounded-[30px] h-[38px]"
             >
               {" "}

@@ -402,7 +402,8 @@ function CreateNewJob() {
           },
         }
       );
-      router.push("/common/hiring");
+     
+      router.push(`/common/hiring/JobPost?id=${response?.data?.data?._id}`)
       localStorage.removeItem("jdData");
 
       toast.success(

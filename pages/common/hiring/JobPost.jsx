@@ -53,6 +53,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [filterType, setfilterType] = useState();
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
+  const [totalPreferenceCount, setTotalPreferenceCount] = useState(0);
   const [statusChange, setStatusChange] = useState(false);
   const [loadinggg, setLoadinggg] = useState(false);
   const [applicantIds, setApplicantIds] = useState();
@@ -69,7 +70,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     { label: "Applied Date ↓", value: "appliedDateDesc" }
   ];
 
-  const [sortSelect, setSortSelect] = useState("appliedDateAsc");
+  const [sortSelect, setSortSelect] = useState("profileMatchAsc");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortedApplications, setSortedApplications] = useState([]);
 
@@ -322,6 +323,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
+      findCandidates(response.data)
     } catch (error) {
       console.error("Error fetching job details:", error);
     }
@@ -351,10 +353,25 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       );
 
       const data = await response.data;
+   
       setTimeout(() => {
         setLoading(false);
       }, 500);
-      setJobDetails(data);
+     const sortedApplications = [...data.data.applications].sort(
+        (a, b) => Number(a.isScore) - Number(b.isScore)
+      );
+
+      
+      const updatedData = {
+        ...data,
+        data: {
+          ...data.data,
+          applications: sortedApplications,
+        },
+      };
+
+      setJobDetails(updatedData);
+
 
       setTotalCount(data.pagination.totalApplications);
       setTotalpages(data.pagination.totalPages);
@@ -379,6 +396,50 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       fetchJobDetails();
     }
   }, [id, statusChange, selectedFilters, activeOption]);
+
+
+  const findCandidates = async (data) => {
+    try {
+
+      const { dial_code, mustSkills, totalExpMin, totalExpMax } = data;
+
+      const payload = {
+        data: {
+          dial_code,
+          mustSkills,
+          totalExpMin,
+          totalExpMax,
+        },
+
+      };
+
+      const response = await axios.post(
+        "https://api.skilotech.com/api/findCandidates/preferences",
+        payload,
+
+      );
+
+      setTotalPreferenceCount(response.data.totalCount);
+
+    } catch (error) {
+      console.error("Error in findCandidates:", error);
+    }
+  };
+  const goToPreferences = () => {
+    const { dial_code, mustSkills, totalExpMin, totalExpMax } = jobData;
+
+    const queryParams = new URLSearchParams({
+      preferences: true,
+      jobId: jobData._id,
+      // dial_code,
+      // mustSkills: JSON.stringify(mustSkills),
+      // totalExpMin,
+      // totalExpMax,
+    });
+
+    router.push(`/findCandidates?${queryParams.toString()}`);
+  };
+
 
   // const aiMatch = async () => {
   //   if (jdCountMonthly >= jdCountMonthlyLimit) {
@@ -1011,6 +1072,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         className=" min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
                       >
                         Set Matching Parameters
+                      </button>
+
+                      <button onClick={() => goToPreferences()} className=" min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
+                      >
+                        Skilotech Preferences ({totalPreferenceCount})
                       </button>
                     </div>
                     <div className="flex items-center  gap-[8px]">

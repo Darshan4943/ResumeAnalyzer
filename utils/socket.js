@@ -1,8 +1,12 @@
-// socket.js
 import { io } from "socket.io-client";
 
-const socket = io("https://api.skilotech.com", {
-  autoConnect: false, // prevents auto connect on import
-});
+const socket = io(
+  typeof window !== "undefined" && window.location.hostname === "localhost"
+    ? "http://localhost:2000"
+    : "https://api.skilotech.com", // replace with your domain
+  {
+    autoConnect: false,
+  }
+);
 
 export default socket;
