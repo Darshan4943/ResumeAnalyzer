@@ -52,11 +52,12 @@ function Collection() {
   const [duplicateFiles, setDuplicateFiles] = useState([]);
   const [failedFiles, setFailedFiles] = useState([]);
   const [unSyncFiles, setUnSyncFiles] = useState(null);
+ 
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true);
   const [collectionCount, setCollectionCount] = useState(0);
   const [error, setError] = useState("");
-  console.log(collectionCount);
+  
   const getLimits = () => {
     const collectionCountDaily = JSON.parse(
       localStorage.getItem("collectionCountDaily")
@@ -175,54 +176,54 @@ function Collection() {
   //     });
   // };
   const getParentData = async (parentId) => {
-  setLoading(true); // Only show loading for first 500
-  const limit = 500;
-  let skip = 0;
-  let allFiles = [];
+    setLoading(true); // Only show loading for first 500
+    const limit = 500;
+    let skip = 0;
+    let allFiles = [];
 
-  try {
-    // Fetch the first chunk (show loading)
-    const res = await axios.get(
-      `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
-    );
-    const { data, hasMore } = res.data;
-    allFiles = [...data];
-    setFolderList(allFiles); // Show initial 500
-    setLoading(false); // Hide loader
-
-    skip += limit;
-
-    // Now fetch the rest silently (no loading spinner)
-    if (hasMore) {
-      fetchRemainingChunks(parentId, skip, limit, allFiles);
-    }
-  } catch (err) {
-    console.log("Error fetching initial files:", err);
-    setLoading(false);
-  }
-};
-
-// Background loader for remaining files
-const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
-  let allFiles = [...currentFiles];
-  let hasMore = true;
-
-  while (hasMore) {
     try {
+      // Fetch the first chunk (show loading)
       const res = await axios.get(
         `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
       );
-      const { data, hasMore: more } = res.data;
-      allFiles = [...allFiles, ...data];
-      setFolderList([...allFiles]); // Update silently
+      const { data, hasMore } = res.data;
+      allFiles = [...data];
+      setFolderList(allFiles); // Show initial 500
+      setLoading(false); // Hide loader
+
       skip += limit;
-      hasMore = more;
+
+      // Now fetch the rest silently (no loading spinner)
+      if (hasMore) {
+        fetchRemainingChunks(parentId, skip, limit, allFiles);
+      }
     } catch (err) {
-      console.log("Error fetching background files:", err);
-      break;
+      console.log("Error fetching initial files:", err);
+      setLoading(false);
     }
-  }
-};
+  };
+
+  // Background loader for remaining files
+  const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
+    let allFiles = [...currentFiles];
+    let hasMore = true;
+
+    while (hasMore) {
+      try {
+        const res = await axios.get(
+          `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+        );
+        const { data, hasMore: more } = res.data;
+        allFiles = [...allFiles, ...data];
+        setFolderList([...allFiles]); // Update silently
+        skip += limit;
+        hasMore = more;
+      } catch (err) {
+        console.log("Error fetching background files:", err);
+        break;
+      }
+    }
+  };
 
 
   const getClientData = (clientId) => {
@@ -291,6 +292,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
   };
 
   const getUnSyncFiles = () => {
+    console.log("hii");
     axios
       .get(`https://api.skilotech.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
       .then((res) => {
@@ -302,19 +304,19 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
       });
   };
 
-  // useEffect(() => {
-  //   getUnSyncFiles();
-  //   dispatch(setRecallData(!recallData));
-  //   if (unSyncFiles > 0) {
-  //     const interval = setInterval(() => {
-  //       getUnSyncFiles();
-  //       getData();
-  //       dispatch(setRecallData(!recallData));
-  //     }, 30000);
+  useEffect(() => {
+    getUnSyncFiles();
+    dispatch(setRecallData(!recallData));
+    if (unSyncFiles > 0) {
+      const interval = setInterval(() => {
+        getUnSyncFiles();
+        getData();
+        dispatch(setRecallData(!recallData));
+      }, 30000);
 
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [unSyncFiles]);
+      return () => clearInterval(interval);
+    }
+  }, [unSyncFiles]);
 
   const createFolder = () => {
     setFileLoader(true);
@@ -528,6 +530,10 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
             setCount((prevCount) => prevCount + 1);
             setUploadCount((prevCount) => prevCount + 1);
             resolve({ index, response: response.data });
+            setTimeout(() => {
+              getUnSyncFiles()
+            }, 10000);
+
           } catch (e) {
             setCount((prevCount) => prevCount + 1);
             setFailedFiles((prevFailedFiles) => [
@@ -649,6 +655,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
               <div className="text-[24px] font-medium leading-tight">
                 New {isFile ? "Files" : "Folder"}
               </div>
+
               {isFile ? (
                 <div
                   ref={fileRef}
@@ -759,7 +766,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
                                   </span>
                                   &nbsp;to upload PDF or DOCS
                                 </div>
-                                <p className="text-center text-[12px] font-normal text-[#7C8493]"></p>
+
                               </div>
                             </>
                           )}
@@ -954,7 +961,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
               {error && (
                 <p className="text-red font-[500] text-[12px]">{error}</p>
               )}
-
+              <p className=" text-[12px] font-normal text-red">You can only choose up to 200 files at a time.</p>
               <div className="flex justify-between gap-6">
                 {userDataGlobal?.role == "bpo" ?
                   <div></div>
@@ -965,7 +972,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
                   >
                     {isFile && (
                       <>
-                        Daily upload limit :{" "}
+                        Daily upload limit available :{" "}
                         {collectionCount ? collectionCount : 0}
                       </>
                     )}
@@ -1165,10 +1172,10 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
               parentId={parentId}
               getData={getData}
             />
-          ) 
-          // : (
-          //   <RequestCV skilotechCollection={skilotechCollection} />
-          // )
+          )
+            // : (
+            //   <RequestCV skilotechCollection={skilotechCollection} />
+            // )
           }
         </div>
       </div>

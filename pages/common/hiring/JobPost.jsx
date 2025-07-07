@@ -353,7 +353,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       );
 
       const data = await response.data;
-      console.log(data);
+   
       setTimeout(() => {
         setLoading(false);
       }, 500);
