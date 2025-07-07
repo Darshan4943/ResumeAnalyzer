@@ -8,7 +8,7 @@ import ApplicantDetails from "./showProfile";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/mini-loader";
 
-const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandidates, allSave, data, setExpandedUser,
+const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelectedCandidates, selectedCandidates, allSave, data, setExpandedUser,
     expandedUser }) => {
     const {
         basics,
@@ -27,8 +27,10 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
 
 
     } = candidate;
-
+    const [update, setUpdate] = useState();
+    const [jdApplicantIds, setJdApplicantIds] = useState([]);
     const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const [hiringLoading, setHiringLoading] = useState(false)
     const [shareCv, setShareCv] = useState()
     const [loading, setLoading] = useState(false)
     const handleToggle = (userId) => {
@@ -95,7 +97,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
 
     const updateDownloadCount = async () => {
         try {
-            const response = await axios.put(`https://jamblix.com/api/candidates/${userId}/updateDownloadCount`);
+            const response = await axios.put(`https://api.skilotech.com/api/candidates/${userId}/updateDownloadCount`);
             console.log('Updated download count successfully:', response.data.candidate);
         } catch (error) {
             console.error('Error updating download count:', error);
@@ -226,7 +228,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
             };
 
             const response = await axios.post(
-                "https://jamblix.com/api/candidate/sendResume",
+                "https://api.skilotech.com/api/candidate/sendResume",
                 payload
             );
 
@@ -248,7 +250,43 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
     };
 
 
+    const addApplicant = async (applicantData) => {
+        setHiringLoading(true);
+        try {
+            const response = await axios.put(
+                `https://api.skilotech.com/api/job/moveToHiringPreferences/${jobId}`,
+                applicantData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            toast.success("Move to Hiring Successfully");
 
+            const existingIds =
+                JSON.parse(localStorage.getItem("jdApplicantIds")) || [];
+
+            const updatedIds = [...existingIds, applicantData?._id];
+            localStorage.setItem(
+                "jdApplicantIds",
+                JSON.stringify(updatedIds)
+            );
+            setUpdate(!update);
+            setHiringLoading(false);
+            return response.data;
+        } catch (error) {
+            setHiringLoading(false);
+            console.log(error);
+            toast.error(` ${error.response?.data?.message || error.message}`);
+        }
+    };
+
+    useEffect(() => {
+        const existingIds =
+            JSON.parse(localStorage.getItem("jdApplicantIds")) || [];
+        setJdApplicantIds(existingIds);
+    }, [update]);
 
     return (
         <>
@@ -360,7 +398,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
             }
 
             <div className="flex flex-col gap-2">
-                <div className="border border-[#DEDEDE] rounded-lg p-4  shadow-sm bg-white flex justify-between">
+                <div className="border border-[#DEDEDE] rounded-lg p-4 gap-4  shadow-sm bg-white flex justify-between">
 
                     <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2 text-lg font-medium">
@@ -377,7 +415,16 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                             >
                                 {basics?.firstName} {basics?.lastName}
                             </div>
+                            {userDataGlobal?._id === candidate?.recruiterId ?
 
+                                <div className="text-[10px] bg-[#7F55B1] font-medium text-white px-2 py-1 rounded-[30px] leading-tight">
+                                    My Collection
+                                </div>
+                                :
+                                <div className="text-[10px] bg-[#BBE9FF] font-medium px-2 py-1 rounded-[30px] leading-tight">
+                                    Skilotech Collection
+                                </div>
+                            }
                         </div>
                         <div className="text-[12px] text-gray-600 flex items-center gap-2 mt-1">
                             <svg width="16" height="14" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -485,7 +532,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                 </div> */}
                     </div>
 
-                    <div className="flex justify-between gap-4">
+                    <div className="flex justify-between gap-4 ">
                         <div className="text-center flex flex-col gap-4 items-center justify-between w-[200px]">
                             {candidate?.profilePicture?.img ?
                                 <img
@@ -514,19 +561,58 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                                 }
                             </div>
                             {resumeUrl &&
-                                <div onClick={() => downloadResume(resumeUrl, basics?.firstName, basics?.lastName)} className="flex gap-2 text-[13px] font-medium items-center cursor-pointer">
+                                <div
+                                    onClick={() => downloadResume(resumeUrl, basics?.firstName, basics?.lastName)}
+                                    className="flex gap-2 text-[13px] font-medium items-center cursor-pointer"
+                                    title={`${basics?.firstName || ""}_${basics?.lastName || ""}.pdf`}
+                                >
                                     <div className="flex h-[30px] w-[30px]">
-
                                         <PDFSvg1 />
                                     </div>
 
-                                    {basics?.firstName}_{basics?.lastName}.pdf
+                                    {
+                                        (() => {
+                                            const fullName = `${basics?.firstName || ""}_${basics?.lastName || ""}.pdf`;
+                                            return fullName.length > 15 ? fullName.slice(0, 15) + "..." : fullName;
+                                        })()
+                                    }
+                                </div>
+
+                            }
+
+                            {preferences &&
+                                <div className="  ">
+                                    {(jobData?.applications?.some((item) => item?.applicantId === candidate?.userId) || jdApplicantIds?.includes(candidate?._id))
+                                        ? (
+                                            <div className="text-[12px] font-semibold text-[#0C8A0A] flex gap-1 items-center">
+                                                Moved to Hiring <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0C8A0A"><path d="m423.23-309.85 268.92-268.92L650-620.92 423.23-394.15l-114-114L267.08-466l156.15 156.15ZM480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" /></svg>
+                                            </div>
+                                        ) : (
+                                            // hiringLoading ? (
+                                            //     <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
+                                            //     >
+                                            //         <MiniLoader />
+                                            //     </div>
+                                            // ) :
+                                            <button
+                                                onClick={() => addApplicant(candidate)}
+                                                disabled={hiringLoading}
+                                                className="text-[12px] font-[600] text-white py-[8px]  px-4 bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[136px]"
+                                            >
+                                                Move to Hiring
+                                            </button>
+                                        )}
                                 </div>
                             }
                         </div>
                         <div className=" h-full w-[1px] bg-[#DEDEDE]"></div>
                         <div className="flex flex-col gap-4">
+                            <button title={"View"} onClick={() => handleToggle(userId)} className={`p-2 rounded-full ${resumeUrl && "hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer"}`}
+                            >
+                                <svg className={`fill-[#8993a4] ${resumeUrl && "hover:fill-black"}`} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#8993a4"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v333q-19-11-39-20t-41-16v-137H520v137q-46 14-86 40t-74 63H200v160h82q11 22 22 42t24 38H200Zm0-320h240v-160H200v160Zm0-240h560v-80H200v80Zm280 200Zm0 0Zm0 0Zm0 0ZM640-40q-91 0-168-48T360-220q35-84 112-132t168-48q91 0 168 48t112 132q-35 84-112 132T640-40Zm0-80q57 0 107.5-26t82.5-74q-32-48-82.5-74T640-320q-57 0-107.5 26T450-220q32 48 82.5 74T640-120Zm0-40q-25 0-42.5-17.5T580-220q0-25 17.5-42.5T640-280q25 0 42.5 17.5T700-220q0 25-17.5 42.5T640-160Z" /></svg>
+                            </button>
                             <button
+                                title={"Save"}
                                 disabled={!resumeUrl}
                                 onClick={() => save(candidate)}
                                 className={`p-2 rounded-full ${resumeUrl && "hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer"}`}
@@ -542,7 +628,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
                                 </svg>
                             </button>
 
-                            <div onClick={() => { setSelectedCandidates(candidate); setShareCv(true) }} className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
+                            <div title={"Share"} onClick={() => { setSelectedCandidates(candidate); setShareCv(true) }} className="p-2 rounded-full hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     height="24px"

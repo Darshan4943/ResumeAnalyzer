@@ -116,6 +116,7 @@ function JdFiles({
     } else {
       localStorage.setItem("parentId", "");
       localStorage.setItem("fileName", "");
+      setIsOpen(!isOpen);
     }
   };
 
@@ -436,6 +437,9 @@ function JdFiles({
               onClick={() => {
                 setIsCollection(false);
                 setCollection("");
+                localStorage.removeItem("folderHistory");
+                  setIsOpen(!isOpen);
+                  localStorage.removeItem("parentId")
               }}
               className="red_border_Button px-6 py-2 text-[14px] font-medium rounded-[30px] h-[38px]"
             >
@@ -443,7 +447,7 @@ function JdFiles({
               Cancel
             </button>
             <button
-              onClick={() => setIsCollection(false)}
+              onClick={() => {setIsCollection(false); localStorage.removeItem("folderHistory");  setIsOpen(!isOpen);localStorage.removeItem("parentId")}}
               className="bg_Button px-6 py-2 text-[14px] text-white font-medium rounded-[30px] h-[38px]"
             >
               {" "}

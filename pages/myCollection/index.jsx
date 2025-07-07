@@ -162,7 +162,7 @@ function Collection() {
 
   // const getParentData = (parentId) => {
   //   axios
-  //     .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+  //     .get(`https://api.skilotech.com/api/folder/getByParentId/${parentId}`)
   //     .then((res) => {
   //       setFolderList(res.data.data);
 
@@ -183,7 +183,7 @@ function Collection() {
   try {
     // Fetch the first chunk (show loading)
     const res = await axios.get(
-      `https://jamblix.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+      `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
     );
     const { data, hasMore } = res.data;
     allFiles = [...data];
@@ -210,7 +210,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
   while (hasMore) {
     try {
       const res = await axios.get(
-        `https://jamblix.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
+        `https://api.skilotech.com/api/folder/getByParentId/${parentId}?skip=${skip}&limit=${limit}`
       );
       const { data, hasMore: more } = res.data;
       allFiles = [...allFiles, ...data];
@@ -227,7 +227,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
 
   const getClientData = (clientId) => {
     axios
-      .get("https://jamblix.com/api/resume/" + clientId)
+      .get("https://api.skilotech.com/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -241,7 +241,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/getRootFoldersByUserId/${userDataGlobal?._id}`)
+      .get(`https://api.skilotech.com/api/folder/getRootFoldersByUserId/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -258,7 +258,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
     setLoading(true);
     axios
       .get(
-        `https://jamblix.com/api/folder/getSkilotechCollectionData/${userDataGlobal?._id}`
+        `https://api.skilotech.com/api/folder/getSkilotechCollectionData/${userDataGlobal?._id}`
       )
       .then((res) => {
         setFolderList(res.data.data[0].files);
@@ -277,7 +277,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal?._id}`)
+      .get(`https://api.skilotech.com/api/folder/getTrashed/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -292,7 +292,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
 
   const getUnSyncFiles = () => {
     axios
-      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
+      .get(`https://api.skilotech.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
       .then((res) => {
         const files = res.data.data.filter((item) => item.type === "file");
         setUnSyncFiles(files.length);
@@ -326,7 +326,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("https://jamblix.com/api/folder/create", formData)
+        .post("https://api.skilotech.com/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -522,7 +522,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
 
           try {
             const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
+              "https://api.skilotech.com/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
@@ -570,7 +570,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
   //   }
   //   try {
 
-  //     const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
+  //     const apiUrl = `https://api.skilotech.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
@@ -602,8 +602,8 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
       };
     }
     try {
-      const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
-      const anotherApiUrl = `https://jamblix.com/api/subscription/updateCollectionLimit/${userDataGlobal?._id}`;
+      const apiUrl = `https://api.skilotech.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
+      const anotherApiUrl = `https://api.skilotech.com/api/subscription/updateCollectionLimit/${userDataGlobal?._id}`;
 
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
       const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount });
@@ -1140,7 +1140,7 @@ const fetchRemainingChunks = async (parentId, skip, limit, currentFiles) => {
               <p className="text-[14px] font-normal">400 mb of 2 GB used</p>
             </div> */}
           </div>
-          {tab === 0 || tab === 2 && (
+          {(tab === 0 || tab === 2) && (
             <Folders
               folderData={folderData}
               unSyncFiles={unSyncFiles}

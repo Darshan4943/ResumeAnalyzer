@@ -24,8 +24,8 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
   const callData = () => {
     const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     const url = isResume
-    ? `https://jamblix.com/api/resume/${id}`
-    : `https://jamblix.com/api/cover/get/${id}`;
+    ? `https://api.skilotech.com/api/resume/${id}`
+    : `https://api.skilotech.com/api/cover/get/${id}`;
   
     if (id) {
       axios

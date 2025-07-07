@@ -50,7 +50,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
     if (text?.length > 100) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("https://api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setText(res.data.data.choices[0].message.content);
@@ -80,7 +80,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const handleSubmit = () => {
     axios
       .post(
-        "https://jamblix.com/api/candidate/updateSummery/" +
+        "https://api.skilotech.com/api/candidate/updateSummery/" +
           userDataGlobal?._id,
 
         { summery: text }

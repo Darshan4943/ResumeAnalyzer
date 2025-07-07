@@ -19,6 +19,7 @@ function ManualForm({
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
+    code:country.dial_code
   }));
   const handleCountryChange = (selectedCountries) => {
     setFormError((prevErrors) => ({
@@ -29,6 +30,9 @@ function ManualForm({
       ...data,
       country: selectedCountries
         ? selectedCountries.map((country) => country.value)
+        : [],
+        dial_code:selectedCountries
+        ? selectedCountries.map((country) => country.code)
         : [],
     });
   };

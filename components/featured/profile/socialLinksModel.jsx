@@ -65,7 +65,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
     if (isEditing) {
       axios
         .put(
-          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateSocialLinks/${Social._id}`,
+          `https://api.skilotech.com/api/candidate/${userDataGlobal?._id}/updateSocialLinks/${Social._id}`,
           data
         )
         .then((res) => {
@@ -80,7 +80,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
     } else {
       axios
         .post(
-          "https://jamblix.com/api/candidate/addSocialLinks/" +
+          "https://api.skilotech.com/api/candidate/addSocialLinks/" +
             userDataGlobal?._id,
           data
         )

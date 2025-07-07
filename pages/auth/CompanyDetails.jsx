@@ -229,7 +229,7 @@ function CompanyDetails({
     }
 
     axios
-      .post("https://jamblix.com/api/skiloteckuser/companyCheck", {
+      .post("https://api.skilotech.com/api/skiloteckuser/companyCheck", {
         companyEmail: formData.companyEmail,
       })
       .then((res) => {

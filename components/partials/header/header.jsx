@@ -66,7 +66,7 @@ function Header({ userData }) {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/jobs/getJobAttributes")
+      .get("https://api.skilotech.com/api/jobs/getJobAttributes")
       .then((res) => {
         const { experiences } = res.data;
         setExperinceData(experiences);

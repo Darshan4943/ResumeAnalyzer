@@ -39,7 +39,7 @@ const Index = () => {
     setLoading(true);
     if (id) {
       await axios
-        .get("https://jamblix.com/api/job/getById/" + id)
+        .get("https://api.skilotech.com/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
           setJobPost(res.data);
@@ -66,7 +66,7 @@ const Index = () => {
     if (id) {
       try {
         const res = await axios.get(
-          `https://jamblix.com/api/jobs/SyncById/${id}`
+          `https://api.skilotech.com/api/jobs/SyncById/${id}`
         );
 
         if (res.data.success) {
@@ -85,7 +85,7 @@ const Index = () => {
   const getAllAppliedData = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getSynchData/${id}`,
+        `https://api.skilotech.com/api/job/getSynchData/${id}`,
         {
           params: {
             page,

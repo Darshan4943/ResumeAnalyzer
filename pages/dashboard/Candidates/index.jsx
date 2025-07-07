@@ -22,7 +22,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/candidates", {
+      .get("https://api.skilotech.com/api/candidates", {
         params: { page, limit },
       })
       .then((res) => {
@@ -61,7 +61,7 @@ const Index = () => {
     try {
       let role = "user"
       const response = await axios.post(
-        'https://jamblix.com/api/users/download',
+        'https://api.skilotech.com/api/users/download',
         { role },
         {
           responseType: 'blob',

@@ -2,8 +2,8 @@ import { io } from "socket.io-client";
 
 const socket = io(
   typeof window !== "undefined" && window.location.hostname === "localhost"
-    ? "https://jamblix.com"
-    : "https://jamblix.com", // replace with your domain
+    ? "https://api.skilotech.com"
+    : "https://api.skilotech.com", // replace with your domain
   {
     autoConnect: false,
   }

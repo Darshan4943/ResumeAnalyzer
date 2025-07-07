@@ -171,7 +171,7 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://jamblix.com/api/add/subscription", {
+  //       .post("https://api.skilotech.com/api/add/subscription", {
   //         userId: userDataGlobal?._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -212,7 +212,7 @@ function AccountDetails({
     } else {
       if (recruiterid) {
         axios
-          .get("https://jamblix.com/api/skiloteckuser/user/" + recruiterid)
+          .get("https://api.skilotech.com/api/skiloteckuser/user/" + recruiterid)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -266,7 +266,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "https://jamblix.com/api/getPriceId",
+        "https://api.skilotech.com/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -295,7 +295,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://jamblix.com/api/proceed/payment", {
+            .post("https://api.skilotech.com/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
@@ -319,7 +319,7 @@ function AccountDetails({
       try {
         // setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
-          "https://jamblix.com/api/retrieve/session",
+          "https://api.skilotech.com/api/retrieve/session",
           {
             params: { storedId },
           }
@@ -369,7 +369,7 @@ function AccountDetails({
     seticon(icon);
     setexchangeRate(exchangeRate);
     try {
-      await axios.post("https://jamblix.com/api/add/subscription", {
+      await axios.post("https://api.skilotech.com/api/add/subscription", {
         userId: userDataGlobal?._id,
         plan: `${selectedPlan.name}`,
         ...jsonData,
@@ -418,7 +418,7 @@ function AccountDetails({
       } else {
         setLoading(true);
         try {
-          await axios.post("https://jamblix.com/api/add/subscription", {
+          await axios.post("https://api.skilotech.com/api/add/subscription", {
             userId: userDataGlobal?._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,

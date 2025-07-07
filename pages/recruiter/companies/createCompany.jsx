@@ -67,7 +67,7 @@ function CreateCompany() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://jamblix.com/api/company/fetchCompaniDetails/${companyId}`
+          `https://api.skilotech.com/api/company/fetchCompaniDetails/${companyId}`
         );
 
         if (response.data) {
@@ -257,7 +257,7 @@ function CreateCompany() {
         formData.append("croppedImage", file);
       }
       const response = await axios.post(
-        `https://jamblix.com/api/company/addCompany/${id}`,
+        `https://api.skilotech.com/api/company/addCompany/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -313,7 +313,7 @@ function CreateCompany() {
       }
 
       const response = await axios.put(
-        `https://jamblix.com/api/company/updateCompanyDetails/${companyId}/${id}`,
+        `https://api.skilotech.com/api/company/updateCompanyDetails/${companyId}/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

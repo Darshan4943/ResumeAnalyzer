@@ -94,7 +94,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/delete", {
+      .post("https://api.skilotech.com/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -115,7 +115,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/restore", {
+      .post("https://api.skilotech.com/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -200,7 +200,7 @@ function Folders({
 
   const moveHere = async () => {
     try {
-      const response = await axios.post('https://jamblix.com/api/folder/move', {
+      const response = await axios.post('https://api.skilotech.com/api/folder/move', {
         parentId,
         selectedIds,
       });
@@ -220,7 +220,7 @@ function Folders({
   };
   const copyHere = async () => {
     try {
-      const response = await axios.post('https://jamblix.com/api/folder/copy', {
+      const response = await axios.post('https://api.skilotech.com/api/folder/copy', {
         parentId,
         selectedIds,
       });

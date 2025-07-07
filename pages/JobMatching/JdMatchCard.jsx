@@ -53,7 +53,7 @@ function JdMatchCard({
 
   const fetchFolder = async () => {
     try {
-      const response = await axios.get(`https://jamblix.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
+      const response = await axios.get(`https://api.skilotech.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
       setParentId(response?.data?._id);
     } catch (error) {
       console.error("Error fetching folder:", error);
@@ -153,7 +153,7 @@ function JdMatchCard({
           };
 
           const response = await axios.post(
-            "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+            "https://api.skilotech.com/api/folder/addFileToSkilotechCollection",
             payload,
             {
               headers: {
@@ -204,7 +204,7 @@ function JdMatchCard({
 
 
           const response = await axios.post(
-            "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+            "https://api.skilotech.com/api/folder/addFileToSkilotechCollection",
             payload,
             {
               headers: {
@@ -297,7 +297,7 @@ function JdMatchCard({
       const movePromises = filteredApplicants.map(async (applicant) => {
         try {
           const response = await axios.put(
-            `https://jamblix.com/api/job/moveToHiring/${selectedJob}`,
+            `https://api.skilotech.com/api/job/moveToHiring/${selectedJob}`,
             applicant,
             {
               headers: { "Content-Type": "application/json" },

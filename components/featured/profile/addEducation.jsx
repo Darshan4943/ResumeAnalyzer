@@ -107,7 +107,7 @@ function AddEducation({
     if (editEducation) {
       axios
         .put(
-          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateEducation/${Education._id}`,
+          `https://api.skilotech.com/api/candidate/${userDataGlobal?._id}/updateEducation/${Education._id}`,
           obj
         )
         .then((res) => {
@@ -123,7 +123,7 @@ function AddEducation({
     else {
       axios
         .post(
-          `https://jamblix.com/api/candidate/addEducation/${userDataGlobal?._id}`,
+          `https://api.skilotech.com/api/candidate/addEducation/${userDataGlobal?._id}`,
           obj
         )
         .then((res) => {

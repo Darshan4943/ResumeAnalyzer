@@ -32,7 +32,7 @@ function MyFolders({
     if (inputRef.current && !inputRef.current.contains(e.target)) {
       if (newName.trim()) {
         try {
-          const response = await axios.post("https://jamblix.com/api/folder/rename", {
+          const response = await axios.post("https://api.skilotech.com/api/folder/rename", {
             _id: selectedIndexes[0],
             newName: newName.trim(),
           });
@@ -74,7 +74,7 @@ function MyFolders({
     if (e.key === 'Enter' && newName.trim()) {
 
       try {
-        const response = await axios.post('https://jamblix.com/api/folder/rename', {
+        const response = await axios.post('https://api.skilotech.com/api/folder/rename', {
           _id,
           newName: newName.trim(),
         });

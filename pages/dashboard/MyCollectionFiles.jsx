@@ -68,7 +68,7 @@ function MyCollectionFiles({
   useEffect(() => {
     if (clientId) {
       axios
-        .get("https://jamblix.com/api/resume/" + clientId)
+        .get("https://api.skilotech.com/api/resume/" + clientId)
         .then((res) => {
           setClientResumes(res.data.data);
           setFiles(

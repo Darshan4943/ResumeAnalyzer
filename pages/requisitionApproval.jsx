@@ -18,7 +18,7 @@ function RequisitionApproval() {
 
     const getRequisitionLevelStatus = async () => {
         try {
-            const response = await axios.get(`https://jamblix.com/api/requisition/requisitionLevelStatus/${requisitionId}/${levelId}`);
+            const response = await axios.get(`https://api.skilotech.com/api/requisition/requisitionLevelStatus/${requisitionId}/${levelId}`);
             setPreviousStatus(response.data.levelStatus)
             if(!updated && response.data.levelStatus === "Pending" ){
                 setTimeout(() => {
@@ -43,7 +43,7 @@ function RequisitionApproval() {
     const requisitionUpdate = async () => {
 
         try {
-            const response = await axios.put(`https://jamblix.com/api/requisition/requisitionUpdate/${requisitionId}/${levelId}`, { status })
+            const response = await axios.put(`https://api.skilotech.com/api/requisition/requisitionUpdate/${requisitionId}/${levelId}`, { status })
            
             setUpdated(true)
 

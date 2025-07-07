@@ -162,7 +162,7 @@ function EditTemplate() {
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/getTemplates/${userDataGlobal?._id}`
+        `https://api.skilotech.com/api/getTemplates/${userDataGlobal?._id}`
       );
       const result = await response.json();
 
@@ -235,7 +235,7 @@ function EditTemplate() {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/createTemplate/${userDataGlobal?._id}`,
+        `https://api.skilotech.com/api/createTemplate/${userDataGlobal?._id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

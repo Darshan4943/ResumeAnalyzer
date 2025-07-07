@@ -59,7 +59,7 @@ function RecentApplications({ status }) {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getAllApplication/${userDataGlobal?._id}`,
+        `https://api.skilotech.com/api/job/getAllApplication/${userDataGlobal?._id}`,
         {
           params: { page, limit, search: searchQuery },
         }
@@ -100,7 +100,7 @@ function RecentApplications({ status }) {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/hiring/shortlistCandidate",
+        "https://api.skilotech.com/api/hiring/shortlistCandidate",
         emailDetails
       );
 

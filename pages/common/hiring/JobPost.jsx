@@ -53,6 +53,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [filterType, setfilterType] = useState();
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
+  const [totalPreferenceCount, setTotalPreferenceCount] = useState(0);
   const [statusChange, setStatusChange] = useState(false);
   const [loadinggg, setLoadinggg] = useState(false);
   const [applicantIds, setApplicantIds] = useState();
@@ -69,7 +70,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     { label: "Applied Date ↓", value: "appliedDateDesc" }
   ];
 
-  const [sortSelect, setSortSelect] = useState("appliedDateAsc");
+  const [sortSelect, setSortSelect] = useState("profileMatchAsc");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortedApplications, setSortedApplications] = useState([]);
 
@@ -153,7 +154,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`
+          `https://api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -191,7 +192,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setLoading1(true);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/hiring/moveToHiringMultiple/${id}`,
+        `https://api.skilotech.com/api/hiring/moveToHiringMultiple/${id}`,
         { applicantIds }
       );
       setLoading1(false);
@@ -294,7 +295,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/hiring/shortlistCandidate",
+        "https://api.skilotech.com/api/hiring/shortlistCandidate",
         emailDetails
       );
 
@@ -319,9 +320,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const fetchJobDetailsHeder = async (id, setJobData) => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getJobDetailsById/${id}`
+        `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
+      findCandidates(response.data)
     } catch (error) {
       console.error("Error fetching job details:", error);
     }
@@ -336,7 +338,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setError(null);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getByIdApplication/${id}`,
+        `https://api.skilotech.com/api/job/getByIdApplication/${id}`,
         {
           params: {
             page: page,
@@ -351,10 +353,25 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       );
 
       const data = await response.data;
+      console.log(data);
       setTimeout(() => {
         setLoading(false);
       }, 500);
-      setJobDetails(data);
+     const sortedApplications = [...data.data.applications].sort(
+        (a, b) => Number(a.isScore) - Number(b.isScore)
+      );
+
+      
+      const updatedData = {
+        ...data,
+        data: {
+          ...data.data,
+          applications: sortedApplications,
+        },
+      };
+
+      setJobDetails(updatedData);
+
 
       setTotalCount(data.pagination.totalApplications);
       setTotalpages(data.pagination.totalPages);
@@ -380,6 +397,50 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
   }, [id, statusChange, selectedFilters, activeOption]);
 
+
+  const findCandidates = async (data) => {
+    try {
+
+      const { dial_code, mustSkills, totalExpMin, totalExpMax } = data;
+
+      const payload = {
+        data: {
+          dial_code,
+          mustSkills,
+          totalExpMin,
+          totalExpMax,
+        },
+
+      };
+
+      const response = await axios.post(
+        "https://api.skilotech.com/api/findCandidates/preferences",
+        payload,
+
+      );
+
+      setTotalPreferenceCount(response.data.totalCount);
+
+    } catch (error) {
+      console.error("Error in findCandidates:", error);
+    }
+  };
+  const goToPreferences = () => {
+    const { dial_code, mustSkills, totalExpMin, totalExpMax } = jobData;
+
+    const queryParams = new URLSearchParams({
+      preferences: true,
+      jobId: jobData._id,
+      // dial_code,
+      // mustSkills: JSON.stringify(mustSkills),
+      // totalExpMin,
+      // totalExpMax,
+    });
+
+    router.push(`/findCandidates?${queryParams.toString()}`);
+  };
+
+
   // const aiMatch = async () => {
   //   if (jdCountMonthly >= jdCountMonthlyLimit) {
   //     setLimitPopup(true);
@@ -388,7 +449,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setAiLoading(true);
   //   try {
   //     const response = await axios.put(
-  //       `https://jamblix.com/api/job/aiMatch/${id}`
+  //       `https://api.skilotech.com/api/job/aiMatch/${id}`
   //     );
   //     updateJobMatchLimit();
   //     setTimeout(() => {
@@ -408,7 +469,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setAiLoading(true);
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/aiMatch/gist",
+        "https://api.skilotech.com/api/aiMatch/gist",
 
         {
           jobGist: jobData?.gist,
@@ -435,7 +496,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   // const updateJobMatchLimit = async () => {
   //   try {
-  //     const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+  //     const jdSubscriptionLimitUrl = `https://api.skilotech.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
   //     const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl);
 
   //     if (!jdSubscriptionResponse.data.success) {
@@ -562,7 +623,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const hiredCandidate = async (applicantId, jobId) => {
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/hiring/hiredCandidate/${applicantId}/${jobId}`
+        `https://api.skilotech.com/api/hiring/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
@@ -1011,6 +1072,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         className=" min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
                       >
                         Set Matching Parameters
+                      </button>
+
+                      <button onClick={() => goToPreferences()} className=" min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
+                      >
+                        Skilotech Preferences ({totalPreferenceCount})
                       </button>
                     </div>
                     <div className="flex items-center  gap-[8px]">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MiniLoader from './mini-loader';
 
-function CustomPagination({ setPage,page, setLimit, totalPages, limit, setMiniloading, miniLoading,title,isBackground,defaultLimit }) {
+function CustomPagination({ setPage, page, setLimit, totalPages, limit, setMiniloading, miniLoading, title, isBackground, defaultLimit }) {
 
     const [currentPage, setCurrentPage] = useState(page);
 
@@ -31,15 +31,15 @@ function CustomPagination({ setPage,page, setLimit, totalPages, limit, setMinilo
     return (
         <div style={{
             ...(isBackground && {
-              boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-              borderBottomLeftRadius: "16px",
-              borderBottomRightRadius: "16px",
-              borderTop: "1px solid #D3D3D3",
-              backgroundColor: "white",
+                boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                borderBottomLeftRadius: "16px",
+                borderBottomRightRadius: "16px",
+                borderTop: "1px solid #D3D3D3",
+                backgroundColor: "white",
             }),
-          }}
-          
-           className="sm:px-[16px] px-0 w-full justify-between flex  py-4 ">
+        }}
+
+            className="sm:px-[16px] px-0 w-full justify-between flex  py-4 ">
             <div className="flex items-center sm:gap-4 gap-2">
                 <p className="text-[14px] text-[#646464] font-600">View</p>
                 <div className="flex gap-[8px] items-center">
@@ -55,6 +55,8 @@ function CustomPagination({ setPage,page, setLimit, totalPages, limit, setMinilo
                         {/* <option value="10">10</option> */}
                         <option value="20">20</option>
                         <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
                     </select>
                 </div>
                 <p className="text-[14px] sm:block hidden text-[#646464] font-[600]">

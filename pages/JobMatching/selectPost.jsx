@@ -67,7 +67,7 @@ const SelectPost = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        `https://jamblix.com/api/job/getByCreatedId/${userDataGlobal?._id}`,
+        `https://api.skilotech.com/api/job/getByCreatedId/${userDataGlobal?._id}`,
         {
           params: {
             page,

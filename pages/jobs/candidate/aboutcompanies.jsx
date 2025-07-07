@@ -43,7 +43,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getEmployerCompaniesByRecId/${createdBy}`
+        `https://api.skilotech.com/api/getEmployerCompaniesByRecId/${createdBy}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -60,7 +60,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getJobsById/${id ? id : createdBy
+        `https://api.skilotech.com/api/getJobsById/${id ? id : createdBy
         }?page=${page}&limit=${limit}&role=${role}`
       );
       const { jobs, totalCount, totalPages } = response.data;
@@ -89,7 +89,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getEmployerCompanies/${id}`
+        `https://api.skilotech.com/api/getEmployerCompanies/${id}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -115,7 +115,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://jamblix.com/api/getEmployerJobs?companyName=${encodeURIComponent(
+        `https://api.skilotech.com/api/getEmployerJobs?companyName=${encodeURIComponent(
           companyName
         )}&page=${page}&limit=${limit}&createdBy=${createdBy}`
       );
@@ -162,7 +162,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/createOrUpdateReview",
+        "https://api.skilotech.com/api/createOrUpdateReview",
         { ...reviewData, userId: userDataGlobal?._id }
       );
 
@@ -180,7 +180,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/getreview/${idd}`
+        `https://api.skilotech.com/api/getreview/${idd}`
       );
       const { averageRating, totalReviews, totalRatingCount } = response.data;
 
@@ -204,7 +204,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/getReviewByUser/${idd}/${userDataGlobal?._id}`
+        `https://api.skilotech.com/api/getReviewByUser/${idd}/${userDataGlobal?._id}`
       );
       const review = response.data.reviews[0];
 
