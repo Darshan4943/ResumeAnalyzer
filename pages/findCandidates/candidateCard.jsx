@@ -95,7 +95,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
 
     const updateDownloadCount = async () => {
         try {
-            const response = await axios.put(`https://jamblix.com/api/candidates/${userId}/updateDownloadCount`);
+            const response = await axios.put(`https://api.skilotech.com/api/candidates/${userId}/updateDownloadCount`);
             console.log('Updated download count successfully:', response.data.candidate);
         } catch (error) {
             console.error('Error updating download count:', error);
@@ -226,7 +226,7 @@ const CandidateCard = ({ candidate, save, setSelectedCandidates, selectedCandida
             };
 
             const response = await axios.post(
-                "https://jamblix.com/api/candidate/sendResume",
+                "https://api.skilotech.com/api/candidate/sendResume",
                 payload
             );
 

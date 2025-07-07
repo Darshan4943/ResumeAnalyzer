@@ -169,7 +169,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`
+          `https://api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -207,7 +207,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   //     const outputData = [];
 
   //     const response = await axios.post(
-  //       "https://jamblix.com/api/skiloCollection/jobMatching",
+  //       "https://api.skilotech.com/api/skiloCollection/jobMatching",
   //       {
   //         jd: isResumes === "post" ? selectedJob : data,
   //         resumeCount,
@@ -271,7 +271,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
       setMatchLoader(true);
 
       const response = await axios.post(
-        "https://jamblix.com/api/findCandidates/manual",
+        "https://api.skilotech.com/api/findCandidates/manual",
         {
           data, filters,
 
@@ -316,7 +316,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   }, [page, limit]);
   const updateJobMatchLimit = async () => {
     try {
-      const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `https://api.skilotech.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
         resumeCount,
       });
@@ -328,7 +328,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         );
       }
 
-      // const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      // const jdSubscriptionLimitUrl = `https://api.skilotech.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
       //   resumeCount,
       // });
@@ -436,7 +436,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   //             };
 
   //             const response = await axios.post(
-  //                 "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+  //                 "https://api.skilotech.com/api/folder/addFileToSkilotechCollection",
   //                 payload,
   //                 {
   //                     headers: {
@@ -490,7 +490,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         };
 
         const folderResponse = await axios.post(
-          "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+          "https://api.skilotech.com/api/folder/addFileToSkilotechCollection",
           payload,
           { headers: { "Content-Type": "application/json" } }
         );
@@ -522,7 +522,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         };
 
         return axios.post(
-          "https://jamblix.com/api/folder/addFileToSkilotechCollection",
+          "https://api.skilotech.com/api/folder/addFileToSkilotechCollection",
           payload,
           { headers: { "Content-Type": "application/json" } }
         );
@@ -579,7 +579,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
 
   const getUserFolders = async () => {
     try {
-      const response = await axios.get(`https://jamblix.com/api/folder/getFolder/${userDataGlobal?._id}`);
+      const response = await axios.get(`https://api.skilotech.com/api/folder/getFolder/${userDataGlobal?._id}`);
       setFolders(response.data.data)
     } catch (error) {
       console.error('Error fetching folders:', error);
@@ -588,7 +588,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   };
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/candidates/getDistinctCandidateAttributes")
+      .get("https://api.skilotech.com/api/candidates/getDistinctCandidateAttributes")
       .then((res) => {
         setJobTypeData(res.data);
 

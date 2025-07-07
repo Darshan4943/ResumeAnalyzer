@@ -31,7 +31,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     }
     axios
       .put(
-        "https://jamblix.com/api/candidate/updateSkills/" +
+        "https://api.skilotech.com/api/candidate/updateSkills/" +
           userDataGlobal?._id,
 
         { skills: skil }

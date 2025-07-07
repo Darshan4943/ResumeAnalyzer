@@ -203,7 +203,7 @@ function EditProfile({ setEditProfile }) {
       };
       axios
         .put(
-          "https://jamblix.com/api/candidate/updateProfile/" +
+          "https://api.skilotech.com/api/candidate/updateProfile/" +
           userDataGlobal?._id,
           requestData
         )
@@ -292,7 +292,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
 
     axios
-      .post("https://jamblix.com/api/otpMailProfile", {
+      .post("https://api.skilotech.com/api/otpMailProfile", {
         userId: userDataGlobal?._id,
         userEmail: data.email,
       })
@@ -342,7 +342,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("https://jamblix.com/api/verifyOtpProfile", {
+      .post("https://api.skilotech.com/api/verifyOtpProfile", {
         userId: userDataGlobal?._id,
         otpEntered,
       })

@@ -167,7 +167,7 @@ const MatchJob = () => {
       setResumeList([]);
         setIsMatched(false)
  setLoadingg(true)
-      await axios.post("https://jamblix.com/api/skiloCollection/jobMatching", {
+      await axios.post("https://api.skilotech.com/api/skiloCollection/jobMatching", {
         jd: extratctedData,
         resumeCount: Number(resumeCount),  
         parameters,
@@ -261,7 +261,7 @@ useEffect(() => {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`
+          `https://api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -344,7 +344,7 @@ useEffect(() => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`https://api.skilotech.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
@@ -368,7 +368,7 @@ useEffect(() => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`https://api.skilotech.com/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
@@ -395,7 +395,7 @@ useEffect(() => {
     setLoading(true);
 
     await axios
-      .get("https://jamblix.com/api/job/getById/" + selectedJob)
+      .get("https://api.skilotech.com/api/job/getById/" + selectedJob)
       .then((res) => {
         setLoading(false);
         const { applications, ...restData } = res.data;
@@ -435,7 +435,7 @@ useEffect(() => {
   //     const outputData = [];
   //     setMatchLoader(true);
   //     const response = await axios.post(
-  //       "https://jamblix.com/api/skiloCollection/jobMatching",
+  //       "https://api.skilotech.com/api/skiloCollection/jobMatching",
 
   //       {
   //         jd: extratctedData,
@@ -521,7 +521,7 @@ useEffect(() => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://jamblix.com/api/external/jobMatching",
+      "https://api.skilotech.com/api/external/jobMatching",
 
       {
         jd,
@@ -612,7 +612,7 @@ useEffect(() => {
     setHiringLoading(true);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/job/moveToHiring/${selectedJob}`,
+        `https://api.skilotech.com/api/job/moveToHiring/${selectedJob}`,
         applicantData,
         {
           headers: {
@@ -669,7 +669,7 @@ useEffect(() => {
     let resumeCount = selectedIndexesFileTypes.length;
 
     try {
-      const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `https://api.skilotech.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
         resumeCount,
       });
@@ -681,7 +681,7 @@ useEffect(() => {
         );
       }
 
-      // const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      // const jdSubscriptionLimitUrl = `https://api.skilotech.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
       //   resumeCount,
       // });

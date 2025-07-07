@@ -150,7 +150,7 @@ const JdParameters = ({ setOpenParamenters }) => {
         const fetchJDParameters = async () => {
 
             try {
-                const data = await axios.get(`https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`);
+                const data = await axios.get(`https://api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`);
 
                 if (data?.data?.data?.parameters) {
 
@@ -169,7 +169,7 @@ const JdParameters = ({ setOpenParamenters }) => {
     const addJDParameters = async () => {
         setLoading(true);
         try {
-            const response = await axios.post(`https://jamblix.com/api/jdParameters/add`, {
+            const response = await axios.post(`https://api.skilotech.com/api/jdParameters/add`, {
                 userId: userDataGlobal?._id,
                 parameters,
                 weightage,

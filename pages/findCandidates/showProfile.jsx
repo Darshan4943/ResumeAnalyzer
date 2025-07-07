@@ -35,7 +35,7 @@ function ApplicantDetails({ id, setExpandedUser }) {
     console.log(jobDetails);
     const getCandidateByUserId = async () => {
         try {
-            const response = await axios.get(`https://jamblix.com/api/candidate/profile/${id}`);
+            const response = await axios.get(`https://api.skilotech.com/api/candidate/profile/${id}`);
             setJobDetails(response.data.user);
             setLoading(false)
         } catch (error) {
@@ -51,7 +51,7 @@ function ApplicantDetails({ id, setExpandedUser }) {
     };
     const updateViewCount = async () => {
         try {
-            const response = await axios.put(`https://jamblix.com/api/candidates/${id}/updateViewCount`);
+            const response = await axios.put(`https://api.skilotech.com/api/candidates/${id}/updateViewCount`);
             console.log('Updated view count successfully:', response.data.candidate);
         } catch (error) {
             console.error('Error updating view count:', error);

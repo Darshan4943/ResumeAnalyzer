@@ -33,7 +33,7 @@ const TopCompanies = () => {
     setError(null);
     try {
       const response = await axios.get(
-        "https://jamblix.com/api/getTopcompanies"
+        "https://api.skilotech.com/api/getTopcompanies"
       );
       const data = response.data;
 

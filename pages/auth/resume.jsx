@@ -105,11 +105,11 @@ function ResumePage() {
       let url = "";
       const token = JSON.parse(localStorage.getItem("authToken"));
       if (skilotechCollection) {
-        url = "https://jamblix.com/api/resumeEvaluation/" + id;
+        url = "https://api.skilotech.com/api/resumeEvaluation/" + id;
       } else if (myCollection) {
-        url = "https://jamblix.com/api/folderEvaluation/" + id;
+        url = "https://api.skilotech.com/api/folderEvaluation/" + id;
       } else if (application) {
-        url = "https://jamblix.com/api/applicationEvaluation/" + id;
+        url = "https://api.skilotech.com/api/applicationEvaluation/" + id;
       }
       axios
         .get(url)
@@ -193,7 +193,7 @@ function ResumePage() {
     try {
       setLoading(true);
 
-      const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
+      const res = await axios.post("https://api.skilotech.com/api/resume-evaluate", {
         text: resumeJson,
       });
 

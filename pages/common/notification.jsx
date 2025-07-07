@@ -28,7 +28,7 @@ function EmployerNotification() {
   ];
   const fuseSearch = (term, data) => {
     const fuse = new Fuse(data, {
-      keys: ["title", "message", "description"], // adjust based on your notification object
+      keys: ["title", "message", "description"],
       threshold: 0.3,
     });
 
@@ -44,7 +44,7 @@ function EmployerNotification() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `https://jamblix.com/api/getnotification/${
+        `https://api.skilotech.com/api/getnotification/${
           userDataGlobal?._id
         }?filter=${encodeURIComponent(filter)}`
       );
@@ -70,7 +70,7 @@ function EmployerNotification() {
 
   const handleNotificationClick = async () => {
     try {
-      await axios.post(`https://jamblix.com/api/updateNotification`, {
+      await axios.post(`https://api.skilotech.com/api/updateNotification`, {
         selectedIds,
       });
       fetchNotifications();
@@ -86,7 +86,7 @@ function EmployerNotification() {
   const deleteNotification = async (id) => {
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/deletnotification/${id}`
+        `https://api.skilotech.com/api/deletnotification/${id}`
       );
 
       toast.success(response.data.message);
@@ -127,7 +127,7 @@ function EmployerNotification() {
               </button>
             ))}
           </div>
-          <div className="flex justify-between gap-4 items-center">
+          <div className="  flex-col flex sm:flex-row justify-between gap-4 items-center">
             <input
               type="text"
               value={searchTerm}

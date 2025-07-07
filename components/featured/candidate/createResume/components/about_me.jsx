@@ -64,7 +64,7 @@ const AboutMe = ({ data, setData,isEnhanced }) => {
     if (text.length > 100) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("https://api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");

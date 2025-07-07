@@ -38,7 +38,7 @@ console.log(222,jobDetails);
       );
 
       const response = await axios.get(
-        "https://jamblix.com/api/applicantdetails",
+        "https://api.skilotech.com/api/applicantdetails",
         {
           params: { id, applicantId },
         }

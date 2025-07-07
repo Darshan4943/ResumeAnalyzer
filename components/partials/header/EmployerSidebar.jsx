@@ -21,6 +21,12 @@ function EmployerSidebar() {
       img1: "/images/employer/sidebar/home2.png",
       route: "/",
     },
+     {
+      img: "/images/employer/sidebar/jdcreation.png",
+      img1: "/images/employer/sidebar/jdcreation2.png",
+      title: "JD Creation",
+      route: "/jdCreation",
+    },
     {
       title: "Job Management",
       img: "/images/employer/sidebar/jobPosting.png",
@@ -52,12 +58,7 @@ function EmployerSidebar() {
       title: "JD Matching",
       route: "/JobMatching",
     },
-    {
-      img: "/images/employer/sidebar/jdcreation.png",
-      img1: "/images/employer/sidebar/jdcreation2.png",
-      title: "JD Creation",
-      route: "/jdCreation",
-    },
+   
     {
       img: "/images/employer/sidebar/myCollection.png",
       img1: "/images/employer/sidebar/myCollection2.png",

@@ -88,7 +88,7 @@ function MyPurchase() {
   }, [subscription]);
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("https://api.skilotech.com/api/plans/getAllPlans")
       .then((res) => {
         setAllPlans(res.data.data);
       })
@@ -99,7 +99,7 @@ function MyPurchase() {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/subscription/" + userDataGlobal?._id)
+      .get("https://api.skilotech.com/api/subscription/" + userDataGlobal?._id)
       .then((res) => {
         const plan = allPlans.find(
           (item) => item.index == res.data.findIsActive?.index
@@ -127,7 +127,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal?._id)
+        .get("https://api.skilotech.com/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -155,7 +155,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       // setLoading(true);
       axios
-        .get("https://jamblix.com/api/AllSubscription/" + userDataGlobal?._id)
+        .get("https://api.skilotech.com/api/AllSubscription/" + userDataGlobal?._id)
         .then((res) => {
           setSubscriptionHistory(res.data.data.reverse());
 

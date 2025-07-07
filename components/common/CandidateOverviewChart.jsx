@@ -45,7 +45,7 @@ const CandidateOverviewChart = () => {
 
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getJobStatisticsDateRange/${userDataGlobal?._id}`,
+        `https://api.skilotech.com/api/job/getJobStatisticsDateRange/${userDataGlobal?._id}`,
         {
           params: {
             startDate: startDate.toISOString(),

@@ -125,7 +125,7 @@ function DocumentDetails({
     formDataToSend.append("role", role);
     setLoading(true);
   
-    const url = "https://jamblix.com/api/skiloteckuser/employerSignUp";
+    const url = "https://api.skilotech.com/api/skiloteckuser/employerSignUp";
   
     axios
       .post(url, formDataToSend, {

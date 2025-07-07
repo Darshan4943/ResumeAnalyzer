@@ -225,7 +225,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("https://api.skilotech.com/api/plans/getAllPlans")
       .then((res) => {
 
         setAllPlans(res.data.data)
@@ -262,7 +262,7 @@ function Dashboard() {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal?._id)
+        .get("https://api.skilotech.com/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const plan = allPlans.find(
             (item) =>

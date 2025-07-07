@@ -43,7 +43,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
         e.stopPropagation();
         try {
             const res = await axios.post(
-                `https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+                `https://api.skilotech.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             );
             await dispatch(fetchSavedJobIds(userDataGlobal?._id));
             await getData();
