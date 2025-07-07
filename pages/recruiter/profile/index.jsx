@@ -125,7 +125,7 @@ const Profile = () => {
   };
 
   return (
-    <div className=" py-6 w-[100%] flex flex-col gap-4 ">
+    <div className=" p-2 6 w-[100%] flex flex-col gap-4 ">
       <div className="w-[100%] gap-4 flex flex-col">
         <div className="text-[24px] font-Montserrat font-semibold text-[#333]">
           My Profile
