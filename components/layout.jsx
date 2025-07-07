@@ -105,7 +105,7 @@ function Layout({ children }) {
             </div>
           }
           {/* } */}
-          <div className="ml:px-6 px-2  pb-4">
+          <div className="ml:px-6 px-2  pb-4 max-w-[1600px]">
             {children}
           </div>
         </div>

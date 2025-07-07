@@ -12,83 +12,83 @@ function TopSection({
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
-  const calculatePercentageChange = (statistics) => { };
+  const calculatePercentageChange = (statistics) => {};
   const applicantChange = calculatePercentageChange(statistics);
 
   const jobStats =
     userDataGlobal?.role === "employer"
       ? [
-        {
-          title: "Total Jobs Posted",
-          count: statistics.totalJobs,
-          color: "#57697B",
-          svg: "svg1",
-        },
-        {
-          title: "Total Applications",
-          count: statistics.totalApplications,
-          color: "#57697B",
-          svg: "svg2",
-          key: "",
-        },
-        {
-          title: "Shortlisted",
-          count: statistics.shortlisted,
-          color: "#57697B",
-          svg: "svg3",
-          key: "Shortlisted",
-        },
-        {
-          title: "Hired",
-          count: statistics.hired,
-          color: "#57697B",
-          svg: "svg4",
-          key: "Hired",
-        },
-        {
-          title: "Rejected",
-          count: statistics.rejected,
-          color: "#57697B",
-          svg: "svg5",
-          key: "Rejected",
-        },
-      ]
+          {
+            title: "Total Jobs Posted",
+            count: statistics.totalJobs,
+            color: "#57697B",
+            svg: "svg1",
+          },
+          {
+            title: "Total Applications",
+            count: statistics.totalApplications,
+            color: "#57697B",
+            svg: "svg2",
+            key: "",
+          },
+          {
+            title: "Shortlisted",
+            count: statistics.shortlisted,
+            color: "#57697B",
+            svg: "svg3",
+            key: "Shortlisted",
+          },
+          {
+            title: "Hired",
+            count: statistics.hired,
+            color: "#57697B",
+            svg: "svg4",
+            key: "Hired",
+          },
+          {
+            title: "Rejected",
+            count: statistics.rejected,
+            color: "#57697B",
+            svg: "svg5",
+            key: "Rejected",
+          },
+        ]
       : [
-        {
-          title: "Total Jobs Posted",
-          count: statistics.totalJobs,
-          color: "#57697B",
-          svg: "svg1",
-        },
-        {
-          title: "Total Applications",
-          count: statistics.totalApplications,
-          color: "#57697B",
-          svg: "svg2",
-          key: "",
-        },
-        {
-          title: "Shortlisted",
-          count: statistics.shortlisted,
-          color: "#57697B",
-          svg: "svg3",
-          key: "Shortlisted",
-        },
-        {
-          title: "Hired",
-          count: statistics.hired,
-          color: "#57697B",
-          svg: "svg4",
-          key: "Hired",
-        },
-        {
-          title: "Rejected",
-          count: statistics.rejected,
-          color: "#57697B",
-          svg: "svg5",
-          key: "Rejected",
-        },
-      ];
+          {
+            title: "Total Jobs Posted",
+            count: statistics.totalJobs,
+            color: "#57697B",
+            svg: "svg1",
+          },
+          {
+            title: "Total Applications",
+            count: statistics.totalApplications,
+            color: "#57697B",
+            svg: "svg2",
+            key: "",
+          },
+          {
+            title: "Shortlisted",
+            count: statistics.shortlisted,
+            color: "#57697B",
+            svg: "svg3",
+            key: "Shortlisted",
+          },
+          {
+            title: "Hired",
+            count: statistics.hired,
+            color: "#57697B",
+            svg: "svg4",
+            key: "Hired",
+          },
+          {
+            title: "Rejected",
+            count: statistics.rejected,
+            color: "#57697B",
+            svg: "svg5",
+            key: "Rejected",
+          },
+        ];
 
   const SVGs = {
     svg1: (
@@ -150,8 +150,7 @@ function TopSection({
       </svg>
     ),
     svg3: (
-     
-        <svg
+      <svg
         width="140"
         height="63"
         viewBox="0 0 380 63"
@@ -180,7 +179,7 @@ function TopSection({
       </svg>
     ),
     svg4: (
-     <svg
+      <svg
         width="140"
         height="63"
         viewBox="0 0 382 64"
@@ -250,39 +249,42 @@ function TopSection({
   };
 
   return (
-    <div className="flex flex-wrap gap-4 w-full ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 scr1300:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
       <div
-        className="flex flex-col gap-6 px-4 py-3 rounded-[16px] w-full sm:w-[192px] h-[130px]"
+        className="w-full min-w-[160px] h-[130px]  bg-white shadow-md rounded-lg p-4 relative cursor-pointer"
         style={{
           background:
             "linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%)",
         }}
       >
-       
-        <div className="flex gap-1 flex-col ">
-           <div
-          className="text-[14px] font-semibold px-2 h-[26px] flex items-center  rounded-l-[6px] leading-tight text-[#06A9EF] w-full"
-          style={{
-            background:
-              "linear-gradient(89.03deg, #FFFFFF 0.83%, rgba(255, 254, 254, 0) 98.41%)",
-          }}
-        >
-          Hello,
-        </div>
-          <img
-            src="/images/resumeBuilder/Illustration.png"
-            alt=""
-            className="w-[54px] h-[54px]"
-          />
-          {/* <div className="flex w-full sm:w-[62.67%] flex-col gap-3"> */}
+        <div className="flex gap-2 flex-col ">
+          <div
+            className="text-[14px] font-semibold px-2 h-[26px] flex items-center  rounded-l-[6px] leading-tight text-[#06A9EF] w-full"
+            style={{
+              background:
+                "linear-gradient(89.03deg, #FFFFFF 0.83%, rgba(255, 254, 254, 0) 98.41%)",
+            }}
+          >
+            Hello,
+          </div>
+          <div className="flex gap-3  items-center">
+            <img
+              src="/images/resumeBuilder/Illustration.png"
+              alt=""
+              className="w-[54px] h-[54px]"
+            />
 
-          {userDataGlobal?.firstName && (
-            <div className="text-[14px] flex gap-1 flex-wrap text-[#FFFFFF] font-semibold leading-tight">
-              <p>{camelCase(userDataGlobal?.firstName)}</p>
-              <p>{camelCase(userDataGlobal?.lastName)}!</p>
-            </div>
-          )}
-          {/* </div> */}
+            {userDataGlobal?.firstName && (
+              <div className="text-[14px] flex  flex-col text-[#FFFFFF] font-semibold leading-tight">
+                <p className=" flex leading-tight">
+                  {camelCase(userDataGlobal?.firstName)}
+                </p>
+                <p className="flex leading-tight">
+                  {camelCase(userDataGlobal?.lastName)}!
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {jobStats.map((stat, index) => (
@@ -299,12 +301,20 @@ function TopSection({
             backgroundColor: "#fff",
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
-          className="w-full sm:w-[192px] h-[130px] bg-white shadow-md rounded-lg p-4 relative cursor-pointer"
+          className="w-full min-w-[160px]  h-[130px]  bg-white shadow-md rounded-lg p-4 relative cursor-pointer"
         >
           <div className="text-gray-600 font-medium text-[14px]">
             {stat.title}
           </div>
-          <div className="text-[24px] font-semibold mt-1">{stat.count}</div>
+          <div className="text-[24px] font-semibold mt-1">
+            {" "}
+            <CountUp
+              start={0}
+              end={stat.count || 0}
+              duration={1.2}
+              separator=","
+            />
+          </div>
           <div className="absolute bottom-0 flex justify-end left-0 w-full pr-4 h-[60px]">
             {SVGs[stat.svg]}
           </div>
