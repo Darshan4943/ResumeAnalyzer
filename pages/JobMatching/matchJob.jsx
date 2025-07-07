@@ -160,6 +160,7 @@ const MatchJob = () => {
 
 
   const JobMatchforSkilotechCollection = async () => {
+    localStorage.setItem("resumeCount", resumeCount)
     try {
       setProgress(0);
       receivedRef.current = [];
@@ -193,6 +194,7 @@ const MatchJob = () => {
   };
 
   const MatchJob = async () => {
+    localStorage.setItem("resumeCount", resumeCount)
     setProgress(0);
 
     receivedRef.current = [];
@@ -239,6 +241,7 @@ const MatchJob = () => {
   };
 
   useEffect(() => {
+
     if (!socket.connected) {
       socket.connect();
     }
@@ -273,12 +276,15 @@ const MatchJob = () => {
 
         return;
       }
+      const filterCount = localStorage.getItem("resumeCount")
 
       const sorted = (results?.length ? results : received)
         .filter((item) => item?.matching_percentage)
-        .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage));
+        .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage))
+      const finalData = sorted.slice(0, filterCount)
 
-      setResumeList(sorted);
+
+      setResumeList(finalData);
       setIsMatched(true);
       setMatchLoader(false);
       setLoadingg(false);

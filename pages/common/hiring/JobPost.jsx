@@ -19,6 +19,7 @@ import LimitUsedModal from "../../../components/models/limitUsedModal";
 import { setRecallData } from "../../../Redux/slices/recallSlice";
 import JdParameters from "../../../components/common/jdParameters";
 import { updateAiHit } from "../../../Redux/slices/aiHitsSlice";
+import RandomMail from "./randomMail";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const randomPercentage = useMemo(
@@ -32,6 +33,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [activeOption, setActiveOption] = useState("applicant");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [openParameters, setOpenParamenters] = useState(false);
+  const [randomMail, setRandomMail] = useState(false)
   const router = useRouter();
   const { id, currentPage, sortValue } = router.query;
   const taskRef = useRef(null);
@@ -234,8 +236,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
 
     setCheckedApplicants((prev) => {
-      const updated = prev.some((a) => a.id === applicant.id)
-        ? prev.filter((a) => a.id !== applicant.id)
+      const updated = prev.some((a) => a._id === applicant._id)
+        ? prev.filter((a) => a._id !== applicant._id)
         : [...prev, applicant];
 
       setSelectAll(
@@ -250,7 +252,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
   const handleSelectAll = () => {
     const selectableApplicants = jobDetails?.data?.applications.filter(
-      (app) => app.hiringStage !== "Selected"
+      (app) => app.hiringStage === "Pending"
     );
     if (selectAll) {
       setCheckedApplicants([]);
@@ -260,6 +262,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     setSelectAll(!selectAll);
   };
+
 
   const handleReject = async () => {
     setAllReject(true);
@@ -353,15 +356,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       );
 
       const data = await response.data;
-   
+
       setTimeout(() => {
         setLoading(false);
       }, 500);
-     const sortedApplications = [...data.data.applications].sort(
+      const sortedApplications = [...data.data.applications].sort(
         (a, b) => Number(a.isScore) - Number(b.isScore)
       );
 
-      
+
       const updatedData = {
         ...data,
         data: {
@@ -667,6 +670,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setSortSelect(index);
   // };
 
+  console.log(checkedApplicants)
   return (
     <>
       {limitPopup && (
@@ -1168,6 +1172,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         </button>
                       )}
                     </div>
+                    {/* <button onClick={() => setRandomMail(true)} className="px-4 h-[40px] bg_Button rounded-[30px]">
+                      Send Mail to Client
+                    </button> */}
                   </div>
 
                   {allShortlist && (
@@ -1182,6 +1189,19 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       newHiringStage={hiringStage}
                     />
                   )}
+                  {randomMail && (
+                    <RandomMail
+                      shortlist={checkedApplicants}
+                      jobData={jobData}
+                      setPopupVisible={setRandomMail}
+                      id={id}
+                      statusChange={statusChange}
+                      setStatusChange={setStatusChange}
+                      applicantIds={applicantIds}
+                      newHiringStage={hiringStage}
+                    />
+                  )}
+
 
                   <div className="web relative">
                     {aiLoading &&
@@ -1296,7 +1316,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
                     }
                     <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
-                      {userDataGlobal?.role === "employer" && (
+                      {/* {userDataGlobal?.role === "recruiter" && (
                         <input
                           className="w-[16px] h-[16px]"
                           type="checkbox"
@@ -1307,9 +1327,23 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               (app) => app.hiringStage === "Pending"
                             ).length
                           }
-                          onChange={handleSelectAll}
+                          onChange={handleSelectAllRecruiter}
                         />
-                      )}
+                       )}  */}
+                      {/* {userDataGlobal?.role === "employer" && ( */}
+                      <input
+                        className="w-[16px] h-[16px]"
+                        type="checkbox"
+                        checked={
+                          checkedApplicants.length > 0 &&
+                          checkedApplicants.length ===
+                          jobDetails?.data?.applications.filter(
+                            (app) => app.hiringStage === "Pending"
+                          ).length
+                        }
+                        onChange={handleSelectAll}
+                      />
+                      {/* )}  */}
                       {applicant_head.map((applicant_head, index) => (
                         <div
                           key={index}
@@ -1385,29 +1419,27 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           ).map((applicant, index) => (
                             <>
                               <div
-                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${!checkedApplicants[index]
-                                  ? "bg-[#FFFFFF]"
-                                  : "bg-[#FFFFFF]"
-                                  }`}
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
                                 key={applicant?._id}
                               >
+
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
-                                  {userDataGlobal?.role === "employer" && (
-                                    <input
-                                      key={applicant.id}
-                                      className="w-[16px] h-[16px]"
-                                      type="checkbox"
-                                      checked={checkedApplicants.some(
-                                        (a) => a.id === applicant.id
-                                      )}
-                                      onChange={() =>
-                                        handleCheckboxChange(applicant)
-                                      }
-                                      disabled={
-                                        applicant.hiringStage !== "Pending"
-                                      }
-                                    />
-                                  )}
+                                  {/* {userDataGlobal?.role === "employer" && ( */}
+                                  <input
+                                    key={applicant.id}
+                                    className="w-[16px] h-[16px]"
+                                    type="checkbox"
+                                    checked={checkedApplicants.some(
+                                      (a) => a._id === applicant._id
+                                    )}
+                                    onChange={() =>
+                                      handleCheckboxChange(applicant)
+                                    }
+                                    disabled={
+                                      applicant.hiringStage !== "Pending"
+                                    }
+                                  />
+                                  {/* )} */}
                                   <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
                                     <img
                                       className="w-[40px]"
@@ -1438,30 +1470,28 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                        ? "bg-[#FFFFFF]"
-                                        : applicant?.hiringStage ===
-                                          "Interview"
-                                          ? "bg-[#26A4FF1A]"
-                                          : applicant?.hiringStage === "Task"
-                                            ? "bg-[#EAF6FF]"
-                                            : applicant?.hiringStage === "Pending"
-                                              ? "bg-[#FFF9ED]"
-                                              : applicant?.hiringStage === "Hired"
-                                                ? "bg-[#4BD06F33]"
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${applicant?.hiringStage ===
+                                        "Interview"
+                                        ? "bg-[#26A4FF1A]"
+                                        : applicant?.hiringStage === "Task"
+                                          ? "bg-[#EAF6FF]"
+                                          : applicant?.hiringStage === "Pending"
+                                            ? "bg-[#FFF9ED]"
+                                            : applicant?.hiringStage === "Hired"
+                                              ? "bg-[#4BD06F33]"
+                                              : applicant?.hiringStage ===
+                                                "Shortlisted"
+                                                ? "bg-[#4640DE1A]"
                                                 : applicant?.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? "bg-[#4640DE1A]"
+                                                  "Rejected"
+                                                  ? "bg-[#FF65501A]"
                                                   : applicant?.hiringStage ===
-                                                    "Rejected"
-                                                    ? "bg-[#FF65501A]"
+                                                    "In Review"
+                                                    ? "bg-[#EB85331A]"
                                                     : applicant?.hiringStage ===
-                                                      "In Review"
-                                                      ? "bg-[#EB85331A]"
-                                                      : applicant?.hiringStage ===
-                                                        "Selected"
-                                                        ? "bg-[#56CDAD1A]"
-                                                        : ""
+                                                      "Selected"
+                                                      ? "bg-[#56CDAD1A]"
+                                                      : ""
                                         } ${applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant?.hiringStage === "Task"
