@@ -623,7 +623,7 @@ function CreateCompany() {
                           type="text"
                           name=""
                           id=""
-                          placeholder="Enter email"
+                          placeholder="Enter Contact "
                           className="input w-[130px] placeholder:text-[12px] placeholder:font-[400] outline-none"
                           value={hrContactText}
                           onChange={(e) => {

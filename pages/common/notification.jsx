@@ -28,7 +28,7 @@ function EmployerNotification() {
   ];
   const fuseSearch = (term, data) => {
     const fuse = new Fuse(data, {
-      keys: ["title", "message", "description"], // adjust based on your notification object
+      keys: ["title", "message", "description"],
       threshold: 0.3,
     });
 
@@ -127,7 +127,7 @@ function EmployerNotification() {
               </button>
             ))}
           </div>
-          <div className="flex justify-between gap-4 items-center">
+          <div className="  flex-col flex sm:flex-row justify-between gap-4 items-center">
             <input
               type="text"
               value={searchTerm}

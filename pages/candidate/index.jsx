@@ -96,7 +96,7 @@ function CandidateHome() {
         </div>
       ) : (
         <div className="flex flex-col ml:flex-row gap-4 customMargins py-6 scr1200:justify-between relative ">
-          <div className="flex flex-col gap-4 w-full ml:max-w-[262px] sticky top-[84px]  h-fit">
+          <div className="flex flex-col gap-4 w-full ml:max-w-[262px] ml:sticky top-[84px]  h-fit">
             <ProfileSection />
             <div className="min-w-[262px] hidden ml:block rounded-[12px] bg-[#FFFFFF] ">
               <img

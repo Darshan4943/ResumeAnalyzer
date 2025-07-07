@@ -1,0 +1,983 @@
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import MiniLoader from "../../components/common/mini-loader";
+import Select from "react-select";
+import axios from "axios";
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../Redux/slices/recallSlice";
+import LimitUsedModal from "../../components/models/limitUsedModal";
+import { TypeAnimation } from "react-type-animation";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.3, duration: 0.6, ease: "easeOut" },
+  }),
+};
+
+function CreateJd() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
+  const [toggle, setToggle] = useState(0);
+  const { id } = router.query;
+  const [activePlan, setActivePlan] = useState();
+  const [limitPopup, setLimitPopup] = useState(false);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+  const [errors, setErrors] = useState({});
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const handleNavigate = () => {
+    router.push("/jdCreation");
+  };
+
+  useEffect(() => {
+    if (id) {
+      setToggle(1);
+      getJobDescriptions();
+    }
+  }, [id]);
+
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
+
+  const [formData, setFormData] = useState({
+    jobTitle: "",
+    // company: "",
+    // jobRole: "",
+    // employmentType: "",
+    // workArrangement: " ",
+    // location: "",
+    // requiredEducation: "",
+    // requiredExperience: "",
+    // requiredSkills: "",
+    // salaryRange: "",
+    jobDescription: "",
+    // keyResposibilities: "",
+  });
+  const [jobDescription, setJobDescription] = useState(null);
+  const [jobTitle, setJobTitle] = useState();
+  const [loadingg, setLoadingg] = useState(false);
+
+  const [inputLine, setInputLine] = useState("");
+  const [jdResult, setJdResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [improvements] = useState([]);
+
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+
+  const getJobDescriptions = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.skilotech.com/api/jd/getById/${id}`
+        `https://api.skilotech.com/api/jd/getById/${id}`
+      );
+      setJobDescription(response.data.data.jd);
+    } catch (error) {
+      console.error(
+        "Error fetching job descriptions:",
+        error.response?.data || error.message
+      );
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    const requiredFields = ["jobTitle"];
+
+    requiredFields.forEach((field) => {
+      if (!formData[field].trim()) {
+        errors[field] = `${field.replace(/([A-Z])/g, " $1")} is required`;
+      }
+    });
+
+    return errors;
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const validationErrors = validateForm();
+
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     setErrors(validationErrors);
+  //     return;
+  //   }
+
+  //   if (aiHitMonthly >= aiHitMonthlyLimit || !activePlan) {
+  //     setLimitPopup(true);
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   setError(null);
+
+  //   // <p><span style="font-weight: bold; ">Company Name:</span> ${
+  //   //     response.data.company
+  //   //   }</p>
+  //   //   <p><span style="font-weight: bold; ">Employment Type:</span> ${
+  //   //     response.data.employmentType
+  //   //   }</p>
+  //   //   <p><span style="font-weight: bold; ">Work Arrangement:</span> ${
+  //   //     response.data.workArrangement
+  //   //   }</p>
+  //   //   <p><span style="font-weight: bold; ">Location:</span> ${
+  //   //     response.data.location
+  //   //   }</p>
+  //   //   <p><span style="font-weight: bold; ">Salary Range:</span> ${
+  //   //     response.data.salaryRange
+  //   //   }</p>
+  //   //   <p></p>
+  //   //   <p style=" font-weight: bold; margin-top: 20px;">Job Role:</p>
+  //   //   <p>${response.data.jobRole}</p>
+  //   //   <p></p>
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://api.skilotech.com/api/generate/jobDescription",
+  //       formData
+  //     );
+  //     setJobTitle(response.data.jobTitle);
+  //     const formattedDescription = `
+  //     <p><span style="font-weight: bold; ">Job Title:</span> ${
+  //       response.data.jobTitle
+  //     }</p>
+
+  //     <p style=" font-weight: bold; margin-top: 20px;">Job Description:</p>
+  //     <p>${response.data.jobDescription}</p>
+  //     <p></p>
+  //     <p style=" font-weight: bold; margin-top: 20px;">Key Responsibilities:</p>
+  //     <ul>
+  //         ${response.data.responsibilities
+  //           .map((item) => `<li>${item}</li>`)
+  //           .join("")}
+  //     </ul>
+  //     <p></p>
+  //     <p style=" font-weight: bold; margin-top: 20px;">Qualifications:</p>
+  //       <ul>
+  //         ${
+  //           response.data.qualifications
+  //             ? response.data.qualifications
+  //                 .map((qualification) => `<li>${qualification}</li>`)
+  //                 .join("")
+  //             : "<li>No benefits listed</li>"
+  //         }
+  //     </ul>
+  //     <p></p>
+  //     <p style=" font-weight: bold; margin-top: 20px;">Benefits & Perks:</p>
+  //     <ul>
+  //         ${
+  //           response.data.benefits
+  //             ? response.data.benefits
+  //                 .map((benefit) => `<li>${benefit}</li>`)
+  //                 .join("")
+  //             : "<li>No benefits listed</li>"
+  //         }
+  //     </ul>
+  //     <p></p>
+  //     <p style=" font-weight: bold; margin-top: 20px;">Required Skills:</p>
+  //     <ul>
+  //         ${
+  //           Array.isArray(response.data.skills)
+  //             ? response.data.skills
+  //                 .map((skill) => `<li>${skill.trim()}</li>`)
+  //                 .join("")
+  //             : response.data.skills
+  //             ? response.data.skills
+  //                 .toString()
+  //                 .split(",")
+  //                 .map((skill) => `<li>${skill.trim()}</li>`)
+  //                 .join("")
+  //             : "<li>No skills listed</li>"
+  //         }
+  //     </ul>
+  // `;
+
+  //     setJobDescription(formattedDescription);
+  //     setToggle(1);
+  //     dispatch(updateAiHit(userDataGlobal?._id));
+  //     setTimeout(() => {
+  //       dispatch(setRecallData(!recallData));
+  //       getLimits();
+  //     }, 1000);
+  //   } catch (err) {
+  //     setError("Error generating job description. Please try again.");
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({
+      ...errors,
+      [e.target.name]: "",
+    });
+  };
+
+  const options = [
+    { value: "Full-time", label: "Full-time" },
+    { value: "Part-time", label: "Part-time" },
+  ];
+
+  const options2 = [
+    { value: "Work from home", label: "Work from home" },
+    { value: "Hybrid", label: "Hybrid" },
+    { value: "On-site", label: "On-site" },
+  ];
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: "1px solid #DEDEDE",
+      padding: "0 8px",
+      height: "40px",
+      borderRadius: "8px",
+      fontSize: "14px",
+      fontWeight: "400",
+      outline: "none",
+      boxShadow: "none",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      fontSize: "12px",
+    }),
+  };
+
+  const previousPage = () => router.back();
+  const resetFormData = () => {
+    setFormData({
+      jobTitle: "",
+      company: "",
+      jobRole: "",
+      employmentType: "",
+      workArrangement: " ",
+      location: "",
+      requiredEducation: "",
+      requiredExperience: "",
+      requiredSkills: "",
+      salaryRange: "",
+      keyResposibilities: "",
+      jobDescription: "",
+    });
+  };
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+        <button className="ql-align" aria-label="Align Left"></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+
+  const header = renderHeader();
+
+  const addJobDescription = async () => {
+    try {
+      setLoadingg(true);
+      const url = id
+        ? `https://api.skilotech.com/api/jd/update/${id}`
+        : "https://api.skilotech.com/api/jd/add";
+
+      const method = id ? "put" : "post";
+
+      const response = await axios[method](url, {
+        userId: userDataGlobal?._id,
+        jd: jobDescription,
+        jobTitle,
+      });
+
+      toast.success(
+        `Job Description ${id ? "updated" : "added"}  successfully`
+      );
+      setLoadingg(false);
+
+      setTimeout(() => {
+        handleNavigate();
+      }, 2000);
+
+      return response.data;
+    } catch (error) {
+      setLoadingg(false);
+      console.error("Error:", error.response?.data || error.message);
+      return null;
+    }
+  };
+
+  const [editableText, setEditableText] = useState("");
+  const [isTypingDone, setIsTypingDone] = useState(false);
+  const [animatedText, setAnimatedText] = useState("");
+  const containerRef = useRef(null);
+
+  const convertPlainTextToHTML = (text) => {
+    return text
+      .split("\n")
+      .map((line) => (line.trim() === "" ? "<br />" : `<p>${line}</p>`))
+      .join("");
+  };
+
+  const fullJDText = `
+${jdResult?.jobTitle ? `Job Title: ${jdResult.jobTitle}\n\n` : ""}
+${
+  jdResult?.jobDescription
+    ? `Job Description:\n${jdResult.jobDescription}\n\n`
+    : ""
+}
+${
+  jdResult?.responsibilities?.length
+    ? `Responsibilities:\n- ${jdResult.responsibilities.join("\n- ")}\n\n`
+    : ""
+}
+${
+  jdResult?.qualifications?.length
+    ? `Qualifications:\n- ${jdResult.qualifications.join("\n- ")}\n\n`
+    : ""
+}
+${
+  jdResult?.skills?.length
+    ? `Skills:\n- ${jdResult.skills.join("\n- ")}\n\n`
+    : ""
+}
+${
+  jdResult?.benefits?.length
+    ? `Benefits:\n- ${jdResult.benefits.join("\n- ")}\n\n`
+    : ""
+}
+`;
+
+  // ✅ Typing animation effect
+  useEffect(() => {
+    if (!jdResult) return;
+
+    let index = 0;
+    setAnimatedText("");
+    setIsTypingDone(false);
+
+    const interval = setInterval(() => {
+      setAnimatedText((prev) => prev + fullJDText.charAt(index));
+      index++;
+      if (index >= fullJDText.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setEditableText(convertPlainTextToHTML(fullJDText));
+          setIsTypingDone(true);
+        }, 300);
+      }
+    }, 20);
+
+    return () => clearInterval(interval);
+  }, [jdResult]);
+
+  // ✅ Auto-scroll as animation progresses
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [animatedText, isTypingDone]);
+
+  // ✅ Generate JD from API
+  const handleGenerate = async () => {
+    if (!inputLine.trim()) return;
+    setAiLoading(true);
+    setJdResult(null);
+    setIsTypingDone(false);
+
+    try {
+      const response = await axios.post(
+        "https://api.skilotech.com/api/generate/jobDescription",
+        { promptLine: inputLine }
+      );
+      setJdResult(response.data);
+    } catch (error) {
+      alert("Failed to generate JD");
+      console.error(error);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+      {toggle === 0 ? (
+        <div className="flex flex-col gap-[14px]">
+          <div className="flex gap-2 text-[17px] font-[500] ">
+            <svg
+              onClick={() => router.back()}
+              className=" cursor-pointer"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_9417_111600)">
+                <path
+                  d="M7.371 12.7481L12.5402 17.9174C12.6889 18.066 12.7623 18.24 12.7605 18.4394C12.7585 18.6387 12.68 18.8159 12.525 18.9711C12.3698 19.1159 12.1942 19.1909 11.998 19.1961C11.8018 19.2013 11.6262 19.1263 11.471 18.9711L5.13075 12.6309C5.03708 12.5372 4.97108 12.4384 4.93275 12.3346C4.89425 12.2308 4.875 12.1186 4.875 11.9981C4.875 11.8776 4.89425 11.7654 4.93275 11.6616C4.97108 11.5578 5.03708 11.459 5.13075 11.3654L11.471 5.0251C11.6095 4.8866 11.781 4.81577 11.9855 4.8126C12.19 4.80943 12.3698 4.88027 12.525 5.0251C12.68 5.18027 12.7575 5.35844 12.7575 5.5596C12.7575 5.76094 12.68 5.93918 12.525 6.09435L7.371 11.2481H18.748C18.9608 11.2481 19.139 11.3199 19.2825 11.4636C19.4262 11.6071 19.498 11.7853 19.498 11.9981C19.498 12.2109 19.4262 12.3891 19.2825 12.5326C19.139 12.6763 18.9608 12.7481 18.748 12.7481H7.371Z"
+                  fill="#1C1B1F"
+                />
+              </g>
+            </svg>
+            JD Builder
+          </div>
+
+          <div className=" bg-[#FFFFFF] relative rounded-[14px] w-full scr800:p-6 p-3 h-[calc(100vh-220px)] flex flex-col items-center">
+            {!jdResult && (
+              <div
+                custom={1}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="flex flex-col justify-center gap-[48px] mt-[0px]"
+              >
+                <div className="flex items-center justify-center">
+                  <svg
+                    width="36"
+                    height="38"
+                    viewBox="0 0 36 38"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.5 16.8281C10.5 16.8281 11.0793 22.2356 13.336 24.4922C15.5926 26.7488 21 27.3281 21 27.3281C21 27.3281 15.5926 27.9075 13.336 30.1641C11.0793 32.4207 10.5 37.8281 10.5 37.8281C10.5 37.8281 9.92066 32.4207 7.66405 30.1641C5.40743 27.9075 0 27.3281 0 27.3281C0 27.3281 5.40743 26.7488 7.66405 24.4922C9.92066 22.2356 10.5 16.8281 10.5 16.8281Z"
+                      fill="#160211"
+                    />
+                    <path
+                      d="M25.5 7.91406C25.5 7.91406 26.0793 13.3215 28.336 15.5781C30.5926 17.8347 36 18.4141 36 18.4141C36 18.4141 30.5926 18.9934 28.336 21.25C26.0793 23.5066 25.5 28.9141 25.5 28.9141C25.5 28.9141 24.9207 23.5066 22.664 21.25C20.4074 18.9934 15 18.4141 15 18.4141C15 18.4141 20.4074 17.8347 22.664 15.5781C24.9207 13.3215 25.5 7.91406 25.5 7.91406Z"
+                      fill="#160211"
+                    />
+                    <path
+                      d="M10.5 0C10.5 0 11.0793 5.40743 13.336 7.66405C15.5926 9.92066 21 10.5 21 10.5C21 10.5 15.5926 11.0793 13.336 13.336C11.0793 15.5926 10.5 21 10.5 21C10.5 21 9.92066 15.5926 7.66405 13.336C5.40743 11.0793 0 10.5 0 10.5C0 10.5 5.40743 9.92066 7.66405 7.66405C9.92066 5.40743 10.5 0 10.5 0Z"
+                      fill="#160211"
+                    />
+                  </svg>
+                </div>
+                <div className="text-[18px] font-[400] text-center">
+                  Let our Gen AI craft the perfect <br /> Job Description for
+                  you.
+                </div>
+              </div>
+            )}
+            <>
+              {jdResult ? (
+                <div
+                  ref={containerRef}
+                  className="mt-2 p-6 rounded-xl w-full max-w-4xl text-left h-[500px] overflow-y-scroll no-scrollbar"
+                >
+                  {jdResult.jobTitle && (
+                    <h2 className="text-[22px] font-semibold text-[#2B2B2B] mb-3">
+                      {jdResult.jobTitle}
+                    </h2>
+                  )}
+
+                  <div className="text-[14px] text-[#444] leading-6 whitespace-pre-wrap">
+                    {!isTypingDone ? (
+                      <TypeAnimation
+                        sequence={[
+                          fullJDText,
+                          () => {
+                            setIsTypingDone(true);
+                            setEditableText(fullJDText);
+                          },
+                        ]}
+                        speed={90}
+                        wrapper="span"
+                        cursor={true}
+                        repeat={0}
+                        className="block"
+                      />
+                    ) : (
+                      <Editor
+                        value={editableText}
+                        onTextChange={(e) => setEditableText(e.htmlValue)}
+                        style={{ height: "360px", width: "100%" }}
+                        className="border border-gray-300 rounded-md"
+                      />
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="w-[544px] h-[464px] bg-gradient-to-br from-[#C2F4EF] to-[#FBFDDE] blur-[100px] justify-center flex items-center pb-2"></div>
+              )}
+            </>
+
+            <div className="flex flex-col gap-[24px]">
+              {jdResult?.suggestions?.length > 0 && (
+                <div className="w-full max-w-5xl mt-10">
+                  <h3 className="text-center font-semibold text-[#2B2B2B] mb-4">
+                    Suggestions for Enhancements
+                  </h3>
+                  <div className="flex gap-3 flex-row overflow-x-auto whitespace-nowrap px-4 py-2 no-scrollbar">
+                    {jdResult.suggestions.map((suggestion, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          setInputLine((prev) =>
+                            prev
+                              ? prev.endsWith(", ")
+                                ? prev + suggestion
+                                : prev + ", " + suggestion
+                              : suggestion
+                          );
+                        }}
+                        className="bg-[#F1F9FF] text-[#1A1A1A] text-[12px] rounded-lg px-4 py-2 shadow-sm hover:shadow-md transition-shadow duration-200"
+                      >
+                        {suggestion}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div
+                custom={3}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="flex justify-center gap-[16px]"
+              >
+                <div className="flex border-[1px] border-[#DEDEDE]   p-[10px] justify-between  rounded-[46px]">
+                  <input
+                    className="w-[750px] text-[14px] outline-none"
+                    type="text"
+                    value={inputLine}
+                    onChange={(e) => setInputLine(e.target.value)}
+                    placeholder="Ask me your requirement"
+                  />
+                </div>
+                <button
+                  className="flex bg_Button h-[40px] px-[36px] py-[12px] rounded-[30px]"
+                  onClick={handleGenerate}
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+            {aiLoading && (
+              <div className="backdrop-blur-[3px] bg-transparent absolute w-full  z-10 flex  justify-center items-center">
+                <div className="relative w-[130px] h-[130px] flex items-center justify-center">
+                  <div
+                    className="absolute w-full h-full rounded-full animate-spin"
+                    style={{
+                      background:
+                        "conic-gradient(from 0deg, #FFDA1D 0deg, rgba(255, 218, 29, 0) 300deg)",
+                      mask: "radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)",
+                      WebkitMask:
+                        "radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)",
+                    }}
+                  ></div>
+
+                  <svg
+                    className={`transition-all duration-700 ease-in-out animate-pulse scale-90" `}
+                    width="51"
+                    height="47"
+                    viewBox="0 0 51 47"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z"
+                      fill="url(#paint0_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z"
+                      fill="url(#paint1_radial_10719_124239)"
+                    />
+                    <path
+                      d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z"
+                      fill="url(#paint2_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z"
+                      fill="url(#paint3_radial_10719_124239)"
+                    />
+                    <path
+                      d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z"
+                      fill="url(#paint4_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z"
+                      fill="url(#paint5_radial_10719_124239)"
+                    />
+                    <path
+                      d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z"
+                      fill="url(#paint6_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z"
+                      fill="url(#paint7_radial_10719_124239)"
+                    />
+                    <path
+                      d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z"
+                      fill="url(#paint8_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z"
+                      fill="url(#paint9_radial_10719_124239)"
+                    />
+                    <path
+                      d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z"
+                      fill="url(#paint10_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z"
+                      fill="url(#paint11_radial_10719_124239)"
+                    />
+                    <path
+                      d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z"
+                      fill="#4C43CD"
+                    />
+                    <path
+                      d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z"
+                      fill="url(#paint12_radial_10719_124239)"
+                      fill-opacity="0.7"
+                    />
+                    <path
+                      d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z"
+                      fill="url(#paint13_radial_10719_124239)"
+                    />
+                    <defs>
+                      <radialGradient
+                        id="paint0_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(18.4751 16.3802) rotate(51.0326) scale(22.4064 22.4083)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint1_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(34.4709 34.1719) rotate(-93.672) scale(22.8425 25.4693)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint2_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(38.2344 3.22223) rotate(51.0615) scale(11.7843 11.7828)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint3_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(46.6419 12.5834) rotate(-93.6682) scale(12.0186 13.3869)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint4_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(3.70314 9.49373) rotate(51.0429) scale(11.7796 11.7797)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint5_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(12.1106 18.8486) rotate(-93.6706) scale(12.0106 13.3869)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint6_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(39.7969 35.8785) rotate(51.0616) scale(11.7843 11.7828)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint7_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(48.2044 45.2396) rotate(-93.6682) scale(12.0186 13.3869)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint8_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(44.1445 23.349) rotate(51.0706) scale(7.44729 7.44581)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint9_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(49.4567 29.2656) rotate(-93.667) scale(7.59628 8.45843)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint10_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(10.0452 37.8958) rotate(51.0429) scale(7.4502 7.45026)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint11_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(15.3627 43.8125) rotate(-93.6706) scale(7.59631 8.46675)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint12_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(16.3617 1.73244) rotate(51.0052) scale(6.16551 6.1673)"
+                      >
+                        <stop stop-color="white" stop-opacity="0.59" />
+                        <stop
+                          offset="0.697917"
+                          stop-color="white"
+                          stop-opacity="0"
+                        />
+                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                      </radialGradient>
+                      <radialGradient
+                        id="paint13_radial_10719_124239"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(20.7658 6.62625) rotate(-93.6756) scale(6.28312 7.01245)"
+                      >
+                        <stop stop-opacity="0.23" />
+                        <stop offset="0.861815" stop-opacity="0" />
+                      </radialGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="flex gap-[14px] justify-end">
+            <button className="red_border_Button px-[36px] h-[42px] rounded-[30px]">
+              {" "}
+              Cancel
+            </button>
+            <button className="blue_border_Button  px-[36px] h-[42px] rounded-[30px]">
+              {" "}
+              Save
+            </button>{" "}
+            <button className="  bg_Button h-[40px] px-[36px] py-[12px] rounded-[30px]">
+              {" "}
+              Save & Post
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          {toggle === 1 && (
+            <div className="flex gap-2 text-[17px] font-[500] pb-4 ">
+              <svg
+                onClick={() => setToggle(0)}
+                className=" cursor-pointer"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_9417_111600)">
+                  <path
+                    d="M7.371 12.7481L12.5402 17.9174C12.6889 18.066 12.7623 18.24 12.7605 18.4394C12.7585 18.6387 12.68 18.8159 12.525 18.9711C12.3698 19.1159 12.1942 19.1909 11.998 19.1961C11.8018 19.2013 11.6262 19.1263 11.471 18.9711L5.13075 12.6309C5.03708 12.5372 4.97108 12.4384 4.93275 12.3346C4.89425 12.2308 4.875 12.1186 4.875 11.9981C4.875 11.8776 4.89425 11.7654 4.93275 11.6616C4.97108 11.5578 5.03708 11.459 5.13075 11.3654L11.471 5.0251C11.6095 4.8866 11.781 4.81577 11.9855 4.8126C12.19 4.80943 12.3698 4.88027 12.525 5.0251C12.68 5.18027 12.7575 5.35844 12.7575 5.5596C12.7575 5.76094 12.68 5.93918 12.525 6.09435L7.371 11.2481H18.748C18.9608 11.2481 19.139 11.3199 19.2825 11.4636C19.4262 11.6071 19.498 11.7853 19.498 11.9981C19.498 12.2109 19.4262 12.3891 19.2825 12.5326C19.139 12.6763 18.9608 12.7481 18.748 12.7481H7.371Z"
+                    fill="#1C1B1F"
+                  />
+                </g>
+              </svg>
+              JD Creation
+            </div>
+          )}
+          <div>
+            <Editor
+              value={jobDescription}
+              onTextChange={(e) => setJobDescription(e.htmlValue)}
+              headerTemplate={header}
+              style={{
+                // border: "none",
+                fontSize: "14px",
+                color: "#333",
+              }}
+            />
+          </div>
+          <div className="w-full flex justify-end pt-6">
+            {loadingg ? (
+              <button className="px-6 bg_Button rounded-[30px] h-[38px] w-[76.94px]">
+                <MiniLoader />
+              </button>
+            ) : (
+              <button
+                onClick={addJobDescription}
+                className="px-6 bg_Button rounded-[30px] h-[38px]"
+              >
+                Save
+              </button>
+            )}
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
+export default CreateJd;
