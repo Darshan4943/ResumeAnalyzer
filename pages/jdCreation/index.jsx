@@ -100,7 +100,7 @@ const handleDownload = (title, id) => {
     <div className="flex flex-col gap-5">
       <p className="text-[17px] font-medium">JD Creation</p>
       <button
-        onClick={() => router.push("jdCreation/createJd")}
+        onClick={() => router.push("jdCreation/create")}
         className="px-6 h-[38px] rounded-[30px] bg_Button w-fit"
       >
         Create Job Description
@@ -146,7 +146,7 @@ const handleDownload = (title, id) => {
                     <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
 
                     <div onClick={() =>
-                          router.push(`/jdCreation/createJd?id=${jd?._id}`)
+                          router.push(`/jdCreation/create?id=${jd?._id}`)
                         } className="flex flex-col gap-[2px] items-center cursor-pointer">
                       <button
                         

@@ -29,7 +29,7 @@ const Breadcrumb = () => {
     "createResume":"Create Resume",
     "Form":"Update Profile",
     "coverLetter":"Cover Letter",
-    "createJd" : " Create Jd",
+    "create" : " Create Jd",
     "myCollection":"My Collection",
     "PrivacyPolicy":"Privacy Policy",
     "TermsAndConditions":"Terms And Conditions",
