@@ -102,7 +102,7 @@ function List() {
     <div className="flex flex-col gap-5">
       <p className="text-[17px] font-medium">JD Builder</p>
       <button
-        onClick={() => router.push("jdCreation/create")}
+        onClick={() => router.push("jdCreation")}
         className="px-6 h-[38px] rounded-[30px] bg_Button w-fit"
       >
         Create Job Description
