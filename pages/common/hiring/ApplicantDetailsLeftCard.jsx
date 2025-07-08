@@ -15,6 +15,7 @@ function ApplicantDetailsLeftCard({
   setToggle,
   setActiveOption,
   applicantId,
+  clientView
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isPopupVisible, setPopupVisible] = useState(false);
@@ -149,7 +150,7 @@ function ApplicantDetailsLeftCard({
                   </div>
                 ) : (
                   <>
-                    {jobDetails?.hiringStage === "Pending" ? (
+                    {(jobDetails?.hiringStage === "Pending" && !clientView) ? (
                       <button
                         onClick={moveToHiring}
                         className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]"

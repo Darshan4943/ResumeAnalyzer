@@ -220,6 +220,7 @@ function ApplicantDetails({ setTogglee }) {
               statusChange={statusChange}
               setStatusChange={setStatusChange}
               applicantId={applicantId}
+              clientView={clientView}
             />
             {jobDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
