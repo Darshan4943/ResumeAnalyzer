@@ -30,7 +30,7 @@ function Services() {
     //   // new: "AI",
     // },
      {
-      name: "JD Creation",
+      name: "JD Builder",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
     },
@@ -73,7 +73,7 @@ function Services() {
     //   // new: "AI",
     // },
      {
-      name: "JD Creation",
+      name: "JD Builder",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
     },
@@ -188,7 +188,7 @@ function Services() {
       case "Preboarding":
         handleNavigation("/employer/Preboarding");
         break;
-        case "JD Creation":
+        case "JD Builder":
           handleNavigation("/jdCreation");
           break;
         case "Mail Template":

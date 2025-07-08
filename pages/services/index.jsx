@@ -118,7 +118,7 @@ function Services() {
       // new: "New",
     },
     {
-      name: "JD Creation",
+      name: "JD Builder",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       desc: "Fill in key details and let AI generate a polished Job Description instantly.",
       color: "#06A9EF",
@@ -174,7 +174,7 @@ function Services() {
       // new: "New",
     },
     {
-      name: "JD Creation",
+      name: "JD Builder",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       desc: "Fill in key details and let AI generate a polished Job Description instantly.",
       color: "#06A9EF",

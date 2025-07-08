@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { MdDelete, MdEdit, MdVisibility } from "react-icons/md";
 import { toast } from "react-toastify";
-  import jsPDF from "jspdf";
+import jsPDF from "jspdf";
 
 function Index() {
   const router = useRouter();
@@ -71,34 +71,33 @@ function Index() {
     };
   }, [selectedJD]);
 
+  const handleDownload = (title, id) => {
+    const contentElement = document.getElementById(`resumeContent-${id}`);
+    if (!contentElement) return;
 
-const handleDownload = (title, id) => {
-  const contentElement = document.getElementById(`resumeContent-${id}`);
-  if (!contentElement) return;
+    const pdf = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
 
-  const pdf = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
+    const safeTitle = title?.replace(/[<>:"/\\|?*]+/g, "") || "resume";
 
-  const safeTitle = title?.replace(/[<>:"/\\|?*]+/g, "") || "resume";
-
-  pdf.html(contentElement, {
-    x: 10,
-    y: 10,
-    html2canvas: {
-      scale: 1,
-    },
-    callback: function (doc) {
-      doc.save(`${safeTitle}_jd.pdf`);
-    },
-  });
-};
+    pdf.html(contentElement, {
+      x: 10,
+      y: 10,
+      html2canvas: {
+        scale: 1,
+      },
+      callback: function (doc) {
+        doc.save(`${safeTitle}_jd.pdf`);
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-[17px] font-medium">JD Creation</p>
+      <p className="text-[17px] font-medium">JD Builder</p>
       <button
         onClick={() => router.push("jdCreation/create")}
         className="px-6 h-[38px] rounded-[30px] bg_Button w-fit"
@@ -145,13 +144,13 @@ const handleDownload = (title, id) => {
                     </div>
                     <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
 
-                    <div onClick={() =>
-                          router.push(`/jdCreation/create?id=${jd?._id}`)
-                        } className="flex flex-col gap-[2px] items-center cursor-pointer">
-                      <button
-                        
-                        className="flex items-center justify-center  p-1 "
-                      >
+                    <div
+                      onClick={() =>
+                        router.push(`/jdCreation/create?id=${jd?._id}`)
+                      }
+                      className="flex flex-col gap-[2px] items-center cursor-pointer"
+                    >
+                      <button className="flex items-center justify-center  p-1 ">
                         <svg
                           width="20"
                           height="20"
@@ -169,11 +168,10 @@ const handleDownload = (title, id) => {
                       </button>
                       <p className="text-[11px] font-[600] text-white">Edit</p>
                     </div>
-                      <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
+                    <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
                     <div
-
                       className="flex items-center flex-col cursor-pointer"
-                     onClick={() => handleDownload(jd?.jobTitle, jd?._id)}
+                      onClick={() => handleDownload(jd?.jobTitle, jd?._id)}
                     >
                       <img
                         src="/images/icons/download.png"
@@ -207,7 +205,7 @@ const handleDownload = (title, id) => {
       ) : (
         <div className="flex flex-col justify-center gap-[46px] bg-[#FFFFFF] p-[16px] rounded-[12px] ">
           <div className="sm:text-[24px] text-[16px] font-[600] text-center">
-            JD Creation Steps
+            JD Builder Steps
           </div>
           <div className="flex scr1024:flex-row flex-col justify-between scr1024:gap-0 gap-10 items-center">
             <div className="w-[300px] flex flex-col justify-center items-center gap-[14px]">
@@ -263,7 +261,8 @@ const handleDownload = (title, id) => {
                 </p>
                 <p className="text-[14px] font-[400] text-center">
                   Review the information you have entered, and then click the
-                  &quot;Create&quot; button to save and publish your new Job Description.
+                  &quot;Create&quot; button to save and publish your new Job
+                  Description.
                 </p>
               </div>
             </div>

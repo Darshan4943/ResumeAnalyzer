@@ -29,7 +29,7 @@ function HeaderSidebar({
     "Job Posting",
     "Hiring",
     "JD Matching",
-    "JD Creation",
+    "JD Builder",
     "My Collection",
     "Mail Templates",
     "Resumes"
@@ -44,7 +44,7 @@ function HeaderSidebar({
     "Hiring",
     "Preboarding",
     "JD Matching",
-    "JD Creation",
+    "JD Builder",
     "My Collection",
     "Mail Templates",
  
@@ -281,7 +281,7 @@ function HeaderSidebar({
                   transition: "transform 1.2s ease-in-out",
                 }),
                 
-                ...(item === "JD Creation" && {
+                ...(item === "JD Builder" && {
                   ...getListItemStyles("/jdCreation"),
                   transition: "transform 1.3s ease-in-out",
                 }),
@@ -321,7 +321,7 @@ function HeaderSidebar({
                     case "Resumes":
                       handleNavigation("/recruiter/resumeCreation");
                       break;
-                      case "JD Creation":
+                      case "JD Builder":
                       handleNavigation("/jdCreation");
                       break;
                   case "Create New Resume":
