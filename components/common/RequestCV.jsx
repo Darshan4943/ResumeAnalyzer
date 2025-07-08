@@ -31,7 +31,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   const [resumeCount, setResumeCount] = useState(5);
   const [selectedJob, setSelectedJob] = useState();
   const [openParameters, setOpenParamenters] = useState(false);
-  const [findMatchLoader, setMatchLoader] = useState(true);
+  const [findMatchLoader, setMatchLoader] = useState(false);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);
   const dispatch = useDispatch();

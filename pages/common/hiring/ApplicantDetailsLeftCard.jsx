@@ -78,7 +78,7 @@ function ApplicantDetailsLeftCard({
                   {jobDetails?.details?.professional?.designation}
                 </p>
                 {jobDetails?.matchingPercentage && (
-                  <div className="flex gap-2 text-[13px] scr500:text-[16px] font-medium items-center">
+                  <div className="flex gap-2 text-[13px] scr500:text-[12px] font-medium items-center">
                     Profile Match Score :
                     <span className="text-[13px] scr500:text-[16px] font-semibold">
                       {" "}
@@ -121,13 +121,13 @@ function ApplicantDetailsLeftCard({
                       Rejected
                     </div>
                   </button>
-                )  : jobDetails?.hiringStage === "Hired" ? (
-                      <button disabled className="flex gap-2">
-                        <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#1D9474] bg-[#4BD06F33]">
-                          Hired
-                        </div>
-                      </button>
-                    )  : (
+                ) : jobDetails?.hiringStage === "Hired" ? (
+                  <button disabled className="flex gap-2">
+                    <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#1D9474] bg-[#4BD06F33]">
+                      Hired
+                    </div>
+                  </button>
+                ) : (
                   <button
                     onClick={() => {
                       setHiringStage("Shortlisted");
@@ -272,59 +272,67 @@ function ApplicantDetailsLeftCard({
                 </div>
               )}
               <div className="flex flex-col gap-4 text-[16px] font-normal  overflow-y-auto">
-    
-      <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4">
+                  {jobDetails?.details?.professional?.aboutme && (
+                    <div className="flex flex-col gap-2  w-[100%]">
+                      <p className=" font-medium text-[14px] ">About </p>
+                      <div className="flex flex-col gap-4 text-[12px] font-normal">
+                        <p>{jobDetails?.details?.professional?.aboutme}</p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex  gap-4 flex-col justify-between">
+                    {jobDetails?.details?.professional?.currentJob?.company ||
+                    jobDetails?.details?.professional?.hightestQul?.length >
+                      0 ? (
+                      <div className="flex flex-col gap-4 w-[100%]">
+                        {jobDetails?.details?.professional?.currentJob && (
+                          <div>
+                            <p className="text-[14px] font-medium">
+                              Current Job
+                            </p>
+                            <p className="text-[12px] font-normal">
+                              {
+                                jobDetails?.details?.professional?.currentJob
+                                  ?.company
+                              }
+                            </p>
+                            <p className="text-[12px] font-normal">
+                              {
+                                jobDetails?.details?.professional?.currentJob
+                                  ?.title
+                              }
+                            </p>
+                          </div>
+                        )}
+                        {jobDetails?.details?.professional?.hightestQul && (
+                          <div>
+                            <p className="text-[14px] font-medium">
+                              Highest Qualification
+                            </p>
+                            <p className="text-[12px] font-normal">
+                              {jobDetails?.details?.professional?.hightestQul}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ) : null}
 
-        {jobDetails?.details?.professional?.aboutme && (
-          <div className="flex flex-col gap-2  w-[100%]">
-            <p className=" font-medium text-[14px] ">About </p>
-            <div className="flex flex-col gap-4 text-[12px] font-normal">
-              <p>{jobDetails?.details?.professional?.aboutme}</p>
-            </div>
-          </div>
-        )}
-        <div className="flex  gap-4 flex-col justify-between">
-          {jobDetails?.details?.professional?.currentJob?.company ||
-          jobDetails?.details?.professional?.hightestQul?.length > 0 ? (
-            <div className="flex flex-col gap-4 w-[100%]">
-              {jobDetails?.details?.professional?.currentJob && (
-                <div>
-                  <p className="text-[14px] font-medium">Current Job</p>
-                  <p className="text-[12px] font-normal">
-                    {jobDetails?.details?.professional?.currentJob?.company}
-                  </p>
-                  <p className="text-[12px] font-normal">
-                    {jobDetails?.details?.professional?.currentJob?.title}
-                  </p>
+                    <div className="flex flex-col gap-4  w-[100%]">
+                      {jobDetails?.details?.professional?.totalExperience && (
+                        <div>
+                          <p className="text-[14px]  font-medium">
+                            Experience in Years
+                          </p>
+                          <p className="text-[12px] font-normal">
+                            {jobDetails?.details?.professional?.totalExperience}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              )}
-              {jobDetails?.details?.professional?.hightestQul && (
-                <div>
-                  <p className="text-[14px] font-medium">
-                    Highest Qualification
-                  </p>
-                  <p className="text-[12px] font-normal">
-                    {jobDetails?.details?.professional?.hightestQul}
-                  </p>
-                </div>
-              )}
-            </div>
-          ) : null}
-
-          <div className="flex flex-col gap-4  w-[100%]">
-            {jobDetails?.details?.professional?.totalExperience && (
-              <div>
-                <p className="text-[14px]  font-medium">Experience in Years</p>
-                <p className="text-[12px] font-normal">
-                  {jobDetails?.details?.professional?.totalExperience}
-                </p>
               </div>
-            )}
-           
-          </div>
-        </div>
-      </div>
-    </div>
             </div>
           </div>
         )}
