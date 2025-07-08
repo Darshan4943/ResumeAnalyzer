@@ -102,7 +102,7 @@ function List() {
     <div className="flex flex-col gap-5">
       <p className="text-[17px] font-medium">JD Builder</p>
       <button
-        onClick={() => router.push("jdCreation")}
+        onClick={() => router.push("/jdCreation")}
         className="px-6 h-[38px] rounded-[30px] bg_Button w-fit"
       >
         Create Job Description
@@ -153,7 +153,7 @@ function List() {
 
                         <div
                           onClick={() =>
-                            router.push(`/jdCreation/create?id=${jd?._id}`)
+                            router.push(`/jdCreation?id=${jd?._id}`)
                           }
                           className="flex flex-col gap-[2px] items-center cursor-pointer"
                         >
@@ -185,13 +185,7 @@ function List() {
                               "/common/jobPosting/CreateNewJob?jd=" + jd?._id
                             )
                           }
-                          // onClick={() => handleDownload(jd?.jobTitle, jd?._id)}
                         >
-                          {/* <img
-                            src="/images/icons/download.png"
-                            className="h-[20px] w-[20px]"
-                            alt=""
-                          /> */}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
