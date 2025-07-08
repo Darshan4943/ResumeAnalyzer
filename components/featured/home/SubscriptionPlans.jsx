@@ -301,7 +301,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                         className="text-[14px] font-[500] xl:text-[14px]"
                         style={{ textTransform: "capitalize" }}
                       >
-                        {plan?.description}
+                        {/* {plan?.description} */}
                       </p>
                       <div className="flex gap-1 text-[12px] font-medium items-center">
 
@@ -412,13 +412,13 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               className="justify-center pt-6 gap-4 h-full "
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[506.5px]" : "max-w-[300px] h-[434.5px]"
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[506.5px]" : "max-w-[300px] h-[413.5px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
                 <div className="flex text-center flex-col gap-6 text-[#333333] items-center  justify-between">
                   <p className="text-[16px] font-[600] xl:text-[20px]">
-                    <span className="text-[#06A9EF]">Enterprise </span> Plan
+                    <span className="text-[#06A9EF]">Custom </span> Plan
                   </p>
                   <p className="text-[16px] font-[500]  px-2">
                     Tailored Solutions for {isUser ? "Candidates" : "Organizations"}

@@ -6,19 +6,20 @@ import { Document, Page, pdfjs } from "react-pdf";
 import MiniLoader from "../../../components/common/miniLoader";
 import ApplicantProfile from "./ApplicantProfile";
 import ApplicantDetailsLeftCard from "./ApplicantDetailsLeftCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import InlineSVG from "../../../components/common/InlineSvg";
+import { setPageOpened } from "../../../Redux/slices/websiteSlice";
 
 function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("matchingParameters");
   const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
-console.log(222,jobDetails);
+ const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
-  const { id, applicantId,sortValue,currentPage } = router.query;
+  const { id, applicantId,sortValue,currentPage,clientView } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
@@ -27,6 +28,12 @@ console.log(222,jobDetails);
   const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
   const isPDF = fileExtension === "pdf";
   const isDoc = ["doc", "docx"].includes(fileExtension)
+   useEffect(() => {
+      if (clientView) {
+        dispatch(setPageOpened());
+      }
+  
+    }, []);
   const getData = async () => {
     try {
       setLoading(true);
@@ -173,12 +180,26 @@ console.log(222,jobDetails);
 
   return (
     <div>
+        {clientView &&
+        <div
+          className="bg-white z-[2000] fixed w-full top-0 ml-[-24px] "
+          style={{ borderBottom: "1.5px solid #DEDEDE" }}
+        >
+          <div className="customMargins py-3 flex justify-between items-center">
+            <img
+              className="object-contain h-[40px]"
+              src="/images/logo_skilotech.png"
+              alt="Logo"
+            />
+          </div>
+        </div>
+      }
       {loading ? (
         <MiniLoader />
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className="flex flex-col gap-[8px] relative ">
+        <div className={`flex flex-col gap-[8px] relative ${clientView && "pt-6 customMargins"}`}>
           <div className=" flex w-full gap-2 justify-between rounded-[16px] items-center">
             <img
               onClick={() => router.push(`/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}`)}

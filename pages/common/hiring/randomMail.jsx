@@ -22,9 +22,10 @@ function RandomMail({
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [tags, setTags] = useState([]);
+  const [to, setTo] = useState();
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState("Shortlisted Candidates for Review & Selection");
 
 
 
@@ -42,26 +43,31 @@ function RandomMail({
     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
   
     <p style="display: block; margin-bottom: 20px;">Dear,</p>
+
+    <p style="display: block; margin-bottom: 20px;">Greetings from ${userDataGlobal?.firstName} ${userDataGlobal?.lastName}  .</p>
   
     <div style="display: block; margin-bottom: 20px;">
       <p style="display: block; margin-bottom: 20px;">
-        We are pleased to inform you that after a thorough review of your profile, you have been shortlisted for the next round of the selection process
+       As part of our recruitment partnership, we are pleased to submit a list of shortlisted candidates for the open positions currently available at your organization. These candidates have been carefully screened and selected through Skilotech.com, ensuring alignment with the job requirements shared.
       </p>
   
       <p style="display: block; margin-bottom: 20px;">
-        Your skills and experience align well with the requirements of the role, and we are excited to proceed further with your application.
-  
-             Please confirm your availability by responding to this email at your earliest convenience.
-           Should you have any questions, feel free to reach out. We look forward to connecting with you soon.
+       To review the shortlisted candidates and proceed with the selection process, please click the link below:
+       ${`https://www.skilotech.com/common/hiring/JobPost?id=${id}&clientView=${true}`}
+
+      </p>
+      <p style="display: block; margin-bottom: 20px;">
+       Thank you for choosing us as your recruitment partner. We look forward to assisting you in building the right team.
+
       </p>
     </div>
-  
+     <p style="display: block; margin-bottom: 20px;"></p>
     <p style="display: block; margin-bottom: 20px;">Best Regards,</p>
   
-    <p style="display: block; margin-bottom: 10px;">Team Skilotech</p>
+    <p style="display: block; margin-bottom: 10px;">${userDataGlobal?.firstName} ${userDataGlobal?.lastName}</p>
   
     <p style="display: block; margin-bottom: 10px;">
-      <a href="https://skilotech.com" style="color: #007bff; text-decoration: none;">Skilotech.com</a>
+     ${userDataGlobal?.mobileNo}
     </p>
   
   </div>`
@@ -69,7 +75,7 @@ function RandomMail({
 
 
 
- 
+
   const [subjectError, setSubjectError] = useState("");
   const [contentError, setContentError] = useState("");
   const handleKeyPress = (e) => {
@@ -93,9 +99,8 @@ function RandomMail({
     let isValid = true;
 
     if (
-      newHiringStage === "Shortlisted"
-        ? !shortlistSubject?.trim()
-        : !rejectedSubject?.trim()
+     !subject?.trim()
+        
     ) {
       setSubjectError("Subject is required.");
       isValid = false;
@@ -104,9 +109,8 @@ function RandomMail({
     }
 
     if (
-      newHiringStage === "Shortlisted"
-        ? !shortlistContent?.trim()
-        : !rejectedContent?.trim()
+    !content?.trim()
+       
     ) {
       setContentError("Content is required.");
       isValid = false;
@@ -118,30 +122,24 @@ function RandomMail({
 
     setLoading(true);
     const emailDetails = {
-      to: shortlist?.map((item) => item?.details?.personal?.email) || "",
+      to: to || "",
       cc: tags,
-      subject:
-        newHiringStage === "Shortlisted" ? shortlistSubject : rejectedSubject,
-      content:
-        newHiringStage === "Shortlisted" ? shortlistContent : rejectedContent,
+      subject:subject,
+      content:content,
       applicantId: shortlist?.map((item) => item?.applicantId),
-      role: userDataGlobal?.role,
       jobId: id,
-      newHiringStage,
+
     };
 
     try {
       const response = await axios.post(
-        "https://api.skilotech.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/clientMail",
         emailDetails
       );
 
       toast.success("Email sent successfully!");
       setLoading(false);
-      if (isByEmployer) {
-        submitDetails();
-      }
-      setStatusChange(!statusChange);
+     
     } catch (error) {
       setLoading(false);
       console.log(
@@ -192,6 +190,7 @@ function RandomMail({
   };
 
   const header = renderHeader();
+  console.log(shortlist);
 
   return (
     <>
@@ -222,34 +221,23 @@ function RandomMail({
               </div>
               <div className="flex flex-col gap-[10px]">
                 <div className="w-[100%] gap-[20px] flex flex-col">
-                  <div className="flex items-center gap-[20px]">
+                  <div className="flex items-center gap-[20px] flex-wrap ">
                     <div className="text-[16px] font-[600]">To</div>
-                    {shortlist?.details?.personal?.firstName.length === 0 &&
-                    shortlist?.details?.personal?.lastName.length === 0 ? (
-                      ""
-                    ) : (
-                      <>
-                        {shortlist?.map((item, index) => (
-                          <div
-                            key={index}
-                            className="border-[1px] border-[#D6DDEB] p-[6px] rounded-[26px] flex gap-[10px] items-center"
-                          >
-                            <div className="group relative">
-                              <div className="text-[14px] font-[600]">
-                                {item.details?.personal?.firstName +
-                                  " " +
-                                  item.details?.personal?.lastName}
-                              </div>
-                              <div>
-                                <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                                  {item.details?.personal?.email}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </>
-                    )}
+                    <div
+
+                      className=" py-[6px] px-3 rounded-[26px] flex gap-[10px] flex-wrap items-center  leading-tight"
+                    >
+                      <div className="group relative">
+                        <input
+                          type="text"
+                          value={to}
+                          onChange={(e) => setTo(e.target.value)}
+                           placeholder="Enter Email"
+                          className="text-[14px] font-[600] outline-none bg-transparent placeholder:text-[16px] placeholder:font-medium min-w-[300px]"
+                        />
+                      </div>
+                    </div>
+
                   </div>
                   <div className="border-[1px] border-[#D4D4D480] w-full"></div>
                 </div>
@@ -309,11 +297,7 @@ function RandomMail({
                   <input
                     type="text"
                     value={
-                      newHiringStage === "Shortlisted"
-                        ? shortlistSubject
-                        : newHiringStage === "Rejected"
-                        ? rejectedSubject
-                        : ""
+                      subject
                     }
                     // onChange={(e) => {
                     //   setSubject(e.target.value);
@@ -321,12 +305,8 @@ function RandomMail({
                     // }}
                     onChange={(e) => {
                       const value = e.target.value;
+                      setSubject(value);
 
-                      if (newHiringStage === "Shortlisted") {
-                        setShortlistSubject(value);
-                      } else if (newHiringStage === "Rejected") {
-                        setRejectedSubject(value);
-                      }
 
                       setSubjectError("");
                     }}
@@ -344,11 +324,7 @@ function RandomMail({
                   <Editor
                     style={{ minHeight: "120px", overflow: "auto" }}
                     value={
-                      newHiringStage === "Shortlisted"
-                        ? shortlistContent
-                        : newHiringStage === "Rejected"
-                        ? rejectedContent
-                        : "subject"
+                      content
                     }
                     headerTemplate={header}
                     // onTextChange={(e) => {
@@ -356,11 +332,7 @@ function RandomMail({
                     //   setContentError("");
                     // }}
                     onTextChange={(e) => {
-                      if (newHiringStage === "Shortlisted") {
-                        setShortlistContent(e.htmlValue);
-                      } else if (newHiringStage === "Rejected") {
-                        setRejectedContent(e.htmlValue);
-                      }
+                      setContent(e.htmlValue);
 
                       setContentError("");
                     }}

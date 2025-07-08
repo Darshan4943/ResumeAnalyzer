@@ -802,7 +802,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                   </svg>
                   {preferences ?
                     <div className="text-[16px] font-medium flex gap-2 items-center">
-                       {totalCount} profiles for {jobData?.jobTitle}
+                      {totalCount} profiles for {jobData?.jobTitle}
                     </div>
                     :
                     <div className="text-[16px] font-medium flex gap-2 items-center">
@@ -920,7 +920,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     `,
 
                     }}
-                    onClick={()=>router.push(`/JobMatching/matchJob?selectedJob=${jobId}`)}
+                    onClick={() => router.push(`/JobMatching/matchJob?selectedJob=${jobId}`)}
                     className={`text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
              min-w-[176.24px] h-[38px] transition-all duration-300 ease-in-out  `}
                   >
@@ -974,114 +974,122 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                   </button>
                 }
               </div>
-              <div className="flex gap-4  relative h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide ">
-                <div className="flex flex-col gap-2 sticky top-0 h-[calc(100vh-160px)] overflow-y-auto w-[300px]  min-w-[300px]">
-                  {preferences &&
-                    <div className="bg-white rounded-[8px] flex flex-col gap-2 p-2">
+              {totalCount > 0 ?
+                <div className="flex gap-4  relative h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide ">
+                  <div style={{scrollbarWidth: "none"}} className="flex flex-col gap-2 sticky top-0 h-[calc(100vh-160px)] overflow-y-auto w-[300px]  min-w-[300px]">
+                    {preferences &&
+                      <div className="bg-white rounded-[8px] flex flex-col gap-2 p-2">
 
 
-                      <div className="flex gap-2 items-center font-semibold text-[13px]">
-                        <input
-                          type="checkbox"
-                          className="h-4 w-4 custom-checkbox"
-                          checked={collection.includes("MyCollection")}
-                          onChange={(e) => {
-                            setIsFilterUsed(true)
-                            if (e.target.checked) {
-                              setCollection([...collection, "MyCollection"]);
-                            } else {
-                              setCollection(collection.filter((c) => c !== "MyCollection"));
-                            }
+                        <div className="flex gap-2 items-center font-semibold text-[13px]">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 custom-checkbox"
+                            checked={collection.includes("MyCollection")}
+                            onChange={(e) => {
+                              setIsFilterUsed(true)
+                              if (e.target.checked) {
+                                setCollection([...collection, "MyCollection"]);
+                              } else {
+                                setCollection(collection.filter((c) => c !== "MyCollection"));
+                              }
+                            }}
+                          />
+                          <label>My Collection</label>
+                        </div>
+
+                        <div className="flex gap-2 items-center font-semibold text-[13px]">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 custom-checkbox"
+                            checked={collection.includes("SkilotechCollection")}
+                            onChange={(e) => {
+                              setIsFilterUsed(true)
+                              if (e.target.checked) {
+                                setCollection([...collection, "SkilotechCollection"]);
+                              } else {
+                                setCollection(collection.filter((c) => c !== "SkilotechCollection"));
+                              }
+                            }}
+                          />
+                          <label>Skilotech Collection</label>
+                        </div>
+
+
+
+                      </div>
+                    }
+                    <div
+                      style={{ boxShadow: "0px 0px 14px 0px #00000005", scrollbarWidth: "none" }}
+                      className="bg-white   px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4  min-w-[300px]   pb-6 "
+                    >
+                      <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
+                        <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                          All Filters
+                        </p>
+
+                        <button
+                          onClick={() => {
+                            setFilters({});
+                            setClear(!clear);
                           }}
-                        />
-                        <label>My Collection</label>
+                          className="text-primary font-montserrat text-sm font-medium text-blue"
+                        >
+                          Reset all
+                        </button>
                       </div>
 
-                      <div className="flex gap-2 items-center font-semibold text-[13px]">
-                        <input
-                          type="checkbox"
-                          className="h-4 w-4 custom-checkbox"
-                          checked={collection.includes("SkilotechCollection")}
-                          onChange={(e) => {
-                            setIsFilterUsed(true)
-                            if (e.target.checked) {
-                              setCollection([...collection, "SkilotechCollection"]);
-                            } else {
-                              setCollection(collection.filter((c) => c !== "SkilotechCollection"));
-                            }
-                          }}
+                      {filteredInputData.map((item, index) => (
+                        <Filter
+                          key={index}
+                          item={item}
+                          filterType={item.title.replace(/ /g, "")}
+                          setClear={setClear}
+                          clear={clear}
+                          onChange={handleCheckboxChange}
+
+                          page={page}
+                          filters={filters}
+                          loading={loading}
+
+                          setLoading={setLoading}
+                          className="text-[14px] font-medium flex items-center w-auto bg-white "
+                          isOpen={openDropdown === index}
+                          onDropdownClick={handleDropdownClick}
+                          id={index}
+                          isHidden={hiddenFilters[index] || false}
+                          toggleVisibility={toggleFilterVisibility}
                         />
-                        <label>Skilotech Collection</label>
-                      </div>
-
-
-
+                      ))}
                     </div>
-                  }
-                  <div
-                    style={{ boxShadow: "0px 0px 14px 0px #00000005", scrollbarWidth: "none" }}
-                    className="bg-white   px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4  min-w-[300px]   pb-6 "
-                  >
-                    <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
-                      <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-                        All Filters
-                      </p>
-
-                      <button
-                        onClick={() => {
-                          setFilters({});
-                          setClear(!clear);
-                        }}
-                        className="text-primary font-montserrat text-sm font-medium text-blue"
-                      >
-                        Reset all
-                      </button>
-                    </div>
-
-                    {filteredInputData.map((item, index) => (
-                      <Filter
-                        key={index}
-                        item={item}
-                        filterType={item.title.replace(/ /g, "")}
-                        setClear={setClear}
-                        clear={clear}
-                        onChange={handleCheckboxChange}
-
-                        page={page}
-                        filters={filters}
-                        loading={loading}
-
-                        setLoading={setLoading}
-                        className="text-[14px] font-medium flex items-center w-auto bg-white "
-                        isOpen={openDropdown === index}
-                        onDropdownClick={handleDropdownClick}
-                        id={index}
-                        isHidden={hiddenFilters[index] || false}
-                        toggleVisibility={toggleFilterVisibility}
-                      />
-                    ))}
                   </div>
+                  <ShowCandidates candidates={resumeList} save={save} setLimit={setLimit}
+                    jobId={jobId} preferences={preferences}
+                    jobData={jobData}
+                    limit={limit}
+                    setTotalpages={setTotalpages}
+                    totalPages={totalPages}
+                    page={page}
+                    setPage={setPage}
+                    data={data}
+                    setMiniloading={setMiniloading}
+                    miniLoading={miniLoading}
+                    setCurrentPage={setPage}
+                    totalCount={totalCount}
+                    setSelectedCandidates={setSelectedCandidates}
+                    selectedCandidates={selectedCandidates}
+                    allSave={allSave}
+                    expandedUser={expandedUser}
+                    setExpandedUser={setExpandedUser}
+                  />
                 </div>
-                <ShowCandidates candidates={resumeList} save={save} setLimit={setLimit}
-                  jobId={jobId} preferences={preferences}
-                  jobData={jobData}
-                  limit={limit}
-                  setTotalpages={setTotalpages}
-                  totalPages={totalPages}
-                  page={page}
-                  setPage={setPage}
-                  data={data}
-                  setMiniloading={setMiniloading}
-                  miniLoading={miniLoading}
-                  setCurrentPage={setPage}
-                  totalCount={totalCount}
-                  setSelectedCandidates={setSelectedCandidates}
-                  selectedCandidates={selectedCandidates}
-                  allSave={allSave}
-                  expandedUser={expandedUser}
-                  setExpandedUser={setExpandedUser}
-                />
-              </div>
+                :
+                <div className=" flex flex-col gap-4 justify-between items-center pt-12 font-medium text-[18px]">
+                  No Profiles were found
+                   <img className="w-[300px] h-[182px] object-cover " src="/images/noCandidates.png" alt="" />
+                </div>
+              }
+
             </div>
 
           }
