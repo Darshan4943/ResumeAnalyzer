@@ -34,7 +34,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [activeOption, setActiveOption] = useState("applicant");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [openParameters, setOpenParamenters] = useState(false);
-  const [randomMail, setRandomMail] = useState(false)
+  const [randomMail, setRandomMail] = useState(false);
   const router = useRouter();
   const { id, currentPage, sortValue, clientView } = router.query;
 
@@ -71,34 +71,27 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     { label: "Profile Match ↑", value: "profileMatchAsc" },
     { label: "Profile Match ↓", value: "profileMatchDesc" },
     { label: "Applied Date ↑", value: "appliedDateAsc" },
-    { label: "Applied Date ↓", value: "appliedDateDesc" }
+    { label: "Applied Date ↓", value: "appliedDateDesc" },
   ];
 
   const [sortSelect, setSortSelect] = useState("profileMatchAsc");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortedApplications, setSortedApplications] = useState([]);
 
-
   useEffect(() => {
     if (sortValue) {
-      setSortSelect(sortValue)
+      setSortSelect(sortValue);
     }
     if (currentPage) {
-      setPage(currentPage)
+      setPage(currentPage);
     }
-
-
   }, [currentPage, sortValue]);
 
   useEffect(() => {
     if (clientView) {
       dispatch(setPageOpened());
     }
-
   }, []);
-
-
-
 
   const [parameters, setParameters] = useState([
     {
@@ -251,9 +244,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
       setSelectAll(
         updated.length ===
-        jobDetails?.data?.applications.filter(
-          (app) => app.hiringStage === "Pending"
-        ).length
+          jobDetails?.data?.applications.filter(
+            (app) => app.hiringStage === "Pending"
+          ).length
       );
 
       return updated;
@@ -271,7 +264,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     setSelectAll(!selectAll);
   };
-
 
   const handleReject = async () => {
     setAllReject(true);
@@ -335,7 +327,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
-      findCandidates(response.data)
+      findCandidates(response.data);
     } catch (error) {
       console.error("Error fetching job details:", error);
     }
@@ -350,7 +342,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setError(null);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getByIdApplication/${id}`,
+        `https://api.skilotech.com/api/job/getByIdApplication/${id}`,
         {
           params: {
             page: page,
@@ -374,7 +366,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         (a, b) => Number(a.isScore) - Number(b.isScore)
       );
 
-
       const updatedData = {
         ...data,
         data: {
@@ -384,7 +375,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       };
 
       setJobDetails(updatedData);
-
 
       setTotalCount(data.pagination.totalApplications);
       setTotalpages(data.pagination.totalPages);
@@ -410,10 +400,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
   }, [id, statusChange, selectedFilters, activeOption]);
 
-
   const findCandidates = async (data) => {
     try {
-
       const { dial_code, mustSkills, totalExpMin, totalExpMax } = data;
 
       const payload = {
@@ -423,17 +411,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           totalExpMin,
           totalExpMax,
         },
-
       };
 
       const response = await axios.post(
         "https://api.skilotech.com/api/findCandidates/preferences",
-        payload,
-
+        payload
       );
 
       setTotalPreferenceCount(response.data.totalCount);
-
     } catch (error) {
       console.error("Error in findCandidates:", error);
     }
@@ -452,7 +437,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     router.push(`/findCandidates?${queryParams.toString()}`);
   };
-
 
   // const aiMatch = async () => {
   //   if (jdCountMonthly >= jdCountMonthlyLimit) {
@@ -680,10 +664,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setSortSelect(index);
   // };
 
- 
   return (
     <>
-      {clientView &&
+      {clientView && (
         <div
           className="bg-white z-[2000] fixed w-full top-0 ml-[-24px] "
           style={{ borderBottom: "1.5px solid #DEDEDE" }}
@@ -696,7 +679,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             />
           </div>
         </div>
-      }
+      )}
       {limitPopup && (
         <div className="z-[200000]">
           <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
@@ -710,7 +693,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           </div>
         </>
       )}
-      <div className={`mb-4 overflow-visible ${clientView && "pt-6 customMargins"}`}>
+      <div
+        className={`mb-4 overflow-visible ${
+          clientView && "pt-6 customMargins"
+        }`}
+      >
         <div className="w-[100%] flex flex-col relative ">
           {jobData && (
             <div className="flex flex-col gap-[16px]">
@@ -889,126 +876,130 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   </div>
                 </div>
               </div>
-{!clientView &&
-              <div>
-                <div className="flex px-[16px] ms:text-[16px] text-[14px] rounded-t-[16px]  overflow-auto items-start  ml:gap-[40px] gap-2 bg-[#fff]">
-                  <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                    <p
-                      onClick={() => {
-                        setOption(0), setActiveOption("applicant");
-                      }}
-                      className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
-                        } cursor-pointer text-[16px] font-[600]`}
-                    >
-                      Applicant
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="89"
-                      height="4"
-                      viewBox="0 0 89 4"
-                      fill="none"
-                    >
-                      <path
-                        d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                        fill={
-                          activeOption === "applicant" ? "#06A9EF" : "white"
-                        }
-                      />
-                    </svg>
-                  </div>
-
-                  <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                    <p
-                      onClick={() => {
-                        setOption(2), setActiveOption("Analytics");
-                      }}
-                      className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
-                        } cursor-pointer font-[600]`}
-                    >
-                      Analytics
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="89"
-                      height="4"
-                      viewBox="0 0 89 4"
-                      fill="none"
-                    >
-                      <path
-                        d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                        fill={
-                          activeOption === "Analytics" ? "#06A9EF" : "white"
-                        }
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                    <p
-                      onClick={() => {
-                        setOption(1), setActiveOption("JobDetails");
-                      }}
-                      className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
-                        } cursor-pointer font-[600]`}
-                    >
-                      Job Details
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="89"
-                      height="4"
-                      viewBox="0 0 89 4"
-                      fill="none"
-                    >
-                      <path
-                        d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                        fill={
-                          activeOption === "JobDetails" ? "#06A9EF" : "white"
-                        }
-                      />
-                    </svg>
-                  </div>
-                  {userDataGlobal?.role !== "recruiter" && (
+              {!clientView && (
+                <div>
+                  <div className="flex px-[16px] ms:text-[16px] text-[14px] rounded-t-[16px]  overflow-auto items-start  ml:gap-[40px] gap-2 bg-[#fff]">
                     <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
                       <p
                         onClick={() => {
-                          setOption(3),
-                            setActiveOption("Selected Candidate for Hiring");
+                          setOption(0), setActiveOption("applicant");
                         }}
-                        className={` ${activeOption === "Selected Candidate for Hiring"
-                          ? ""
-                          : "text-[#646464]"
-                          } cursor-pointer font-[600]`}
+                        className={` ${
+                          activeOption === "applicant" ? "" : "text-[#646464]"
+                        } cursor-pointer text-[16px] font-[600]`}
                       >
-                        Selected Candidate for Hiring
+                        Applicant
                       </p>
                       <svg
-                        width="214"
-                        height="4"
-                        viewBox="0 0 214 4"
-                        fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        width="89"
+                        height="4"
+                        viewBox="0 0 89 4"
+                        fill="none"
                       >
                         <path
-                          d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
+                          d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
                           fill={
-                            activeOption === "Selected Candidate for Hiring"
-                              ? "#06A9EF"
-                              : "white"
+                            activeOption === "applicant" ? "#06A9EF" : "white"
                           }
                         />
                       </svg>
                     </div>
-                  )}
+
+                    <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                      <p
+                        onClick={() => {
+                          setOption(2), setActiveOption("Analytics");
+                        }}
+                        className={` ${
+                          activeOption === "Analytics" ? "" : "text-[#646464]"
+                        } cursor-pointer font-[600]`}
+                      >
+                        Analytics
+                      </p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="89"
+                        height="4"
+                        viewBox="0 0 89 4"
+                        fill="none"
+                      >
+                        <path
+                          d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                          fill={
+                            activeOption === "Analytics" ? "#06A9EF" : "white"
+                          }
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                      <p
+                        onClick={() => {
+                          setOption(1), setActiveOption("JobDetails");
+                        }}
+                        className={` ${
+                          activeOption === "JobDetails" ? "" : "text-[#646464]"
+                        } cursor-pointer font-[600]`}
+                      >
+                        Job Details
+                      </p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="89"
+                        height="4"
+                        viewBox="0 0 89 4"
+                        fill="none"
+                      >
+                        <path
+                          d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                          fill={
+                            activeOption === "JobDetails" ? "#06A9EF" : "white"
+                          }
+                        />
+                      </svg>
+                    </div>
+                    {userDataGlobal?.role !== "recruiter" && (
+                      <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                        <p
+                          onClick={() => {
+                            setOption(3),
+                              setActiveOption("Selected Candidate for Hiring");
+                          }}
+                          className={` ${
+                            activeOption === "Selected Candidate for Hiring"
+                              ? ""
+                              : "text-[#646464]"
+                          } cursor-pointer font-[600]`}
+                        >
+                          Selected Candidate for Hiring
+                        </p>
+                        <svg
+                          width="214"
+                          height="4"
+                          viewBox="0 0 214 4"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
+                            fill={
+                              activeOption === "Selected Candidate for Hiring"
+                                ? "#06A9EF"
+                                : "white"
+                            }
+                          />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
                 </div>
-                <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
-              </div>
-          }
+              )}
             </div>
           )}
 
           {option === 0 && !clientView && (
-            <div >
+            <div>
               {loading ? (
                 <MiniLoader />
               ) : data?.length === 0 ? (
@@ -1041,14 +1032,16 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         }}
                         onClick={aiMatch}
                         className={`text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
-             min-w-[176.24px] h-[38px] transition-all duration-300 ease-in-out  ${!jobDetails?.data?.applications?.some(
-                          (app) => app.isScore === false
-                        ) && "opacity-50"
-                          }`}
+             min-w-[176.24px] h-[38px] transition-all duration-300 ease-in-out  ${
+               !jobDetails?.data?.applications?.some(
+                 (app) => app.isScore === false
+               ) && "opacity-50"
+             }`}
                       >
                         <svg
-                          className={`min-w-[20px] transition-all duration-100 ${aiLoading ? "animate-pulse scale-110" : ""
-                            }`}
+                          className={`min-w-[20px] transition-all duration-100 ${
+                            aiLoading ? "animate-pulse scale-110" : ""
+                          }`}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -1103,7 +1096,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         Set Matching Parameters
                       </button>
 
-                      <button disabled={totalPreferenceCount<=0} onClick={() => goToPreferences()} className={`min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6 ${totalPreferenceCount<=0 && "opacity-50"}`}
+                      <button
+                        disabled={totalPreferenceCount <= 0}
+                        onClick={() => goToPreferences()}
+                        className={`min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6 ${
+                          totalPreferenceCount <= 0 && "opacity-50"
+                        }`}
                       >
                         Skilotech Preferences ({totalPreferenceCount})
                       </button>
@@ -1197,13 +1195,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           Move to Hiring Process
                         </button>
                       )}
-                      {checkedApplicants?.length > 0 &&
-                        <button onClick={() => setRandomMail(true)} className="px-4 h-[40px] bg_Button rounded-[30px]">
+                      {checkedApplicants?.length > 0 && (
+                        <button
+                          onClick={() => setRandomMail(true)}
+                          className="px-4 h-[40px] bg_Button rounded-[30px]"
+                        >
                           Send Mail to Client
                         </button>
-                      }
+                      )}
                     </div>
-
                   </div>
 
                   {allShortlist && (
@@ -1231,119 +1231,343 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     />
                   )}
 
-
                   <div className="web relative">
-                    {aiLoading &&
-
+                    {aiLoading && (
                       <div className="backdrop-blur-[3px] bg-transparent absolute w-full h-full z-10 flex  justify-center items-center">
                         <div className="relative w-[130px] h-[130px] flex items-center justify-center">
-
                           <div
                             className="absolute w-full h-full rounded-full animate-spin"
                             style={{
-                              background: 'conic-gradient(from 0deg, #FFDA1D 0deg, rgba(255, 218, 29, 0) 300deg)',
-                              mask: 'radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)',
-                              WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)',
+                              background:
+                                "conic-gradient(from 0deg, #FFDA1D 0deg, rgba(255, 218, 29, 0) 300deg)",
+                              mask: "radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)",
+                              WebkitMask:
+                                "radial-gradient(farthest-side, transparent calc(100% - 7px), black 0)",
                             }}
                           ></div>
 
-                          <svg className={`transition-all duration-700 ease-in-out animate-pulse scale-90" `}
-                            width="51" height="47" viewBox="0 0 51 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z" fill="#4C43CD" />
-                            <path d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z" fill="url(#paint0_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z" fill="url(#paint1_radial_10719_124239)" />
-                            <path d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z" fill="#4C43CD" />
-                            <path d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z" fill="url(#paint2_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z" fill="url(#paint3_radial_10719_124239)" />
-                            <path d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z" fill="#4C43CD" />
-                            <path d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z" fill="url(#paint4_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z" fill="url(#paint5_radial_10719_124239)" />
-                            <path d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z" fill="#4C43CD" />
-                            <path d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z" fill="url(#paint6_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z" fill="url(#paint7_radial_10719_124239)" />
-                            <path d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z" fill="#4C43CD" />
-                            <path d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z" fill="url(#paint8_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z" fill="url(#paint9_radial_10719_124239)" />
-                            <path d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z" fill="#4C43CD" />
-                            <path d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z" fill="url(#paint10_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z" fill="url(#paint11_radial_10719_124239)" />
-                            <path d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z" fill="#4C43CD" />
-                            <path d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z" fill="url(#paint12_radial_10719_124239)" fill-opacity="0.7" />
-                            <path d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z" fill="url(#paint13_radial_10719_124239)" />
+                          <svg
+                            className={`transition-all duration-700 ease-in-out animate-pulse scale-90" `}
+                            width="51"
+                            height="47"
+                            viewBox="0 0 51 47"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z"
+                              fill="url(#paint0_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M24.9373 10.9533C26.6005 18.0314 30.9267 22.298 38.0051 23.9908C38.0942 24.0106 38.1437 24.0997 38.1239 24.1789C38.114 24.2383 38.0645 24.2878 38.0051 24.2977C30.8673 25.9311 26.6104 30.2967 24.9274 37.3847C24.9076 37.4738 24.8185 37.5233 24.7294 37.5035C24.67 37.4936 24.6205 37.4441 24.6106 37.3847C22.9772 30.2472 18.651 25.9806 11.5528 24.2779C11.4637 24.2581 11.4142 24.169 11.434 24.0799C11.4439 24.0205 11.4934 23.971 11.5528 23.9611C18.651 22.3277 22.9376 18.0215 24.6304 10.9434C24.6502 10.8543 24.7393 10.8048 24.8284 10.8246C24.8779 10.8642 24.9274 10.9038 24.9373 10.9533Z"
+                              fill="url(#paint1_radial_10719_124239)"
+                            />
+                            <path
+                              d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z"
+                              fill="url(#paint2_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M41.6319 0.377967C42.513 4.10014 44.78 6.3473 48.5023 7.23824C48.5518 7.24814 48.5716 7.29764 48.5617 7.33724C48.5518 7.36693 48.532 7.39663 48.5023 7.39663C44.7503 8.25788 42.5031 10.5545 41.622 14.2767C41.6121 14.3262 41.5626 14.346 41.523 14.3361C41.4933 14.3262 41.4636 14.3064 41.4636 14.2767C40.6023 10.5248 38.3253 8.27768 34.5931 7.37683C34.5436 7.36693 34.5238 7.31744 34.5337 7.27784C34.5436 7.24814 34.5634 7.21844 34.5931 7.21844C38.3253 6.3572 40.5825 4.10014 41.4735 0.368068C41.4834 0.318571 41.523 0.288872 41.5725 0.298772C41.6022 0.308671 41.622 0.338369 41.6319 0.377967Z"
+                              fill="url(#paint3_radial_10719_124239)"
+                            />
+                            <path
+                              d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z"
+                              fill="url(#paint4_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M7.10063 6.64208C7.97181 10.3643 10.2488 12.6114 13.9711 13.5024C14.0206 13.5123 14.0404 13.5618 14.0305 13.6014C14.0206 13.6311 14.0008 13.6607 13.9711 13.6607C10.2191 14.522 7.97181 16.8187 7.09073 20.5408C7.08083 20.5903 7.03133 20.6101 6.99173 20.6002C6.96203 20.5903 6.93233 20.5705 6.93233 20.5408C6.07105 16.789 3.7941 14.5418 0.0618737 13.641C0.0123747 13.6311 -0.00742484 13.5816 0.00247495 13.542C0.0123747 13.5123 0.0321743 13.4826 0.0618737 13.4826C3.7941 12.6213 6.05125 10.3643 6.94223 6.63218C6.95213 6.58269 7.00163 6.56289 7.04123 6.57279C7.07093 6.59259 7.10063 6.61238 7.10063 6.64208Z"
+                              fill="url(#paint5_radial_10719_124239)"
+                            />
+                            <path
+                              d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z"
+                              fill="url(#paint6_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M43.1944 33.0342C44.0755 36.7564 46.3425 39.0035 50.0648 39.8945C50.1143 39.9044 50.1341 39.9539 50.1242 39.9935C50.1143 40.0232 50.0945 40.0529 50.0648 40.0529C46.3128 40.9141 44.0656 43.2108 43.1845 46.933C43.1746 46.9825 43.1251 47.0023 43.0855 46.9924C43.0558 46.9825 43.0261 46.9627 43.0261 46.933C42.1648 43.1811 39.8878 40.9339 36.1556 40.0331C36.1061 40.0232 36.0863 39.9737 36.0962 39.9341C36.1061 39.9044 36.1259 39.8747 36.1556 39.8747C39.8878 39.0134 42.145 36.7564 43.036 33.0243C43.0459 32.9748 43.0954 32.9451 43.135 32.955C43.1647 32.9847 43.1944 33.0045 43.1944 33.0342Z"
+                              fill="url(#paint7_radial_10719_124239)"
+                            />
+                            <path
+                              d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z"
+                              fill="url(#paint8_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M46.3018 21.5521C46.8562 23.8982 48.2916 25.3237 50.6379 25.888C50.6676 25.8979 50.6775 25.9276 50.6676 25.9573C50.6577 25.9672 50.6478 25.9771 50.6379 25.987C48.2619 26.5315 46.8463 27.9768 46.2919 30.3328C46.282 30.3625 46.2523 30.3823 46.2226 30.3724C46.2028 30.3724 46.183 30.3526 46.183 30.3328C45.6385 27.957 44.203 26.5414 41.8469 25.9771C41.8172 25.9672 41.7974 25.9375 41.8073 25.9078C41.8073 25.888 41.8271 25.8682 41.8469 25.8682C44.203 25.3237 45.6286 23.8982 46.1929 21.5422C46.2028 21.5125 46.2325 21.4927 46.2622 21.5026C46.282 21.5125 46.3018 21.5323 46.3018 21.5521Z"
+                              fill="url(#paint9_radial_10719_124239)"
+                            />
+                            <path
+                              d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z"
+                              fill="url(#paint10_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M12.2002 36.089C12.7546 38.4352 14.1901 39.8607 16.5363 40.425C16.566 40.4349 16.5858 40.4646 16.5759 40.4943C16.5759 40.5141 16.5561 40.5339 16.5363 40.5339C14.1703 41.0783 12.7546 42.5336 12.1903 44.8797C12.1804 44.9094 12.1507 44.9292 12.121 44.9193C12.1012 44.9094 12.0913 44.8995 12.0814 44.8797C11.5369 42.5039 10.1015 41.0882 7.7453 40.524C7.7156 40.5141 7.6958 40.4844 7.7057 40.4547C7.7057 40.4349 7.7255 40.4151 7.7453 40.4151C10.1015 39.8706 11.527 38.4451 12.0913 36.089C12.1012 36.0593 12.1309 36.0396 12.1606 36.0495C12.1903 36.0593 12.2002 36.0692 12.2002 36.089Z"
+                              fill="url(#paint11_radial_10719_124239)"
+                            />
+                            <path
+                              d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z"
+                              fill="#4C43CD"
+                            />
+                            <path
+                              d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z"
+                              fill="url(#paint12_radial_10719_124239)"
+                              fill-opacity="0.7"
+                            />
+                            <path
+                              d="M18.1468 0.245356C18.6022 2.18564 19.7902 3.36366 21.7405 3.82893C21.7603 3.83883 21.7801 3.85863 21.7702 3.87843C21.7702 3.89823 21.7504 3.90813 21.7405 3.90813C19.7803 4.3536 18.6022 5.56133 18.1369 7.51151C18.127 7.53131 18.1072 7.5511 18.0775 7.5412C18.0577 7.5412 18.0478 7.52141 18.0478 7.51151C17.6023 5.55143 16.4045 4.3734 14.4542 3.90813C14.4344 3.89823 14.4146 3.87843 14.4245 3.84873C14.4245 3.82893 14.4443 3.81903 14.4542 3.81903C16.4045 3.37356 17.5825 2.18564 18.0577 0.235456C18.0676 0.215657 18.0874 0.195859 18.1171 0.205758C18.127 0.215657 18.1468 0.225557 18.1468 0.245356Z"
+                              fill="url(#paint13_radial_10719_124239)"
+                            />
                             <defs>
-                              <radialGradient id="paint0_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(18.4751 16.3802) rotate(51.0326) scale(22.4064 22.4083)">
+                              <radialGradient
+                                id="paint0_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(18.4751 16.3802) rotate(51.0326) scale(22.4064 22.4083)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint1_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(34.4709 34.1719) rotate(-93.672) scale(22.8425 25.4693)">
+                              <radialGradient
+                                id="paint1_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(34.4709 34.1719) rotate(-93.672) scale(22.8425 25.4693)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
-                              <radialGradient id="paint2_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.2344 3.22223) rotate(51.0615) scale(11.7843 11.7828)">
+                              <radialGradient
+                                id="paint2_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(38.2344 3.22223) rotate(51.0615) scale(11.7843 11.7828)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint3_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(46.6419 12.5834) rotate(-93.6682) scale(12.0186 13.3869)">
+                              <radialGradient
+                                id="paint3_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(46.6419 12.5834) rotate(-93.6682) scale(12.0186 13.3869)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
-                              <radialGradient id="paint4_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(3.70314 9.49373) rotate(51.0429) scale(11.7796 11.7797)">
+                              <radialGradient
+                                id="paint4_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(3.70314 9.49373) rotate(51.0429) scale(11.7796 11.7797)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint5_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.1106 18.8486) rotate(-93.6706) scale(12.0106 13.3869)">
+                              <radialGradient
+                                id="paint5_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(12.1106 18.8486) rotate(-93.6706) scale(12.0106 13.3869)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
-                              <radialGradient id="paint6_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(39.7969 35.8785) rotate(51.0616) scale(11.7843 11.7828)">
+                              <radialGradient
+                                id="paint6_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(39.7969 35.8785) rotate(51.0616) scale(11.7843 11.7828)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint7_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(48.2044 45.2396) rotate(-93.6682) scale(12.0186 13.3869)">
+                              <radialGradient
+                                id="paint7_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(48.2044 45.2396) rotate(-93.6682) scale(12.0186 13.3869)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
-                              <radialGradient id="paint8_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(44.1445 23.349) rotate(51.0706) scale(7.44729 7.44581)">
+                              <radialGradient
+                                id="paint8_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(44.1445 23.349) rotate(51.0706) scale(7.44729 7.44581)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint9_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49.4567 29.2656) rotate(-93.667) scale(7.59628 8.45843)">
+                              <radialGradient
+                                id="paint9_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(49.4567 29.2656) rotate(-93.667) scale(7.59628 8.45843)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
-                              <radialGradient id="paint10_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(10.0452 37.8958) rotate(51.0429) scale(7.4502 7.45026)">
+                              <radialGradient
+                                id="paint10_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(10.0452 37.8958) rotate(51.0429) scale(7.4502 7.45026)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint11_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(15.3627 43.8125) rotate(-93.6706) scale(7.59631 8.46675)">
+                              <radialGradient
+                                id="paint11_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(15.3627 43.8125) rotate(-93.6706) scale(7.59631 8.46675)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
-                              <radialGradient id="paint12_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(16.3617 1.73244) rotate(51.0052) scale(6.16551 6.1673)">
+                              <radialGradient
+                                id="paint12_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(16.3617 1.73244) rotate(51.0052) scale(6.16551 6.1673)"
+                              >
                                 <stop stop-color="white" stop-opacity="0.59" />
-                                <stop offset="0.697917" stop-color="white" stop-opacity="0" />
-                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                                <stop
+                                  offset="0.697917"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="1"
+                                  stop-color="white"
+                                  stop-opacity="0"
+                                />
                               </radialGradient>
-                              <radialGradient id="paint13_radial_10719_124239" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(20.7658 6.62625) rotate(-93.6756) scale(6.28312 7.01245)">
+                              <radialGradient
+                                id="paint13_radial_10719_124239"
+                                cx="0"
+                                cy="0"
+                                r="1"
+                                gradientUnits="userSpaceOnUse"
+                                gradientTransform="translate(20.7658 6.62625) rotate(-93.6756) scale(6.28312 7.01245)"
+                              >
                                 <stop stop-opacity="0.23" />
                                 <stop offset="0.861815" stop-opacity="0" />
                               </radialGradient>
                             </defs>
                           </svg>
-
                         </div>
-
-
-
                       </div>
-
-                    }
+                    )}
                     <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
                       {/* {userDataGlobal?.role === "recruiter" && (
                         <input
@@ -1366,9 +1590,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         checked={
                           checkedApplicants.length > 0 &&
                           checkedApplicants.length ===
-                          jobDetails?.data?.applications.filter(
-                            (app) => app.hiringStage === "Pending"
-                          ).length
+                            jobDetails?.data?.applications.filter(
+                              (app) => app.hiringStage === "Pending"
+                            ).length
                         }
                         onChange={handleSelectAll}
                       />
@@ -1438,7 +1662,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       ))}
                     </div>
 
-
                     <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible   ">
                       {!jobDetails?.data?.applications.length == 0 ? (
                         <>
@@ -1451,7 +1674,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
                                 key={applicant?._id}
                               >
-
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
                                   {/* {userDataGlobal?.role === "employer" && ( */}
                                   <input
@@ -1499,50 +1721,51 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${applicant?.hiringStage ===
-                                        "Interview"
-                                        ? "bg-[#26A4FF1A]"
-                                        : applicant?.hiringStage === "Task"
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                        applicant?.hiringStage === "Interview"
+                                          ? "bg-[#26A4FF1A]"
+                                          : applicant?.hiringStage === "Task"
                                           ? "bg-[#EAF6FF]"
                                           : applicant?.hiringStage === "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant?.hiringStage === "Hired"
-                                              ? "bg-[#4BD06F33]"
-                                              : applicant?.hiringStage ===
-                                                "Shortlisted"
-                                                ? "bg-[#4640DE1A]"
-                                                : applicant?.hiringStage ===
-                                                  "Rejected"
-                                                  ? "bg-[#FF65501A]"
-                                                  : applicant?.hiringStage ===
-                                                    "In Review"
-                                                    ? "bg-[#EB85331A]"
-                                                    : applicant?.hiringStage ===
-                                                      "Selected"
-                                                      ? "bg-[#56CDAD1A]"
-                                                      : ""
-                                        } ${applicant?.hiringStage === "Interview"
+                                          ? "bg-[#FFF9ED]"
+                                          : applicant?.hiringStage === "Hired"
+                                          ? "bg-[#4BD06F33]"
+                                          : applicant?.hiringStage ===
+                                            "Shortlisted"
+                                          ? "bg-[#4640DE1A]"
+                                          : applicant?.hiringStage ===
+                                            "Rejected"
+                                          ? "bg-[#FF65501A]"
+                                          : applicant?.hiringStage ===
+                                            "In Review"
+                                          ? "bg-[#EB85331A]"
+                                          : applicant?.hiringStage ===
+                                            "Selected"
+                                          ? "bg-[#56CDAD1A]"
+                                          : ""
+                                      } ${
+                                        applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant?.hiringStage === "Task"
-                                            ? "text-[#0B4A78]"
-                                            : applicant?.hiringStage === "Pending"
-                                              ? "text-[#FFB836]"
-                                              : applicant?.hiringStage === "Hired"
-                                                ? "text-[#1D9474]"
-                                                : applicant?.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? "text-[#4640DE]"
-                                                  : applicant?.hiringStage ===
-                                                    "Rejected"
-                                                    ? "text-[#FF6550]"
-                                                    : applicant?.hiringStage ===
-                                                      "In Review"
-                                                      ? "text-[#FFB836]"
-                                                      : applicant?.hiringStage ===
-                                                        "Selected"
-                                                        ? "text-[#56CDAD]"
-                                                        : "text-[#333333]"
-                                        }`}
+                                          ? "text-[#0B4A78]"
+                                          : applicant?.hiringStage === "Pending"
+                                          ? "text-[#FFB836]"
+                                          : applicant?.hiringStage === "Hired"
+                                          ? "text-[#1D9474]"
+                                          : applicant?.hiringStage ===
+                                            "Shortlisted"
+                                          ? "text-[#4640DE]"
+                                          : applicant?.hiringStage ===
+                                            "Rejected"
+                                          ? "text-[#FF6550]"
+                                          : applicant?.hiringStage ===
+                                            "In Review"
+                                          ? "text-[#FFB836]"
+                                          : applicant?.hiringStage ===
+                                            "Selected"
+                                          ? "text-[#56CDAD]"
+                                          : "text-[#333333]"
+                                      }`}
                                     >
                                       {applicant?.hiringStage}
                                     </div>
@@ -1586,7 +1809,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           {userDataGlobal?.role ===
                                             "recruiter" &&
                                             applicant?.hiringStage ===
-                                            "Pending" && (
+                                              "Pending" && (
                                               <button
                                                 disabled={[
                                                   "Rejected",
@@ -1624,7 +1847,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             style={{
                                               opacity:
                                                 applicant?.hiringStage ===
-                                                  "Rejected"
+                                                "Rejected"
                                                   ? 0.5
                                                   : 1,
                                             }}
@@ -1639,7 +1862,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           {userDataGlobal?.role ===
                                             "recruiter" &&
                                             applicant?.hiringStage ===
-                                            "Shortlisted" && (
+                                              "Shortlisted" && (
                                               <button
                                                 disabled={
                                                   applicant?.hiringStage !==
@@ -1648,7 +1871,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 style={{
                                                   opacity:
                                                     applicant?.hiringStage !==
-                                                      "Shortlisted"
+                                                    "Shortlisted"
                                                       ? 0.5
                                                       : 1,
                                                 }}
@@ -1668,9 +1891,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     <div
                                       onClick={() =>
                                         router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
-                                          }`)
-
+                                          `/common/hiring/ApplicantDetails?applicantId=${
+                                            applicant?.applicantId
+                                          }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${
+                                            clientView ? `&clientView=true` : ``
+                                          }`
+                                        )
                                       }
                                       className="text-[14px] font-medium text-[#224D90] cursor-pointer"
                                     >
@@ -1681,9 +1907,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       className=" cursor-pointer"
                                       onClick={() =>
                                         router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
-                                          }`)
-
+                                          `/common/hiring/ApplicantDetails?applicantId=${
+                                            applicant?.applicantId
+                                          }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${
+                                            clientView ? `&clientView=true` : ``
+                                          }`
+                                        )
                                       }
                                       width="24"
                                       height="24"
@@ -1732,11 +1961,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           handleDotClick(index);
                                         }
                                       }}
-                                      className={`min-w-[24px] max-w-[24px] cursor-pointer ${applicant?.hiringStage === "Hired" ||
+                                      className={`min-w-[24px] max-w-[24px] cursor-pointer ${
+                                        applicant?.hiringStage === "Hired" ||
                                         applicant?.hiringStage === "Rejected"
-                                        ? "opacity-50 pointer-events-none"
-                                        : ""
-                                        }`}
+                                          ? "opacity-50 pointer-events-none"
+                                          : ""
+                                      }`}
                                       src="/images/employer/three-dot.png"
                                       alt=""
                                     />
@@ -1747,12 +1977,13 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           ))}
                         </>
                       ) : (
-                        <div className="p-10 w-full flex items-center justify-center">
+                        <div className="p-10 w-full flex flex-col gap-3 items-center justify-center">
                           <img
                             src="/images/employer/OBJECTS.png"
                             alt="No data available"
                             className="h-[200px] object-contain"
                           />
+                          <span>No applicants available</span>
                         </div>
                       )}
                     </div>
@@ -1818,44 +2049,46 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         </p>
                                       </p>
                                       <div
-                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                          ? "bg-[#FFFFFF]"
-                                          : applicant.hiringStage ===
-                                            "Interview"
+                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                          checkedApplicants[index]
+                                            ? "bg-[#FFFFFF]"
+                                            : applicant.hiringStage ===
+                                              "Interview"
                                             ? "bg-[#26A4FF1A]"
                                             : applicant.hiringStage ===
                                               "Pending"
-                                              ? "bg-[#FFF9ED]"
-                                              : applicant.hiringStage === "Hired"
-                                                ? "bg-[#56CDAD1A]"
-                                                : applicant.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? "bg-[#4640DE1A]"
-                                                  : applicant.hiringStage ===
-                                                    "Rejected"
-                                                    ? "bg-[#FF65501A]"
-                                                    : applicant.hiringStage ===
-                                                      "In Review"
-                                                      ? "bg-[#EB85331A]"
-                                                      : ""
-                                          } ${applicant.hiringStage === "Interview"
+                                            ? "bg-[#FFF9ED]"
+                                            : applicant.hiringStage === "Hired"
+                                            ? "bg-[#56CDAD1A]"
+                                            : applicant.hiringStage ===
+                                              "Shortlisted"
+                                            ? "bg-[#4640DE1A]"
+                                            : applicant.hiringStage ===
+                                              "Rejected"
+                                            ? "bg-[#FF65501A]"
+                                            : applicant.hiringStage ===
+                                              "In Review"
+                                            ? "bg-[#EB85331A]"
+                                            : ""
+                                        } ${
+                                          applicant.hiringStage === "Interview"
                                             ? "text-[#26A4FF]"
                                             : applicant.hiringStage ===
                                               "Pending"
-                                              ? "text-[#FFB836]"
-                                              : applicant.hiringStage === "Hired"
-                                                ? "text-[#56CDAD]"
-                                                : applicant.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? "text-[#4640DE]"
-                                                  : applicant.hiringStage ===
-                                                    "Rejected"
-                                                    ? "text-[#FF6550]"
-                                                    : applicant.hiringStage ===
-                                                      "In Review"
-                                                      ? "text-[#FFB836]"
-                                                      : "text-[#333333]"
-                                          }`}
+                                            ? "text-[#FFB836]"
+                                            : applicant.hiringStage === "Hired"
+                                            ? "text-[#56CDAD]"
+                                            : applicant.hiringStage ===
+                                              "Shortlisted"
+                                            ? "text-[#4640DE]"
+                                            : applicant.hiringStage ===
+                                              "Rejected"
+                                            ? "text-[#FF6550]"
+                                            : applicant.hiringStage ===
+                                              "In Review"
+                                            ? "text-[#FFB836]"
+                                            : "text-[#333333]"
+                                        }`}
                                       >
                                         {applicant.hiringStage}
                                       </div>{" "}
@@ -1867,31 +2100,31 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       <div className="flex gap-[10px]">
                                         {userDataGlobal?.role ===
                                           "recruiter" && (
-                                            <button
-                                              disabled={
-                                                applicant?.hiringStage ===
+                                          <button
+                                            disabled={
+                                              applicant?.hiringStage ===
                                                 "Rejected" ||
-                                                applicant?.hiringStage ===
+                                              applicant?.hiringStage ===
                                                 "Shortlisted"
-                                              }
-                                              style={{
-                                                opacity:
-                                                  applicant?.hiringStage ===
-                                                    "Rejected" ||
-                                                    applicant?.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? 0.5
-                                                    : 1,
-                                              }}
-                                              onClick={() => {
-                                                setHiringStage("Shortlisted");
-                                                togglePopup(applicant);
-                                              }}
-                                              className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
-                                            >
-                                              Shortlist
-                                            </button>
-                                          )}
+                                            }
+                                            style={{
+                                              opacity:
+                                                applicant?.hiringStage ===
+                                                  "Rejected" ||
+                                                applicant?.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? 0.5
+                                                  : 1,
+                                            }}
+                                            onClick={() => {
+                                              setHiringStage("Shortlisted");
+                                              togglePopup(applicant);
+                                            }}
+                                            className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
+                                          >
+                                            Shortlist
+                                          </button>
+                                        )}
                                         <>
                                           {isPopupVisible && (
                                             <ShortlistMail
@@ -1914,7 +2147,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           style={{
                                             opacity:
                                               applicant?.hiringStage ===
-                                                "Rejected"
+                                              "Rejected"
                                                 ? 0.5
                                                 : 1,
                                           }}
@@ -1967,11 +2200,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
               )}
             </div>
           )}
-          {clientView &&
-
-          <>
-          <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB] ">
-                      {/* {userDataGlobal?.role === "recruiter" && (
+          {clientView && (
+            <>
+              <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB] ">
+                {/* {userDataGlobal?.role === "recruiter" && (
                         <input
                           className="w-[16px] h-[16px]"
                           type="checkbox"
@@ -1985,422 +2217,396 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           onChange={handleSelectAllRecruiter}
                         />
                        )}  */}
-                      {/* {userDataGlobal?.role === "employer" && ( */}
-                      <input
-                        className="w-[16px] h-[16px]"
-                        type="checkbox"
-                        checked={
-                          checkedApplicants.length > 0 &&
-                          checkedApplicants.length ===
-                          jobDetails?.data?.applications.filter(
-                            (app) => app.hiringStage === "Pending"
-                          ).length
-                        }
-                        onChange={handleSelectAll}
-                      />
-                      {/* )}  */}
-                      {applicant_head.map((applicant_head, index) => (
+                {/* {userDataGlobal?.role === "employer" && ( */}
+                <input
+                  className="w-[16px] h-[16px]"
+                  type="checkbox"
+                  checked={
+                    checkedApplicants.length > 0 &&
+                    checkedApplicants.length ===
+                      jobDetails?.data?.applications.filter(
+                        (app) => app.hiringStage === "Pending"
+                      ).length
+                  }
+                  onChange={handleSelectAll}
+                />
+                {/* )}  */}
+                {applicant_head.map((applicant_head, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center w-full text-[#333333] gap-[8px] relative"
+                    style={{ width: widths[index] }}
+                  >
+                    <p
+                      style={{ textAlign: texts[index] }}
+                      className={`text-[14px] w-full font-[600] ml-5`}
+                    >
+                      {applicant_head.name}
+                    </p>
+
+                    {applicant_head?.isFilter &&
+                      (filterType === applicant_head.name ? (
                         <div
-                          key={index}
-                          className="flex items-center w-full text-[#333333] gap-[8px] relative"
-                          style={{ width: widths[index] }}
+                          className=" cursor-pointer"
+                          onClick={() => setfilterType("")}
                         >
-                          <p
-                            style={{ textAlign: texts[index] }}
-                            className={`text-[14px] w-full font-[600] ml-5`}
-                          >
-                            {applicant_head.name}
-                          </p>
-
-                          {applicant_head?.isFilter &&
-                            (filterType === applicant_head.name ? (
-                              <div
-                                className=" cursor-pointer"
-                                onClick={() => setfilterType("")}
-                              >
-                                <UpSvg />
-                              </div>
-                            ) : (
-                              <div
-                                className=" cursor-pointer"
-                                onClick={() =>
-                                  setfilterType(applicant_head.name)
-                                }
-                              >
-                                <DownSvg />
-                              </div>
-                            ))}
-                          {filterType === applicant_head.name && (
-                            <div className="absolute h-fit w-[150px] bg-white rounded-[16px] top-8 left-12 shadow-md p-4 flex flex-col gap-2">
-                              {applicant_head?.filters.map((filter, index) => (
-                                <div
-                                  key={index}
-                                  className="flex items-center gap-2 text-[14px] font-medium"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={`filter-${index}`}
-                                    value={filter}
-                                    checked={selectedFilters[
-                                      applicant_head.name
-                                    ]?.includes(filter)}
-                                    onChange={(e) =>
-                                      handleCheckboxChangeFilter(
-                                        e,
-                                        filter,
-                                        applicant_head.name
-                                      )
-                                    }
-                                  />
-
-                                  <label htmlFor={`filter-${index}`}>
-                                    {filter}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                          )}
+                          <UpSvg />
+                        </div>
+                      ) : (
+                        <div
+                          className=" cursor-pointer"
+                          onClick={() => setfilterType(applicant_head.name)}
+                        >
+                          <DownSvg />
                         </div>
                       ))}
-                    </div>
+                    {filterType === applicant_head.name && (
+                      <div className="absolute h-fit w-[150px] bg-white rounded-[16px] top-8 left-12 shadow-md p-4 flex flex-col gap-2">
+                        {applicant_head?.filters.map((filter, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-2 text-[14px] font-medium"
+                          >
+                            <input
+                              type="checkbox"
+                              id={`filter-${index}`}
+                              value={filter}
+                              checked={selectedFilters[
+                                applicant_head.name
+                              ]?.includes(filter)}
+                              onChange={(e) =>
+                                handleCheckboxChangeFilter(
+                                  e,
+                                  filter,
+                                  applicant_head.name
+                                )
+                              }
+                            />
 
-
-                    <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible  min-h-[300px]  ">
-                      {!jobDetails?.data?.applications.length == 0 ? (
-                        <>
-                          {(jobDetails?.data?.applications.length
-                            ? jobDetails?.data?.applications
-                            : jobDetails?.data?.applications || []
-                          ).map((applicant, index) => (
-                            <>
-                              <div
-                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
-                                key={applicant?._id}
-                              >
-
-                                <div className="  gap-[20px]  w-full justify-between flex items-center">
-                                  {/* {userDataGlobal?.role === "employer" && ( */}
-                                  <input
-                                    key={applicant.id}
-                                    className="w-[16px] h-[16px]"
-                                    type="checkbox"
-                                    checked={checkedApplicants.some(
-                                      (a) => a._id === applicant._id
-                                    )}
-                                    onChange={() =>
-                                      handleCheckboxChange(applicant)
-                                    }
-                                    disabled={
-                                      applicant.hiringStage !== "Pending"
-                                    }
-                                  />
-                                  {/* )} */}
-                                  <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
-                                    <img
-                                      className="w-[40px]"
-                                      src="/images/employer/profile_icon.png"
-                                      alt=""
-                                    />
-                                    <p className="text-[14px] font-[600]">
-                                      {applicant?.details?.personal?.firstName}{" "}
-                                      {applicant?.details?.personal?.lastName}
-                                    </p>
-                                  </div>
-                                  <div className="flex w-[10%] items-center justify-start pl-6  gap-[8px]">
-                                    <p className="text-[14px] font-[600]">
-                                      {applicant?.source}
-                                    </p>
-                                  </div>
-
-                                  <div className="flex w-[15%] items-center justify-center   gap-[8px]">
-                                    {applicant.matchingPercentage ? (
-                                      <p className={`text-[14px] font-[600] `}>
-                                        {applicant.matchingPercentage} %
-                                      </p>
-                                    ) : (
-                                      <p className="blur-[3px] text-[14px] font-[600]">
-                                        {randomPercentage} %
-                                      </p>
-                                    )}
-                                  </div>
-                                  <div className=" flex justify-center w-[20%]">
-                                    <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${applicant?.hiringStage ===
-                                        "Interview"
-                                        ? "bg-[#26A4FF1A]"
-                                        : applicant?.hiringStage === "Task"
-                                          ? "bg-[#EAF6FF]"
-                                          : applicant?.hiringStage === "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant?.hiringStage === "Hired"
-                                              ? "bg-[#4BD06F33]"
-                                              : applicant?.hiringStage ===
-                                                "Shortlisted"
-                                                ? "bg-[#4640DE1A]"
-                                                : applicant?.hiringStage ===
-                                                  "Rejected"
-                                                  ? "bg-[#FF65501A]"
-                                                  : applicant?.hiringStage ===
-                                                    "In Review"
-                                                    ? "bg-[#EB85331A]"
-                                                    : applicant?.hiringStage ===
-                                                      "Selected"
-                                                      ? "bg-[#56CDAD1A]"
-                                                      : ""
-                                        } ${applicant?.hiringStage === "Interview"
-                                          ? "text-[#26A4FF]"
-                                          : applicant?.hiringStage === "Task"
-                                            ? "text-[#0B4A78]"
-                                            : applicant?.hiringStage === "Pending"
-                                              ? "text-[#FFB836]"
-                                              : applicant?.hiringStage === "Hired"
-                                                ? "text-[#1D9474]"
-                                                : applicant?.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? "text-[#4640DE]"
-                                                  : applicant?.hiringStage ===
-                                                    "Rejected"
-                                                    ? "text-[#FF6550]"
-                                                    : applicant?.hiringStage ===
-                                                      "In Review"
-                                                      ? "text-[#FFB836]"
-                                                      : applicant?.hiringStage ===
-                                                        "Selected"
-                                                        ? "text-[#56CDAD]"
-                                                        : "text-[#333333]"
-                                        }`}
-                                    >
-                                      {applicant?.hiringStage}
-                                    </div>
-                                  </div>
-                                  <div className=" flex text-[14px] w-[15%] pl-6 font-[600]">
-                                    <p>
-                                      {new Date(applicant?.appliedOn)
-                                        .toLocaleDateString("en-GB", {
-                                          day: "2-digit",
-                                          month: "short",
-                                          year: "numeric",
-                                        })
-                                        .replace(",", "")}
-                                    </p>
-                                  </div>
-                                  <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible ">
-                                    <>
-                                      {isPopupVisible && (
-                                        <ShortlistMail
-                                          shortlist={shortlist}
-                                          jobData={jobData}
-                                          setPopupVisible={setPopupVisible}
-                                          id={id}
-                                          statusChange={statusChange}
-                                          setStatusChange={setStatusChange}
-                                          applicantIds={applicantIds}
-                                          newHiringStage={hiringStage}
-                                        />
-                                      )}
-                                    </>
-                                    {moreOption &&
-                                      selectedDotIndex === index && (
-                                        <div
-                                          ref={taskRef}
-                                          style={{
-                                            boxShadow:
-                                              "0px 2px 2px 2px #00000020",
-                                          }}
-                                          className="absolute flex flex-col w-[180px] items-start p-3 gap-2 bg-white rounded-[12px] z-[1000] top-[100%] "
-                                        >
-                                          {userDataGlobal?.role ===
-                                            "recruiter" &&
-                                            applicant?.hiringStage ===
-                                            "Pending" && (
-                                              <button
-                                                disabled={[
-                                                  "Rejected",
-                                                  "Shortlisted",
-                                                  "Hired",
-                                                ].includes(
-                                                  applicant?.hiringStage
-                                                )}
-                                                style={{
-                                                  opacity: [
-                                                    "Rejected",
-                                                    "Shortlisted",
-                                                    "Hired",
-                                                  ].includes(
-                                                    applicant?.hiringStage
-                                                  )
-                                                    ? 0.5
-                                                    : 1,
-                                                }}
-                                                onClick={() => {
-                                                  setHiringStage("Shortlisted");
-                                                  togglePopup(applicant);
-                                                }}
-                                                className="text-[14px] font-medium flex justify-center items-center leading-tight rounded-[30px]"
-                                              >
-                                                Shortlist
-                                              </button>
-                                            )}
-
-                                          <button
-                                            disabled={
-                                              applicant?.hiringStage ===
-                                              "Rejected"
-                                            }
-                                            style={{
-                                              opacity:
-                                                applicant?.hiringStage ===
-                                                  "Rejected"
-                                                  ? 0.5
-                                                  : 1,
-                                            }}
-                                            onClick={() => {
-                                              setHiringStage("Rejected");
-                                              togglePopup(applicant);
-                                            }}
-                                            className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
-                                          >
-                                            Reject
-                                          </button>
-                                          {userDataGlobal?.role ===
-                                            "recruiter" &&
-                                            applicant?.hiringStage ===
-                                            "Shortlisted" && (
-                                              <button
-                                                disabled={
-                                                  applicant?.hiringStage !==
-                                                  "Shortlisted"
-                                                }
-                                                style={{
-                                                  opacity:
-                                                    applicant?.hiringStage !==
-                                                      "Shortlisted"
-                                                      ? 0.5
-                                                      : 1,
-                                                }}
-                                                onClick={() =>
-                                                  hiredCandidate(
-                                                    applicant?.applicantId,
-                                                    applicant?.jobId
-                                                  )
-                                                }
-                                                className="text-[14px] font-[500] rounded-[30px] "
-                                              >
-                                                Hire
-                                              </button>
-                                            )}
-                                        </div>
-                                      )}
-                                    <div
-                                      onClick={() =>
-                                        router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
-                                          }`)
-
-                                      }
-                                      className="text-[14px] font-medium text-[#224D90] cursor-pointer"
-                                    >
-                                      View
-                                    </div>
-
-                                    <svg
-                                      className=" cursor-pointer"
-                                      onClick={() =>
-                                        router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
-                                          }`)
-
-                                      }
-                                      width="24"
-                                      height="24"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <g clip-path="url(#clip0_6706_101356)">
-                                        <path
-                                          d="M13.0911 24H2.8901C2.13396 24 1.40878 23.6996 0.874111 23.165C0.339438 22.6303 0.0390625 21.9051 0.0390625 21.149L0.0390625 2.85103C0.0390625 2.09489 0.339438 1.36972 0.874111 0.835048C1.40878 0.300376 2.13396 0 2.8901 0L16.0904 0C16.8465 0 17.5717 0.300376 18.1064 0.835048C18.641 1.36972 18.9414 2.09489 18.9414 2.85103V11.2844C18.9498 11.3737 18.9395 11.4638 18.9111 11.5489C18.8827 11.634 18.8369 11.7123 18.7765 11.7786C18.7161 11.845 18.6425 11.898 18.5604 11.9343C18.4784 11.9705 18.3897 11.9893 18.2999 11.9893C18.2102 11.9893 18.1215 11.9705 18.0394 11.9343C17.9574 11.898 17.8838 11.845 17.8234 11.7786C17.763 11.7123 17.7171 11.634 17.6887 11.5489C17.6603 11.4638 17.65 11.3737 17.6584 11.2844V2.85103C17.6585 2.64763 17.6183 2.44622 17.5403 2.25837C17.4623 2.07052 17.3479 1.89991 17.2038 1.75635C17.0597 1.61278 16.8887 1.49908 16.7006 1.42176C16.5124 1.34444 16.3109 1.30502 16.1075 1.30577H2.8901C2.68573 1.30351 2.48295 1.34181 2.2935 1.41845C2.10404 1.4951 1.93166 1.60856 1.78636 1.75228C1.64105 1.89599 1.52569 2.06711 1.44697 2.25571C1.36825 2.44431 1.32772 2.64666 1.32773 2.85103V21.1661C1.32772 21.3704 1.36825 21.5728 1.44697 21.7614C1.52569 21.95 1.64105 22.1211 1.78636 22.2648C1.93166 22.4085 2.10404 22.522 2.2935 22.5987C2.48295 22.6753 2.68573 22.7136 2.8901 22.7113H13.0911C13.262 22.7113 13.4259 22.7792 13.5467 22.9001C13.6675 23.0209 13.7354 23.1848 13.7354 23.3557C13.7354 23.5266 13.6675 23.6904 13.5467 23.8113C13.4259 23.9321 13.262 24 13.0911 24Z"
-                                          fill="#224D90"
-                                        />
-                                        <path
-                                          d="M14.8904 6.88738H4.05644C3.96712 6.89581 3.87702 6.88549 3.79191 6.85709C3.70681 6.82869 3.62857 6.78282 3.56222 6.72243C3.49586 6.66205 3.44285 6.58847 3.40657 6.50641C3.3703 6.42435 3.35156 6.33562 3.35156 6.2459C3.35156 6.15618 3.3703 6.06744 3.40657 5.98538C3.44285 5.90332 3.49586 5.82974 3.56222 5.76936C3.62857 5.70897 3.70681 5.66311 3.79191 5.6347C3.87702 5.6063 3.96712 5.59598 4.05644 5.60441H14.8904C15.0501 5.61949 15.1984 5.69358 15.3064 5.81222C15.4143 5.93085 15.4742 6.08549 15.4742 6.2459C15.4742 6.4063 15.4143 6.56094 15.3064 6.67957C15.1984 6.79821 15.0501 6.87231 14.8904 6.88738Z"
-                                          fill="#224D90"
-                                        />
-                                        <path
-                                          d="M10.0327 11.8941H4.07402C3.90313 11.8941 3.73924 11.8263 3.61841 11.7054C3.49757 11.5846 3.42969 11.4207 3.42969 11.2498C3.42969 11.0789 3.49757 10.915 3.61841 10.7942C3.73924 10.6734 3.90313 10.6055 4.07402 10.6055H10.0327C10.2036 10.6055 10.3675 10.6734 10.4883 10.7942C10.6091 10.915 10.677 11.0789 10.677 11.2498C10.677 11.4207 10.6091 11.5846 10.4883 11.7054C10.3675 11.8263 10.2036 11.8941 10.0327 11.8941Z"
-                                          fill="#224D90"
-                                        />
-                                        <path
-                                          d="M18.02 22.0655C13.9887 22.0655 12.1925 18.2964 12.1184 18.1367C12.0809 18.0548 12.0649 17.9648 12.0719 17.875C12.0789 17.7852 12.1086 17.6987 12.1583 17.6236C12.2552 17.4753 14.5361 14.0312 18.02 14.0312C21.504 14.0312 23.7848 17.4525 23.8818 17.6178C23.9354 17.7033 23.9639 17.8021 23.9639 17.903C23.9639 18.0038 23.9354 18.1026 23.8818 18.1881C23.819 18.3306 21.7093 22.0655 18.02 22.0655ZM13.2303 17.96C13.6808 18.7526 15.2089 20.9992 18.02 20.9992C20.5518 20.9992 22.2624 18.7469 22.7927 17.9372C22.2225 17.1845 20.375 15.0861 18.02 15.0861C15.6651 15.0861 13.7891 17.2244 13.2303 17.96Z"
-                                          fill="#224D90"
-                                        />
-                                        <path
-                                          d="M18.1621 19.2071C18.7479 19.2071 19.2227 18.7323 19.2227 18.1465C19.2227 17.5608 18.7479 17.0859 18.1621 17.0859C17.5764 17.0859 17.1016 17.5608 17.1016 18.1465C17.1016 18.7323 17.5764 19.2071 18.1621 19.2071Z"
-                                          fill="#224D90"
-                                        />
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip0_6706_101356">
-                                          <rect
-                                            width="24"
-                                            height="24"
-                                            fill="white"
-                                          />
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                    <img
-                                      onClick={() => {
-                                        if (
-                                          applicant?.hiringStage !== "Hired" &&
-                                          applicant?.hiringStage !== "Rejected"
-                                        ) {
-                                          handleDotClick(index);
-                                        }
-                                      }}
-                                      className={`min-w-[24px] max-w-[24px] cursor-pointer ${applicant?.hiringStage === "Hired" ||
-                                        applicant?.hiringStage === "Rejected"
-                                        ? "opacity-50 pointer-events-none"
-                                        : ""
-                                        }`}
-                                      src="/images/employer/three-dot.png"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </>
-                          ))}
-                        </>
-                      ) : (
-                        <div className="p-10 w-full flex items-center justify-center">
-                          <img
-                            src="/images/employer/OBJECTS.png"
-                            alt="No data available"
-                            className="h-[200px] object-contain"
-                          />
-                        </div>
-                      )}
-                    </div>
-                     <div>
-                    {totalCount > 10 && (
-                      <CustomPagination
-                        setMiniloading={setMiniloading}
-                        miniLoading={miniloading}
-                        setPage={setPage}
-                        title={"Applicant"}
-                        defaultLimit={10}
-                        setLimit={setLimit}
-                        totalPages={totalPages}
-                        limit={limit}
-                        page={page}
-                        isBackground={true}
-                      />
+                            <label htmlFor={`filter-${index}`}>{filter}</label>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
-          </>
-}
+                ))}
+              </div>
 
+              <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible  min-h-[300px]  ">
+                {!jobDetails?.data?.applications.length == 0 ? (
+                  <>
+                    {(jobDetails?.data?.applications.length
+                      ? jobDetails?.data?.applications
+                      : jobDetails?.data?.applications || []
+                    ).map((applicant, index) => (
+                      <>
+                        <div
+                          className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
+                          key={applicant?._id}
+                        >
+                          <div className="  gap-[20px]  w-full justify-between flex items-center">
+                            {/* {userDataGlobal?.role === "employer" && ( */}
+                            <input
+                              key={applicant.id}
+                              className="w-[16px] h-[16px]"
+                              type="checkbox"
+                              checked={checkedApplicants.some(
+                                (a) => a._id === applicant._id
+                              )}
+                              onChange={() => handleCheckboxChange(applicant)}
+                              disabled={applicant.hiringStage !== "Pending"}
+                            />
+                            {/* )} */}
+                            <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
+                              <img
+                                className="w-[40px]"
+                                src="/images/employer/profile_icon.png"
+                                alt=""
+                              />
+                              <p className="text-[14px] font-[600]">
+                                {applicant?.details?.personal?.firstName}{" "}
+                                {applicant?.details?.personal?.lastName}
+                              </p>
+                            </div>
+                            <div className="flex w-[10%] items-center justify-start pl-6  gap-[8px]">
+                              <p className="text-[14px] font-[600]">
+                                {applicant?.source}
+                              </p>
+                            </div>
+
+                            <div className="flex w-[15%] items-center justify-center   gap-[8px]">
+                              {applicant.matchingPercentage ? (
+                                <p className={`text-[14px] font-[600] `}>
+                                  {applicant.matchingPercentage} %
+                                </p>
+                              ) : (
+                                <p className="blur-[3px] text-[14px] font-[600]">
+                                  {randomPercentage} %
+                                </p>
+                              )}
+                            </div>
+                            <div className=" flex justify-center w-[20%]">
+                              <div
+                                className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                  applicant?.hiringStage === "Interview"
+                                    ? "bg-[#26A4FF1A]"
+                                    : applicant?.hiringStage === "Task"
+                                    ? "bg-[#EAF6FF]"
+                                    : applicant?.hiringStage === "Pending"
+                                    ? "bg-[#FFF9ED]"
+                                    : applicant?.hiringStage === "Hired"
+                                    ? "bg-[#4BD06F33]"
+                                    : applicant?.hiringStage === "Shortlisted"
+                                    ? "bg-[#4640DE1A]"
+                                    : applicant?.hiringStage === "Rejected"
+                                    ? "bg-[#FF65501A]"
+                                    : applicant?.hiringStage === "In Review"
+                                    ? "bg-[#EB85331A]"
+                                    : applicant?.hiringStage === "Selected"
+                                    ? "bg-[#56CDAD1A]"
+                                    : ""
+                                } ${
+                                  applicant?.hiringStage === "Interview"
+                                    ? "text-[#26A4FF]"
+                                    : applicant?.hiringStage === "Task"
+                                    ? "text-[#0B4A78]"
+                                    : applicant?.hiringStage === "Pending"
+                                    ? "text-[#FFB836]"
+                                    : applicant?.hiringStage === "Hired"
+                                    ? "text-[#1D9474]"
+                                    : applicant?.hiringStage === "Shortlisted"
+                                    ? "text-[#4640DE]"
+                                    : applicant?.hiringStage === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : applicant?.hiringStage === "In Review"
+                                    ? "text-[#FFB836]"
+                                    : applicant?.hiringStage === "Selected"
+                                    ? "text-[#56CDAD]"
+                                    : "text-[#333333]"
+                                }`}
+                              >
+                                {applicant?.hiringStage}
+                              </div>
+                            </div>
+                            <div className=" flex text-[14px] w-[15%] pl-6 font-[600]">
+                              <p>
+                                {new Date(applicant?.appliedOn)
+                                  .toLocaleDateString("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                  })
+                                  .replace(",", "")}
+                              </p>
+                            </div>
+                            <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible ">
+                              <>
+                                {isPopupVisible && (
+                                  <ShortlistMail
+                                    shortlist={shortlist}
+                                    jobData={jobData}
+                                    setPopupVisible={setPopupVisible}
+                                    id={id}
+                                    statusChange={statusChange}
+                                    setStatusChange={setStatusChange}
+                                    applicantIds={applicantIds}
+                                    newHiringStage={hiringStage}
+                                  />
+                                )}
+                              </>
+                              {moreOption && selectedDotIndex === index && (
+                                <div
+                                  ref={taskRef}
+                                  style={{
+                                    boxShadow: "0px 2px 2px 2px #00000020",
+                                  }}
+                                  className="absolute flex flex-col w-[180px] items-start p-3 gap-2 bg-white rounded-[12px] z-[1000] top-[100%] "
+                                >
+                                  {userDataGlobal?.role === "recruiter" &&
+                                    applicant?.hiringStage === "Pending" && (
+                                      <button
+                                        disabled={[
+                                          "Rejected",
+                                          "Shortlisted",
+                                          "Hired",
+                                        ].includes(applicant?.hiringStage)}
+                                        style={{
+                                          opacity: [
+                                            "Rejected",
+                                            "Shortlisted",
+                                            "Hired",
+                                          ].includes(applicant?.hiringStage)
+                                            ? 0.5
+                                            : 1,
+                                        }}
+                                        onClick={() => {
+                                          setHiringStage("Shortlisted");
+                                          togglePopup(applicant);
+                                        }}
+                                        className="text-[14px] font-medium flex justify-center items-center leading-tight rounded-[30px]"
+                                      >
+                                        Shortlist
+                                      </button>
+                                    )}
+
+                                  <button
+                                    disabled={
+                                      applicant?.hiringStage === "Rejected"
+                                    }
+                                    style={{
+                                      opacity:
+                                        applicant?.hiringStage === "Rejected"
+                                          ? 0.5
+                                          : 1,
+                                    }}
+                                    onClick={() => {
+                                      setHiringStage("Rejected");
+                                      togglePopup(applicant);
+                                    }}
+                                    className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
+                                  >
+                                    Reject
+                                  </button>
+                                  {userDataGlobal?.role === "recruiter" &&
+                                    applicant?.hiringStage ===
+                                      "Shortlisted" && (
+                                      <button
+                                        disabled={
+                                          applicant?.hiringStage !==
+                                          "Shortlisted"
+                                        }
+                                        style={{
+                                          opacity:
+                                            applicant?.hiringStage !==
+                                            "Shortlisted"
+                                              ? 0.5
+                                              : 1,
+                                        }}
+                                        onClick={() =>
+                                          hiredCandidate(
+                                            applicant?.applicantId,
+                                            applicant?.jobId
+                                          )
+                                        }
+                                        className="text-[14px] font-[500] rounded-[30px] "
+                                      >
+                                        Hire
+                                      </button>
+                                    )}
+                                </div>
+                              )}
+                              <div
+                                onClick={() =>
+                                  router.push(
+                                    `/common/hiring/ApplicantDetails?applicantId=${
+                                      applicant?.applicantId
+                                    }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${
+                                      clientView ? `&clientView=true` : ``
+                                    }`
+                                  )
+                                }
+                                className="text-[14px] font-medium text-[#224D90] cursor-pointer"
+                              >
+                                View
+                              </div>
+
+                              <svg
+                                className=" cursor-pointer"
+                                onClick={() =>
+                                  router.push(
+                                    `/common/hiring/ApplicantDetails?applicantId=${
+                                      applicant?.applicantId
+                                    }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${
+                                      clientView ? `&clientView=true` : ``
+                                    }`
+                                  )
+                                }
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g clip-path="url(#clip0_6706_101356)">
+                                  <path
+                                    d="M13.0911 24H2.8901C2.13396 24 1.40878 23.6996 0.874111 23.165C0.339438 22.6303 0.0390625 21.9051 0.0390625 21.149L0.0390625 2.85103C0.0390625 2.09489 0.339438 1.36972 0.874111 0.835048C1.40878 0.300376 2.13396 0 2.8901 0L16.0904 0C16.8465 0 17.5717 0.300376 18.1064 0.835048C18.641 1.36972 18.9414 2.09489 18.9414 2.85103V11.2844C18.9498 11.3737 18.9395 11.4638 18.9111 11.5489C18.8827 11.634 18.8369 11.7123 18.7765 11.7786C18.7161 11.845 18.6425 11.898 18.5604 11.9343C18.4784 11.9705 18.3897 11.9893 18.2999 11.9893C18.2102 11.9893 18.1215 11.9705 18.0394 11.9343C17.9574 11.898 17.8838 11.845 17.8234 11.7786C17.763 11.7123 17.7171 11.634 17.6887 11.5489C17.6603 11.4638 17.65 11.3737 17.6584 11.2844V2.85103C17.6585 2.64763 17.6183 2.44622 17.5403 2.25837C17.4623 2.07052 17.3479 1.89991 17.2038 1.75635C17.0597 1.61278 16.8887 1.49908 16.7006 1.42176C16.5124 1.34444 16.3109 1.30502 16.1075 1.30577H2.8901C2.68573 1.30351 2.48295 1.34181 2.2935 1.41845C2.10404 1.4951 1.93166 1.60856 1.78636 1.75228C1.64105 1.89599 1.52569 2.06711 1.44697 2.25571C1.36825 2.44431 1.32772 2.64666 1.32773 2.85103V21.1661C1.32772 21.3704 1.36825 21.5728 1.44697 21.7614C1.52569 21.95 1.64105 22.1211 1.78636 22.2648C1.93166 22.4085 2.10404 22.522 2.2935 22.5987C2.48295 22.6753 2.68573 22.7136 2.8901 22.7113H13.0911C13.262 22.7113 13.4259 22.7792 13.5467 22.9001C13.6675 23.0209 13.7354 23.1848 13.7354 23.3557C13.7354 23.5266 13.6675 23.6904 13.5467 23.8113C13.4259 23.9321 13.262 24 13.0911 24Z"
+                                    fill="#224D90"
+                                  />
+                                  <path
+                                    d="M14.8904 6.88738H4.05644C3.96712 6.89581 3.87702 6.88549 3.79191 6.85709C3.70681 6.82869 3.62857 6.78282 3.56222 6.72243C3.49586 6.66205 3.44285 6.58847 3.40657 6.50641C3.3703 6.42435 3.35156 6.33562 3.35156 6.2459C3.35156 6.15618 3.3703 6.06744 3.40657 5.98538C3.44285 5.90332 3.49586 5.82974 3.56222 5.76936C3.62857 5.70897 3.70681 5.66311 3.79191 5.6347C3.87702 5.6063 3.96712 5.59598 4.05644 5.60441H14.8904C15.0501 5.61949 15.1984 5.69358 15.3064 5.81222C15.4143 5.93085 15.4742 6.08549 15.4742 6.2459C15.4742 6.4063 15.4143 6.56094 15.3064 6.67957C15.1984 6.79821 15.0501 6.87231 14.8904 6.88738Z"
+                                    fill="#224D90"
+                                  />
+                                  <path
+                                    d="M10.0327 11.8941H4.07402C3.90313 11.8941 3.73924 11.8263 3.61841 11.7054C3.49757 11.5846 3.42969 11.4207 3.42969 11.2498C3.42969 11.0789 3.49757 10.915 3.61841 10.7942C3.73924 10.6734 3.90313 10.6055 4.07402 10.6055H10.0327C10.2036 10.6055 10.3675 10.6734 10.4883 10.7942C10.6091 10.915 10.677 11.0789 10.677 11.2498C10.677 11.4207 10.6091 11.5846 10.4883 11.7054C10.3675 11.8263 10.2036 11.8941 10.0327 11.8941Z"
+                                    fill="#224D90"
+                                  />
+                                  <path
+                                    d="M18.02 22.0655C13.9887 22.0655 12.1925 18.2964 12.1184 18.1367C12.0809 18.0548 12.0649 17.9648 12.0719 17.875C12.0789 17.7852 12.1086 17.6987 12.1583 17.6236C12.2552 17.4753 14.5361 14.0312 18.02 14.0312C21.504 14.0312 23.7848 17.4525 23.8818 17.6178C23.9354 17.7033 23.9639 17.8021 23.9639 17.903C23.9639 18.0038 23.9354 18.1026 23.8818 18.1881C23.819 18.3306 21.7093 22.0655 18.02 22.0655ZM13.2303 17.96C13.6808 18.7526 15.2089 20.9992 18.02 20.9992C20.5518 20.9992 22.2624 18.7469 22.7927 17.9372C22.2225 17.1845 20.375 15.0861 18.02 15.0861C15.6651 15.0861 13.7891 17.2244 13.2303 17.96Z"
+                                    fill="#224D90"
+                                  />
+                                  <path
+                                    d="M18.1621 19.2071C18.7479 19.2071 19.2227 18.7323 19.2227 18.1465C19.2227 17.5608 18.7479 17.0859 18.1621 17.0859C17.5764 17.0859 17.1016 17.5608 17.1016 18.1465C17.1016 18.7323 17.5764 19.2071 18.1621 19.2071Z"
+                                    fill="#224D90"
+                                  />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_6706_101356">
+                                    <rect width="24" height="24" fill="white" />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <img
+                                onClick={() => {
+                                  if (
+                                    applicant?.hiringStage !== "Hired" &&
+                                    applicant?.hiringStage !== "Rejected"
+                                  ) {
+                                    handleDotClick(index);
+                                  }
+                                }}
+                                className={`min-w-[24px] max-w-[24px] cursor-pointer ${
+                                  applicant?.hiringStage === "Hired" ||
+                                  applicant?.hiringStage === "Rejected"
+                                    ? "opacity-50 pointer-events-none"
+                                    : ""
+                                }`}
+                                src="/images/employer/three-dot.png"
+                                alt=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </>
+                ) : (
+                  <div className="p-10 w-full flex items-center justify-center">
+                    <img
+                      src="/images/employer/OBJECTS.png"
+                      alt="No data available"
+                      className="h-[200px] object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {totalCount > 10 && (
+                  <CustomPagination
+                    setMiniloading={setMiniloading}
+                    miniLoading={miniloading}
+                    setPage={setPage}
+                    title={"Applicant"}
+                    defaultLimit={10}
+                    setLimit={setLimit}
+                    totalPages={totalPages}
+                    limit={limit}
+                    page={page}
+                    isBackground={true}
+                  />
+                )}
+              </div>
+            </>
+          )}
 
           {option === 1 && (
             <div className="mb-6">
@@ -2465,9 +2671,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             checked={
                               checkedApplicants.length > 0 &&
                               checkedApplicants.length ===
-                              jobDetails?.data?.applications.filter(
-                                (app) => app.hiringStage === "Pending"
-                              ).length
+                                jobDetails?.data?.applications.filter(
+                                  (app) => app.hiringStage === "Pending"
+                                ).length
                             }
                             onChange={handleSelectAll}
                           />
@@ -2546,10 +2752,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               (applicant, index) => (
                                 <>
                                   <div
-                                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
-                                      ? "bg-[#D3F1FF]"
-                                      : "bg-[#FFFFFF]"
-                                      }`}
+                                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
+                                      checkedApplicants[index]
+                                        ? "bg-[#D3F1FF]"
+                                        : "bg-[#FFFFFF]"
+                                    }`}
                                     key={applicant?._id}
                                   >
                                     <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -2599,53 +2806,55 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       </div>
                                       <div className=" flex justify-center w-[20%]">
                                         <div
-                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                            ? "bg-[#FFFFFF]"
-                                            : applicant?.hiringStage ===
-                                              "Interview"
+                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                            checkedApplicants[index]
+                                              ? "bg-[#FFFFFF]"
+                                              : applicant?.hiringStage ===
+                                                "Interview"
                                               ? "bg-[#26A4FF1A]"
                                               : applicant?.hiringStage ===
                                                 "Pending"
-                                                ? "bg-[#FFF9ED]"
-                                                : applicant?.hiringStage ===
-                                                  "Hired"
-                                                  ? "bg-[#56CDAD1A]"
-                                                  : applicant?.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? "bg-[#4640DE1A]"
-                                                    : applicant?.hiringStage ===
-                                                      "Rejected"
-                                                      ? "bg-[#FF65501A]"
-                                                      : applicant?.hiringStage ===
-                                                        "In Review"
-                                                        ? "bg-[#EB85331A]"
-                                                        : applicant?.hiringStage ===
-                                                          "Selected"
-                                                          ? "bg-[#56CDAD1A]"
-                                                          : ""
-                                            } ${applicant?.hiringStage ===
-                                              "Interview"
+                                              ? "bg-[#FFF9ED]"
+                                              : applicant?.hiringStage ===
+                                                "Hired"
+                                              ? "bg-[#56CDAD1A]"
+                                              : applicant?.hiringStage ===
+                                                "Shortlisted"
+                                              ? "bg-[#4640DE1A]"
+                                              : applicant?.hiringStage ===
+                                                "Rejected"
+                                              ? "bg-[#FF65501A]"
+                                              : applicant?.hiringStage ===
+                                                "In Review"
+                                              ? "bg-[#EB85331A]"
+                                              : applicant?.hiringStage ===
+                                                "Selected"
+                                              ? "bg-[#56CDAD1A]"
+                                              : ""
+                                          } ${
+                                            applicant?.hiringStage ===
+                                            "Interview"
                                               ? "text-[#26A4FF]"
                                               : applicant?.hiringStage ===
                                                 "Pending"
-                                                ? "text-[#FFB836]"
-                                                : applicant?.hiringStage ===
-                                                  "Hired"
-                                                  ? "text-[#56CDAD]"
-                                                  : applicant?.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? "text-[#4640DE]"
-                                                    : applicant?.hiringStage ===
-                                                      "Rejected"
-                                                      ? "text-[#FF6550]"
-                                                      : applicant?.hiringStage ===
-                                                        "In Review"
-                                                        ? "text-[#FFB836]"
-                                                        : applicant?.hiringStage ===
-                                                          "Selected"
-                                                          ? "text-[#56CDAD]"
-                                                          : "text-[#333333]"
-                                            }`}
+                                              ? "text-[#FFB836]"
+                                              : applicant?.hiringStage ===
+                                                "Hired"
+                                              ? "text-[#56CDAD]"
+                                              : applicant?.hiringStage ===
+                                                "Shortlisted"
+                                              ? "text-[#4640DE]"
+                                              : applicant?.hiringStage ===
+                                                "Rejected"
+                                              ? "text-[#FF6550]"
+                                              : applicant?.hiringStage ===
+                                                "In Review"
+                                              ? "text-[#FFB836]"
+                                              : applicant?.hiringStage ===
+                                                "Selected"
+                                              ? "text-[#56CDAD]"
+                                              : "text-[#333333]"
+                                          }`}
                                         >
                                           {applicant?.hiringStage}
                                         </div>
@@ -2770,47 +2979,49 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           </p>
                                         </p>
                                         <div
-                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                            ? "bg-[#FFFFFF]"
-                                            : applicant.hiringStage ===
-                                              "Interview"
+                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                            checkedApplicants[index]
+                                              ? "bg-[#FFFFFF]"
+                                              : applicant.hiringStage ===
+                                                "Interview"
                                               ? "bg-[#26A4FF1A]"
                                               : applicant.hiringStage ===
                                                 "Pending"
-                                                ? "bg-[#FFF9ED]"
-                                                : applicant.hiringStage ===
-                                                  "Hired"
-                                                  ? "bg-[#56CDAD1A]"
-                                                  : applicant.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? "bg-[#4640DE1A]"
-                                                    : applicant.hiringStage ===
-                                                      "Rejected"
-                                                      ? "bg-[#FF65501A]"
-                                                      : applicant.hiringStage ===
-                                                        "In Review"
-                                                        ? "bg-[#EB85331A]"
-                                                        : ""
-                                            } ${applicant.hiringStage ===
-                                              "Interview"
+                                              ? "bg-[#FFF9ED]"
+                                              : applicant.hiringStage ===
+                                                "Hired"
+                                              ? "bg-[#56CDAD1A]"
+                                              : applicant.hiringStage ===
+                                                "Shortlisted"
+                                              ? "bg-[#4640DE1A]"
+                                              : applicant.hiringStage ===
+                                                "Rejected"
+                                              ? "bg-[#FF65501A]"
+                                              : applicant.hiringStage ===
+                                                "In Review"
+                                              ? "bg-[#EB85331A]"
+                                              : ""
+                                          } ${
+                                            applicant.hiringStage ===
+                                            "Interview"
                                               ? "text-[#26A4FF]"
                                               : applicant.hiringStage ===
                                                 "Pending"
-                                                ? "text-[#FFB836]"
-                                                : applicant.hiringStage ===
-                                                  "Hired"
-                                                  ? "text-[#56CDAD]"
-                                                  : applicant.hiringStage ===
-                                                    "Shortlisted"
-                                                    ? "text-[#4640DE]"
-                                                    : applicant.hiringStage ===
-                                                      "Rejected"
-                                                      ? "text-[#FF6550]"
-                                                      : applicant.hiringStage ===
-                                                        "In Review"
-                                                        ? "text-[#FFB836]"
-                                                        : "text-[#333333]"
-                                            }`}
+                                              ? "text-[#FFB836]"
+                                              : applicant.hiringStage ===
+                                                "Hired"
+                                              ? "text-[#56CDAD]"
+                                              : applicant.hiringStage ===
+                                                "Shortlisted"
+                                              ? "text-[#4640DE]"
+                                              : applicant.hiringStage ===
+                                                "Rejected"
+                                              ? "text-[#FF6550]"
+                                              : applicant.hiringStage ===
+                                                "In Review"
+                                              ? "text-[#FFB836]"
+                                              : "text-[#333333]"
+                                          }`}
                                         >
                                           {applicant.hiringStage}
                                         </div>{" "}
@@ -2823,15 +3034,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           <button
                                             disabled={
                                               applicant?.hiringStage ===
-                                              "Rejected" ||
+                                                "Rejected" ||
                                               applicant?.hiringStage ===
-                                              "Shortlisted"
+                                                "Shortlisted"
                                             }
                                             style={{
                                               opacity:
                                                 applicant?.hiringStage ===
                                                   "Rejected" ||
-                                                  applicant?.hiringStage ===
+                                                applicant?.hiringStage ===
                                                   "Shortlisted"
                                                   ? 0.5
                                                   : 1,
@@ -2870,7 +3081,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             style={{
                                               opacity:
                                                 applicant?.hiringStage ===
-                                                  "Rejected"
+                                                "Rejected"
                                                   ? 0.5
                                                   : 1,
                                             }}

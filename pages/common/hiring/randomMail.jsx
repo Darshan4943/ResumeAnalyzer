@@ -133,7 +133,7 @@ function RandomMail({
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/hiring/clientMail",
+        "https://api.skilotech.com/api/hiring/clientMail",
         emailDetails
       );
 
