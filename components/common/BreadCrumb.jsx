@@ -17,7 +17,7 @@ const Breadcrumb = () => {
     createCompany:"Create Company",
     CreateNewRequisition:"Create New Requisition",
     companyDetails:"Company Details",
-    jdCreation:"Jd Creation",
+    jdCreation:"Jd Builder",
     editTemplate:"Edit Template",
     matchJob:"Job Matching",
     'JobPosting?content=CreateNewJob': 'Create New Job',

@@ -78,6 +78,7 @@
     "react-pdf": "^7.7.1",
     "react-phone-input-2": "^2.15.1",
     "react-places-autocomplete": "^7.3.0",
+    "react-qr-code": "^2.0.18",
     "react-quill": "^2.0.0",
     "react-redux": "^9.0.4",
     "react-scroll": "^1.9.0",

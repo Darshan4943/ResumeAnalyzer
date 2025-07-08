@@ -527,3 +527,15 @@ ol {
   background-size: 800px 100%;
   animation: shimmer 1.5s infinite linear;
 }
+
+
+/* Remove border from the container */
+.no-border-editor .p-editor-container {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Optional: also remove border from the editable area */
+.no-border-editor .p-editor-content {
+  border: none !important;
+}

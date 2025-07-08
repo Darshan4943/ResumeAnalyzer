@@ -29,12 +29,11 @@ import "primeicons/primeicons.css";
 import Select from "react-select";
 import PreviewCard from "../../../components/featured/candidate/jobs/PreviewCard";
 import { fetchCities } from "../../../Redux/slices/geoLocationSlice";
-import JdExtraction from "./jdExtraction";
 function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
-  const { id, companyId, reqId } = router.query;
+  const { id, companyId, reqId, jd } = router.query;
   const [loading, setLoading] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
   const [skills, setSkills] = useState(SkillList);
@@ -93,7 +92,32 @@ function CreateNewJob() {
     status: "Active",
     logo: "",
   });
-  console.log(data);
+  useEffect(() => {
+    if (jd) {
+      getJobDescriptions();
+    }
+  }, [jd]);
+  const getJobDescriptions = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.skilotech.com/api/jd/getById/${jd}`
+      );
+      setData({
+        ...data,
+
+        ...JSON.parse(response.data.data.parsedData),
+        description: response.data.data.jd,
+      });
+      // setJobTitle(response.data.data.jobTitle);
+      // setEditableText(response.data.data.jd);
+      // setJobDescription(response.data.data.jd);
+    } catch (error) {
+      console.error(
+        "Error fetching job descriptions:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -1928,7 +1952,7 @@ function CreateNewJob() {
                             options={workFromOptions}
                             value={workFromOptions.find(
                               (option) =>
-                                option.value.trim() === data.workFrom.trim()
+                                option.value.trim() === data?.workFrom?.trim()
                             )}
                             onChange={(selectedOption) =>
                               handleChange({

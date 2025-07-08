@@ -945,7 +945,7 @@ ${
                   />
                 </g>
               </svg>
-              JD Creation
+              JD Builder
             </div>
           )}
           <div>
