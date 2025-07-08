@@ -276,12 +276,13 @@ const MatchJob = () => {
 
         return;
       }
-      const filterCount = localStorage.getItem("resumeCount")
+      const filterCount = localStorage.getItem("resumeCount");
 
       const sorted = (results?.length ? results : received)
-        .filter((item) => item?.matching_percentage)
-        .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage))
-      const finalData = sorted.slice(0, filterCount)
+        .filter((item) => item?.matching_percentage && item?.file && item.file.trim() !== "")
+        .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage));
+
+      const finalData = sorted.slice(0, filterCount);
 
 
       setResumeList(finalData);

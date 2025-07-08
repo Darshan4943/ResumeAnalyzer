@@ -28,7 +28,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   const [resumeCount, setResumeCount] = useState(5);
   const [selectedJob, setSelectedJob] = useState();
   const [openParameters, setOpenParamenters] = useState(false);
-  const [findMatchLoader, setMatchLoader] = useState(false);
+  const [findMatchLoader, setMatchLoader] = useState(true);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);
   const dispatch = useDispatch();
@@ -976,7 +976,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
               </div>
               {totalCount > 0 ?
                 <div className="flex gap-4  relative h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide ">
-                  <div style={{scrollbarWidth: "none"}} className="flex flex-col gap-2 sticky top-0 h-[calc(100vh-160px)] overflow-y-auto w-[300px]  min-w-[300px]">
+                  <div style={{ scrollbarWidth: "none" }} className="flex flex-col gap-2 sticky top-0 h-[calc(100vh-160px)] overflow-y-auto w-[300px]  min-w-[300px]">
                     {preferences &&
                       <div className="bg-white rounded-[8px] flex flex-col gap-2 p-2">
 
@@ -1084,10 +1084,15 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                   />
                 </div>
                 :
-                <div className=" flex flex-col gap-4 justify-between items-center pt-12 font-medium text-[18px]">
-                  No Profiles were found
-                   <img className="w-[300px] h-[182px] object-cover " src="/images/noCandidates.png" alt="" />
-                </div>
+                <>
+                  {!findMatchLoader &&
+                    <div className=" flex flex-col gap-4 justify-between items-center pt-12 font-medium text-[18px]">
+                      No Profiles were found
+                      <img className="w-[300px] h-[182px] object-cover " src="/images/noCandidates.png" alt="" />
+                    </div>
+
+                  }
+                </>
               }
 
             </div>

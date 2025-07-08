@@ -11,7 +11,7 @@ import InlineSVG from "../../components/common/InlineSvg";
 function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
-
+console.log(22,userDetails);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
