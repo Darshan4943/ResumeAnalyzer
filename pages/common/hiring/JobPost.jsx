@@ -1200,7 +1200,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           onClick={() => setRandomMail(true)}
                           className="px-4 h-[40px] bg_Button rounded-[30px]"
                         >
-                          Send Mail to Client
+                          Send Mail
                         </button>
                       )}
                     </div>
