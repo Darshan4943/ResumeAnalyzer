@@ -25,9 +25,9 @@ function RandomMail({
   const [to, setTo] = useState();
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState("Shortlisted Candidates for Review & Selection");
-
-
+  const [subject, setSubject] = useState(
+    "Shortlisted Candidates for Review & Selection"
+  );
 
   const formatCandidateNames = () => {
     if (!shortlist || shortlist.length === 0) return "[Candidate's Name]";
@@ -41,10 +41,10 @@ function RandomMail({
 
   const [content, setContent] = useState(
     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
-  
-    <p style="display: block; margin-bottom: 20px;">Dear,</p>
 
-    <p style="display: block; margin-bottom: 20px;">Greetings from ${userDataGlobal?.firstName} ${userDataGlobal?.lastName}  .</p>
+    <p style="display: block; margin-bottom: 20px;">Greetings from ${
+      userDataGlobal?.firstName
+    } ${userDataGlobal?.lastName}  .</p>
   
     <div style="display: block; margin-bottom: 20px;">
       <p style="display: block; margin-bottom: 20px;">
@@ -64,7 +64,9 @@ function RandomMail({
      <p style="display: block; margin-bottom: 20px;"></p>
     <p style="display: block; margin-bottom: 20px;">Best Regards,</p>
   
-    <p style="display: block; margin-bottom: 10px;">${userDataGlobal?.firstName} ${userDataGlobal?.lastName}</p>
+    <p style="display: block; margin-bottom: 10px;">${
+      userDataGlobal?.firstName
+    } ${userDataGlobal?.lastName}</p>
   
     <p style="display: block; margin-bottom: 10px;">
      ${userDataGlobal?.mobileNo}
@@ -72,9 +74,6 @@ function RandomMail({
   
   </div>`
   );
-
-
-
 
   const [subjectError, setSubjectError] = useState("");
   const [contentError, setContentError] = useState("");
@@ -98,20 +97,14 @@ function RandomMail({
 
     let isValid = true;
 
-    if (
-     !subject?.trim()
-        
-    ) {
+    if (!subject?.trim()) {
       setSubjectError("Subject is required.");
       isValid = false;
     } else {
       setSubjectError("");
     }
 
-    if (
-    !content?.trim()
-       
-    ) {
+    if (!content?.trim()) {
       setContentError("Content is required.");
       isValid = false;
     } else {
@@ -124,11 +117,10 @@ function RandomMail({
     const emailDetails = {
       to: to || "",
       cc: tags,
-      subject:subject,
-      content:content,
+      subject: subject,
+      content: content,
       applicantId: shortlist?.map((item) => item?.applicantId),
       jobId: id,
-
     };
 
     try {
@@ -139,7 +131,6 @@ function RandomMail({
 
       toast.success("Email sent successfully!");
       setLoading(false);
-     
     } catch (error) {
       setLoading(false);
       console.log(
@@ -223,21 +214,17 @@ function RandomMail({
                 <div className="w-[100%] gap-[20px] flex flex-col">
                   <div className="flex items-center gap-[20px] flex-wrap ">
                     <div className="text-[16px] font-[600]">To</div>
-                    <div
-
-                      className=" py-[6px] px-3 rounded-[26px] flex gap-[10px] flex-wrap items-center  leading-tight"
-                    >
+                    <div className=" py-[6px] px-3 rounded-[26px] flex gap-[10px] flex-wrap items-center  leading-tight">
                       <div className="group relative">
                         <input
                           type="text"
                           value={to}
                           onChange={(e) => setTo(e.target.value)}
-                           placeholder="Enter Email"
+                          placeholder="Enter Email"
                           className="text-[14px] font-[600] outline-none bg-transparent placeholder:text-[16px] placeholder:font-medium min-w-[300px]"
                         />
                       </div>
                     </div>
-
                   </div>
                   <div className="border-[1px] border-[#D4D4D480] w-full"></div>
                 </div>
@@ -296,9 +283,7 @@ function RandomMail({
                   <div className="text-[16px] font-[600]">Subject</div>
                   <input
                     type="text"
-                    value={
-                      subject
-                    }
+                    value={subject}
                     // onChange={(e) => {
                     //   setSubject(e.target.value);
                     //   setSubjectError("");
@@ -306,7 +291,6 @@ function RandomMail({
                     onChange={(e) => {
                       const value = e.target.value;
                       setSubject(value);
-
 
                       setSubjectError("");
                     }}
@@ -323,9 +307,7 @@ function RandomMail({
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>
                   <Editor
                     style={{ minHeight: "120px", overflow: "auto" }}
-                    value={
-                      content
-                    }
+                    value={content}
                     headerTemplate={header}
                     // onTextChange={(e) => {
                     //   setContent(e.htmlValue);

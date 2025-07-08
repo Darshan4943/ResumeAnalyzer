@@ -49,7 +49,7 @@ const MatchJob = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [count, setCount] = useState(0);
-  const [collection, setCollection] = useState();
+  const [collection, setCollection] = useState("SkilotechCollection");
   const [isCollection, setIsCollection] = useState();
   const [isSkilotechCollection, setIsSkilotechCollection] = useState();
   const [showMatchingSidebar, setShowsideBar] = useState(false);

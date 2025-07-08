@@ -14,12 +14,12 @@ function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("matchingParameters");
   const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
-  const { id, applicantId,sortValue,currentPage,clientView } = router.query;
+  const { id, applicantId, sortValue, currentPage, clientView } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
@@ -27,13 +27,12 @@ function ApplicantDetails({ setTogglee }) {
   const fileExtension = jobDetails?.resumeUrl?.split(".").pop().toLowerCase();
   const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
   const isPDF = fileExtension === "pdf";
-  const isDoc = ["doc", "docx"].includes(fileExtension)
-   useEffect(() => {
-      if (clientView) {
-        dispatch(setPageOpened());
-      }
-  
-    }, []);
+  const isDoc = ["doc", "docx"].includes(fileExtension);
+  useEffect(() => {
+    if (clientView) {
+      dispatch(setPageOpened());
+    }
+  }, []);
   const getData = async () => {
     try {
       setLoading(true);
@@ -53,10 +52,10 @@ function ApplicantDetails({ setTogglee }) {
 
       if (response.data) {
         setJobDetails(response?.data?.data);
-   
+
         if (!response.data?.data?.matchingPercentage) {
-          setToggle("Resume")
-          setActiveOption("Resume")
+          setToggle("Resume");
+          setActiveOption("Resume");
         }
         setTimeout(() => {
           setLoading(false);
@@ -71,13 +70,10 @@ function ApplicantDetails({ setTogglee }) {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     if (id && applicantId) {
       getData();
-
-
     }
   }, [statusChange]);
 
@@ -147,7 +143,6 @@ function ApplicantDetails({ setTogglee }) {
   const DocumentViewer = ({ fileUrl }) => {
     const [loading, setLoading] = useState(true);
 
-
     return (
       <div className="relative w-full flex flex-col items-center">
         {loading && (
@@ -156,7 +151,9 @@ function ApplicantDetails({ setTogglee }) {
           </div>
         )}
         <iframe
-          src={`https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`}
+          src={`https://docs.google.com/gview?url=${encodeURIComponent(
+            fileUrl
+          )}&embedded=true`}
           className="w-[80%] h-[700px]"
           onLoad={() => setLoading(false)}
         />
@@ -170,17 +167,16 @@ function ApplicantDetails({ setTogglee }) {
       const link = document.createElement("a");
       link.href = url;
       link.download = "";
-      // link.target = "_blank"; 
+      // link.target = "_blank";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
   };
 
-
   return (
     <div>
-        {clientView &&
+      {clientView && (
         <div
           className="bg-white z-[2000] fixed w-full top-0 ml-[-24px] "
           style={{ borderBottom: "1.5px solid #DEDEDE" }}
@@ -193,16 +189,24 @@ function ApplicantDetails({ setTogglee }) {
             />
           </div>
         </div>
-      }
+      )}
       {loading ? (
         <MiniLoader />
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className={`flex flex-col gap-[8px] relative ${clientView && "pt-6 customMargins"}`}>
+        <div
+          className={`flex flex-col gap-[8px] relative ${
+            clientView && "pt-6 customMargins"
+          }`}
+        >
           <div className=" flex w-full gap-2 justify-between rounded-[16px] items-center">
             <img
-              onClick={() => router.push(`/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}`)}
+              onClick={() =>
+                router.push(
+                  `/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}`
+                )
+              }
               className="w-[24px] cursor-pointer"
               src="/images/employer/Icon_left.png"
               alt=""
@@ -260,10 +264,11 @@ function ApplicantDetails({ setTogglee }) {
                       {jobDetails?.matchingParameters.length > 0 && (
                         <div>
                           <p
-                            className={`min-w-[156px] ${activeOption === "matchingParameters"
+                            className={`min-w-[156px] ${
+                              activeOption === "matchingParameters"
                                 ? "text-[#333]"
                                 : "text-[#646464]"
-                              } cursor-pointer `}
+                            } cursor-pointer `}
                             onClick={() =>
                               handleOptionClick("matchingParameters")
                             }
@@ -289,13 +294,15 @@ function ApplicantDetails({ setTogglee }) {
                         </div>
                       )}
                       {userDataGlobal?.role === "employer" &&
-                        jobDetails?.hiringStage !== "Pending" && jobDetails.hiringLevel.length > 0 && (
+                        jobDetails?.hiringStage !== "Pending" &&
+                        jobDetails.hiringLevel.length > 0 && (
                           <div>
                             <p
-                              className={`min-w-[115px] ${activeOption === "HiringProgress"
+                              className={`min-w-[115px] ${
+                                activeOption === "HiringProgress"
                                   ? "text-[#333]"
                                   : "text-[#646464]"
-                                } cursor-pointer`}
+                              } cursor-pointer`}
                               onClick={() =>
                                 handleOptionClick("HiringProgress")
                               }
@@ -322,10 +329,11 @@ function ApplicantDetails({ setTogglee }) {
                         )}
                       <div>
                         <p
-                          className={` min-w-[60px] ${activeOption === "Resume"
+                          className={` min-w-[60px] ${
+                            activeOption === "Resume"
                               ? "text-[#333]"
                               : "text-[#646464]"
-                            } cursor-pointer`}
+                          } cursor-pointer`}
                           onClick={() => handleOptionClick("Resume")}
                         >
                           Resume
@@ -345,7 +353,6 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
@@ -354,8 +361,10 @@ function ApplicantDetails({ setTogglee }) {
                   <ApplicantProfile jobDetails={jobDetails} />
                 )}
                 {toggle === "Resume" && (
-                  <div onClick={downloadResume(jobDetails?.resumeUrl)} className=" flex items-center justify-center py-[16px] resumes2 cursor-pointer ">
-
+                  <div
+                    onClick={downloadResume(jobDetails?.resumeUrl)}
+                    className=" flex items-center justify-center py-[16px] resumes2 cursor-pointer "
+                  >
                     {isImage ? (
                       <img
                         src={jobDetails?.resumeUrl}
@@ -363,17 +372,13 @@ function ApplicantDetails({ setTogglee }) {
                         className="max-w-[70%] max-h-full object-contain rounded-lg"
                       />
                     ) : isPDF ? (
-
                       <PdfViewer
                         pdfUrl={jobDetails?.resumeUrl}
                         loadingg={loadingg}
                         setLoadingg={setLoadingg}
                       />
-
                     ) : isDoc ? (
                       <DocumentViewer fileUrl={jobDetails?.resumeUrl} />
-
-
                     ) : (
                       <InlineSVG imageUrl={jobDetails?.resumeUrl} />
                     )}
