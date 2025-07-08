@@ -1983,7 +1983,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             alt="No data available"
                             className="h-[200px] object-contain"
                           />
-                          <span>No applicants available</span>
+                          <span>No applications yet</span>
                         </div>
                       )}
                     </div>
