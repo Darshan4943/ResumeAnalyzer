@@ -167,7 +167,7 @@ function Sign_in({ setSignIn, setSignUp }) {
             ? "Candidate Sign In "
             : role === "recruiter"
               ? "Recruiter Sign In"
-              : "Employer Sign In"}
+              : "Organization Sign In"}
         </div>
         <div className="w-full flex flex-col gap-[24px]">
           <div className="flex flex-row px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid border-[#DEDEDE]">

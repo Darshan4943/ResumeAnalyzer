@@ -52,7 +52,7 @@ const SignUp = () => {
         ) : (
           <div className="w-full bg-[#FFDA1D] flex items-center flex-col gap-2 py-[6px] ">
             <span className="text-[24px] md:text-[30px] font-[600] text-[#333333]">
-              Register as Employer
+              Register as Organization
             </span>
             <span className="text-[12px] md:text-[16px] font-[500] text-[#333333]">
               Start your Search with Skilotech
