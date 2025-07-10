@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { MdLocationOn, MdWork, MdSchool } from "react-icons/md";
 import { PDFSvg, PDFSvg1 } from "../../utils/svg";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ApplicantDetails from "./showProfile";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/mini-loader";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../Redux/slices/recallSlice";
 
-const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelectedCandidates, selectedCandidates, allSave, data, setExpandedUser,
+const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, save, setSelectedCandidates, selectedCandidates, allSave, data, setExpandedUser,
     expandedUser }) => {
     const {
         basics,
@@ -22,20 +24,31 @@ const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelect
         lastActive,
         lastModified,
         downloadCount,
-        viewCount
+        viewCount, _id
 
 
 
     } = candidate;
     const [update, setUpdate] = useState();
+    const dispatch = useDispatch();
+    const { recallData } = useSelector((state) => state.recall);
     const [jdApplicantIds, setJdApplicantIds] = useState([]);
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [hiringLoading, setHiringLoading] = useState(false)
     const [shareCv, setShareCv] = useState()
     const [loading, setLoading] = useState(false)
+    const [jobMatchIds, setJobMatchIds] = useState([]);
+    const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
+    const [jdCountMonthly, setJdCountMonthly] = useState(0);
     const handleToggle = (userId) => {
+        if (jdCountMonthly >= jdCountMonthlyLimit) {
+            setLimitPopup(true);
+            return;
+        }
+        updateAiLimit()
         setExpandedUser((prev) => (prev === userId ? null : userId));
     };
+
 
     function timeAgo(dateString) {
         const date = new Date(dateString);
@@ -59,7 +72,49 @@ const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelect
 
     const router = useRouter()
 
+
+    const getLimits = () => {
+        const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+        setJdCountMonthly(jdCountMonthly);
+
+        const jdCountMonthlyLimit = JSON.parse(
+            localStorage.getItem("aiHitsMonthlyLimit")
+        );
+        setJdCountMonthlyLimit(jdCountMonthlyLimit);
+        const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+
+        // setActivePlan(activePlan);
+    };
+    useEffect(() => {
+        getLimits();
+    }, []);
+
+    const updateAiLimit = () => {
+
+        const storedIds = JSON.parse(localStorage.getItem("jobMatchIds") || "[]");
+
+        if (storedIds.includes(_id)) {
+            return;
+        }
+
+        const updatedIds = [...storedIds, _id];
+        localStorage.setItem("jobMatchIds", JSON.stringify(updatedIds));
+
+        dispatch(updateAiHit(userDataGlobal?._id));
+
+        setTimeout(() => {
+            dispatch(setRecallData(!recallData));
+            getLimits();
+        }, 1000);
+    };
+
+
     const downloadResume = async (resumeUrl, firstName, lastName) => {
+        if (jdCountMonthly >= jdCountMonthlyLimit) {
+            setLimitPopup(true);
+            return;
+        }
+        updateAiLimit()
         try {
             if (!resumeUrl) {
                 return alert("No resume available for download.");
@@ -213,6 +268,10 @@ const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelect
 
 
     const sendResume = async () => {
+        if (jdCountMonthly >= jdCountMonthlyLimit) {
+            setLimitPopup(true);
+            return;
+        }
         if (!recipient || !subject || !message) {
             toast.error("Please fill in all required fields");
             return;
@@ -233,6 +292,7 @@ const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelect
             );
 
             toast.success("Cv forwarded successfully");
+            updateAiLimit(_id)
             setShareCv(false)
             setLoading(false)
             return response.data;
@@ -251,6 +311,10 @@ const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelect
 
 
     const addApplicant = async (applicantData) => {
+        if (jdCountMonthly >= jdCountMonthlyLimit) {
+            setLimitPopup(true);
+            return;
+        }
         setHiringLoading(true);
         try {
             const response = await axios.put(
@@ -263,7 +327,7 @@ const CandidateCard = ({ jobData, preferences, jobId, candidate, save, setSelect
                 }
             );
             toast.success("Move to Hiring Successfully");
-
+            updateAiLimit()
             const existingIds =
                 JSON.parse(localStorage.getItem("jdApplicantIds")) || [];
 

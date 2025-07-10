@@ -2,7 +2,7 @@ import React from 'react';
 import CandidateCard from './candidateCard';
 import CustomPagination from '../../components/common/CustomPagination';
 
-function ShowCandidates({ candidates, save, setMiniloading,
+function ShowCandidates({ setLimitPopup,candidates, save, setMiniloading,
   miniLoading,
   setSelectedCandidates,
   selectedCandidates,
@@ -49,6 +49,7 @@ function ShowCandidates({ candidates, save, setMiniloading,
             setExpandedUser={setExpandedUser} 
             jobId={jobId} preferences={preferences}
             jobData={jobData}
+            setLimitPopup={setLimitPopup}
             />
         ))}
       </div>

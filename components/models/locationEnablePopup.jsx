@@ -11,7 +11,7 @@ const LocationEnablePopup = ({ setEnablePopup, enablePopup, getLocation }) => {
     enablePopup && (
       <div className="expiryModel ">
         <div className="modal">
-          <div className="container sm:w-[432px] w-[100vw] scr420:p-4 p-8">
+          <div className=" bg-white rounded-[16px] sm:w-[300px] w-[90vw] h-fit  p-4">
             <div className="flex flex-col gap-[20px]">
               <div className="flex flex-col justify-center items-center gap-[12px] text-xl font-semibold">
                 Permission Required

@@ -961,7 +961,9 @@ function Collection() {
               {error && (
                 <p className="text-red font-[500] text-[12px]">{error}</p>
               )}
+                {isFile && (
               <p className=" text-[12px] font-normal text-red">You can only choose up to 200 files at a time.</p>
+                )}
               <div className="flex justify-between gap-6">
                 {userDataGlobal?.role == "bpo" ?
                   <div></div>

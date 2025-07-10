@@ -75,6 +75,27 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     mustSkills: [],
   });
 
+
+ 
+  
+      const updateAiLimit = () => {
+          const storedIds = JSON.parse(localStorage.getItem("jobMatchIds") || "[]");
+  
+          if (storedIds.includes(selectedCandidates[0]?._id)) {
+              return;
+          }
+  
+          const updatedIds = [...storedIds, selectedCandidates[0]?._id];
+          localStorage.setItem("jobMatchIds", JSON.stringify(updatedIds));
+  
+          dispatch(updateAiHit(userDataGlobal?._id));
+  
+          setTimeout(() => {
+              dispatch(setRecallData(!recallData));
+              getLimits();
+          }, 1000);
+      };
+
   const toggleFilterVisibility = (filterId) => {
     setHiddenFilters((prev) => ({
       ...prev,
@@ -248,11 +269,12 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     }
 
     try {
-      // if (jdCountMonthly >= jdCountMonthlyLimit) {
-      //   setLimitPopup(true);
-      //   return;
-      // }
+      if (jdCountMonthly >= jdCountMonthlyLimit) {
+        setLimitPopup(true);
+        return;
+      }
 
+      localStorage.removeItem("jobMatchIds")
       setMatchLoader(true);
 
       const response = await axios.post(
@@ -450,15 +472,17 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   // };
 
   const addData = async (files) => {
-    console.log(files);
+  if (jdCountMonthly >= jdCountMonthlyLimit) {
+        setLimitPopup(true);
+        return;
+      }
     try {
       if (!files || files.length === 0) return;
       const firstFile = files[0];
       let parentId;
 
-      let filesToUpload = [...files]; // Default to all files
+      let filesToUpload = [...files]; 
 
-      // If creating a new folder, first upload one file to create the folder
       if (creating) {
         const extractedText = await parsePDFFileFromURL(firstFile.resumeUrl);
 
@@ -517,6 +541,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
 
       setSelectFolder(false);
       toast.success("Saved to My Collection");
+      updateAiLimit()
 
       return results;
     } catch (error) {
@@ -1342,6 +1367,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                       allSave={allSave}
                       expandedUser={expandedUser}
                       setExpandedUser={setExpandedUser}
+                      setLimitPopup={setLimitPopup}
                     />
                   ) : (
                     <>
