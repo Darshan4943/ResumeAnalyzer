@@ -76,25 +76,25 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   });
 
 
- 
-  
-      const updateAiLimit = () => {
-          const storedIds = JSON.parse(localStorage.getItem("jobMatchIds") || "[]");
-  
-          if (storedIds.includes(selectedCandidates[0]?._id)) {
-              return;
-          }
-  
-          const updatedIds = [...storedIds, selectedCandidates[0]?._id];
-          localStorage.setItem("jobMatchIds", JSON.stringify(updatedIds));
-  
-          dispatch(updateAiHit(userDataGlobal?._id));
-  
-          setTimeout(() => {
-              dispatch(setRecallData(!recallData));
-              getLimits();
-          }, 1000);
-      };
+
+
+  const updateAiLimit = () => {
+    const storedIds = JSON.parse(localStorage.getItem("jobMatchIds") || "[]");
+
+    if (storedIds.includes(selectedCandidates[0]?._id)) {
+      return;
+    }
+
+    const updatedIds = [...storedIds, selectedCandidates[0]?._id];
+    localStorage.setItem("jobMatchIds", JSON.stringify(updatedIds));
+
+    dispatch(updateAiHit(userDataGlobal?._id));
+
+    setTimeout(() => {
+      dispatch(setRecallData(!recallData));
+      getLimits();
+    }, 1000);
+  };
 
   const toggleFilterVisibility = (filterId) => {
     setHiddenFilters((prev) => ({
@@ -152,14 +152,14 @@ function RequestCV({ isCandidate, skilotechCollection }) {
           mustSkills: res.data.mustSkills ? res.data.mustSkills : [],
           totalExpMin:
             !res.data.totalExpMin ||
-            res.data.totalExpMin === "null" ||
-            res.data.totalExpMin === "undefined"
+              res.data.totalExpMin === "null" ||
+              res.data.totalExpMin === "undefined"
               ? ""
               : res.data.totalExpMin,
           totalExpMax:
             !res.data.totalExpMax ||
-            res.data.totalExpMax === "null" ||
-            res.data.totalExpMax === "undefined"
+              res.data.totalExpMax === "null" ||
+              res.data.totalExpMax === "undefined"
               ? ""
               : res.data.totalExpMax,
         }));
@@ -269,11 +269,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     }
 
     try {
-      if (jdCountMonthly >= jdCountMonthlyLimit) {
-        setLimitPopup(true);
-        return;
-      }
-
+     
       localStorage.removeItem("jobMatchIds")
       setMatchLoader(true);
 
@@ -472,16 +468,16 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   // };
 
   const addData = async (files) => {
-  if (jdCountMonthly >= jdCountMonthlyLimit) {
-        setLimitPopup(true);
-        return;
-      }
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
+      return;
+    }
     try {
       if (!files || files.length === 0) return;
       const firstFile = files[0];
       let parentId;
 
-      let filesToUpload = [...files]; 
+      let filesToUpload = [...files];
 
       if (creating) {
         const extractedText = await parsePDFFileFromURL(firstFile.resumeUrl);
@@ -687,11 +683,11 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     ...item,
     child: Array.isArray(item.child)
       ? item.child.filter((c) => {
-          if (c == null) return false; // no nulls
-          if (typeof c === "string") return c.trim() !== "";
-          if (typeof c === "object") return c.label && c.label.trim() !== "";
-          return false;
-        })
+        if (c == null) return false; // no nulls
+        if (typeof c === "string") return c.trim() !== "";
+        if (typeof c === "object") return c.label && c.label.trim() !== "";
+        return false;
+      })
       : [],
   }));
 
@@ -766,11 +762,10 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                     (!creating && !selectedFolder)
                   }
                   onClick={() => saveResume()}
-                  className={`flex justify-center rounded-[30px] items-center h-[36px] px-6 bg_Button ${
-                    ((creating && !newFolderName) ||
+                  className={`flex justify-center rounded-[30px] items-center h-[36px] px-6 bg_Button ${((creating && !newFolderName) ||
                       (!creating && !selectedFolder)) &&
                     "opacity-50"
-                  }`}
+                    }`}
                 >
                   Save
                 </button>

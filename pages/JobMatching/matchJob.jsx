@@ -24,7 +24,7 @@ import JdMatchCard from "./JdMatchCard";
 import ApplicantDetails from "./ApplicantDetails";
 import { setRecallData } from "../../Redux/slices/recallSlice";
 import JdParameters from "../../components/common/jdParameters";
-import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
+import { updateAiHit, updateAiHitWithCount } from "../../Redux/slices/aiHitsSlice";
 import socket from "../../utils/socket";
 
 
@@ -194,6 +194,11 @@ const MatchJob = () => {
   };
 
   const MatchJob = async () => {
+    if ((jdCountMonthlyLimit - jdCountMonthly) < selectedIndexesFileTypes.length) {
+      setLimitPopup(true);
+      return;
+    }
+
     localStorage.setItem("resumeCount", resumeCount)
     setProgress(0);
 
@@ -202,10 +207,7 @@ const MatchJob = () => {
     setIsMatched(false)
     setLoadingg(true)
 
-    if (jdCountMonthly >= jdCountMonthlyLimit) {
-      setLimitPopup(true);
-      return;
-    }
+
 
     if (Object?.keys(extratctedData).length <= 1) {
       toast.error("Something went wrong, please try again");
@@ -216,11 +218,9 @@ const MatchJob = () => {
 
     try {
 
-
-      // ✅ Send all selectedIndexesFileTypes at once
       const response = await axios.post("https://api.skilotech.com/api/external/jobMatching", {
         jd: extratctedData,
-        ids: selectedIndexesFileTypes, // full array at once
+        ids: selectedIndexesFileTypes,
         resumeCount: Number(resumeCount),
         parameters,
         weightage,
@@ -228,7 +228,11 @@ const MatchJob = () => {
         socketId: socket.id,
       });
 
-      // Note: response will be ignored — real-time updates come via socket
+      dispatch(updateAiHitWithCount({ userId: userDataGlobal?._id, resumeCount: selectedIndexesFileTypes?.length }));
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
 
     } catch (error) {
       console.error("Job match failed:", error);
@@ -246,7 +250,7 @@ const MatchJob = () => {
       socket.connect();
     }
 
-    const received = []; // local array to avoid stale refs
+    const received = [];
 
     socket.on("connect", () => {
       console.log("✅ Connected to socket:", socket.id);
@@ -256,9 +260,9 @@ const MatchJob = () => {
       console.log("Matching started, total resumes to process:", total);
       setTotalToProcess(total);
       setProgress(0);
-      setResumeList([]); // clear old data
+      setResumeList([]);
       setLoadingg(true);
-      received.length = 0; // clear previous results
+      received.length = 0;
     });
 
     socket.on("jobMatchingProgress", ({ current, total, result }) => {
@@ -285,7 +289,7 @@ const MatchJob = () => {
       const finalData = sorted.slice(0, filterCount);
 
 
-      setResumeList(finalData);
+      setResumeList(sorted);
       setIsMatched(true);
       setMatchLoader(false);
       setLoadingg(false);
@@ -746,23 +750,23 @@ const MatchJob = () => {
         );
       }
 
-      // const jdSubscriptionLimitUrl = `https://api.skilotech.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
-      // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
-      //   resumeCount,
-      // });
+      // const jdSubscriptionLimitUrl = `https://api.skilotech.com/api/subscription/updateJdMatchAiHits/${userDataGlobal?._id}`;
 
-      // if (!jdSubscriptionResponse.data.success) {
-      //   console.error(
-      //     "Error in updateJdSubscriptionLimit:",
-      //     jdSubscriptionResponse.data.message
-      //   );
+      // try {
+      //   const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
+      //     resumeCount,
+      //   });
+
+      //   if (jdSubscriptionResponse.status === 200) {
+      //     dispatch(setRecallData(!recallData));
+      //     getLimits(); 
+      //   } else {
+      //     console.warn("Failed to update AI hits limit");
+      //   }
+      // } catch (error) {
+      //   console.error("Error while updating AI hits:", error);
       // }
-      // dispatch(setRecallData(!recallData));
-      dispatch(updateAiHit(userDataGlobal?._id));
-      setTimeout(() => {
-        dispatch(setRecallData(!recallData));
-        getLimits();
-      }, 1000);
+
 
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,

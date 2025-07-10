@@ -1,21 +1,44 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Original thunk (no changes)
 export const updateAiHit = createAsyncThunk(
   "aiHits/updateAiHit",
   async (userId, { rejectWithValue }) => {
     try {
-      
       const subscriptionResponse = await axios.put(
         `https://api.skilotech.com/api/subscription/updateAiHits/${userId}`
       );
 
-      
       const logsResponse = await axios.put(
         `https://api.skilotech.com/api/apiLogs/updateAiHits/${userId}`
       );
 
-      
+      return {
+        subscription: subscriptionResponse.data,
+        logs: logsResponse.data,
+      };
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
+  }
+);
+
+// ✅ New thunk that accepts `resumeCount` too
+export const updateAiHitWithCount = createAsyncThunk(
+  "aiHits/updateAiHitWithCount",
+  async ({ userId, resumeCount }, { rejectWithValue }) => {
+    try {
+      const subscriptionResponse = await axios.put(
+        `https://api.skilotech.com/api/subscription/updateJdMatchAiHits/${userId}`,
+        { resumeCount }
+      );
+
+      const logsResponse = await axios.put(
+        `https://api.skilotech.com/api/apiLogs/updateJdMatchAiHits/${userId}`,
+        { resumeCount }
+      );
+
       return {
         subscription: subscriptionResponse.data,
         logs: logsResponse.data,
@@ -40,6 +63,14 @@ const aiHitsSlice = createSlice({
         state.error = null;
       })
       .addCase(updateAiHit.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      // Handle new thunk
+      .addCase(updateAiHitWithCount.fulfilled, (state, action) => {
+        state.updateAiHit = action.payload;
+        state.error = null;
+      })
+      .addCase(updateAiHitWithCount.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
