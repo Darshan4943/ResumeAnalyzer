@@ -128,9 +128,9 @@ function Details() {
                       {Math.ceil(selectedPlan?.amount * exchangeRate)}
                     </p>
                   </div>
-                  <p className="scr700:text-[12px] text-[4vw] font-[500]">
+                  {/* <p className="scr700:text-[12px] text-[4vw] font-[500]">
                     {selectedPlan?.description}
-                  </p>
+                  </p> */}
                   <div className="bg-[#DEDEDE] h-[2px]" />
                 </div>
                 <div className="flex gap-3 flex-col text-left">

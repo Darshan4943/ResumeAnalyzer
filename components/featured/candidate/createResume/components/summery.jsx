@@ -210,13 +210,14 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       </feMerge>
                     </filter>
                   </defs>
-                  <circle cx={endX} cy={endY} r="8" fill="#4C43CD" stroke="white" strokeWidth="3"  />
+                  <circle cx={endX} cy={endY} r="8" fill="#4C43CD" stroke="white" strokeWidth="3" />
                 </svg>
 
                 <div className="absolute bottom-[60px] flex flex-col gap-2 text-center text-[14px] font-normal">
                   <div className="text-black text-[24px] font-bold">
-                    {progress1}%
+                    {parseFloat(progress1).toFixed(2)}%
                   </div>
+
                   <div className="flex items-center gap-2 text-[12px]">
                     <div className="bg-[#4C43CD] w-4 h-4 rounded-[2px]"></div>
                     Remaining AI Hits:{" "}
