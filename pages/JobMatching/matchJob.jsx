@@ -862,7 +862,7 @@ const MatchJob = () => {
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
                 <div className="w-[340px] text-center bg-white p-4 rounded-[12px] flex flex-col gap-4">
-                  <p className="text-[16px] font-medium"> You will charged {totalAvailable} AI Hits for this match. Do you want to continue?</p>
+                  <p className="text-[16px] font-medium"> You will be charged {totalAvailable} AI Hits for this match. Do you want to continue?</p>
                   <div className="flex justify-between">
 
                     <button className="blue_border_Button h-[32px] px-4 rounded-[30px]" onClick={() => setShowConfirmationPopup(false)}>Cancel</button>
