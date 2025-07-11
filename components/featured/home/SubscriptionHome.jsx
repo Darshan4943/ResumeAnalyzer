@@ -186,9 +186,9 @@ function SubscriptionPlan({ isLogin, fromMain }) {
 
   };
 
-  useEffect(() => {
-    getLocation();
-  }, []);
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
   return (
     showPlan ?
     <div className=" bg-subscriptionPlan bg-cover bg-no-repeat py-12 min-h-[95vh]">

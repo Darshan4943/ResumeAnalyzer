@@ -23,7 +23,7 @@ import { useRouter } from "next/router";
 import { setShareJobClose } from "./slices/shareJobSlice";
 import { setAiHitsData } from "./slices/setAiHitsSlice";
 
-export const Api = ({}) => {
+export const Api = ({ }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -279,7 +279,7 @@ export const Api = ({}) => {
             //     )
             //     .then((res) => {
             //       if (res.data.success) {
-                  
+
             //       }
             //     })
             //     .catch((err) => {
@@ -317,9 +317,9 @@ export const Api = ({}) => {
             localStorage.setItem("skillTestCountLimit", 0);
             localStorage.setItem("skillCertifiedCountLimit", 0);
           }
-          localStorage.setItem("exchangeRate", "1");
-          localStorage.setItem("currency", "USD");
-          localStorage.setItem("icon", "$");
+          // localStorage.setItem("exchangeRate", "1");
+          // localStorage.setItem("currency", "USD");
+          // localStorage.setItem("icon", "$");
         })
         .catch((err) => {
           console.log(err);
@@ -347,8 +347,8 @@ export const Api = ({}) => {
         });
     }
   }, [userDataGlobal]);
-   useEffect(() => {
-    if (!userDataGlobal) return; 
+  useEffect(() => {
+    if (!userDataGlobal) return;
 
     const updateLastActive = async () => {
       try {
@@ -428,6 +428,7 @@ export const Api = ({}) => {
 
       if (countryData) {
         const country = countryData.formatted_address;
+      
         localStorage.setItem("country", country);
         const codeJson = telCode.find((item) => item?.name === country);
         const Country = currencyMap.find(
@@ -439,19 +440,19 @@ export const Api = ({}) => {
           country === "India"
             ? "INR"
             : country === "United Kingdom"
-            ? "GBP"
-            : "USD";
+              ? "GBP"
+              : "USD";  
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
         );
-
+      
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
           `https://api.skilotech.com/api/exchangeRate/${currency}`
         );
-
+   
         localStorage.setItem(
           "exchangeRate",
           exchangeRate?.data === "" ? "1" : exchangeRate?.data?.rate
@@ -503,9 +504,9 @@ export const Api = ({}) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-          Math.cos((lat2 * Math.PI) / 180) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance in kilometers
       return distance;

@@ -54,7 +54,7 @@ function EmployerHeader() {
   useEffect(() => {
     setTimeout(() => {
       getLimits();
-    }, 1000);
+    }, 1500);
   }, [recallData]);
 
   const handleLogOut = () => {

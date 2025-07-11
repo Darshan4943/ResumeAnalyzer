@@ -42,8 +42,7 @@ function RandomMail({
   const [content, setContent] = useState(
     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
 
-    <p style="display: block; margin-bottom: 20px;">Greetings from ${
-      userDataGlobal?.firstName
+    <p style="display: block; margin-bottom: 20px;">Greetings from ${userDataGlobal?.firstName
     } ${userDataGlobal?.lastName}  .</p>
   
     <div style="display: block; margin-bottom: 20px;">
@@ -51,11 +50,13 @@ function RandomMail({
        As part of our recruitment partnership, we are pleased to submit a list of shortlisted candidates for the open positions currently available at your organization. These candidates have been carefully screened and selected through Skilotech.com, ensuring alignment with the job requirements shared.
       </p>
   
-      <p style="display: block; margin-bottom: 20px;">
-       To review the shortlisted candidates and proceed with the selection process, please click the link below:
-       ${`https://www.skilotech.com/common/hiring/JobPost?id=${id}&clientView=${true}`}
+     <p style="display: block; margin-bottom: 20px;">
+  To review the shortlisted candidates and proceed with the selection process, please click the link below:
+  <a href="https://www.skilotech.com/common/hiring/JobPost?id=${id}&clientView=true" target="_blank" style="color: #007bff;">
+    View Candidates
+  </a>
+</p>
 
-      </p>
       <p style="display: block; margin-bottom: 20px;">
        Thank you for choosing us as your recruitment partner. We look forward to assisting you in building the right team.
 
@@ -64,8 +65,7 @@ function RandomMail({
      <p style="display: block; margin-bottom: 20px;"></p>
     <p style="display: block; margin-bottom: 20px;">Best Regards,</p>
   
-    <p style="display: block; margin-bottom: 10px;">${
-      userDataGlobal?.firstName
+    <p style="display: block; margin-bottom: 10px;">${userDataGlobal?.firstName
     } ${userDataGlobal?.lastName}</p>
   
     <p style="display: block; margin-bottom: 10px;">

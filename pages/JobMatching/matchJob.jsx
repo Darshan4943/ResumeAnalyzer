@@ -26,6 +26,7 @@ import { setRecallData } from "../../Redux/slices/recallSlice";
 import JdParameters from "../../components/common/jdParameters";
 import { updateAiHit, updateAiHitWithCount } from "../../Redux/slices/aiHitsSlice";
 import socket from "../../utils/socket";
+import MiniLoader from "../../components/common/mini-loader";
 
 
 const MatchJob = () => {
@@ -155,43 +156,117 @@ const MatchJob = () => {
   const receivedRef = useRef([]);
   const [totalToProcess, setTotalToProcess] = useState(0);
 
+  const [loading5, setLoading5] = useState(false)
+  const [totalAvailable, setTotalAvailable] = useState(null);
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  const [matchId, setMatchId] = useState(null);
+  const handleJobMatch = async () => {
+    // ✅ UI reset
+    setLoading5(true);
+    setResumeList([]);
+    setIsMatched(false);
+    setProgress(0);
+    setTotalToProcess(0);
+    setShowConfirmationPopup(false);
+    setLimitPopup(false);
+    setMatchId(null);
 
+    // ✅ Clear memory refs
+    if (receivedRef.current) {
+      receivedRef.current.length = 0;
+    }
 
+    // ✅ Unsubscribe old socket events (optional safety)
+    socket.off("jobMatchingStarted");
+    socket.off("jobMatchingProgress");
+    socket.off("jobMatchingComplete");
 
-
-  const JobMatchforSkilotechCollection = async () => {
-    localStorage.setItem("resumeCount", resumeCount)
     try {
-      setProgress(0);
-      receivedRef.current = [];
-      setResumeList([]);
-      setIsMatched(false);
-      setLoadingg(true);
-
-      const res = await axios.post("https://api.skilotech.com/api/skiloCollection/jobMatching", {
+      const res = await axios.post("https://api.skilotech.com/api/skiloCollection/prepareMatching", {
         jd: extratctedData,
-        resumeCount: Number(resumeCount),
-        parameters,
-        weightage,
-        priority,
-        socketId: socket.id,
       });
 
       if (res.data.error) {
-        setLoadingg(false);
+        setResumeList([]);
         setIsMatched(true);
+        setLoading5(false);
         return;
       }
 
-      if (res.data.status === "processing") {
-        console.log("Job match started... waiting for results via socket.");
-      }
+      setTotalAvailable(Math.ceil(res.data.totalAvailable / 2));
+      setMatchId(res.data.matchId);
+      setShowConfirmationPopup(true);
+      setLoading5(false);
     } catch (err) {
-      console.error("Job match failed:", err);
-      setLoadingg(false);
-
+      console.error("Prepare match error", err);
+      setLoading5(false);
     }
   };
+
+
+
+  // const JobMatchforSkilotechCollection = async () => {
+  //   localStorage.setItem("resumeCount", resumeCount)
+  //   try {
+  //     setProgress(0);
+  //     receivedRef.current = [];
+  //     setResumeList([]);
+  //     setIsMatched(false);
+  //     setLoadingg(true);
+
+  //     const res = await axios.post("https://api.skilotech.com/api/skiloCollection/jobMatching", {
+  //       jd: extratctedData,
+  //       resumeCount: Number(resumeCount),
+  //       parameters,
+  //       weightage,
+  //       priority,
+  //       socketId: socket.id,
+  //     });
+
+  //     if (res.data.error) {
+  //       setLoadingg(false);
+  //       setIsMatched(true);
+  //       return;
+  //     }
+
+  //     if (res.data.status === "processing") {
+  //       console.log("Job match started... waiting for results via socket.");
+  //     }
+  //   } catch (err) {
+  //     console.error("Job match failed:", err);
+  //     setLoadingg(false);
+
+  //   }
+  // };
+
+  const handleContinueMatching = async () => {
+    setShowConfirmationPopup(false);
+  
+    const remainingLimit = jdCountMonthlyLimit - jdCountMonthly;
+
+    if ( remainingLimit >= totalAvailable ) {
+      dispatch(updateAiHitWithCount({ userId: userDataGlobal?._id, resumeCount: totalAvailable }));
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
+        setLoadingg(true)
+      await axios.post("https://api.skilotech.com/api/skiloCollection/jobMatching", {
+        matchId,
+        socketId: socket.id,
+        resumeCount,
+        jd: extratctedData,
+        parameters,
+        weightage,
+        priority,
+      });
+    } else {
+       
+      setLimitPopup(true);
+    }
+  };
+
+
 
   const MatchJob = async () => {
     if ((jdCountMonthlyLimit - jdCountMonthly) < selectedIndexesFileTypes.length) {
@@ -289,7 +364,7 @@ const MatchJob = () => {
       const finalData = sorted.slice(0, filterCount);
 
 
-      setResumeList(sorted);
+      setResumeList(finalData);
       setIsMatched(true);
       setMatchLoader(false);
       setLoadingg(false);
@@ -782,6 +857,24 @@ const MatchJob = () => {
     <>
       {tab === 0 && (
         <>
+          {showConfirmationPopup && (
+            <>
+              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
+                <div className="w-[340px] text-center bg-white p-4 rounded-[12px] flex flex-col gap-4">
+                  <p className="text-[16px] font-medium"> You will charged {totalAvailable} AI Hits for this match. Do you want to continue?</p>
+                  <div className="flex justify-between">
+
+                    <button className="blue_border_Button h-[32px] px-4 rounded-[30px]" onClick={() => setShowConfirmationPopup(false)}>Cancel</button>
+                    <button className="bg_Button h-[32px] rounded-[30px] px-4" onClick={handleContinueMatching}>Continue</button>
+                  </div>
+
+                </div>
+
+              </div>
+            </>
+          )}
+
           {limitPopup && (
             <div className="z-[200000]">
               <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
@@ -964,22 +1057,27 @@ const MatchJob = () => {
                   />
                 </div>
                 {collection === "SkilotechCollection" ? (
-                  <button
-                    onClick={() => JobMatchforSkilotechCollection()}
-                    className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
-                  >
-                    Find Match
-                  </button>
+                  loading5 ? (
+                    <div className="bg_Button px-4 rounded-[30px] flex justify-center items-center font-medium w-[130px] h-[38px] min-w-[130px]"> <MiniLoader /></div>
+                  ) : (
+                    <button
+                      onClick={handleJobMatch}
+                      className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
+                    >
+                      Find Match
+                    </button>
+                  )
                 ) : (
                   <button
-                    disabled={!selectedIndexes.length > 0}
-                    onClick={() => MatchJob()}
+                    disabled={selectedIndexes.length === 0}
+                    onClick={MatchJob}
                     style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
                     className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
                   >
                     Find Match
                   </button>
                 )}
+
               </div>
             </div>
 
