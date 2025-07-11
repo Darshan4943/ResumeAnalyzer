@@ -160,48 +160,36 @@ const MatchJob = () => {
   const [totalAvailable, setTotalAvailable] = useState(null);
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
   const [matchId, setMatchId] = useState(null);
-  const handleJobMatch = async () => {
-    // ✅ UI reset
-    setLoading5(true);
-    setResumeList([]);
-    setIsMatched(false);
-    setProgress(0);
-    setTotalToProcess(0);
-    setShowConfirmationPopup(false);
-    setLimitPopup(false);
-    setMatchId(null);
 
-    // ✅ Clear memory refs
-    if (receivedRef.current) {
-      receivedRef.current.length = 0;
+
+const handleJobMatch = async () => {
+  setLoading5(true);
+  setResumeList([]);
+  setIsMatched(false);
+
+  try {
+    const res = await axios.post("https://api.skilotech.com/api/skiloCollection/prepareMatching", {
+      jd: extratctedData,
+    });
+
+    if (res.data.error) {
+     
+      setResumeList([]);
+      setIsMatched(true);
+      setLoading5(false);
+      return;
     }
 
-    // ✅ Unsubscribe old socket events (optional safety)
-    socket.off("jobMatchingStarted");
-    socket.off("jobMatchingProgress");
-    socket.off("jobMatchingComplete");
+    setTotalAvailable(Math.ceil(res.data.totalAvailable / 2));
+    setMatchId(res.data.matchId);
+    setShowConfirmationPopup(true);
+    setLoading5(false);
+  } catch (err) {
+    console.error("Prepare match error", err);
+    setLoading5(false);
+  }
+}; 
 
-    try {
-      const res = await axios.post("https://api.skilotech.com/api/skiloCollection/prepareMatching", {
-        jd: extratctedData,
-      });
-
-      if (res.data.error) {
-        setResumeList([]);
-        setIsMatched(true);
-        setLoading5(false);
-        return;
-      }
-
-      setTotalAvailable(Math.ceil(res.data.totalAvailable / 2));
-      setMatchId(res.data.matchId);
-      setShowConfirmationPopup(true);
-      setLoading5(false);
-    } catch (err) {
-      console.error("Prepare match error", err);
-      setLoading5(false);
-    }
-  };
 
 
 
