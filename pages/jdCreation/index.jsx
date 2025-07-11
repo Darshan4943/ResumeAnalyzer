@@ -56,12 +56,12 @@ const formatJDText = (jdResult) => {
     jdResult.jobTitle && `Job Title: ${jdResult.jobTitle}`,
     jdResult.jobDescription && `Job Description:\n${jdResult.jobDescription}`,
     jdResult.responsibilities?.length &&
-      `Responsibilities:\n- ${jdResult.responsibilities.join("\n- ")}`,
+    `Responsibilities:\n- ${jdResult.responsibilities.join("\n- ")}`,
     jdResult.qualifications?.length &&
-      `Qualifications:\n- ${jdResult.qualifications.join("\n- ")}`,
+    `Qualifications:\n- ${jdResult.qualifications.join("\n- ")}`,
     jdResult.skills?.length && `Skills:\n- ${jdResult.skills.join("\n- ")}`,
     jdResult.benefits?.length &&
-      `Benefits:\n- ${jdResult.benefits.join("\n- ")}`,
+    `Benefits:\n- ${jdResult.benefits.join("\n- ")}`,
   ].filter(Boolean); // Removes undefined/false entries
 
   return sections.join("\n\n");
@@ -80,6 +80,8 @@ function Index() {
   const fileInputRef = useRef(null);
   const [isTypingDone, setIsTypingDone] = useState(false);
   const containerRef = useRef(null);
+   const dispatch = useDispatch();
+   const { recallData } = useSelector((state) => state.recall);
   const [inputLine, setInputLine] = useState("");
   const [jdResult, setJdResult] = useState(null);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -87,6 +89,25 @@ function Index() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [jobTitle, setJobTitle] = useState("");
   const [btnLoading, setBtnLoading] = useState({ type: 1, loading: false });
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
+  const [jdCountMonthly, setJdCountMonthly] = useState(0);
+
+  const getLimits = () => {
+    const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setJdCountMonthly(jdCountMonthly);
+
+    const jdCountMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setJdCountMonthlyLimit(jdCountMonthlyLimit);
+  };
+  useEffect(() => {
+    getLimits();
+
+  }, []);
+
+
+
   const handleNavigate = (navigate, id) => {
     router.push(
       navigate ? "/common/jobPosting/CreateNewJob?jd=" + id : "/jdCreation"
@@ -133,7 +154,7 @@ function Index() {
       const textData = [];
       if (
         file?.type ==
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
         file?.type == "application/msword"
       ) {
         const reader = new FileReader();
@@ -154,9 +175,9 @@ function Index() {
             if (
               error.message.includes("Can't find end of central directory") ||
               error?.properties?.error ===
-                "The filetype for this file could not be identified, is this file corrupted" ||
+              "The filetype for this file could not be identified, is this file corrupted" ||
               error?.message ===
-                "The filetype for this file could not be identified, is this file corrupted ?"
+              "The filetype for this file could not be identified, is this file corrupted ?"
             ) {
               setDocFileError(true);
             }
@@ -266,6 +287,11 @@ function Index() {
     });
   };
   const handleGenerate = async () => {
+
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
+      return;
+    }
     if (!inputLine.trim()) return;
     setAiLoading(true);
     setIsTypingDone(false);
@@ -278,12 +304,12 @@ function Index() {
           previousPrompts:
             fileText?.length > 0
               ? [
-                  {
-                    prompt: "this is jd to analyze and generate",
-                    JD: fileText,
-                  },
-                  ...previousPrompts,
-                ]
+                {
+                  prompt: "this is jd to analyze and generate",
+                  JD: fileText,
+                },
+                ...previousPrompts,
+              ]
               : previousPrompts,
         }
       );
@@ -295,6 +321,12 @@ function Index() {
         { prompt: inputLine, JD: response.data },
       ]);
       setInputLine("");
+      dispatch(updateAiHit(userDataGlobal?._id));
+
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
     } catch (error) {
       alert("Failed to generate JD");
       console.error(error);

@@ -52,12 +52,12 @@ function Collection() {
   const [duplicateFiles, setDuplicateFiles] = useState([]);
   const [failedFiles, setFailedFiles] = useState([]);
   const [unSyncFiles, setUnSyncFiles] = useState(null);
- 
+
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true);
   const [collectionCount, setCollectionCount] = useState(0);
   const [error, setError] = useState("");
-  
+
   const getLimits = () => {
     const collectionCountDaily = JSON.parse(
       localStorage.getItem("collectionCountDaily")
@@ -407,9 +407,11 @@ function Collection() {
     const textData = [];
 
     const maxFiles = 200;
-    const allowedFiles = userDataGlobal?.role === "bpo"
-      ? Array.from(selectedFiles).slice(0, maxFiles)
-      : Array.from(selectedFiles).slice(0, Math.min(collectionCount, maxFiles));
+    // const allowedFiles = userDataGlobal?.role === "bpo"
+    //   ? Array.from(selectedFiles).slice(0, maxFiles)
+    //   : Array.from(selectedFiles).slice(0, Math.min(collectionCount, maxFiles));
+    const allowedFiles =  Array.from(selectedFiles).slice(0, maxFiles)
+      
 
     if (allowedFiles.length) {
       const promises = allowedFiles.map((file, index) => {
@@ -961,23 +963,24 @@ function Collection() {
               {error && (
                 <p className="text-red font-[500] text-[12px]">{error}</p>
               )}
-                {isFile && (
-              <p className=" text-[12px] font-normal text-red">You can only choose up to 200 files at a time.</p>
-                )}
+              
               <div className="flex justify-between gap-6">
                 {userDataGlobal?.role == "bpo" ?
                   <div></div>
                   :
                   <div
-                    className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"
-                      }`}
+                    // className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`}
+                     className={`text-[16px] font-medium`}
                   >
                     {isFile && (
+                <p className=" text-[12px] font-normal text-red">You can only choose up to 200 files at a time.</p>
+              )}
+                    {/* {isFile && (
                       <>
                         Daily upload limit available :{" "}
                         {collectionCount ? collectionCount : 0}
                       </>
-                    )}
+                    )} */}
                   </div>
                 }
                 <div className="flex justify-end gap-6 text-blue font-medium">
