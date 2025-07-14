@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import SelectPostJd from "./SelectPostJd";
 import ManualForm from "./ManualForm";
@@ -19,6 +19,7 @@ import FolderTreeDropdown from "./folderTree";
 import Filter from "../featured/candidate/jobs/Filter";
 import { useRouter } from "next/router";
 import ApplicantDetails from "../../pages/findCandidates/showProfile";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function RequestCV({ isCandidate, skilotechCollection }) {
   const [isResumes, setIsResumes] = useState("manual");
@@ -27,6 +28,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     "MyCollection",
     "SkilotechCollection",
   ]);
+  const [mobileFilter, setMobileFilter] = useState(false);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [resumeCount, setResumeCount] = useState(5);
   const [selectedJob, setSelectedJob] = useState();
@@ -65,6 +67,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   const [readyToFetch, setReadyToFetch] = useState(false);
   const [expandedUser, setExpandedUser] = useState(null);
   const [jobData, setJobData] = useState();
+  const taskRef = useRef(null);
   const [data, setData] = useState({
     jobTitle: "",
     country: [],
@@ -75,7 +78,19 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     mustSkills: [],
   });
 
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setMobileFilter(false);
+      setOpenDropdown(false);
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
 
   const updateAiLimit = () => {
@@ -269,7 +284,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
     }
 
     try {
-     
+
       localStorage.removeItem("jobMatchIds")
       setMatchLoader(true);
 
@@ -702,7 +717,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="bg-white w-[450px] flex flex-col p-4  gap-2 rounded-[12px]">
+            <div className="bg-white sm:w-[450px] w-[95%] flex flex-col scr390:px-4 scr390:py-4 px-2 py-4  gap-2 rounded-[12px]">
               <div className="flex justify-between">
                 <p className=" font-semibold">Save to My Collection</p>
                 <div
@@ -714,45 +729,52 @@ function RequestCV({ isCandidate, skilotechCollection }) {
               </div>
               <div className="flex items-center gap-4 mt-2">
                 {!creating ? (
-                  <>
-                    <div className="w-full flex flex-col gap-2">
-                      <label className="block text-sm font-medium mb-1">
-                        Select Existing Folder
-                      </label>
-                      <FolderTreeDropdown
-                        folders={folders}
-                        selectedFolder={selectedFolder}
-                        setSelectedFolder={setSelectedFolder}
-                      />
-                    </div>
-                    <button
-                      onClick={() => setCreating(true)}
-                      className="mt-6 text-sm font-medium   text-blue rounded min-w-[130px]"
-                    >
-                      Create Folder
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-full flex flex-col gap-2">
-                      <label className="block text-sm  font-medium mb-1">
-                        Enter New Folder Name
-                      </label>
-                      <input
-                        type="text"
-                        value={newFolderName}
-                        onChange={(e) => setNewFolderName(e.target.value)}
-                        placeholder="New folder name"
-                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-                      />
-                    </div>
-                    <button
-                      onClick={() => setCreating(false)}
-                      className="mt-6 text-sm text-blue rounded min-w-[160px]"
-                    >
+                  <div className="flex flex-col gap-4 w-full">
+                    <label className="block scr420:text-sm text-[12px] font-medium mb-1">
                       Select Existing Folder
-                    </button>
-                  </>
+                    </label>
+                    <div className="flex justify-between gap-4">
+                      <div className="w-full flex flex-col gap-2">
+
+                        <FolderTreeDropdown
+                          folders={folders}
+                          selectedFolder={selectedFolder}
+                          setSelectedFolder={setSelectedFolder}
+                        />
+                      </div>
+                      <button
+                        onClick={() => setCreating(true)}
+                        className=" scr420:text-sm text-[12px] font-medium   text-blue rounded scr390:min-w-[130px] min-w-[90px]"
+                      >
+                        Create Folder
+                      </button>
+
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-4 w-full">
+                    <label className="block scr420:text-sm text-[12px] font-medium mb-1">
+                      Enter New Folder Name
+                    </label>
+                    <div className="flex justify-between gap-4">
+                      <div className="w-full flex flex-col gap-2">
+
+                        <input
+                          type="text"
+                          value={newFolderName}
+                          onChange={(e) => setNewFolderName(e.target.value)}
+                          placeholder="New folder name"
+                          className="w-full border border-[#DEDEDE] rounded px-3 py-2 scr420:text-sm text-[12px]"
+                        />
+                      </div>
+                      <button
+                        onClick={() => setCreating(false)}
+                        className=" scr420:text-sm text-[12px] text-blue rounded scr390:min-w-[160px] min-w-[134px]"
+                      >
+                        Select Existing Folder
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
               <div className="flex  justify-end">
@@ -763,7 +785,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                   }
                   onClick={() => saveResume()}
                   className={`flex justify-center rounded-[30px] items-center h-[36px] px-6 bg_Button ${((creating && !newFolderName) ||
-                      (!creating && !selectedFolder)) &&
+                    (!creating && !selectedFolder)) &&
                     "opacity-50"
                     }`}
                 >
@@ -816,10 +838,10 @@ function RequestCV({ isCandidate, skilotechCollection }) {
             </>
           ) : (
             <div className="relative flex flex-col gap-4">
-              <div className="flex gap-4 items-center justify-between  ">
-                <div className="flex gap-4 items-center  ">
+              <div className="flex md:flex-row flex-col gap-4 md:items-center justify-between  ">
+                <div className="flex gap-4 scr420:items-center  items-start ">
                   <svg
-                    className=" cursor-pointer"
+                    className=" cursor-pointer min-w-[24px]"
                     onClick={() => router.back()}
                     width="24"
                     height="24"
@@ -839,7 +861,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                       {totalCount} profiles for {jobData?.jobTitle}
                     </div>
                   ) : (
-                    <div className="text-[16px] font-medium flex gap-2 items-center">
+                    <div className="text-[16px] font-medium flex gap-2 scr540:items-center">
                       <svg
                         width="20"
                         height="19"
@@ -1167,6 +1189,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                           WebkitBackgroundClip: "text",
                           color: "transparent",
                         }}
+                        className="min-w-[70px]"
                       >
                         {" "}
                         AI found{" "}
@@ -1175,76 +1198,208 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                     </div>
                   )}
                 </div>
-                {preferences && (
-                  <button
-                    style={{
-                      backgroundColor: "#4C43CD",
-                      backgroundImage: `
+                <div className="flex gap-4 items-center justify-end">
+                  {preferences && (
+                    <button
+                      style={{
+                        backgroundColor: "#4C43CD",
+                        backgroundImage: `
       radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
       radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
     `,
-                    }}
-                    onClick={() =>
-                      router.push(`/JobMatching/matchJob?selectedJob=${jobId}`)
-                    }
-                    className={`text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
-             min-w-[176.24px] h-[38px] transition-all duration-300 ease-in-out  `}
-                  >
-                    <svg
-                      className={`min-w-[20px] transition-all duration-100 `}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      }}
+                      onClick={() =>
+                        router.push(`/JobMatching/matchJob?selectedJob=${jobId}`)
+                      }
+                      className={`text-white rounded-[30px] justify-center xsm:px-6 px-3 flex gap-[10px] items-center text-[12px] font-semibold 
+             xsm:min-w-[214.94px] min-w-[190.94px] h-[38px] transition-all duration-300 ease-in-out  `}
                     >
-                      <g clipPath="url(#clip0_9135_108708)">
-                        <g clip-path="url(#clip0_9135_108708)">
+                      <svg
+                        className={`min-w-[20px] transition-all duration-100 `}
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clipPath="url(#clip0_9135_108708)">
+                          <g clip-path="url(#clip0_9135_108708)">
+                            <path
+                              d="M9.83765 5.00562C10.4939 7.79858 12.2009 9.48218 14.9939 10.1501C15.0291 10.158 15.0486 10.1931 15.0408 10.2244C15.0369 10.2478 15.0173 10.2673 14.9939 10.2712C12.1775 10.9158 10.4978 12.6384 9.83374 15.4353C9.82593 15.4705 9.79077 15.49 9.75562 15.4822C9.73218 15.4783 9.71265 15.4587 9.70874 15.4353C9.06421 12.6189 7.35718 10.9353 4.5564 10.2634C4.52124 10.2556 4.50171 10.2205 4.50952 10.1853C4.51343 10.1619 4.53296 10.1423 4.5564 10.1384C7.35718 9.4939 9.04858 7.79468 9.71655 5.00171C9.72437 4.96655 9.75952 4.94702 9.79468 4.95483C9.81421 4.97046 9.83374 4.98608 9.83765 5.00562Z"
+                              fill="#FFDA1D"
+                            />
+                            <path
+                              d="M16.4268 0.836686C16.7744 2.30544 17.6689 3.19215 19.1377 3.54372C19.1572 3.54762 19.165 3.56715 19.1611 3.58278C19.1572 3.5945 19.1494 3.60622 19.1377 3.60622C17.6572 3.94606 16.7705 4.85231 16.4229 6.32106C16.4189 6.34059 16.3994 6.3484 16.3838 6.3445C16.3721 6.34059 16.3604 6.33278 16.3604 6.32106C16.0205 4.84059 15.1221 3.95387 13.6494 3.5984C13.6299 3.5945 13.6221 3.57497 13.626 3.55934C13.6299 3.54762 13.6377 3.5359 13.6494 3.5359C15.1221 3.19606 16.0127 2.30544 16.3643 0.83278C16.3682 0.813248 16.3838 0.80153 16.4033 0.805436C16.415 0.809342 16.4229 0.821061 16.4268 0.836686Z"
+                              fill="#FFDA1D"
+                            />
+                            <path
+                              d="M2.80176 3.30957C3.14551 4.77832 4.04395 5.66504 5.5127 6.0166C5.53223 6.02051 5.54004 6.04004 5.53613 6.05566C5.53223 6.06738 5.52441 6.0791 5.5127 6.0791C4.03223 6.41895 3.14551 7.3252 2.79785 8.79395C2.79395 8.81348 2.77441 8.82129 2.75879 8.81738C2.74707 8.81348 2.73535 8.80566 2.73535 8.79395C2.39551 7.31348 1.49707 6.42676 0.0244141 6.07129C0.00488281 6.06738 -0.00292969 6.04785 0.000976563 6.03223C0.00488281 6.02051 0.0126953 6.00879 0.0244141 6.00879C1.49707 5.66895 2.3877 4.77832 2.73926 3.30566C2.74316 3.28613 2.7627 3.27832 2.77832 3.28223C2.79004 3.29004 2.80176 3.29785 2.80176 3.30957Z"
+                              fill="#FFDA1D"
+                            />
+                            <path
+                              d="M17.0439 13.7195C17.3916 15.1882 18.2861 16.075 19.7549 16.4265C19.7744 16.4304 19.7822 16.45 19.7783 16.4656C19.7744 16.4773 19.7666 16.489 19.7549 16.489C18.2744 16.8289 17.3877 17.7351 17.04 19.2039C17.0361 19.2234 17.0166 19.2312 17.001 19.2273C16.9893 19.2234 16.9775 19.2156 16.9775 19.2039C16.6377 17.7234 15.7393 16.8367 14.2666 16.4812C14.2471 16.4773 14.2393 16.4578 14.2432 16.4422C14.2471 16.4304 14.2549 16.4187 14.2666 16.4187C15.7393 16.0789 16.6299 15.1882 16.9814 13.7156C16.9854 13.6961 17.0049 13.6843 17.0205 13.6882C17.0322 13.7 17.0439 13.7078 17.0439 13.7195Z"
+                              fill="#FFDA1D"
+                            />
+                            <path
+                              d="M18.2666 9.19242C18.4854 10.1182 19.0518 10.6807 19.9776 10.9034C19.9893 10.9073 19.9932 10.919 19.9893 10.9307C19.9854 10.9346 19.9815 10.9385 19.9776 10.9424C19.0401 11.1573 18.4815 11.7276 18.2627 12.6573C18.2588 12.669 18.2471 12.6768 18.2354 12.6729C18.2276 12.6729 18.2198 12.6651 18.2198 12.6573C18.0049 11.7198 17.4385 11.1612 16.5088 10.9385C16.4971 10.9346 16.4893 10.9229 16.4932 10.9112C16.4932 10.9034 16.501 10.8955 16.5088 10.8955C17.4385 10.6807 18.001 10.1182 18.2237 9.18852C18.2276 9.1768 18.2393 9.16898 18.251 9.17289C18.2588 9.1768 18.2666 9.18461 18.2666 9.19242Z"
+                              fill="#FFDA1D"
+                            />
+                            <path
+                              d="M4.81352 14.9229C5.03227 15.8487 5.59867 16.4112 6.52445 16.6338C6.53617 16.6377 6.54399 16.6495 6.54008 16.6612C6.54008 16.669 6.53227 16.6768 6.52445 16.6768C5.59086 16.8916 5.03227 17.4659 4.80961 18.3916C4.8057 18.4034 4.79398 18.4112 4.78227 18.4073C4.77445 18.4034 4.77055 18.3995 4.76664 18.3916C4.5518 17.4541 3.98539 16.8955 3.0557 16.6729C3.04398 16.669 3.03617 16.6573 3.04008 16.6455C3.04008 16.6377 3.04789 16.6299 3.0557 16.6299C3.98539 16.4151 4.54789 15.8526 4.77055 14.9229C4.77445 14.9112 4.78617 14.9034 4.79789 14.9073C4.80961 14.9112 4.81352 14.9151 4.81352 14.9229Z"
+                              fill="#FFDA1D"
+                            />
+                            <path
+                              d="M7.15729 0.782289C7.33698 1.54791 7.80573 2.01276 8.57526 2.19635C8.58307 2.20026 8.59088 2.20807 8.58698 2.21588C8.58698 2.2237 8.57916 2.2276 8.57526 2.2276C7.80182 2.40338 7.33698 2.87995 7.15338 3.64948C7.14948 3.65729 7.14166 3.6651 7.12995 3.6612C7.12213 3.6612 7.11823 3.65338 7.11823 3.64948C6.94244 2.87604 6.46979 2.4112 5.70026 2.2276C5.69245 2.2237 5.68463 2.21588 5.68854 2.20416C5.68854 2.19635 5.69635 2.19245 5.70026 2.19245C6.46979 2.01666 6.93463 1.54791 7.12213 0.778383C7.12604 0.77057 7.13385 0.762758 7.14557 0.766664C7.14948 0.77057 7.15729 0.774476 7.15729 0.782289Z"
+                              fill="#FFDA1D"
+                            />
+                          </g>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_9135_108708">
+                            <rect width="20" height="20" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                      Find with AI Matching
+                    </button>
+                  )}
+                  <div className="  scr1067:hidden ">
+                    <button
+                      stle={{ boxShadow: "0px 0px 14px 0px #00000005" }}
+                      onClick={() => setMobileFilter(true)}
+                      className=" px-2 py-2 flex gap-2 bg-[#FFFFFF] rounded-[6px]"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_6317_76206)">
                           <path
-                            d="M9.83765 5.00562C10.4939 7.79858 12.2009 9.48218 14.9939 10.1501C15.0291 10.158 15.0486 10.1931 15.0408 10.2244C15.0369 10.2478 15.0173 10.2673 14.9939 10.2712C12.1775 10.9158 10.4978 12.6384 9.83374 15.4353C9.82593 15.4705 9.79077 15.49 9.75562 15.4822C9.73218 15.4783 9.71265 15.4587 9.70874 15.4353C9.06421 12.6189 7.35718 10.9353 4.5564 10.2634C4.52124 10.2556 4.50171 10.2205 4.50952 10.1853C4.51343 10.1619 4.53296 10.1423 4.5564 10.1384C7.35718 9.4939 9.04858 7.79468 9.71655 5.00171C9.72437 4.96655 9.75952 4.94702 9.79468 4.95483C9.81421 4.97046 9.83374 4.98608 9.83765 5.00562Z"
-                            fill="#FFDA1D"
-                          />
-                          <path
-                            d="M16.4268 0.836686C16.7744 2.30544 17.6689 3.19215 19.1377 3.54372C19.1572 3.54762 19.165 3.56715 19.1611 3.58278C19.1572 3.5945 19.1494 3.60622 19.1377 3.60622C17.6572 3.94606 16.7705 4.85231 16.4229 6.32106C16.4189 6.34059 16.3994 6.3484 16.3838 6.3445C16.3721 6.34059 16.3604 6.33278 16.3604 6.32106C16.0205 4.84059 15.1221 3.95387 13.6494 3.5984C13.6299 3.5945 13.6221 3.57497 13.626 3.55934C13.6299 3.54762 13.6377 3.5359 13.6494 3.5359C15.1221 3.19606 16.0127 2.30544 16.3643 0.83278C16.3682 0.813248 16.3838 0.80153 16.4033 0.805436C16.415 0.809342 16.4229 0.821061 16.4268 0.836686Z"
-                            fill="#FFDA1D"
-                          />
-                          <path
-                            d="M2.80176 3.30957C3.14551 4.77832 4.04395 5.66504 5.5127 6.0166C5.53223 6.02051 5.54004 6.04004 5.53613 6.05566C5.53223 6.06738 5.52441 6.0791 5.5127 6.0791C4.03223 6.41895 3.14551 7.3252 2.79785 8.79395C2.79395 8.81348 2.77441 8.82129 2.75879 8.81738C2.74707 8.81348 2.73535 8.80566 2.73535 8.79395C2.39551 7.31348 1.49707 6.42676 0.0244141 6.07129C0.00488281 6.06738 -0.00292969 6.04785 0.000976563 6.03223C0.00488281 6.02051 0.0126953 6.00879 0.0244141 6.00879C1.49707 5.66895 2.3877 4.77832 2.73926 3.30566C2.74316 3.28613 2.7627 3.27832 2.77832 3.28223C2.79004 3.29004 2.80176 3.29785 2.80176 3.30957Z"
-                            fill="#FFDA1D"
-                          />
-                          <path
-                            d="M17.0439 13.7195C17.3916 15.1882 18.2861 16.075 19.7549 16.4265C19.7744 16.4304 19.7822 16.45 19.7783 16.4656C19.7744 16.4773 19.7666 16.489 19.7549 16.489C18.2744 16.8289 17.3877 17.7351 17.04 19.2039C17.0361 19.2234 17.0166 19.2312 17.001 19.2273C16.9893 19.2234 16.9775 19.2156 16.9775 19.2039C16.6377 17.7234 15.7393 16.8367 14.2666 16.4812C14.2471 16.4773 14.2393 16.4578 14.2432 16.4422C14.2471 16.4304 14.2549 16.4187 14.2666 16.4187C15.7393 16.0789 16.6299 15.1882 16.9814 13.7156C16.9854 13.6961 17.0049 13.6843 17.0205 13.6882C17.0322 13.7 17.0439 13.7078 17.0439 13.7195Z"
-                            fill="#FFDA1D"
-                          />
-                          <path
-                            d="M18.2666 9.19242C18.4854 10.1182 19.0518 10.6807 19.9776 10.9034C19.9893 10.9073 19.9932 10.919 19.9893 10.9307C19.9854 10.9346 19.9815 10.9385 19.9776 10.9424C19.0401 11.1573 18.4815 11.7276 18.2627 12.6573C18.2588 12.669 18.2471 12.6768 18.2354 12.6729C18.2276 12.6729 18.2198 12.6651 18.2198 12.6573C18.0049 11.7198 17.4385 11.1612 16.5088 10.9385C16.4971 10.9346 16.4893 10.9229 16.4932 10.9112C16.4932 10.9034 16.501 10.8955 16.5088 10.8955C17.4385 10.6807 18.001 10.1182 18.2237 9.18852C18.2276 9.1768 18.2393 9.16898 18.251 9.17289C18.2588 9.1768 18.2666 9.18461 18.2666 9.19242Z"
-                            fill="#FFDA1D"
-                          />
-                          <path
-                            d="M4.81352 14.9229C5.03227 15.8487 5.59867 16.4112 6.52445 16.6338C6.53617 16.6377 6.54399 16.6495 6.54008 16.6612C6.54008 16.669 6.53227 16.6768 6.52445 16.6768C5.59086 16.8916 5.03227 17.4659 4.80961 18.3916C4.8057 18.4034 4.79398 18.4112 4.78227 18.4073C4.77445 18.4034 4.77055 18.3995 4.76664 18.3916C4.5518 17.4541 3.98539 16.8955 3.0557 16.6729C3.04398 16.669 3.03617 16.6573 3.04008 16.6455C3.04008 16.6377 3.04789 16.6299 3.0557 16.6299C3.98539 16.4151 4.54789 15.8526 4.77055 14.9229C4.77445 14.9112 4.78617 14.9034 4.79789 14.9073C4.80961 14.9112 4.81352 14.9151 4.81352 14.9229Z"
-                            fill="#FFDA1D"
-                          />
-                          <path
-                            d="M7.15729 0.782289C7.33698 1.54791 7.80573 2.01276 8.57526 2.19635C8.58307 2.20026 8.59088 2.20807 8.58698 2.21588C8.58698 2.2237 8.57916 2.2276 8.57526 2.2276C7.80182 2.40338 7.33698 2.87995 7.15338 3.64948C7.14948 3.65729 7.14166 3.6651 7.12995 3.6612C7.12213 3.6612 7.11823 3.65338 7.11823 3.64948C6.94244 2.87604 6.46979 2.4112 5.70026 2.2276C5.69245 2.2237 5.68463 2.21588 5.68854 2.20416C5.68854 2.19635 5.69635 2.19245 5.70026 2.19245C6.46979 2.01666 6.93463 1.54791 7.12213 0.778383C7.12604 0.77057 7.13385 0.762758 7.14557 0.766664C7.14948 0.77057 7.15729 0.774476 7.15729 0.782289Z"
-                            fill="#FFDA1D"
+                            d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z"
+                            fill="#646464"
                           />
                         </g>
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_9135_108708">
-                          <rect width="20" height="20" fill="white" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    Find with AI Matching
-                  </button>
-                )}
+                      </svg>
+                      Filter
+                    </button>
+                  </div>
+                </div>
+
+
+
               </div>
+              <AnimatePresence>
+                {mobileFilter && (
+                  <>
+                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+
+                    <motion.div
+                      initial={{ x: "-100%" }}
+                      animate={{ x: 0 }}
+                      exit={{ x: "-100%" }}
+                      transition={{ duration: 0.5 }}
+                      ref={taskRef}
+                      className="fixed z-[2000] flex flex-col gap-4 rounded-[8px] h-[calc(100vh-150px)] top-[100px] overflow-y-auto min-w-[264px] px-4 py-2"
+                      style={{
+                        background: "white",
+                        backdropFilter: "blur(10px)",
+                      }}
+                    >
+                      <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
+                        <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                          All Filters
+                        </p>
+
+                        <button
+                          onClick={() => {
+                            setFilters({});
+                            setClear(!clear);
+                          }}
+                          className="text-primary font-montserrat text-sm font-medium text-blue"
+                        >
+                          Reset all
+                        </button>
+                      </div>
+                      {filteredInputData.map((item, index) => (
+                        <Filter
+                          key={index}
+                          item={item}
+                          filterType={item.title.replace(/ /g, "")}
+                          setClear={setClear}
+                          clear={clear}
+                          onChange={handleCheckboxChange}
+
+                          page={page}
+                          filters={filters}
+
+                          setLoading={setLoading}
+                          className="text-[14px] font-medium flex items-center w-auto bg-white "
+                          isOpen={openDropdown === index}
+                          onDropdownClick={handleDropdownClick}
+                          id={index}
+                          loading={loading}
+                          isHidden={hiddenFilters[index] || false}
+                          toggleVisibility={toggleFilterVisibility}
+                        />
+                      ))}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+                {preferences && (
+                      <div className="bg-white rounded-[8px]   gap-4 p-2 scr1067:hidden flex w-fit ">
+                        <div className="flex gap-2 items-center font-semibold text-[13px]">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 custom-checkbox"
+                            checked={collection.includes("MyCollection")}
+                            onChange={(e) => {
+                              setIsFilterUsed(true);
+                              if (e.target.checked) {
+                                setCollection([...collection, "MyCollection"]);
+                              } else {
+                                setCollection(
+                                  collection.filter((c) => c !== "MyCollection")
+                                );
+                              }
+                            }}
+                          />
+                          <label>My Collection</label>
+                        </div>
+
+                        <div className="flex gap-2 items-center font-semibold text-[13px]">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 custom-checkbox"
+                            checked={collection.includes("SkilotechCollection")}
+                            onChange={(e) => {
+                              setIsFilterUsed(true);
+                              if (e.target.checked) {
+                                setCollection([
+                                  ...collection,
+                                  "SkilotechCollection",
+                                ]);
+                              } else {
+                                setCollection(
+                                  collection.filter(
+                                    (c) => c !== "SkilotechCollection"
+                                  )
+                                );
+                              }
+                            }}
+                          />
+                          <label>Skilotech Collection</label>
+                        </div>
+                      </div>
+                    )}
               {!findMatchLoader && (
-                <div className="flex gap-4  relative h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide ">
+                <div className="flex gap-4  relative h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide  ">
                   <div
                     style={{ scrollbarWidth: "none" }}
-                    className="flex flex-col gap-2 sticky top-0 h-[calc(100vh-160px)] overflow-y-auto w-[300px]  min-w-[300px]"
+                    className="scr1067:flex hidden flex-col gap-2 sticky top-0 h-[calc(100vh-160px)] overflow-y-auto w-[300px]  scr1150:min-w-[300px]"
                   >
                     {preferences && (
                       <div className="bg-white rounded-[8px] flex flex-col gap-2 p-2">
@@ -1298,7 +1453,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                           boxShadow: "0px 0px 14px 0px #00000005",
                           scrollbarWidth: "none",
                         }}
-                        className="bg-white   px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4  min-w-[300px]   pb-6 "
+                        className="bg-white   px-4 py-2 rounded-[8px] flex flex-col gap-4  pb-6 "
                       >
                         <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
                           <p className=" font-montserrat text-base font-medium text-[10px] text-black ">

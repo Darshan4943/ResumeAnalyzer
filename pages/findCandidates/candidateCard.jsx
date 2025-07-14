@@ -358,7 +358,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                 <>
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-                        <div className="bg-white w-[60%]  rounded-lg p-6 space-y-4 h-fit mt-12 overflow-scroll ">
+                        <div className="bg-white ml:w-[60%]  w-[95%] rounded-lg p-6 space-y-4 max-h-[calc(100vh-150px)] h-fit  mt-12 overflow-scroll ">
                             {/* Header */}
                             <div className="flex justify-between items-center ">
                                 <div className="flex items-center gap-2">
@@ -416,7 +416,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                                 ></textarea>
                             </div>
 
-                            <div className=" flex justify-end gap-4 items-center">
+                            <div className=" flex scr540:flex-row flex-col justify-end gap-4 scr540:items-center ">
 
                                 <div className="flex items-center gap-2">
                                     <input
@@ -444,7 +444,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                                                 sendResume()
 
                                             }}
-                                            className="bg_Button  px-4 py-2 rounded-[30px] flex items-center gap-2 h-[40px]"
+                                            className="bg_Button  px-4 py-2 rounded-[30px] w-[124.24px] flex items-center gap-2 h-[40px]"
                                         >
                                             Forward CV
                                             <span>➤</span>
@@ -462,7 +462,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
             }
 
             <div className="flex flex-col gap-2">
-                <div className="border border-[#DEDEDE] rounded-lg p-4 gap-4  shadow-sm bg-white flex justify-between">
+                <div className="border border-[#DEDEDE] rounded-lg p-4 gap-4  shadow-sm bg-white flex scr700:flex-row flex-col justify-between">
 
                     <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2 text-lg font-medium">
@@ -479,15 +479,19 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                             >
                                 {basics?.firstName} {basics?.lastName}
                             </div>
-                            {userDataGlobal?._id === candidate?.recruiterId ?
+                            {preferences &&
+                                <>
+                                    {userDataGlobal?._id === candidate?.recruiterId ?
 
-                                <div className="text-[10px] bg-[#7F55B1] font-medium text-white px-2 py-1 rounded-[30px] leading-tight">
-                                    My Collection
-                                </div>
-                                :
-                                <div className="text-[10px] bg-[#BBE9FF] font-medium px-2 py-1 rounded-[30px] leading-tight">
-                                    Skilotech Collection
-                                </div>
+                                        <div className="text-[10px] bg-[#7F55B1] font-medium text-white px-2 py-1 rounded-[30px] leading-tight">
+                                            My Collection
+                                        </div>
+                                        :
+                                        <div className="text-[10px] bg-[#BBE9FF] font-medium px-2 py-1 rounded-[30px] leading-tight">
+                                            Skilotech Collection
+                                        </div>
+                                    }
+                                </>
                             }
                         </div>
                         <div className="text-[12px] text-gray-600 flex items-center gap-2 mt-1">
@@ -519,7 +523,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                         </div>
 
                         {/* {currentJob && */}
-                        <div className="mt-2 text-[12px] flex">
+                        <div className="mt-2 text-[12px] scr700:flex-row flex-col flex">
                             <div className="w-[100px] font-medium">Current</div>
                             <div className="flex-1">
                                 {
@@ -537,7 +541,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                         </div>
 
                         {/* } */}
-                        <div className="mt-1 text-[12px] flex">
+                        <div className="mt-1 text-[12px] scr700:flex-row flex-col flex">
                             <div className="w-[100px] font-medium">Education</div>
                             <div className="flex-1">
                                 {topEdu?.education || topEdu?.institute
@@ -553,7 +557,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
 
 
 
-                        <div className="mt-1 text-[12px] flex">
+                        <div className="mt-1 text-[12px] scr700:flex-row flex-col flex">
                             <div className="w-[100px] font-medium">Pref. locations</div>
                             <div className="flex-1">
                                 {locations && locations.trim() !== "" ? locations : "Any"}
@@ -562,7 +566,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
 
 
 
-                        <div className="mt-1 text-[12px] flex">
+                        <div className="mt-1 text-[12px] scr700:flex-row flex-col flex">
                             <div className="w-[100px] font-medium">Key skills</div>
                             <div className="flex-1 flex flex-wrap">
                                 {skills?.length > 0 ? (
@@ -596,8 +600,8 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                 </div> */}
                     </div>
 
-                    <div className="flex justify-between gap-4 ">
-                        <div className="text-center flex flex-col gap-4 items-center justify-between w-[200px]">
+                    <div className="flex scr700:flex-row flex-col justify-between gap-4 ">
+                        <div className="text-center flex flex-col gap-4 items-center justify-between scr700:w-[200px]">
                             {candidate?.profilePicture?.img ?
                                 <img
                                     src={candidate?.profilePicture?.img}
@@ -669,8 +673,8 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
                                 </div>
                             }
                         </div>
-                        <div className=" h-full w-[1px] bg-[#DEDEDE]"></div>
-                        <div className="flex flex-col gap-4">
+                        <div className=" scr700:h-full scr700:w-[1px] w-full h-[1px] bg-[#DEDEDE]"></div>
+                        <div className="flex scr700:flex-col flex-row gap-4 justify-end scr700:justify-start ">
                             <button title={"View"} onClick={() => handleToggle(userId)} className={`p-2 rounded-full ${resumeUrl && "hover:bg-[#E9EEF6] hover:fill-black transition-colors cursor-pointer"}`}
                             >
                                 <svg className={`fill-[#8993a4] ${resumeUrl && "hover:fill-black"}`} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#8993a4"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v333q-19-11-39-20t-41-16v-137H520v137q-46 14-86 40t-74 63H200v160h82q11 22 22 42t24 38H200Zm0-320h240v-160H200v160Zm0-240h560v-80H200v80Zm280 200Zm0 0Zm0 0Zm0 0ZM640-40q-91 0-168-48T360-220q35-84 112-132t168-48q91 0 168 48t112 132q-35 84-112 132T640-40Zm0-80q57 0 107.5-26t82.5-74q-32-48-82.5-74T640-320q-57 0-107.5 26T450-220q32 48 82.5 74T640-120Zm0-40q-25 0-42.5-17.5T580-220q0-25 17.5-42.5T640-280q25 0 42.5 17.5T700-220q0 25-17.5 42.5T640-160Z" /></svg>
@@ -707,7 +711,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
 
                     </div>
                 </div>
-                <div className="flex justify-between px-2">
+                <div className="flex sm:flex-row flex-col gap-2 justify-between items-end px-2">
                     <div className="flex gap-8 ">
 
                         <div className="flex gap-2 text-[14px] font-medium text-[#8993A4] items-center ">

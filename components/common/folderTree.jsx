@@ -64,7 +64,7 @@ const FolderSelectDropdown = ({ folders, selectedFolder, setSelectedFolder }) =>
     <div className="relative w-full" ref={dropdownRef}>
       {/* Selected Box */}
       <div
-        className="border border-gray-300 rounded px-3 py-2 cursor-pointer text-sm bg-white"
+        className="border border-[#DEDEDE] rounded px-3 py-2 cursor-pointer scr420:text-sm text-[12px] bg-white"
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedFolder?.name || '-- Select Folder --'}
@@ -72,7 +72,7 @@ const FolderSelectDropdown = ({ folders, selectedFolder, setSelectedFolder }) =>
 
       {/* Dropdown Content */}
       {isOpen && (
-        <div className="absolute z-10 bg-white border border-gray-300 rounded mt-1 w-full max-h-64 overflow-y-auto shadow-lg">
+        <div className="absolute z-[3000] bg-white border border-[#DEDEDE] rounded mt-1 w-full max-h-64  overflow-y-scroll shadow-lg">
           {renderFolders(folders)}
         </div>
       )}
