@@ -554,19 +554,20 @@ function AccountDetails({
           </div>
         </>
       )}
-      <div className="flex flex-col gap-6 w-[100%]">
+      <div className="flex flex-col gap-4 w-[100%]">
         <div className=" flex flex-col gap-4 justify-center w-[100%] ">
           <div className="text-[16px] font-[600] ">Account Details</div>
-          <div className="flex flex-col gap-4 w-[100%] text-[14px]">
+          <div className="flex flex-col gap-2 w-[100%] text-[14px]">
             <div className="flex gap-5 w-[100%] ">
-              <div className=" w-[50%]">
+              <div className=" w-[50%] flex flex-col gap-1">
                 <p className="">
                   First Name <span className="star">*</span>
                 </p>
                 <input
                   type="text"
                   name=""
-                  id="single_input"
+                  className="border h-[40px] px-4 border-[#DEDEDE] w-full rounded-[8px]"
+                  // id="single_input"
                   placeholder="Enter First Name"
                   value={data.firstName}
                   onChange={(e) =>
@@ -579,15 +580,14 @@ function AccountDetails({
                   </p>
                 )}
               </div>
-
-              <div className="w-[50%]">
+              <div className=" w-[50%] flex flex-col gap-1">
                 <p className=" ">
                   Last Name <span className="star">*</span>
                 </p>
                 <input
                   type="text"
                   name=""
-                  id="single_input"
+                  className="border h-[40px] px-4 border-[#DEDEDE] w-full rounded-[8px]"
                   placeholder="Enter Last Name"
                   value={data.lastName}
                   onChange={(e) =>
@@ -602,14 +602,14 @@ function AccountDetails({
               </div>
             </div>
 
-            <div className="">
+            <div className="  flex flex-col gap-1">
               <p className="">
                 Email <span className="star">*</span>
               </p>
               <input
                 type="email"
                 name=""
-                id="single_input"
+                className="border h-[40px] px-4 border-[#DEDEDE] w-full rounded-[8px]"
                 placeholder="Enter Email"
                 value={data.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
@@ -621,14 +621,14 @@ function AccountDetails({
               )}
             </div>
 
-            <div className="">
+            <div className=" flex flex-col gap-1">
               <p className="">
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                className={`flex w-[100%]  items-start border h-[40px] px-4 border-[#DEDEDE] w-full rounded-[8px] ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
                   }`}
-                id="single_input"
+            
                 style={{
                   padding: "0px 8px",
                 }}
@@ -683,8 +683,8 @@ function AccountDetails({
 
                 <input
                   placeholder={`${isViewportBelow850
-                      ? "Enter Number "
-                      : "Enter Contact Number "
+                    ? "Enter Number "
+                    : "Enter Contact Number "
                     }`}
                   value={data.mobileNo}
                   maxLength={10}
@@ -711,7 +711,7 @@ function AccountDetails({
         <div className=" flex flex-col gap-2 justify-center ">
           <div className="text-[16px] font-[600] ">Payment Summary</div>
           <div className="p-4 border border-[#06A9EF] rounded-[12px]">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <div className="flex justify-between">
                 <p className="text-[14px] font-semibold">
                   {selectedPlan.type === "candidate" && (
@@ -753,6 +753,10 @@ function AccountDetails({
             </div>
           </div>
         </div>
+        <div  className="text-[13px] font-medium text-red ">
+         {/* <span className="text-[14px]  font-semibold">Note:</span> */}
+          Before proceeding with the payment, please ensure that your card has international transactions enabled.
+        </div>
         <div className="flex gap-3 items-start ">
           <input
             type="checkbox"
@@ -787,7 +791,7 @@ function AccountDetails({
         <div className=" w-full font-[500] flex flex-row gap-[16px] justify-between ">
           <button
             className="blue_border_Button rounded-[30px] h-[38px] px-6"
-           
+
             onClick={(e) => {
               e.preventDefault();
               router.back();
@@ -797,7 +801,7 @@ function AccountDetails({
           </button>
           <button
             className="bg_Button rounded-[30px] h-[38px] px-6 sm:min-w-[191px]"
-            
+
             onClick={
               (selectedPlan.isFree) ? handleFreeSession : purchaseHandler
             }

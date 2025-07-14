@@ -95,7 +95,7 @@ function Details() {
           <MiniLoader />
         </div>
       ) : (
-        <div className="flex items-center justify-center pb-12 pt-4  px-2 customMargins ">
+        <div className="flex items-center justify-center pb-12 pt-4  px-2 customMargins  wl:w-[70%] xxlg:w-[80%] ">
           <div
             style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
             className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px] bg-white"
@@ -107,7 +107,7 @@ function Details() {
                 style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
               >
                 <div className="flex text-center flex-col gap-3 text-[#333333] w-[90%]">
-                  <p className="scr700:text-[16px] text-[5vw] font-[600]">
+                  <p className="scr700:text-[16px] text-[16px]  font-[600]">
                     {selectedPlan.type === "candidate" &&
                       <>
                         <span className="text-[#06A9EF]">{selectedPlan?.days} Days</span>{" "}
@@ -148,7 +148,7 @@ function Details() {
                           fill="#06A9EF"
                         />
                       </svg>
-                      <p className="scr700:text-[10px] text-[3vw] font-[500] w-[80%]">
+                      <p className="scr700:text-[12px] sm:text-[16px] text-[12px] font-[500] w-[80%]">
                         {feature}
                       </p>
                     </div>
