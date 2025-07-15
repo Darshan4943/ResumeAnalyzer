@@ -90,21 +90,21 @@ function Layout({ children }) {
       <div className="flex bg-[#f3f3f3] relative z-10 min-h-[100vh]">
 
         {(!pageOpened && !shareJob) &&
-          <div className="ml:max-h-[100vh] min-h-[100vh] ml:block hidden top-0 min-w-[120px] bg-white sticky z-[1500] "
+          <div className="h-fit min-h-[100vh]   ml:block hidden  min-w-[120px] bg-white sticky top-0 z-[20000] "
             style={{ scrollbarWidth: "none" }}>
             <EmployerSidebar />
           </div>
         }
-        <div className="  overflow-y-auto pt-[60px] w-[100%]  overflow-hidden relative "
+        <div className="pt-[60px] w-[100%]  overflow-hidden relative h-[100vh]  overflow-y-auto  "
           style={{ scrollbarWidth: "none" }}
         >
-          {/* {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) && */}
+
           {(!pageOpened && !shareJob) &&
-            <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-6 px-2 ">
+            <div className=" z-[1000] bg-[#F3F3F3] ml:px-6 px-2 ">
               <Breadcrumb />
             </div>
           }
-          {/* } */}
+       
           <div className="ml:px-6 px-2  pb-4 max-w-[1600px]">
             {children}
           </div>

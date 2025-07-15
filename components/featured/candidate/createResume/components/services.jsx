@@ -10,76 +10,83 @@ function Services() {
   const [isServices, setServices] = useState(true);
   const [isMove, setIsMove] = useState(false);
   const loginListRecruiter = [
-   
+
     // {
     //   name: "Create New Cover Letter",
     //   imgSrc: "/images/resumeBuilder/servicesCover.png",
     // },
     // { name: "My Candidates", imgSrc: "/images/resumeBuilder/servicesCandidate.png" },
 
-  
-    {
-      name: "My Collection",
 
-      imgSrc: "/images/resumeBuilder/servicesCollection.png",
-      new: "AI",
-    },
+
     //  {
     //   name: "Mail Template",
     //   imgSrc: "/images/resumeBuilder/template2.png",
     //   // new: "AI",
     // },
-     {
+    {
       name: "JD Builder",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
     },
-      {
+    {
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
+      // new: "AI",
+    },
+    {
       name: "JD Matching",
       imgSrc: "/images/resumeBuilder/servicesJd.png",
       new: "AI",
     },
 
-    {
-      name: "Job Posting",
-      imgSrc: "/images/resumeBuilder/servicesJob.png",
-      new: "AI",
-    },
+
 
     {
       name: "Hiring",
+      imgSrc: "/images/resumeBuilder/hiring.png",
+      // new: "AI",
+    },
+
+    {
+      name: "Find Candidates",
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
       new: "AI",
     },
-     {
-      name: "Create Resume",
-      imgSrc: "/images/resumeBuilder/servicesResume.png",
-      new: "AI",
-    },
-   
-   
-  ];
-  const loginListEmployer = [
-   
     {
       name: "My Collection",
 
       imgSrc: "/images/resumeBuilder/servicesCollection.png",
+      // new: "AI",
+    },
+    {
+      name: "Create Resume",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
       new: "AI",
     },
+
+
+  ];
+  const loginListEmployer = [
+
+
     //   {
     //   name: "Mail Template",
     //   imgSrc: "/images/resumeBuilder/template2.png",
     //   // new: "AI",
     // },
-     {
+    {
       name: "JD Builder",
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
     },
+    {
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
+      // new: "AI",
+    },
 
-   
-     {
+    {
       name: "JD Matching",
       imgSrc: "/images/resumeBuilder/servicesJd.png",
       new: "AI",
@@ -87,25 +94,33 @@ function Services() {
     // {
     //   name: "Requisition",
     //   imgSrc: "/images/resumeBuilder/servicesRequisition.png",
-      
+
     // },
-     {
-      name: "Job Posting",
-      imgSrc: "/images/resumeBuilder/servicesJob.png",
-      new: "AI",
-    },
+
     {
       name: "Hiring",
+      imgSrc: "/images/resumeBuilder/hiring.png",
+      // new: "AI",
+    },
+    {
+      name: "Find Candidates",
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
       new: "AI",
     },
+    {
+      name: "My Collection",
+
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
+      // new: "AI",
+    },
+
     // {
     //   name: "Preboarding",
     //   imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
     //   // new: "AI",
     // },
-   
-  
+
+
   ];
 
   const handleNavigation = (page) => {
@@ -188,12 +203,12 @@ function Services() {
       case "Preboarding":
         handleNavigation("/employer/Preboarding");
         break;
-        case "JD Builder":
-          handleNavigation("/jdCreation");
-          break;
-        case "Mail Template":
-          handleNavigation("/template");
-          break;
+      case "JD Builder":
+        handleNavigation("/jdCreation");
+        break;
+      case "Mail Template":
+        handleNavigation("/template");
+        break;
       default:
         break;
     }
@@ -201,7 +216,7 @@ function Services() {
 
   return (
     <div className="py-6 px-1 flex flex-col gap-6 ">
-      <p className="text-[20px] font-semibold text-[#333333]">AI Services</p>
+      <p className="text-[20px] font-semibold text-[#333333]">Services</p>
       <div
         // style={{ border: "2px solid red" }}
         className="flex gap-[16px] scr420:gap-6 flex-wrap justify-start "

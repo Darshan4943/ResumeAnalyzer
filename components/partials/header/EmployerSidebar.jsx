@@ -204,7 +204,7 @@ function EmployerSidebar() {
             // onMouseEnter={() => setBlurContent(true)}
             // onMouseLeave={() => setBlurContent(false)}
             >
-              <div className="p-2 cursor-pointer">
+              <div className="px-2 cursor-pointer">
                 <div
                   className={`w-full flex flex-col gap-2 py-2 items-center rounded-[8px] ${isChildActive ? "bg-[#DFF4FD]" : ""
                     }`}
