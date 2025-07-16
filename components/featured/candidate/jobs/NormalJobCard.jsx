@@ -69,9 +69,8 @@ function NormalJobCard({ item }) {
         <div className="flex flex-row">
           <div className="flex flex-col gap-[4px] w-full">
             <div
-              className={`xxsm:text-[16px] sm:text-[16px] font-[600] ${
-                item?.jobTitle.length > 40 && "group"
-              } relative`}
+              className={`xxsm:text-[16px] sm:text-[16px] font-[600] ${item?.jobTitle.length > 40 && "group"
+                } relative`}
             >
               {item?.jobTitle.length > 40
                 ? `${item?.jobTitle.slice(0, 40)}...`
@@ -86,11 +85,11 @@ function NormalJobCard({ item }) {
                 {
                   item.role === "employer"
                     ? router.push(
-                        `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`
-                      )
+                      `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`
+                    )
                     : router.push(
-                        `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`
-                      );
+                      `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`
+                    );
                 }
               }}
               className="text-[12px] font-medium cursor-pointer w-fit z-[10]"
@@ -178,7 +177,7 @@ function NormalJobCard({ item }) {
               <div className="w-[1px] h-[12px] bg-[#AFAFAF]"></div>
             </>
           )}
-          {item?.location && (
+          {item?.country && (
             <div className="flex flex-row gap-[4px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +205,8 @@ function NormalJobCard({ item }) {
                     );
                   })
                   .join(" ,")}{" "}
-                ||{" "}
+                {item?.location?.length > 0 &&
+                  "  ||"}{" "}
                 {(() => {
                   const formattedLocations = item?.location
                     ?.filter((loc) => loc.trim() !== "")

@@ -73,9 +73,8 @@ function Job_card({
             <div className="flex flex-row">
               <div className="flex flex-col gap-[4px] w-full">
                 <div
-                  className={`xxsm:text-[14px] flex gap-6 sm:text-[14px] justify-between font-[600] ${
-                    item?.jobTitle.length > 60 && "group"
-                  } relative`}
+                  className={`xxsm:text-[14px] flex gap-6 sm:text-[14px] justify-between font-[600] ${item?.jobTitle.length > 60 && "group"
+                    } relative`}
                 >
                   {item?.jobTitle.length > 60
                     ? `${item?.jobTitle.slice(0, 60)}...`
@@ -83,8 +82,8 @@ function Job_card({
                   <div className="absolute text-[10px] z-[100] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                     {item.jobTitle}
                   </div>
-                  {item?.status !=="Active" && (
-                    <p className={`${item?.status ==="On Hold" ? "text-[#FF7802]":"text-red" }`}>{item?.status}</p>
+                  {item?.status !== "Active" && (
+                    <p className={`${item?.status === "On Hold" ? "text-[#FF7802]" : "text-red"}`}>{item?.status}</p>
                   )}
                 </div>
 
@@ -94,11 +93,11 @@ function Job_card({
                     {
                       item.role === "employer"
                         ? router.push(
-                            `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`
-                          )
+                          `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`
+                        )
                         : router.push(
-                            `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`
-                          );
+                          `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`
+                        );
                     }
                   }}
                   className="text-[12px] font-normal cursor-pointer w-fit z-[10]"
@@ -127,7 +126,7 @@ function Job_card({
                     style={{
                       height: "40px",
                       width: "76px",
-                       objectFit:"contain"
+                      objectFit: "contain"
                     }}
                   />
                 </div>
@@ -184,7 +183,7 @@ function Job_card({
                   <div className="w-[1px] h-[12px] bg-[#AFAFAF]"></div>
                 </>
               )}
-              {item?.location && (
+              {item?.country && (
                 <div className="flex flex-row gap-[4px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -200,8 +199,20 @@ function Job_card({
                       />
                     </g>
                   </svg>
-                  <div className="text-[#262626] text-[12px] font-[400] ">
-                  {(() => {
+                   <div className="text-[#262626] text-[12px] font-[400] ">
+                {item?.country
+                  ?.filter((country) => country.trim() !== "")
+                  ?.map((country) => {
+                    const firstWord = country.split(" ")[0];
+                    return (
+                      firstWord.charAt(0).toUpperCase() +
+                      firstWord.slice(1).toLowerCase()
+                    );
+                  })
+                  .join(" ,")}{" "}
+                {item?.location?.length > 0 &&
+                  "  ||"}{" "}
+                {(() => {
                   const formattedLocations = item?.location
                     ?.filter((loc) => loc.trim() !== "")
                     ?.map((loc) => {
@@ -216,7 +227,7 @@ function Job_card({
                     ? formattedLocations.join(", ")
                     : formattedLocations?.[0] || "";
                 })()}
-                  </div>
+              </div>
                 </div>
               )}
             </div>
@@ -371,24 +382,22 @@ function Job_card({
                     router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
-                className={`text-[14px] font-[600]  flex items-center ${
-                  item?.matchedApplication?.applicantId ===
-                    userDataGlobal?._id &&
+                className={`text-[14px] font-[600]  flex items-center ${item?.matchedApplication?.applicantId ===
+                  userDataGlobal?._id &&
                   (isLogin || appliedJobs.includes(item?._id)) &&
                   "bg-[#0275A7]"
-                } h-[38px] px-6 rounded-[30px] bg_Button
-                  ${
-                    (item?.matchedApplication?.applicantId ===
-                      userDataGlobal?._id &&
-                      (isLogin || appliedJobs.includes(item?._id))) ||
-                   item?.status !== "Active"
-                      ? "cursor-not-allowed"
-                      : " cursor-pointer"
+                  } h-[38px] px-6 rounded-[30px] bg_Button
+                  ${(item?.matchedApplication?.applicantId ===
+                    userDataGlobal?._id &&
+                    (isLogin || appliedJobs.includes(item?._id))) ||
+                    item?.status !== "Active"
+                    ? "cursor-not-allowed"
+                    : " cursor-pointer"
                   }`}
               >
                 {item?.matchedApplication?.applicantId ===
                   userDataGlobal?._id &&
-                (isLogin || appliedJobs.includes(item?._id))
+                  (isLogin || appliedJobs.includes(item?._id))
                   ? "Applied"
                   : "Apply"}
               </button>
