@@ -52,6 +52,7 @@ function Index() {
   const taskRef = useRef(null);
   const [experience, setExperience] = useState("");
   const [isFilterUsed, setIsFilterUsed] = useState(false);
+  const [isFilters, setIsFilters] = useState(true);
 
   useEffect(() => {
     if (jobTit) {
@@ -90,6 +91,7 @@ function Index() {
       .get("https://api.skilotech.com/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
+        setIsFilters(false)
         setTimeout(() => {
           setLoadingg(false);
         }, 500);
@@ -217,7 +219,7 @@ function Index() {
       )
   );
 
-  
+
   const getAllData = async () => {
     try {
       const res = await axios.post(
@@ -225,7 +227,7 @@ function Index() {
         {
           // requiredSkills:
           //   jobTitle || location ? [] : userSkills?.map((item) => item),
-          requiredSkills:jobTitle || location ? [] : [],
+          requiredSkills: jobTitle || location ? [] : [],
           jobTitle: jobTitle.trim() || "",
           country: location ? "" : country,
           location: location.trim(),
@@ -287,7 +289,7 @@ function Index() {
         {
           // requiredSkills:
           //   jobTitle || location ? [] : userSkills?.map((item) => item),
-          requiredSkills:jobTitle || location ? [] : [],
+          requiredSkills: jobTitle || location ? [] : [],
           jobTitle: jobTitle.trim() || "",
           country: location ? "" : country,
           location: location.trim(),
@@ -338,7 +340,7 @@ function Index() {
                     <div className="skeleton-subtitle h-[18px] min-w-[80%]"></div>
                     <div className="skeleton-subtitle h-[18px] min-w-[90%]"></div>
                     <div className="skeleton-subtitle h-[18px] min-w-[60%]"></div>
-                    
+
                   </div>
                   <div className="skeleton-subtitle h-[1px] min-w-[80%] "></div>
                 </div>
@@ -482,49 +484,72 @@ function Index() {
             </div>
           </div>
           <div className="customMargins py-6 flex gap-6 relative">
-            <div
-              style={{ boxShadow: "0px 0px 14px 0px #00000005",scrollbarWidth: "none"  }}
-              className="bg-white w-[262px]  px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4  min-w-[200px] sticky top-[84px] h-[calc(100vh-60px)] overflow-y-auto  pb-6 "
-            >
-              <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
-                <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-                  All Filters
-                </p>
+            {isFilters ?
+              <div className=" scr700:flex hidden gap-1 flex-col bg-white rounded-[12px]">
+                {[1, 2, 3, 4].map((item, index) => (
+                  <div key={index} className="flex gap-1 flex-col  justify-center items-center">
+                    <div className="h-[169px] w-[262px] bg-white rounded-[12px] p-4 flex flex-col gap-1">
 
-                <button
-                  onClick={() => {
-                    setFilters({});
-                    setClear(!clear);
-                  }}
-                  className="text-primary font-montserrat text-sm font-medium text-blue"
-                >
-                  Reset all
-                </button>
+                      <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+
+
+                      <div className="skeleton-subtitle h-[18px] min-w-[100%]"></div>
+                      <div className="skeleton-subtitle h-[18px] min-w-[80%]"></div>
+                      <div className="skeleton-subtitle h-[18px] min-w-[90%]"></div>
+                      <div className="skeleton-subtitle h-[18px] min-w-[60%]"></div>
+
+                    </div>
+                    <div className="skeleton-subtitle h-[1px] min-w-[80%] "></div>
+                  </div>
+                ))}
+
+
               </div>
+              :
+              <div
+                style={{ boxShadow: "0px 0px 14px 0px #00000005", scrollbarWidth: "none" }}
+                className="bg-white w-[262px]  px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4  min-w-[200px] sticky top-[84px] h-[calc(100vh-60px)] overflow-y-auto  pb-6 "
+              >
+                <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
+                  <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                    All Filters
+                  </p>
 
-              {filteredInputData.map((item, index) => (
-                <Filter
-                  key={index}
-                  item={item}
-                  filterType={item.title.replace(/ /g, "")}
-                  setClear={setClear}
-                  clear={clear}
-                  onChange={handleCheckboxChange}
-                  country={country}
-                  page={page}
-                  filters={filters}
-                  loading={loading}
-                  userSkills={userSkills}
-                  setLoading={setLoading}
-                  className="text-[14px] font-medium flex items-center w-auto bg-white "
-                  isOpen={openDropdown === index}
-                  onDropdownClick={handleDropdownClick}
-                  id={index}
-                  isHidden={hiddenFilters[index] || false}
-                  toggleVisibility={toggleFilterVisibility}
-                />
-              ))}
-            </div>
+                  <button
+                    onClick={() => {
+                      setFilters({});
+                      setClear(!clear);
+                    }}
+                    className="text-primary font-montserrat text-sm font-medium text-blue"
+                  >
+                    Reset all
+                  </button>
+                </div>
+
+                {filteredInputData.map((item, index) => (
+                  <Filter
+                    key={index}
+                    item={item}
+                    filterType={item.title.replace(/ /g, "")}
+                    setClear={setClear}
+                    clear={clear}
+                    onChange={handleCheckboxChange}
+                    country={country}
+                    page={page}
+                    filters={filters}
+                    loading={loading}
+                    userSkills={userSkills}
+                    setLoading={setLoading}
+                    className="text-[14px] font-medium flex items-center w-auto bg-white "
+                    isOpen={openDropdown === index}
+                    onDropdownClick={handleDropdownClick}
+                    id={index}
+                    isHidden={hiddenFilters[index] || false}
+                    toggleVisibility={toggleFilterVisibility}
+                  />
+                ))}
+              </div>
+            }
             <AnimatePresence>
               {mobileFilter && (
                 <>

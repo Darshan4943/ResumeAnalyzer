@@ -114,7 +114,7 @@ function Job_card({
                     }}
                     className="text-[12px] font-normal cursor-pointer w-fit"
                   >
-                    posted by Recruiter ({camelCase(item?.createdByName)})
+                    Posted by Recruiter ({camelCase(item?.createdByName)})
                   </div>
                 )}
               </div>
@@ -231,7 +231,7 @@ function Job_card({
                 </div>
               )}
             </div>
-            <div className="flex flex-row gap-[4px]">
+            {/* <div className="flex flex-row gap-[4px]">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -268,7 +268,7 @@ function Job_card({
                   />
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-end items-center">
             {/* <div className="border border-[#B506EF] text-[#B506EF] rounded-[30px] flex gap-1 px-2 py-1 items-center text-[14px] font-medium">

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function HeroSection() {
   const router = useRouter();
@@ -9,17 +9,40 @@ function HeroSection() {
   const [location, setLocation] = useState("");
   const [experience, setExperience] = useState("");
 
-    const [experinceData, setExperinceData] = useState([]);
-    useEffect(() => {
-        axios
-            .get("https://api.skilotech.com/api/jobs/getJobAttributes")
-            .then((res) => {
-                const { experiences } = res.data;
-                setExperinceData(experiences);
+  const [experinceData, setExperinceData] = useState([]);
+  const [open, setOpen] = useState(false);
 
-            })
-            .catch((err) => console.error(err));
-    }, []);
+  const dropdownRef = useRef(null);
+
+  const experienceList = ["Fresher", ...Array.from({ length: 30 }, (_, i) => `${i + 1} year${i + 1 > 1 ? "s" : ""}`)];
+
+  const toggleDropdownn = () => setOpen(!open);
+
+  const handleSelect = (exp) => {
+    setExperience(exp);
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("https://api.skilotech.com/api/jobs/getJobAttributes")
+      .then((res) => {
+        const { experiences } = res.data;
+        setExperinceData(experiences);
+
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const sortedExperiences = (experinceData || [])
     .filter(Boolean)
@@ -81,24 +104,38 @@ function HeroSection() {
               />
 
               <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
-              <select
-                className={`scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px] font-[500] w-full font-Montserrat border-none outline-none appearance-none max-w-[148px] scr900:p-2 min-w-[80px] ${
-                  experience ? "text-[#333333]" : "text-[#889FBA]"
-                }`}
-                value={experience}
-                onChange={(e) => setExperience(e.target.value)}
-              >
-                <option value="" disabled className="text-[#889FBA]">
-                  Select Experience
-                </option>
-                {sortedExperiences
-                  .filter((exp) => exp)
-                  .map((exp, index) => (
-                    <option key={index} value={exp} className="text-[#333333]">
-                      {exp}
-                    </option>
-                  ))}
-              </select>
+                 <div className="relative w-[180px]" ref={dropdownRef}>
+                          <div
+                            className={`px-4 py-2 bg-white cursor-pointer text-[14px] font-medium ${experience  ? "text-[#333]" : "text-[#889FBA]"
+                              }`}
+                            onClick={toggleDropdownn}
+                          >
+                            {experience || "Select Experience"}
+                          </div>
+
+                          {open && (
+                            <ul className="absolute top-full left-0 mt-2 bg-white rounded shadow-md w-[204px] max-h-[200px] overflow-y-auto z-10">
+                              {experienceList.map((exp, idx) => (
+                                <li
+                                  key={idx}
+                                  onClick={() => handleSelect(exp)}
+                                  className={`px-4 py-2 text-[13px] font-medium cursor-pointer hover:bg-[#f5f5f5] ${exp === experience ? "bg-[#f0f0f0] font-semibold" : ""
+                                    }`}
+                                >
+                                  {exp === "Fresher" ? (
+                                    <div className="flex items-center leading-tight font-medium">
+                                      <span className="text-[13px]">Fresher</span> <span className="text-[12px] text-[#717B9E] pl-1"> (less than 1 year)</span>
+                                      
+                                    </div>
+                                  ) : (
+                                    exp
+                                  )}
+                                </li>
+
+                              ))}
+                            </ul>
+                          )}
+                        </div>
 
               <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
               <input

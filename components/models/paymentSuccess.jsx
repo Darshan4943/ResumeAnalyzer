@@ -5,7 +5,7 @@ const PaymentSuccess = ({ successFunction, loading }) => {
   return (
     <div className="expiryModel">
       <div className="modal">
-        <div className="bg-white p-[16px] rounded-[18px] w-[400px] min-h-[300px] flex flex-col gap-6 items-center justify-center">
+        <div className="bg-white p-[16px] rounded-[18px] w-[360px] min-h-[200px] flex flex-col gap-6 items-center justify-center">
           {loading ? (
             <>
               <div role="status">
@@ -36,13 +36,13 @@ const PaymentSuccess = ({ successFunction, loading }) => {
                   <img
                     src="/images/check.png"
                     alt=""
-                    className="h-[70px] object-contain"
+                    className="h-[50px] object-contain"
                   />
-                  <span className="text-[30px] text-[#333333] font-semibold text-center">
+                  <span className="text-[24px] text-[#333333] font-semibold text-center">
                     Payment Successful
                   </span>
                 </div>
-                <span className="text-[16px] text-[#333333] font-medium text-center">
+                <span className="text-[14px] text-[#333333] font-medium text-center">
                   Congratulations! Your purchase of the plan was successful.
                 </span>
               </div>
@@ -51,7 +51,7 @@ const PaymentSuccess = ({ successFunction, loading }) => {
                   onClick={() => {
                     successFunction();
                   }}
-                  className="border-[#06A9EF] py-[12px] px-[24px] border text-[#fff] bg-[#06A9EF] text-[16px] font-semibold rounded-[12px] "
+                  className="bg_Button h-[40px] px-6 rounded-[30px] "
                 >
                   Done
                 </button>

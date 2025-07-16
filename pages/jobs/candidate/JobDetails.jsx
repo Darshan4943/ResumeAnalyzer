@@ -123,7 +123,7 @@ function JobDetails() {
           ) : (
             <div className="customMargins py-6 flex gap-5 w-full ">
               <div className="flex flex-col ju gap-4 ml:max-w-[700px] w-full ">
-                <div className="h-[234px] w-full justify-between bg-white rounded-[12px] p-4 flex flex-col gap-1">
+                <div className="h-[212px] w-full justify-between bg-white rounded-[12px] p-4 flex flex-col gap-1">
                   <div className="skeleton-line h-[24px] max-w-[140px]"></div>
 
                   <div className="skeleton-subtitle h-[20px]"></div>

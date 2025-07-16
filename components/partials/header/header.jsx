@@ -74,23 +74,48 @@ function Header({ userData }) {
       .catch((err) => console.error(err));
   }, []);
 
-  const sortedExperiences = (experinceData || [])
-    .filter(Boolean)
-    .sort((a, b) => {
-      const getYearsRange = (str) => {
-        const match = str?.match(/\d+/g);
-        return match
-          ? [parseInt(match[0]), parseInt(match[1] || Infinity)]
-          : [Infinity, Infinity];
-      };
+  // const sortedExperiences = (experinceData || [])
+  //   .filter(Boolean)
+  //   .sort((a, b) => {
+  //     const getYearsRange = (str) => {
+  //       const match = str?.match(/\d+/g);
+  //       return match
+  //         ? [parseInt(match[0]), parseInt(match[1] || Infinity)]
+  //         : [Infinity, Infinity];
+  //     };
 
-      const [aStart, aEnd] = getYearsRange(a);
-      const [bStart, bEnd] = getYearsRange(b);
+  //     const [aStart, aEnd] = getYearsRange(a);
+  //     const [bStart, bEnd] = getYearsRange(b);
 
-      if (aStart !== bStart) return aStart - bStart;
+  //     if (aStart !== bStart) return aStart - bStart;
 
-      return aEnd - bEnd;
-    });
+  //     return aEnd - bEnd;
+  //   });
+
+
+  const [open, setOpen] = useState(false);
+ 
+  const dropdownRef = useRef(null);
+
+  const experienceList = ["Fresher", ...Array.from({ length: 30 }, (_, i) => `${i + 1} year${i + 1 > 1 ? "s" : ""}`)];
+
+  const toggleDropdownn = () => setOpen(!open);
+
+  const handleSelect = (exp) => {
+    setExperience(exp);
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -109,8 +134,8 @@ function Header({ userData }) {
       ref={taskRef}
       className={
         selectedPage === "/auth/candidate_register" ||
-        selectedPage === "/auth/Employer_register" ||
-        selectedPage === "/auth/Recruiter_register"
+          selectedPage === "/auth/Employer_register" ||
+          selectedPage === "/auth/Recruiter_register"
           ? " "
           : "bg-white z-[1000000] fixed w-[100%]  "
       }
@@ -139,13 +164,11 @@ function Header({ userData }) {
                       router.push("/jobs/candidate");
                       setServices(false);
                     }}
-                    className={`transition-opacity duration-800 ease-in-out ${
-                      isSearch ? "opacity-0" : "opacity-100"
-                    } ${
-                      selectedPage === "/jobs/candidate" && !isServices
+                    className={`transition-opacity duration-800 ease-in-out ${isSearch ? "opacity-0" : "opacity-100"
+                      } ${selectedPage === "/jobs/candidate" && !isServices
                         ? "active"
                         : "li"
-                    } scr1250:text-[16px] text-[16px] cursor-pointer`}
+                      } scr1250:text-[16px] text-[16px] cursor-pointer`}
                   >
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
@@ -163,11 +186,9 @@ function Header({ userData }) {
 
                   <div
                     onClick={() => router.push("/services")}
-                    className={`transition-opacity duration-800 ease-in-out ${
-                      isSearch ? "opacity-0" : "opacity-100"
-                    } ${
-                      selectedPage === "/services" ? "active" : "li"
-                    } scr1250:text-[16px] text-[16px] cursor-pointer`}
+                    className={`transition-opacity duration-800 ease-in-out ${isSearch ? "opacity-0" : "opacity-100"
+                      } ${selectedPage === "/services" ? "active" : "li"
+                      } scr1250:text-[16px] text-[16px] cursor-pointer`}
                   >
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
@@ -278,9 +299,8 @@ function Header({ userData }) {
               {(selectedPage.startsWith("/jobs") || isLogin) && (
                 <div className="relative  w-full ml:flex hidden justify-center ">
                   <motion.div
-                    className={`absolute z-[30000] bg-white xlg:w-[258px]  ${
-                      isSearch ? "" : ""
-                    }  `}
+                    className={`absolute z-[30000] bg-white xlg:w-[258px]  ${isSearch ? "" : ""
+                      }  `}
                     initial={{ width: "258px", height: "46px" }}
                     animate={{
                       width: isSearch ? "648px" : "",
@@ -313,28 +333,38 @@ function Header({ userData }) {
                         />
                         <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
 
-                        <select
-                          className={`text-[14px] font-[500] outline-none border-none  w-full font-Montserrat max-w-[148px] min-w-[80px] ${
-                            experience ? "text-[#333333]" : "text-[#889FBA]"
-                          }`}
-                          value={experience}
-                          onChange={(e) => setExperience(e.target.value)}
-                        >
-                          <option value="" disabled className="text-[#889FBA]">
-                            Select Experience
-                          </option>
-                          {sortedExperiences
-                            .filter((exp) => exp)
-                            .map((exp, index) => (
-                              <option
-                                key={index}
-                                value={exp}
-                                className="text-[#333333]"
-                              >
-                                {exp}
-                              </option>
-                            ))}
-                        </select>
+                        <div className="relative w-[180px]" ref={dropdownRef}>
+                          <div
+                            className={`px-4 py-2 bg-white cursor-pointer text-[14px] font-medium ${experience  ? "text-[#333]" : "text-[#889FBA]"
+                              }`}
+                            onClick={toggleDropdownn}
+                          >
+                            {experience || "Select Experience"}
+                          </div>
+
+                          {open && (
+                            <ul className="absolute top-full left-0 mt-2 bg-white rounded shadow-md w-[204px] max-h-[200px] overflow-y-auto z-10">
+                              {experienceList.map((exp, idx) => (
+                                <li
+                                  key={idx}
+                                  onClick={() => handleSelect(exp)}
+                                  className={`px-4 py-2 text-[13px] font-medium cursor-pointer hover:bg-[#f5f5f5] ${exp === experience ? "bg-[#f0f0f0] font-semibold" : ""
+                                    }`}
+                                >
+                                  {exp === "Fresher" ? (
+                                    <div className="flex items-center leading-tight font-medium">
+                                      <span className="text-[13px]">Fresher</span> <span className="text-[12px] text-[#717B9E] pl-1"> (less than 1 year)</span>
+                                      
+                                    </div>
+                                  ) : (
+                                    exp
+                                  )}
+                                </li>
+
+                              ))}
+                            </ul>
+                          )}
+                        </div>
 
                         <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
 

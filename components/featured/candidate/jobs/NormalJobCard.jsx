@@ -60,7 +60,7 @@ function NormalJobCard({ item }) {
       onClick={() => {
         router.push(`/jobs/candidate/JobDetails?id=${item?._id}`);
       }}
-      className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[169px] bg-[#FFFFFF] z-0 w-full cursor-pointer `}
+      className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[155px] bg-[#FFFFFF] z-0 w-full cursor-pointer `}
       style={{
         boxShadow: "0px 0px 14px 0px #00000005",
       }}
@@ -226,7 +226,7 @@ function NormalJobCard({ item }) {
             </div>
           )}
         </div>
-        <div className="flex flex-row gap-[4px]">
+        {/* <div className="flex flex-row gap-[4px]">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -264,7 +264,7 @@ function NormalJobCard({ item }) {
               />
             )}
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-row justify-between items-start px-1 h-[24px]">
