@@ -20,6 +20,7 @@ import JobPrefrence from "../../components/featured/profile/jobPreferences";
 import PersonalDetails from "../../components/featured/profile/personalDetails";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/mini-loader";
+import LanguagesProfile from "../../components/featured/profile/LanguagesProfile";
 
 function Profile() {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -28,7 +29,7 @@ function Profile() {
   const [resumeCount, setResumeCount] = useState(1);
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
-  
+
   const arr = [
     "My Resume",
     "About me",
@@ -56,15 +57,102 @@ function Profile() {
     setUserData(profileData);
   }, [profileData]);
 
-  function mapPercentageToDegree(percentage) {
-    const clampedPercentage = Math.min(100, Math.max(0, percentage));
-    const degree = 90 + (clampedPercentage / 100) * 270;
-    return degree;
-  }
+
+
+  const calculateProfileCompletion = (candidate) => {
+    let score = 0;
+    console.log(candidate);
+    // 1. Basics Info
+    const basics = candidate.basics || {};
+    const perFieldScore = 15 / 8;
+
+    if (basics.firstName) score += perFieldScore;
+    if (basics.lastName) score += perFieldScore;
+    if (basics.email) score += perFieldScore;
+    if (basics.mobileNo) score += perFieldScore;
+    if (basics.dob) score += perFieldScore;
+    if (basics.gender) score += perFieldScore;
+    if (basics.currentLocation) score += perFieldScore;
+    if (basics.maritalStatus) score += perFieldScore;
+
+
+    // 2. Work Experience
+    if (candidate.workExperiance?.length > 0) {
+      score += 15;
+    }
+
+    // 3. Education
+    if (candidate.education?.length > 0) {
+      score += 10;
+    }
+
+    // 4. Job Preferences
+    const jp = candidate.jobPrefrences || {};
+    const perFieldScore1 = 10 / 8;
+
+    if (jp.industry) score += perFieldScore1;
+    if (jp.department) score += perFieldScore1;
+    if (jp.jobRole) score += perFieldScore1;
+    if (jp.jobType) score += perFieldScore1;
+    if (jp.jobMode) score += perFieldScore1;
+    if (jp.shift) score += perFieldScore1;
+    if (jp.expectedSalary) score += perFieldScore1;
+    if (jp.preferedLocation?.length) score += perFieldScore1;
+
+
+
+    if (candidate.resumeUrl) {
+      score += 10;
+    }
+
+
+    if (candidate.skills?.length > 0) {
+      score += 10;
+    }
+
+
+    if (candidate.languages?.length > 0) {
+      score += 5;
+    }
+
+
+    if (candidate.projects?.length > 0) {
+      score += 5;
+    }
+
+
+    if (candidate.profilePicture?.img) {
+      score += 5;
+    }
+
+
+    if (candidate.courses?.length > 0 || candidate.awards?.length > 0) {
+      score += 5;
+    }
+
+    if (candidate.socialLinks?.length > 0) {
+      score += 5;
+    }
+
+
+    if (candidate.summary || (candidate.hobbies?.length > 0)) {
+      score += 5;
+    }
+
+    return score;
+  };
+  const percentage = calculateProfileCompletion(userData)?.toFixed(0);
+  const getProgressColor = (percentage) => {
+    if (percentage < 40) return "#C00000";
+    if (percentage <= 75) return "#0275A7";
+    return "#127C29";
+  };
+
+  const progressColor = getProgressColor(percentage);
+
   const containerStyle = {
-    backgroundImage: `linear-gradient(${mapPercentageToDegree(
-      userData?.profileScore?.toFixed(0)
-    )}deg, transparent 50%, #f0f0f0 50%), linear-gradient(90deg, #f0f0f0 50%, transparent 50%)`,
+    background: `conic-gradient(${progressColor} ${percentage * 3.6}deg, #f0f0f0 0deg)`,
+
   };
 
   const [isComponentOpen, setIsComponentOpen] = useState(false);
@@ -93,6 +181,8 @@ function Profile() {
     }, 2000);
   };
 
+
+
   return (
     <div className="">
       <div>{<ProfileHeader userData={userData} />}</div>
@@ -100,33 +190,33 @@ function Profile() {
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
           <div className="profile_left_section ml:sticky ml:top-[84px] max-w-[262px] hidden ml:inline-flex">
-            {/* <div className="score_all">
+            <div className="score_all">
               <div className="profile_score">
                 <div class="circle-border" style={containerStyle}>
                   <div class="circle">
                     <p className="profile_percent">
-                      {userData?.profileScore?.toFixed(0)} %
+                      {calculateProfileCompletion(userData)?.toFixed(0)} %
                     </p>
                   </div>
                 </div>
-                {/* <img src="./images/profile/Ellipse_24.png" alt="" />
+                {/* <img src="./images/profile/Ellipse_24.png" alt="" /> */}
                 <img
                   src="./images/profile/Ellipse_25.png"
                   className="eclips_25"
                   alt=""
-                /> */}
-            {/* <p className="profile_percent">
-                  {userData.profileScore?.toFixed(0)} %
-                </p> */}
-            {/* </div> */}
+                />
+                <p className="profile_percent">
+                  {calculateProfileCompletion(userData)?.toFixed(0)} %
+                </p>
+              </div>
 
-            {/* <div className="profile_right_section profile_align">
+              <div className="profile_right_section profile_align">
                 <p className="profile_score_text">Profile Score</p>
                 <p className="improve_text">
                   Improve your profile score, to get more recruiter attention.
                 </p>
-              </div> */}
-            {/* </div> */}
+              </div>
+            </div>
 
             <div className="profile_option heroBlock">
               {arr.map((item, index) => (
@@ -140,9 +230,8 @@ function Profile() {
                   className="w-[100%]"
                 >
                   <div
-                    className={`profile_option_menu  ${
-                      selectedTab == item && " profile_option_menu-selected"
-                    }`}
+                    className={`profile_option_menu  ${selectedTab == item && " profile_option_menu-selected"
+                      }`}
                   >
                     <p className="my_resume cursor-pointer">{item}</p>
                   </div>
@@ -278,6 +367,12 @@ function Profile() {
                 setIsComponentOpen={setIsComponentOpen}
               />
             </ScrollElement>
+            {/* <ScrollElement name="Languages" className="section">
+              <LanguagesProfile
+                userData={userData}
+                setIsComponentOpen={setIsComponentOpen}
+              />
+            </ScrollElement> */}
 
             <ScrollElement name="Certifications" className="section">
               <Courses userData={userData} />
