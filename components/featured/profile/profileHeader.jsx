@@ -43,90 +43,90 @@ const ProfileHeader = ({ userData }) => {
   //   };
 
   const getMissingProfileDetails = (candidate) => {
-    const missingDetails = {
-      personalDetails: [],
-      profilePicture: [],
-      experience: [],
-      education: [],
-      skills: [],
-      resume: [],
-      projects: [],
-      certifications: [],
-      socialLinks: [],
-      jobPreferences: [],
-      summary: [],
-      achievements: [],
-    };
-
-    const basics = candidate.basics || {};
-    const perBasicFieldScore = +(15 / 8).toFixed(2);
-    const perJobPrefFieldScore = +(10 / 8).toFixed(2);
-
-    if (!basics.firstName) missingDetails.personalDetails.push({ name: "First Name", score: perBasicFieldScore });
-    if (!basics.lastName) missingDetails.personalDetails.push({ name: "Last Name", score: perBasicFieldScore });
-    if (!basics.email) missingDetails.personalDetails.push({ name: "Email", score: perBasicFieldScore });
-    if (!basics.mobileNo) missingDetails.personalDetails.push({ name: "Mobile Number", score: perBasicFieldScore });
-    if (!basics.dob) missingDetails.personalDetails.push({ name: "Date of Birth", score: perBasicFieldScore });
-    if (!basics.gender) missingDetails.personalDetails.push({ name: "Gender", score: perBasicFieldScore });
-    if (!basics.currentLocation) missingDetails.personalDetails.push({ name: "Current Location", score: perBasicFieldScore });
-    if (!basics.maritalStatus) missingDetails.personalDetails.push({ name: "Marital Status", score: perBasicFieldScore });
-
-    const jp = candidate.jobPrefrences || {};
-    if (!jp.industry) missingDetails.jobPreferences.push({ name: "Preferred Industry", score: perJobPrefFieldScore });
-    if (!jp.department) missingDetails.jobPreferences.push({ name: "Preferred Department", score: perJobPrefFieldScore });
-    if (!jp.jobRole) missingDetails.jobPreferences.push({ name: "Preferred Job Role", score: perJobPrefFieldScore });
-    if (!jp.jobType) missingDetails.jobPreferences.push({ name: "Preferred Job Type", score: perJobPrefFieldScore });
-    if (!jp.jobMode) missingDetails.jobPreferences.push({ name: "Preferred Job Mode", score: perJobPrefFieldScore });
-    if (!jp.shift) missingDetails.jobPreferences.push({ name: "Preferred Shift", score: perJobPrefFieldScore });
-    if (!jp.expectedSalary) missingDetails.jobPreferences.push({ name: "Expected Salary", score: perJobPrefFieldScore });
-    if (!jp.preferedLocation || jp.preferedLocation.length === 0) {
-      missingDetails.jobPreferences.push({ name: "Preferred Location", score: perJobPrefFieldScore });
-    }
-
-    if (!candidate.education || candidate.education.length === 0) {
-      missingDetails.education.push({ name: "Education", score: 10 });
-    }
-
-    if (!candidate.workExperiance || candidate.workExperiance.length === 0) {
-      missingDetails.experience.push({ name: "Work Experience", score: 15 });
-    }
-
-    if (!candidate.resumeUrl) {
-      missingDetails.resume.push({ name: "Resume", score: 10 });
-    }
-
-    if (!candidate.skills || candidate.skills.length === 0) {
-      missingDetails.skills.push({ name: "Skills", score: 10 });
-    }
-
-    if (!candidate.projects || candidate.projects.length === 0) {
-      missingDetails.projects.push({ name: "Projects", score: 5 });
-    }
-
-    if (!candidate.profilePicture?.img) {
-      missingDetails.profilePicture.push({ name: "Profile Picture", score: 5 });
-    }
-
-    if (
-      (!candidate.courses || candidate.courses.length === 0)
-    ) {
-      missingDetails.certifications.push({ name: "Certifications", score: 5 });
-    }
-
-    if (!candidate.socialLinks || candidate.socialLinks.length === 0) {
-      missingDetails.socialLinks.push({ name: "Social Links", score: 5 });
-    }
-
-    if (!candidate.summary) {
-      missingDetails.summary.push({ name: "Summary", score: 5 });
-    }
-
-    if (!candidate.awards || candidate.awards.length === 0) {
-      missingDetails.achievements.push({ name: "Achievements", score: 5 });
-    }
-
-    return missingDetails;
+  const missingDetails = {
+    personalDetails: [],
+    profilePicture: [],
+    experience: [],
+    education: [],
+    skills: [],
+    resume: [],
+    projects: [],
+    certifications: [],
+    socialLinks: [],
+    jobPreferences: [],
+    summary: [],
+    achievements: [],
   };
+
+  const basics = candidate?.basics || {};
+  const jp = candidate?.jobPrefrences || {};
+
+  const perBasicFieldScore = +(15 / 8).toFixed(2);
+  const perJobPrefFieldScore = +(10 / 8).toFixed(2);
+
+  if (!basics?.firstName) missingDetails.personalDetails.push({ name: "First Name", score: perBasicFieldScore });
+  if (!basics?.lastName) missingDetails.personalDetails.push({ name: "Last Name", score: perBasicFieldScore });
+  if (!basics?.email) missingDetails.personalDetails.push({ name: "Email", score: perBasicFieldScore });
+  if (!basics?.mobileNo) missingDetails.personalDetails.push({ name: "Mobile Number", score: perBasicFieldScore });
+  if (!basics?.dob) missingDetails.personalDetails.push({ name: "Date of Birth", score: perBasicFieldScore });
+  if (!basics?.gender) missingDetails.personalDetails.push({ name: "Gender", score: perBasicFieldScore });
+  if (!basics?.currentLocation) missingDetails.personalDetails.push({ name: "Current Location", score: perBasicFieldScore });
+  if (!basics?.maritalStatus) missingDetails.personalDetails.push({ name: "Marital Status", score: perBasicFieldScore });
+
+  if (!jp?.industry) missingDetails.jobPreferences.push({ name: "Preferred Industry", score: perJobPrefFieldScore });
+  if (!jp?.department) missingDetails.jobPreferences.push({ name: "Preferred Department", score: perJobPrefFieldScore });
+  if (!jp?.jobRole) missingDetails.jobPreferences.push({ name: "Preferred Job Role", score: perJobPrefFieldScore });
+  if (!jp?.jobType) missingDetails.jobPreferences.push({ name: "Preferred Job Type", score: perJobPrefFieldScore });
+  if (!jp?.jobMode) missingDetails.jobPreferences.push({ name: "Preferred Job Mode", score: perJobPrefFieldScore });
+  if (!jp?.shift) missingDetails.jobPreferences.push({ name: "Preferred Shift", score: perJobPrefFieldScore });
+  if (!jp?.expectedSalary) missingDetails.jobPreferences.push({ name: "Expected Salary", score: perJobPrefFieldScore });
+  if (!Array.isArray(jp?.preferedLocation) || jp.preferedLocation.length === 0) {
+    missingDetails.jobPreferences.push({ name: "Preferred Location", score: perJobPrefFieldScore });
+  }
+
+  if (!Array.isArray(candidate?.education) || candidate.education.length === 0) {
+    missingDetails.education.push({ name: "Education", score: 10 });
+  }
+
+  if (!Array.isArray(candidate?.workExperiance) || candidate.workExperiance.length === 0) {
+    missingDetails.experience.push({ name: "Work Experience", score: 15 });
+  }
+
+  if (!candidate?.resumeUrl) {
+    missingDetails.resume.push({ name: "Resume", score: 10 });
+  }
+
+  if (!Array.isArray(candidate?.skills) || candidate.skills.length === 0) {
+    missingDetails.skills.push({ name: "Skills", score: 10 });
+  }
+
+  if (!Array.isArray(candidate?.projects) || candidate.projects.length === 0) {
+    missingDetails.projects.push({ name: "Projects", score: 5 });
+  }
+
+  if (!candidate?.profilePicture?.img) {
+    missingDetails.profilePicture.push({ name: "Profile Picture", score: 5 });
+  }
+
+  if (!Array.isArray(candidate?.courses) || candidate.courses.length === 0) {
+    missingDetails.certifications.push({ name: "Certifications", score: 5 });
+  }
+
+  if (!Array.isArray(candidate?.socialLinks) || candidate.socialLinks.length === 0) {
+    missingDetails.socialLinks.push({ name: "Social Links", score: 5 });
+  }
+
+  if (!candidate?.summary) {
+    missingDetails.summary.push({ name: "Summary", score: 5 });
+  }
+
+  if (!Array.isArray(candidate?.awards) || candidate.awards.length === 0) {
+    missingDetails.achievements.push({ name: "Achievements", score: 5 });
+  }
+
+  return missingDetails;
+};
+
 
   const missingDetails = getMissingProfileDetails(userData);
 
