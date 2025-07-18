@@ -21,6 +21,7 @@ import PersonalDetails from "../../components/featured/profile/personalDetails";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/mini-loader";
 import LanguagesProfile from "../../components/featured/profile/LanguagesProfile";
+import { calculateProfileCompletion } from "../../utils/data";
 
 function Profile() {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -58,89 +59,6 @@ function Profile() {
   }, [profileData]);
 
 
-
-  const calculateProfileCompletion = (candidate) => {
-    let score = 0;
-    console.log(candidate);
-    // 1. Basics Info
-    const basics = candidate.basics || {};
-    const perFieldScore = 15 / 8;
-
-    if (basics.firstName) score += perFieldScore;
-    if (basics.lastName) score += perFieldScore;
-    if (basics.email) score += perFieldScore;
-    if (basics.mobileNo) score += perFieldScore;
-    if (basics.dob) score += perFieldScore;
-    if (basics.gender) score += perFieldScore;
-    if (basics.currentLocation) score += perFieldScore;
-    if (basics.maritalStatus) score += perFieldScore;
-
-
-    // 2. Work Experience
-    if (candidate.workExperiance?.length > 0) {
-      score += 15;
-    }
-
-    // 3. Education
-    if (candidate.education?.length > 0) {
-      score += 10;
-    }
-
-    // 4. Job Preferences
-    const jp = candidate.jobPrefrences || {};
-    const perFieldScore1 = 10 / 8;
-
-    if (jp.industry) score += perFieldScore1;
-    if (jp.department) score += perFieldScore1;
-    if (jp.jobRole) score += perFieldScore1;
-    if (jp.jobType) score += perFieldScore1;
-    if (jp.jobMode) score += perFieldScore1;
-    if (jp.shift) score += perFieldScore1;
-    if (jp.expectedSalary) score += perFieldScore1;
-    if (jp.preferedLocation?.length) score += perFieldScore1;
-
-
-
-    if (candidate.resumeUrl) {
-      score += 10;
-    }
-
-
-    if (candidate.skills?.length > 0) {
-      score += 10;
-    }
-
-
-    if (candidate.languages?.length > 0) {
-      score += 5;
-    }
-
-
-    if (candidate.projects?.length > 0) {
-      score += 5;
-    }
-
-
-    if (candidate.profilePicture?.img) {
-      score += 5;
-    }
-
-
-    if (candidate.courses?.length > 0 || candidate.awards?.length > 0) {
-      score += 5;
-    }
-
-    if (candidate.socialLinks?.length > 0) {
-      score += 5;
-    }
-
-
-    if (candidate.summary || (candidate.hobbies?.length > 0)) {
-      score += 5;
-    }
-
-    return score;
-  };
   const percentage = calculateProfileCompletion(userData)?.toFixed(0);
   const getProgressColor = (percentage) => {
     if (percentage < 40) return "#C00000";
@@ -185,12 +103,14 @@ function Profile() {
 
   return (
     <div className="">
+
       <div>{<ProfileHeader userData={userData} />}</div>
+
 
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
           <div className="profile_left_section ml:sticky ml:top-[84px] max-w-[262px] hidden ml:inline-flex">
-            <div className="score_all">
+            {/* <div className="score_all">
               <div className="profile_score">
                 <div class="circle-border" style={containerStyle}>
                   <div class="circle">
@@ -199,7 +119,7 @@ function Profile() {
                     </p>
                   </div>
                 </div>
-                {/* <img src="./images/profile/Ellipse_24.png" alt="" /> */}
+                
                 <img
                   src="./images/profile/Ellipse_25.png"
                   className="eclips_25"
@@ -216,7 +136,7 @@ function Profile() {
                   Improve your profile score, to get more recruiter attention.
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div className="profile_option heroBlock">
               {arr.map((item, index) => (

@@ -353,7 +353,7 @@ export const Api = ({ }) => {
     const updateLastActive = async () => {
       try {
         const response = await axios.put(`https://api.skilotech.com/api/candidates/${userDataGlobal?._id}/lastActive`);
-        console.log('Updated lastActive successfully:', response.data.candidate);
+        // console.log('Updated lastActive successfully:', response.data.candidate);
       } catch (error) {
         console.error('Error updating lastActive:', error);
       }

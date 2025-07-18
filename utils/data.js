@@ -25,6 +25,88 @@ export const getRelativeTime = (date) => {
   return "Just now";
 };
 
+
+  export const calculateProfileCompletion = (candidate) => {
+    let score = 0;
+
+    const basics = candidate.basics || {};
+    const perFieldScore = 15 / 8;
+
+    if (basics.firstName) score += perFieldScore;
+    if (basics.lastName) score += perFieldScore;
+    if (basics.email) score += perFieldScore;
+    if (basics.mobileNo) score += perFieldScore;
+    if (basics.dob) score += perFieldScore;
+    if (basics.gender) score += perFieldScore;
+    if (basics.currentLocation) score += perFieldScore;
+    if (basics.maritalStatus) score += perFieldScore;
+
+    if (candidate.workExperiance?.length > 0) {
+      score += 15;
+    }
+
+    if (candidate.education?.length > 0) {
+      score += 10;
+    }
+
+    const jp = candidate.jobPrefrences || {};
+    const perFieldScore1 = 10 / 8;
+
+    if (jp.industry) score += perFieldScore1;
+    if (jp.department) score += perFieldScore1;
+    if (jp.jobRole) score += perFieldScore1;
+    if (jp.jobType) score += perFieldScore1;
+    if (jp.jobMode) score += perFieldScore1;
+    if (jp.shift) score += perFieldScore1;
+    if (jp.expectedSalary) score += perFieldScore1;
+    if (jp.preferedLocation?.length) score += perFieldScore1;
+
+
+
+    if (candidate.resumeUrl) {
+      score += 10;
+    }
+
+
+    if (candidate.skills?.length > 0) {
+      score += 10;
+    }
+
+
+    if (candidate.awards?.length > 0) {
+      score += 5;
+    }
+
+
+    if (candidate.projects?.length > 0) {
+      score += 5;
+    }
+
+
+    if (candidate.profilePicture?.img) {
+      score += 5;
+    }
+
+
+    if (candidate.courses?.length > 0 ) {
+      score += 5;
+    }
+
+    if (candidate.socialLinks?.length > 0) {
+      score += 5;
+    }
+
+
+    if (candidate.summary) {
+      score += 5;
+    }
+
+    return score;
+  };
+
+
+
+
 export const defaultParameters =
   [
     {
