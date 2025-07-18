@@ -128,6 +128,18 @@ function ProfileSection() {
           <button onClick={() => router.push("/profile")} className="bg_Button h-[40px] px-4 rounded-[30px] w-fit ">Complete Profile</button>
         }
       </div>
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between text-[14px] font-semibold">
+          Profile Performance
+          
+        </div>
+        <div className="flex justify-between text-[14px] font-medium">
+          Search Appearance
+        </div>
+        <div className="flex justify-between text-[14px] font-medium">
+          Recruiter Action
+        </div>
+      </div>
 
     </div>
   );

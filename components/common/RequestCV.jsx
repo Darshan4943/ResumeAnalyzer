@@ -67,6 +67,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   const [readyToFetch, setReadyToFetch] = useState(false);
   const [expandedUser, setExpandedUser] = useState(null);
   const [jobData, setJobData] = useState();
+  const [loadingSave, setLoadingSave] = useState(false)
   const taskRef = useRef(null);
   const [data, setData] = useState({
     jobTitle: "",
@@ -482,11 +483,22 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   //     }
   // };
 
+  const increaseRecruiterAction = async (userId) => {
+    try {
+      const response = await axios.put(`https://api.skilotech.com/api/candidate/increaseRecruiterAction/${userId}`);
+      console.log("Recruiter action increased:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to increase recruiter action:", error.response?.data?.message || error.message);
+    }
+  };
+
   const addData = async (files) => {
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
       return;
     }
+    setLoadingSave(true)
     try {
       if (!files || files.length === 0) return;
       const firstFile = files[0];
@@ -553,13 +565,15 @@ function RequestCV({ isCandidate, skilotechCollection }) {
       setSelectFolder(false);
       toast.success("Saved to My Collection");
       updateAiLimit()
-
+      increaseRecruiterAction(selectedCandidates[0]._id)
+      setLoadingSave(false)
       return results;
     } catch (error) {
       console.error("❌ Error adding files:", error);
       toast.error("Failed to save some files");
       setSelectFolder(false);
       throw error;
+      setLoadingSave(false)
     }
   };
 
@@ -778,19 +792,25 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                 )}
               </div>
               <div className="flex  justify-end">
-                <button
-                  disabled={
-                    (creating && !newFolderName) ||
-                    (!creating && !selectedFolder)
-                  }
-                  onClick={() => saveResume()}
-                  className={`flex justify-center rounded-[30px] items-center h-[36px] px-6 bg_Button ${((creating && !newFolderName) ||
-                    (!creating && !selectedFolder)) &&
-                    "opacity-50"
-                    }`}
-                >
-                  Save
-                </button>
+                {loadingSave ?
+                  <div className="flex justify-center  items-center h-[36px] rounded-[30px] w-[76.94px] bg-blue">
+                    <MiniLoader1 />
+                  </div>
+                  :
+                  <button
+                    disabled={
+                      (creating && !newFolderName) ||
+                      (!creating && !selectedFolder)
+                    }
+                    onClick={() => saveResume()}
+                    className={`flex justify-center rounded-[30px] items-center h-[36px] px-6 bg_Button ${((creating && !newFolderName) ||
+                      (!creating && !selectedFolder)) &&
+                      "opacity-50"
+                      }`}
+                  >
+                    Save
+                  </button>
+                }
               </div>
             </div>
           </div>
@@ -1349,52 +1369,52 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                   </>
                 )}
               </AnimatePresence>
-                {preferences && (
-                      <div className="bg-white rounded-[8px]   gap-4 p-2 scr1067:hidden flex w-fit ">
-                        <div className="flex gap-2 items-center font-semibold text-[13px]">
-                          <input
-                            type="checkbox"
-                            className="h-4 w-4 custom-checkbox"
-                            checked={collection.includes("MyCollection")}
-                            onChange={(e) => {
-                              setIsFilterUsed(true);
-                              if (e.target.checked) {
-                                setCollection([...collection, "MyCollection"]);
-                              } else {
-                                setCollection(
-                                  collection.filter((c) => c !== "MyCollection")
-                                );
-                              }
-                            }}
-                          />
-                          <label>My Collection</label>
-                        </div>
+              {preferences && (
+                <div className="bg-white rounded-[8px]   gap-4 p-2 scr1067:hidden flex w-fit ">
+                  <div className="flex gap-2 items-center font-semibold text-[13px]">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 custom-checkbox"
+                      checked={collection.includes("MyCollection")}
+                      onChange={(e) => {
+                        setIsFilterUsed(true);
+                        if (e.target.checked) {
+                          setCollection([...collection, "MyCollection"]);
+                        } else {
+                          setCollection(
+                            collection.filter((c) => c !== "MyCollection")
+                          );
+                        }
+                      }}
+                    />
+                    <label>My Collection</label>
+                  </div>
 
-                        <div className="flex gap-2 items-center font-semibold text-[13px]">
-                          <input
-                            type="checkbox"
-                            className="h-4 w-4 custom-checkbox"
-                            checked={collection.includes("SkilotechCollection")}
-                            onChange={(e) => {
-                              setIsFilterUsed(true);
-                              if (e.target.checked) {
-                                setCollection([
-                                  ...collection,
-                                  "SkilotechCollection",
-                                ]);
-                              } else {
-                                setCollection(
-                                  collection.filter(
-                                    (c) => c !== "SkilotechCollection"
-                                  )
-                                );
-                              }
-                            }}
-                          />
-                          <label>Skilotech Collection</label>
-                        </div>
-                      </div>
-                    )}
+                  <div className="flex gap-2 items-center font-semibold text-[13px]">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 custom-checkbox"
+                      checked={collection.includes("SkilotechCollection")}
+                      onChange={(e) => {
+                        setIsFilterUsed(true);
+                        if (e.target.checked) {
+                          setCollection([
+                            ...collection,
+                            "SkilotechCollection",
+                          ]);
+                        } else {
+                          setCollection(
+                            collection.filter(
+                              (c) => c !== "SkilotechCollection"
+                            )
+                          );
+                        }
+                      }}
+                    />
+                    <label>Skilotech Collection</label>
+                  </div>
+                </div>
+              )}
               {!findMatchLoader && (
                 <div className="flex gap-4  relative h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide  ">
                   <div

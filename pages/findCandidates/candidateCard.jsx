@@ -46,6 +46,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
             return;
         }
         updateAiLimit()
+        increaseSearchAppearance(_id)
         setExpandedUser((prev) => (prev === userId ? null : userId));
     };
 
@@ -108,6 +109,25 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
         }, 1000);
     };
 
+    const increaseSearchAppearance = async (userId) => {
+        try {
+            const response = await axios.put(`https://api.skilotech.com/api/candidate/increaseSearchAppearance/${userId}`);
+            console.log('Success:', response.data);
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error.response?.data?.message || error.message);
+        }
+    };
+
+    const increaseRecruiterAction = async (userId) => {
+        try {
+            const response = await axios.put(`https://api.skilotech.com/api/candidate/increaseRecruiterAction/${userId}`);
+            console.log("Recruiter action increased:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Failed to increase recruiter action:", error.response?.data?.message || error.message);
+        }
+    };
 
     const downloadResume = async (resumeUrl, firstName, lastName) => {
         if (jdCountMonthly >= jdCountMonthlyLimit) {
@@ -115,6 +135,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
             return;
         }
         updateAiLimit()
+        increaseRecruiterAction(_id)
         try {
             if (!resumeUrl) {
                 return alert("No resume available for download.");
@@ -293,6 +314,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
 
             toast.success("Cv forwarded successfully");
             updateAiLimit(_id)
+            increaseRecruiterAction(_id)
             setShareCv(false)
             setLoading(false)
             return response.data;
@@ -328,6 +350,7 @@ const CandidateCard = ({ setLimitPopup, jobData, preferences, jobId, candidate, 
             );
             toast.success("Move to Hiring Successfully");
             updateAiLimit()
+            increaseRecruiterAction(_id)
             const existingIds =
                 JSON.parse(localStorage.getItem("jdApplicantIds")) || [];
 

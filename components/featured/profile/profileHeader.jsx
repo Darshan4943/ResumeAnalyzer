@@ -149,7 +149,7 @@ const ProfileHeader = ({ userData }) => {
   const getProgressColor = (percentage) => {
     if (percentage < 40) return "#C00000";
     if (percentage <= 75) return "#0275A7";
-    return "#127C29";
+    return "#47b749";
   };
 
   const progressColor = getProgressColor(percentage);

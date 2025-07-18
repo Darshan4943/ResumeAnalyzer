@@ -138,7 +138,7 @@ function Profile() {
               </div>
             </div> */}
 
-            <div className="profile_option heroBlock">
+            <div className="profile_option heroBlock min-w-[194px]">
               {arr.map((item, index) => (
                 <ScrollLink
                   key={index}
