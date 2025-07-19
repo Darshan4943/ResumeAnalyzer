@@ -164,9 +164,9 @@ const ProfileHeader = ({ userData }) => {
   return (
     <>
       <div className=" pt-[24px]">
-        <div className="customMargins bg-white rounded-[16px] flex gap-4 p-6">
+        <div className="customMargins bg-white rounded-[16px] flex scr820:flex-row flex-col gap-4 p-6">
           <div class="grid grid-cols-1 w-full ">
-            <div class="flex flex-row w-full   gap-5 rounded-lg   items-center">
+            <div class="flex sm:flex-row flex-col w-full   gap-5 rounded-lg   items-center">
               <div
               
               className="relative"
@@ -199,8 +199,8 @@ const ProfileHeader = ({ userData }) => {
                 </p>
               </div>
             
-              <div class="flex flex-col items-start gap-2 flex-1 ">
-                <div class="flex pb-2 items-start gap-2 self-stretch ml:border-b ml:border-gray-400">
+              <div class="flex flex-col items-start gap-2 flex-1 w-full ">
+                <div class="flex pb-2 items-start gap-2 self-stretch border-b border-gray-400">
                   <div class="flex items-baseline gap-[8px]">
                     <div class="flex flex-col items-start">
                       <p class="text-[#333]  font-montserrat font-medium text-[20px] md:text-2xl">
@@ -210,20 +210,7 @@ const ProfileHeader = ({ userData }) => {
                       <p class="text-[#646464] font-montserrat text-xs font-normal">
                         Last updated {timeAgo(new Date(userData?.updatedAt))}
                       </p>
-                      <div className="mobile mt-[5px]">
-                        {userData?.basics?.mobileNo && (
-                          <div class="flex items-center gap-[5px]">
-                            <img
-                              class="w-[20px] h-[20px]"
-                              src="/images/profile/call.png"
-                              alt=""
-                            />
-                            <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                              {userData?.basics?.mobileNo}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                      
                     </div>
                     <div
                       className="flex items-center cursor-pointer"
@@ -238,8 +225,8 @@ const ProfileHeader = ({ userData }) => {
                     </div>
                   </div>
                 </div>
-                <div class="flex justify-between w-full heroBlock">
-                  <div class="flex flex-col  gap-[10px] flex-grow w-0">
+                <div class="flex  lg:flex-row scr820:flex-col ms:flex-row flex-col justify-between w-full gap-2 ">
+                  <div class="flex flex-col  gap-[10px] flex-grow lg:w-0">
                     {userData?.basics?.currentLocation && (
                       <div class="flex items-center gap-[5px]">
                         <img
@@ -277,7 +264,7 @@ const ProfileHeader = ({ userData }) => {
                       </div>
                     )}
                   </div>
-                  <div class="flex px-[16px] py-[0px] flex-col justify-start items-start gap-[10px] flex-1 self-stretch border-l  border-[#646464]">
+                  <div class="flex lg:px-[16px] py-[0px] flex-col justify-start items-start gap-[10px] flex-1 self-stretch lg:border-l   border-[#646464]">
                     {(latestEducation?.specialization || (latestEducation?.stream && latestEducation?.stream > 0)) && (
                       <div class="flex items-center gap-[5px]">
                         <img
@@ -307,7 +294,7 @@ const ProfileHeader = ({ userData }) => {
               </div>
             </div>
 
-            <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
+            {/* <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
               <div className="bg-[#868383] h-[1px] w-[95%]"></div>
               <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch ">
                 {userData?.education?.length > 0 && (
@@ -334,7 +321,7 @@ const ProfileHeader = ({ userData }) => {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           {Object.values(missingDetails).filter(fields => fields.length > 0).length > 0 &&
             <div className=" bg-[#FFF2E3] rounded-[10px] p-5 flex flex-col gap-4">
@@ -357,7 +344,7 @@ const ProfileHeader = ({ userData }) => {
                         <div className="h-[36px] w-[36px] min-w-[36px] bg-white rounded-full flex items-center justify-center shadow-sm">
                           {categoryIcons[category] || <Star size={18} className="text-[#474D6A]" />}
                         </div>
-                        <p className="font-semibold text-[14px] text-[#474D6A] w-fit min-w-[140px]">{categoryTitle}</p>
+                        <p className="font-semibold text-[14px] text-[#474D6A] w-fit xsm:min-w-[140px] min-w-[100px]">{categoryTitle}</p>
                         <div className="text-[14px] font-medium text-[#47B749] rounded-[16px] px-2 py-1 bg-white flex items-center leading-tight">
                           <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 -960 960 960" width="14px" fill="#47B749">
                             <path d="M440-80v-647L256-544l-56-56 280-280 280 280-56 57-184-184v647h-80Z" />

@@ -161,7 +161,7 @@ function Profile() {
           </div>
 
           <div className="profile_right w-[100%] education_page">
-            <div className="build_ai w-[100%] flex_column">
+            <div className="build_ai w-[100%] flex_column items-start">
               <div className="build_ai_left  w-fit">
                 <div className="flex flex-row w-[100%] ">
                   <div className="w-[50%] md:w-fit">
@@ -171,16 +171,16 @@ function Profile() {
                       alt=""
                     />
                   </div>
-                  <div className="flex flex-col items-center justify-center gap-[10px] w-[50%] build_ai_block">
+                  <div className="flex flex-col items-center justify-center gap-[10px] w-[50%] md:hidden ">
                     <ALink href="/createResume/BuildResume">
-                      <button className="build_ai_button bg-blue text-[#FFFFFF] text-[10px] px-[23px] py-[12px] w-full">
+                      <button className="rounded-[8px] bg-blue text-[#FFFFFF] text-[10px] px-[16px] py-[12px]">
                         Create New Resume
                       </button>
                     </ALink>
 
                     <button
                       onClick={handleDownload}
-                      className="build_ai_button text-[10px] px-[23px] py-[12px] w-full flex items-center justify-center"
+                      className="rounded-[8px] border border-blue  text-[10px] px-[16px] py-[12px] w-[134.3px]"
                     >
                       {isLoading ? <MiniLoader /> : "Download Resume"}
                     </button>
