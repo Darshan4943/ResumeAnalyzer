@@ -137,10 +137,10 @@ const ProfileHeader = ({ userData }) => {
     education: <GraduationCap size={18} className="m-auto text-[#474D6A]" />,
     resume: <FileText size={18} className="m-auto text-[#474D6A]" />,
     skills: <Layers size={18} className="m-auto text-[#474D6A]" />,
-    awards: <Award size={18} className="m-auto text-[#474D6A]" />,
+    achievements: <Award size={18} className="m-auto text-[#474D6A]" />,
     projects: <FileText size={18} className="m-auto text-[#474D6A]" />,
     profilePicture: <ImageIcon size={18} className="m-auto text-[#474D6A]" />,
-    CoursesoOrAwards: <Award size={18} className="m-auto text-[#474D6A]" />,
+    certifications: <GraduationCap  size={18} className="m-auto text-[#474D6A]" />,
     socialLinks: <Globe size={18} className="m-auto text-[#474D6A]" />,
     summary: <Info size={18} className="m-auto text-[#474D6A]" />
   };
@@ -163,10 +163,10 @@ const ProfileHeader = ({ userData }) => {
  
   return (
     <>
-      <div className="bg-[#E0F6FF] py-[24px]">
-        <div className="customMargins flex gap-4">
+      <div className=" pt-[24px]">
+        <div className="customMargins bg-white rounded-[16px] flex gap-4 p-6">
           <div class="grid grid-cols-1 w-full ">
-            <div class="flex flex-row w-full pt-[8px] pb-[18px] md:px-[16px] px-[8px]  gap-5 rounded-lg bg-white shadow-md items-center">
+            <div class="flex flex-row w-full   gap-5 rounded-lg   items-center">
               <div
               
               className="relative"

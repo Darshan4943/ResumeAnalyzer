@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { calculateProfileCompletion, CountPostingDays } from "../../../../utils/data";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 function ProfileSection() {
   const router = useRouter()
@@ -9,6 +10,23 @@ function ProfileSection() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [circumference, setCircumference] = useState(2 * Math.PI * 52);
   const [dashOffset, setDashOffset] = useState(2 * Math.PI * 52);
+  const [searchAppearance, setSearchAppearance] = useState()
+  const [recruiterAction, seRecruiterAction] = useState()
+
+  const getCandidateMetrics = async (userId) => {
+    try {
+      const response = await axios.get(`https://api.skilotech.com/api/candidate/metrics/${userId}`);
+      setSearchAppearance(response.data.searchAppearance);
+      seRecruiterAction(response.data.recruiterAction);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to fetch metrics:", error.response?.data?.message || error.message);
+    }
+  };
+  useEffect(() => {
+    getCandidateMetrics(userDataGlobal?._id)
+  }, []);
+
 
   const latestEducation = [...(profileData?.education || [])].sort((a, b) => {
     const aDate = a?.duration?.endDate;
@@ -128,18 +146,25 @@ function ProfileSection() {
           <button onClick={() => router.push("/profile")} className="bg_Button h-[40px] px-4 rounded-[30px] w-fit ">Complete Profile</button>
         }
       </div>
-      <div className="flex flex-col gap-3">
-        <div className="flex justify-between text-[14px] font-semibold">
-          Profile Performance
-          
+      {(searchAppearance > 0 || recruiterAction > 0) &&
+        <div className="flex flex-col gap-3 px-2">
+          <div className="flex justify-between text-[14px] font-semibold">
+            Profile Performance
+          </div>
+          {searchAppearance > 0 &&
+            <div className="flex justify-between text-[14px] font-medium">
+              Search Appearance
+              <p className="text-[#06A9EF]">{searchAppearance}</p>
+            </div>
+          }
+          {recruiterAction > 0 &&
+            <div className="flex justify-between text-[14px] font-medium">
+              Recruiter Action
+              <p className="text-[#06A9EF]">{recruiterAction}</p>
+            </div>
+          }
         </div>
-        <div className="flex justify-between text-[14px] font-medium">
-          Search Appearance
-        </div>
-        <div className="flex justify-between text-[14px] font-medium">
-          Recruiter Action
-        </div>
-      </div>
+      }
 
     </div>
   );
