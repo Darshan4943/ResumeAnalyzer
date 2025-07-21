@@ -13,6 +13,7 @@ const LinkedInCallback = () => {
 console.log(code);
 console.log(queryError);
     if (queryError) {
+        
       setError("Authorization failed. Please try again.");
       return;
     }
