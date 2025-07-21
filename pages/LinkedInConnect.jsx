@@ -13,7 +13,7 @@ const LinkedInConnect = () => {
 // };
 
 const handleConnect = () => {
-  const clientId = "866gq2fsy7j6ib";
+  const clientId = "77ibh256epyk8p";
   const redirectUri = encodeURIComponent("https://www.skilotech.com/linkedin/callback");
   const scope = "openid profile email";
   const responseType = "code";
