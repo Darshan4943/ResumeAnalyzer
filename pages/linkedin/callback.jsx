@@ -11,6 +11,7 @@ const LinkedInCallback = () => {
   useEffect(() => {
     const { code, error: queryError } = router.query;
 console.log(code);
+console.log(queryError);
     if (queryError) {
       setError("Authorization failed. Please try again.");
       return;
