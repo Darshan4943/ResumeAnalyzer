@@ -9,11 +9,11 @@ const LinkedInCallback = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [error, setError] = useState("");
 
-
+    const { code, error: queryError } = router.query;
 
 
     const updateToken = () => {
-        const { code, error: queryError } = router.query;
+
         if (queryError) {
 
             setError("Authorization failed. Please try again.");
@@ -42,7 +42,7 @@ const LinkedInCallback = () => {
 
     useEffect(() => {
         if (userDataGlobal) {
-            updateToken
+            updateToken()
         }
 
     }, [router.query, userDataGlobal]);
