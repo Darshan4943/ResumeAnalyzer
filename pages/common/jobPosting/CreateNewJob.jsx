@@ -2370,7 +2370,7 @@ function CreateNewJob() {
                               className="w-4 h-4"
                             />
                             <label htmlFor="postOnLinkedIn" className="text-[14px] font-medium">
-                              Post on LinkedIn also
+                              Share on LinkedIn as well
                             </label>
                           </div>
                         }
