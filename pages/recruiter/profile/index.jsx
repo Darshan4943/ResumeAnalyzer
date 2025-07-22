@@ -166,7 +166,7 @@ const Profile = () => {
 
   const handleConnect = () => {
     const clientId = "77ibh256epyk8p";
-    const redirectUri = encodeURIComponent("http://localhost:3000/recruiter/profile");
+    const redirectUri = encodeURIComponent("https://skilotech.com/recruiter/profile");
     const scope = encodeURIComponent("openid profile email w_member_social");
     const state = "DCEEFWF45453sdffef424";
 
