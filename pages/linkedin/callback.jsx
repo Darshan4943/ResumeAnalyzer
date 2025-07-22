@@ -9,28 +9,26 @@ const LinkedInCallback = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [error, setError] = useState("");
 
-    const { code, error: queryError } = router.query;
-
-
-    const updateToken = () => {
-
+    useEffect(() => {
+        const { code, error: queryError } = router.query;
         if (queryError) {
 
             setError("Authorization failed. Please try again.");
             return;
         }
 
+        const msg = localStorage.getItem("linkeddinMsg")
+        setSuccessMessage(msg)
         if (code) {
-            // Exchange authorization code for access token via your backend
+
             axios
-                .post(`http://localhost:2000/api/linkedin/exchange-token/${userDataGlobal?._id}`, { code })
+                .post(`https://api.skilotech.com/api/linkedin/exchange-token/${userDataGlobal?._id}`, { code })
                 .then(res => {
                     const data = res.data;
-                    if (data.error) {
-                        setError(data.error);
-                    } else {
+                    if (data) {
+
                         setSuccessMessage("LinkedIn connected successfully!");
-                        // Optional: save token, redirect, etc.
+                        localStorage.setItem("linkeddinMsg", "LinkedIn connected successfully!")
                     }
                 })
                 .catch(err => {
@@ -38,22 +36,11 @@ const LinkedInCallback = () => {
                     setError("Something went wrong. Please try again.");
                 });
         }
-    }
-
-    useEffect(() => {
-        if (userDataGlobal) {
-            updateToken()
-        }
-
-    }, [router.query, userDataGlobal]);
-
-
-
-
+    }, [router.query]);
 
     return (
         <div className="flex flex-col items-center justify-center h-screen text-center px-4">
-            {error && <p className="text-red-500">{error}</p>}
+        
             {successMessage && <p className="text-green-600 font-bold">{successMessage}</p>}
             {!error && !successMessage && <p>Connecting to LinkedIn...</p>}
         </div>

@@ -59,6 +59,9 @@ function CreateNewJob() {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const [companyData, setCompanyData] = useState([]);
+  const [postOnLinkedIn, setPostOnLinkedIn] = useState(true);
+
+
   const [data, setData] = useState({
     jobTitle: "",
     companyName: "",
@@ -161,16 +164,14 @@ function CreateNewJob() {
         if (Array.isArray(parsedData.sections)) {
           parsedData.sections.forEach((section) => {
             combinedHTML += `
-            <p style="font-weight: bold; margin-top: 20px;">${
-              section.heading
-            }:</p>
-            ${
-              section.points && section.points.length > 0
+            <p style="font-weight: bold; margin-top: 20px;">${section.heading
+              }:</p>
+            ${section.points && section.points.length > 0
                 ? `<ul>${section.points
-                    .map((pt) => `<li>${pt}</li>`)
-                    .join("")}</ul>`
+                  .map((pt) => `<li>${pt}</li>`)
+                  .join("")}</ul>`
                 : "<p>No information provided</p>"
-            }
+              }
           `;
           });
         }
@@ -410,6 +411,8 @@ function CreateNewJob() {
 
     formData.append("createdBy", userDataGlobal?._id);
     formData.append("role", userDataGlobal?.role);
+    formData.append("shareToLinkedIn", postOnLinkedIn);
+    formData.append("linkedinAccessToken", userDataGlobal?.linkedinAccessToken)
 
     formData.append(
       "createdByName",
@@ -441,7 +444,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -1043,11 +1046,10 @@ function CreateNewJob() {
                         </div>
                         {userDataGlobal?.role === "employer" ? (
                           <div
-                            className={`w-full border ${
-                              formError.companyName
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            } h-[42px] rounded-[8px] flex items-center px-2 py-2 text-[12px] text-[#000] bg-[#f5f5f5]`}
+                            className={`w-full border ${formError.companyName
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              } h-[42px] rounded-[8px] flex items-center px-2 py-2 text-[12px] text-[#000] bg-[#f5f5f5]`}
                           >
                             {camelCase(
                               data.companyName || "No Company Selected"
@@ -1061,17 +1063,16 @@ function CreateNewJob() {
                               companyId
                             }
                             options={companyOptions}
-                            className={`w-full ${
-                              formError.companyName
-                                ? "border-red"
-                                : "border-[#DEDEDE] outline-none"
-                            }`}
+                            className={`w-full ${formError.companyName
+                              ? "border-red"
+                              : "border-[#DEDEDE] outline-none"
+                              }`}
                             value={
                               data.companyName
                                 ? {
-                                    value: data.companyName,
-                                    label: camelCase(data.companyName),
-                                  }
+                                  value: data.companyName,
+                                  label: camelCase(data.companyName),
+                                }
                                 : null
                             }
                             onChange={(selectedOption) => {
@@ -1174,11 +1175,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] h-[42px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[42px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -1196,24 +1196,23 @@ function CreateNewJob() {
 
                         <CreatableSelect
                           isMulti
-                          onInputChange={(data) => {}}
+                          onInputChange={(data) => { }}
                           options={skills
                             .filter((item) => item.trim() !== "")
                             .map((item) => ({
                               value: item,
                               label: camelCase(item),
                             }))}
-                          className={`w-full withoutBorder ${
-                            formError.Keywords
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`w-full withoutBorder ${formError.Keywords
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           value={
                             data.Keywords
                               ? data.Keywords.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                value: skill,
+                                label: camelCase(skill),
+                              }))
                               : []
                           }
                           onChange={(selectedOptions) => {
@@ -1374,11 +1373,10 @@ function CreateNewJob() {
                           )}
                           placeholder="Select countries"
                           styles={customStylesss}
-                          className={`border rounded-[8px] withoutBorder ${
-                            formError.country
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border rounded-[8px] withoutBorder ${formError.country
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
@@ -1411,11 +1409,10 @@ function CreateNewJob() {
                           isSearchable={true}
                           classNamePrefix="select"
                           styles={customStylesss}
-                          className={`border rounded-[8px] withoutBorder ${
-                            formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border rounded-[8px] withoutBorder ${formError.location
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                         />
                       </div>
                     </div>
@@ -1769,9 +1766,9 @@ function CreateNewJob() {
                             value={
                               data?.jobCat
                                 ? data.jobCat.map((cat) => ({
-                                    value: cat,
-                                    label: camelCase(cat),
-                                  }))
+                                  value: cat,
+                                  label: camelCase(cat),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1834,9 +1831,8 @@ function CreateNewJob() {
                               control: (provided, state) => ({
                                 ...provided,
                                 outline: "none",
-                                border: `1px solid ${
-                                  formError.jobSector ? "red" : "#DEDEDE"
-                                }`,
+                                border: `1px solid ${formError.jobSector ? "red" : "#DEDEDE"
+                                  }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
                               }),
@@ -1858,11 +1854,10 @@ function CreateNewJob() {
                                 paddingVertical: "4px",
                               }),
                             }}
-                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${
-                              formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1969,11 +1964,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1989,24 +1983,23 @@ function CreateNewJob() {
 
                           <CreatableSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -2115,7 +2108,7 @@ function CreateNewJob() {
                           </div>
                           <CreatableSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={[
                               ...new Set(
                                 skills
@@ -2126,17 +2119,16 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -2250,9 +2242,8 @@ function CreateNewJob() {
                                 setData((prev) => ({
                                   ...prev,
                                   totalExpMin: newMin,
-                                  experience: `${newMin}-${
-                                    prev.totalExpMax || ""
-                                  } years`,
+                                  experience: `${newMin}-${prev.totalExpMax || ""
+                                    } years`,
                                 }));
                               }}
                               placeholder="Min"
@@ -2268,9 +2259,8 @@ function CreateNewJob() {
                                 setData((prev) => ({
                                   ...prev,
                                   totalExpMax: newMax,
-                                  experience: `${
-                                    prev.totalExpMin || ""
-                                  }-${newMax} years`,
+                                  experience: `${prev.totalExpMin || ""
+                                    }-${newMax} years`,
                                 }));
                               }}
                               placeholder="Max"
@@ -2359,7 +2349,23 @@ function CreateNewJob() {
                     </div>
 
                     <div className="flex justify-end p-[10px] md:p-4 w-full">
-                      <div className="flex gap-[4px] md:gap-[14px]">
+                      <div className="flex gap-[4px] md:gap-[14px] items-center">
+                        {(userDataGlobal?.linkedinAccessToken && new Date(userDataGlobal?.linkedinAccessTokenExpiryDate) > new Date())
+                          &&
+                          <div className="flex items-center gap-2 ">
+                            <input
+                              type="checkbox"
+                              id="postOnLinkedIn"
+                              checked={postOnLinkedIn}
+                              onChange={(e) => setPostOnLinkedIn(e.target.checked)}
+                              className="w-4 h-4"
+                            />
+                            <label htmlFor="postOnLinkedIn" className="text-[14px] font-medium">
+                              Post on LinkedIn also
+                            </label>
+                          </div>
+                        }
+
                         <button
                           onClick={resetFormData}
                           className="text-[12px] items-center  md:text-[12px]  cursor-pointer flex justify-start font-semibold px-6 blue_border_Button rounded-[30px] h-[38px]"
@@ -2376,9 +2382,8 @@ function CreateNewJob() {
                         </button>
                         {loadingg ? (
                           <div
-                            className={`flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] ${
-                              id ? "min-w-[119.17px]" : "min-w-[101.2px]"
-                            }`}
+                            className={`flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] ${id ? "min-w-[119.17px]" : "min-w-[101.2px]"
+                              }`}
                           >
                             <MiniLoader1 />
                           </div>
