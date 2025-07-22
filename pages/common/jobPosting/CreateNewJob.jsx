@@ -59,7 +59,13 @@ function CreateNewJob() {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const [companyData, setCompanyData] = useState([]);
-  const [postOnLinkedIn, setPostOnLinkedIn] = useState(true);
+ const [postOnLinkedIn, setPostOnLinkedIn] = useState(() => {
+  return (
+    userDataGlobal?.linkedinAccessToken &&
+    new Date(userDataGlobal?.linkedinAccessTokenExpiryDate) > new Date()
+  );
+});
+
 
 
   const [data, setData] = useState({
@@ -411,7 +417,10 @@ function CreateNewJob() {
 
     formData.append("createdBy", userDataGlobal?._id);
     formData.append("role", userDataGlobal?.role);
-    formData.append("shareToLinkedIn", postOnLinkedIn);
+    if (postOnLinkedIn) {
+      formData.append("shareToLinkedIn", postOnLinkedIn);
+    }
+
     formData.append("linkedinAccessToken", userDataGlobal?.linkedinAccessToken)
 
     formData.append(
