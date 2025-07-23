@@ -259,7 +259,7 @@ function JobPosting() {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-  
+
   return (
     <>
       {/* {loading ? (
@@ -272,7 +272,7 @@ function JobPosting() {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-            <div   ref={taskRef} className=" w-fit flex flex-col gap-3 rounded-[12px] bg-white">
+            <div ref={taskRef} className=" w-fit flex flex-col gap-3 rounded-[12px] bg-white">
               <JdExtraction />
             </div>
           </div>
@@ -280,7 +280,7 @@ function JobPosting() {
       )}
       <div className="flex flex-col gap-[24px]">
         <div className="flex flex-col gap-6">
-          <div className="flex gap-6 flex-col  scr1024:flex-row">
+          <div className="flex gap-6 flex-row flex-wrap">
             {/* {companyData?.length > 0 && (
               <div className="flex flex-col bg-white rounded-[16px] p-4">
                 <p className="text-[16px] font-medium">
@@ -314,7 +314,7 @@ function JobPosting() {
               </div>
             )} */}
 
-            <div className="flex flex-col bg-white rounded-[16px] p-4">
+            <div className="flex flex-col bg-white rounded-[16px] p-4 w-[318px]">
               <p className="text-[14px] font-medium">
                 Enter job descriptions, requirements, <br />
                 and other necessary details
@@ -351,7 +351,7 @@ function JobPosting() {
               </div>
             </div>
 
-            <div className="flex flex-col bg-white rounded-[16px] p-4">
+            <div className="flex flex-col bg-white rounded-[16px] p-4 w-[318px]">
               <p className="text-[14px] font-medium">
                 Download the template, fill in job <br />
                 details & upload in one click
@@ -384,6 +384,34 @@ function JobPosting() {
                 />
               </div>
             </div>
+            {(!userDataGlobal?.linkedinAccessToken || new Date(userDataGlobal?.linkedinAccessTokenExpiryDate) < new Date()) &&
+              <div className="flex flex-col bg-white rounded-[16px] p-4 w-[318px]">
+                <p className="text-[14px] font-medium">
+                  Connect your account to LinkedIn <br />
+                  profile for better Job sharing
+                </p>
+                <div className="flex gap-2 items-end">
+                  <button
+                    onClick={() => router.push(`/recruiter/profile?connect=${true}`)}
+                    className="w-[180px] gap-1 rounded-[30px] flex t bg_Button  h-[40px] items-center justify-center"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_11287_131499)">
+                        <path d="M12.75 16.5C12.125 16.5 11.5938 16.2812 11.1562 15.8438C10.7188 15.4062 10.5 14.875 10.5 14.25C10.5 14.175 10.5188 14 10.5562 13.725L5.2875 10.65C5.0875 10.8375 4.85625 10.9844 4.59375 11.0906C4.33125 11.1969 4.05 11.25 3.75 11.25C3.125 11.25 2.59375 11.0312 2.15625 10.5938C1.71875 10.1562 1.5 9.625 1.5 9C1.5 8.375 1.71875 7.84375 2.15625 7.40625C2.59375 6.96875 3.125 6.75 3.75 6.75C4.05 6.75 4.33125 6.80312 4.59375 6.90938C4.85625 7.01562 5.0875 7.1625 5.2875 7.35L10.5562 4.275C10.5312 4.1875 10.5156 4.10312 10.5094 4.02187C10.5031 3.94062 10.5 3.85 10.5 3.75C10.5 3.125 10.7188 2.59375 11.1562 2.15625C11.5938 1.71875 12.125 1.5 12.75 1.5C13.375 1.5 13.9062 1.71875 14.3438 2.15625C14.7812 2.59375 15 3.125 15 3.75C15 4.375 14.7812 4.90625 14.3438 5.34375C13.9062 5.78125 13.375 6 12.75 6C12.45 6 12.1687 5.94688 11.9062 5.84062C11.6438 5.73438 11.4125 5.5875 11.2125 5.4L5.94375 8.475C5.96875 8.5625 5.98438 8.64687 5.99063 8.72812C5.99688 8.80937 6 8.9 6 9C6 9.1 5.99688 9.19063 5.99063 9.27188C5.98438 9.35313 5.96875 9.4375 5.94375 9.525L11.2125 12.6C11.4125 12.4125 11.6438 12.2656 11.9062 12.1594C12.1687 12.0531 12.45 12 12.75 12C13.375 12 13.9062 12.2188 14.3438 12.6562C14.7812 13.0938 15 13.625 15 14.25C15 14.875 14.7812 15.4062 14.3438 15.8438C13.9062 16.2812 13.375 16.5 12.75 16.5Z" fill="white" />
+                      </g>
+                    </svg>
+
+                    Connect to LinkedIn
+                  </button>
+                  <img
+                    className="max-w-[98px] max-h-[78px] object-cover"
+                    src={"/images/shareToLinkedin.png"}
+                    alt=""
+                  />
+                </div>
+              </div>
+            }
           </div>
         </div>
 

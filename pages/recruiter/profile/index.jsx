@@ -17,7 +17,7 @@ const Profile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(false);
   const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
-
+  const { connect } = router.query;
   const [companyData, setCompanyData] = useState({
     name: "",
     companyLogo: "",
@@ -27,8 +27,12 @@ const Profile = () => {
 
   const [errorr, setErrorr] = useState(null);
 
+  useEffect(() => {
+    if (connect) {
+      handleConnect()
+    }
 
-
+  }, [router.query]);
 
   useEffect(() => {
     const { code, error: queryError } = router.query;
