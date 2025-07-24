@@ -264,7 +264,7 @@ function Folders({
 
 
   return (
-    <div className="flex flex-col gap-4 ml:w-[85%] w-[100%]  h-[calc(95vh-156px)]">
+    <div className="flex flex-col gap-4 ml:w-[85%] w-[100%]  h-[calc(95vh-104px)]">
       <div className="flex justify-end items-center">
 
         <div

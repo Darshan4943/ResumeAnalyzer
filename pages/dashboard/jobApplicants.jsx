@@ -7,6 +7,7 @@ import { setPageOpened } from "../../Redux/slices/websiteSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Fuse from "fuse.js";
+import CustomPagination from "../../components/common/CustomPagination";
 function JobApplicants() {
   const dispatch = useDispatch();
   // dispatch(setPageOpened());
@@ -20,8 +21,12 @@ function JobApplicants() {
     const [loadingg, setLoadingg] = useState("");
   const [loading1, setLoading1] = useState("");
   const [countryCode, setCountryCode] = useState("");
-  
+  const [totalPages, setTotalPages] = useState(0);
+    const [limit, setLimit] = useState(100);
+    const [totalCount, setTotalCount] = useState(0);
   const [loading2, setLoading2] = useState(false);
+    const [miniLoading, setMiniloading] = useState(false);
+      const [page, setPage] = useState(1);
   // Column widths and text alignments
   const widths = ["25%", "10%", "15%", "25%", "15%", "25%"];
   const texts = ["start", "start", "start", "start", "start", "center"];
@@ -44,33 +49,35 @@ function JobApplicants() {
     }, [searchTerm, data]);
 
 
-  const getJobApplicants = async () => {
-    setLoading1(true);
-    try {
-      const response = await axios.get(
-        "https://api.skilotech.com/api/job/getAllJobApplicant",
-        {
-          params: { countryCode },
-        }
-      );
-      if (response.data.success) {
-        setData(response.data.data);
-        setLoading1(false);
-      } else {
-        console.error("Failed to fetch resumes:", response.data);
-        setLoading1(false);
-        return [];
-      }
-    } catch (error) {
-      console.error("Error fetching resumes:", error);
+ const getJobApplicants = async () => {
+  setLoading1(true);
+  try {
+    const response = await axios.get("https://api.skilotech.com/api/job/getAllJobApplicant", {
+      params: {
+        countryCode,
+        page,
+        limit,
+      },
+    });
+
+    if (response.data.success) {
+      setData(response.data.data);
+      setTotalPages(response.data.totalPages);
+      setTotalCount(response.data.totalCount);
       setLoading1(false);
-      return [];
+    } else {
+      console.error("Failed to fetch resumes:", response.data);
+      setLoading1(false);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching resumes:", error);
+    setLoading1(false);
+  }
+};
 
   useEffect(() => {
     getJobApplicants();
-  }, [countryCode]);
+  }, [countryCode,page]);
 
   const handleChange = (e) => {
     setCountryCode(e.target.value);
@@ -250,7 +257,19 @@ function JobApplicants() {
             </button>
 }
           </div>
-
+{totalCount > 10 && (
+            <CustomPagination
+              setMiniloading={setMiniloading}
+              miniLoading={miniLoading}
+              setPage={setPage}
+              title={"Applicants"}
+              setLimit={setLimit}
+              defaultLimit={10}
+              totalPages={totalPages}
+              limit={limit}
+              page={page}
+            />
+          )}
           {/* Table Header */}
           <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
             <input

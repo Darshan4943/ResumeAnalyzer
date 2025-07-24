@@ -100,7 +100,7 @@ function MyFolders({
 
 
   return (
-    <div className=" overflow-y-auto">
+    <div className=" overflow-y-auto h-[calc(95vh-340px)]">
       {tabIndex === 0 && (
         <div className="rounded-[16px] pt-2 flex flex-row gap-y-6 flex-wrap justify-start scr460:justify-start  w-full  pb-12 ">
           {data?.length > 0 ? (
