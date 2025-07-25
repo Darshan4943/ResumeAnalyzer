@@ -18,66 +18,66 @@ function JobApplicants() {
   const [filterType, setFilterType] = useState();
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [loading, setLoading] = useState("");
-    const [loadingg, setLoadingg] = useState("");
+  const [loadingg, setLoadingg] = useState("");
   const [loading1, setLoading1] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-    const [limit, setLimit] = useState(100);
-    const [totalCount, setTotalCount] = useState(0);
+  const [limit, setLimit] = useState(200);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading2, setLoading2] = useState(false);
-    const [miniLoading, setMiniloading] = useState(false);
-      const [page, setPage] = useState(1);
+  const [miniLoading, setMiniloading] = useState(false);
+  const [page, setPage] = useState(1);
   // Column widths and text alignments
-  const widths = ["25%", "10%", "15%", "25%", "15%", "25%"];
-  const texts = ["start", "start", "start", "start", "start", "center"];
+  const widths = ["25%", "10%", "15%", "25%", "12.5%", "12.5%", "15%"];
+  const texts = ["start", "start", "start", "start", "start", "start", "center"];
 
-   const [searchTerm, setSearchTerm] = useState("");
-    const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   const fuseSearch = (term, data) => {
-  const fuse = new Fuse(data, {
-    keys: ["details.personal.email", "details.personal.firstName", "details.personal.lastName", "details.personal.mobileNo"],
-    threshold: 0.3,
-  });
-
-  const result = fuse.search(term);
-  return term ? result.map(({ item }) => item) : data;
-};
-  useEffect(() => {
-      const filtered = fuseSearch(searchTerm, data);
-      setFilteredData(filtered);
-    }, [searchTerm, data]);
-
-
- const getJobApplicants = async () => {
-  setLoading1(true);
-  try {
-    const response = await axios.get("https://api.skilotech.com/api/job/getAllJobApplicant", {
-      params: {
-        countryCode,
-        page,
-        limit,
-      },
+    const fuse = new Fuse(data, {
+      keys: ["details.personal.email", "details.personal.firstName", "details.personal.lastName", "details.personal.mobileNo"],
+      threshold: 0.3,
     });
 
-    if (response.data.success) {
-      setData(response.data.data);
-      setTotalPages(response.data.totalPages);
-      setTotalCount(response.data.totalCount);
-      setLoading1(false);
-    } else {
-      console.error("Failed to fetch resumes:", response.data);
+    const result = fuse.search(term);
+    return term ? result.map(({ item }) => item) : data;
+  };
+  useEffect(() => {
+    const filtered = fuseSearch(searchTerm, data);
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
+
+  const getJobApplicants = async () => {
+    // setLoading1(true);
+    try {
+      const response = await axios.get("https://api.skilotech.com/api/job/getAllJobApplicant", {
+        params: {
+          countryCode,
+          page,
+          limit,
+        },
+      });
+
+      if (response.data.success) {
+        setData(response.data.data);
+        setTotalPages(response.data.totalPages);
+        setTotalCount(response.data.totalCount);
+        setLoading1(false);
+      } else {
+        console.error("Failed to fetch resumes:", response.data);
+        setLoading1(false);
+      }
+    } catch (error) {
+      console.error("Error fetching resumes:", error);
       setLoading1(false);
     }
-  } catch (error) {
-    console.error("Error fetching resumes:", error);
-    setLoading1(false);
-  }
-};
+  };
 
   useEffect(() => {
     getJobApplicants();
-  }, [countryCode,page]);
+  }, [countryCode, page]);
 
   const handleChange = (e) => {
     setCountryCode(e.target.value);
@@ -86,8 +86,8 @@ function JobApplicants() {
   // Handle checkbox change for individual applicants
   const handleCheckboxChange = (applicant) => {
     // don’t toggle if they’ve already paid
-    if (applicant.paymentStatus === true) return;
-  
+    if (applicant.paymentStatus === true || applicant.evaluationMailSent === true) return;
+
     setSelectedApplicants((prevSelected) => {
       const isSelected = prevSelected.some(
         (item) => item._id === applicant._id
@@ -99,24 +99,24 @@ function JobApplicants() {
       }
     });
   };
-  
+
 
   // Handle 'select all' checkbox
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       // Only include applicants whose paymentStatus is NOT true
-      const toSelect = data.filter(applicant => applicant.paymentStatus !== true);
+      const toSelect = data.filter(applicant => applicant.paymentStatus !== true && applicant.evaluationMailSent !== true);
       setSelectedApplicants(toSelect);
     } else {
       setSelectedApplicants([]);
     }
     setSelectAll(e.target.checked);
   };
-  
+
 
   // Function to send email (single or bulk)
   const handleSendMail = async (applicants) => {
-    setLoading2(true)
+    // setLoading2(true)
     try {
       const response = await axios.post(
         "https://api.skilotech.com/api/sendEvaluationMail",
@@ -171,14 +171,14 @@ function JobApplicants() {
         setLoadingg("");
       } else {
         setLoading("");
-         setLoadingg("");
+        setLoadingg("");
         toast.error("Failed to send email.");
       }
     } catch (error) {
       console.error("Error sending email:", error);
       toast.error("Failed to send email.");
       setLoading("");
-       setLoadingg("");
+      setLoadingg("");
     }
   };
 
@@ -207,6 +207,12 @@ function JobApplicants() {
       filters: ["paid", "unpaid"],
     },
     {
+      name: "Mail Status",
+      check: "",
+      isFilter: true,
+      filters: ["Sent", "Unsent"],
+    },
+    {
       name: "Action",
       check: "",
     },
@@ -220,7 +226,7 @@ function JobApplicants() {
         <div className="web">
           {/* Bulk Mail Button */}
           <div className="flex justify-end mb-4 gap-4">
-             <input
+            <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -242,22 +248,22 @@ function JobApplicants() {
               <option value="+44">United Kingdom</option>
             </select>
             {loading2 ?
-          
-          <div className="flex w-[140.2px] justify-center items-center h-[40px] rounded-[30px] bg-blue">
-            <MiniLoader/>
 
+              <div className="flex w-[140.2px] justify-center items-center h-[40px] rounded-[30px] bg-blue">
+                <MiniLoader />
+
+              </div>
+              :
+              <button
+                className={`text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button ${selectedApplicants.length === 0 && "opacity-50"}`}
+                onClick={() => handleSendMail(selectedApplicants)} // Send to selected applicants
+                disabled={selectedApplicants.length === 0}
+              >
+                Send Bulk Mail
+              </button>
+            }
           </div>
-          :
-            <button
-              className={`text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button ${selectedApplicants.length === 0 && "opacity-50"}`}
-              onClick={() => handleSendMail(selectedApplicants)} // Send to selected applicants
-              disabled={selectedApplicants.length === 0}
-            >
-              Send Bulk Mail
-            </button>
-}
-          </div>
-{totalCount > 10 && (
+          {totalCount > 10 && (
             <CustomPagination
               setMiniloading={setMiniloading}
               miniLoading={miniLoading}
@@ -301,13 +307,12 @@ function JobApplicants() {
               <>
                 {filteredData.map((applicant, index) => (
                   <div
-                    className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${
-                      selectedApplicants.some(
-                        (item) => item._id === applicant._id
-                      )
+                    className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${selectedApplicants.some(
+                      (item) => item._id === applicant._id
+                    )
                         ? "bg-[#D3F1FF]"
                         : "bg-[#FFFFFF]"
-                    }`}
+                      }`}
                     key={applicant?._id}
                   >
                     <div className="gap-[20px] w-full justify-between flex items-center">
@@ -330,7 +335,7 @@ function JobApplicants() {
                           {applicant?.details?.personal?.firstName}{" "}
                           {applicant?.details?.personal?.lastName}
                         </p>
-                        
+
                       </div>
                       <div className="flex w-[10%] items-center justify-start gap-[8px]">
                         <p className="text-[14px] font-[600]">
@@ -347,16 +352,23 @@ function JobApplicants() {
                           {applicant?.details?.personal?.email}
                         </p>
                       </div>
-                      <div className="flex w-[15%] items-center justify-start gap-[8px]">
+                      <div className="flex w-[12.5%] items-center justify-start gap-[8px]">
                         <p
-                          className={`text-[14px] font-[600] ${
-                            applicant?.paymentStatus ? "text-green" : "text-red"
-                          }`}
+                          className={`text-[14px] font-[600] ${applicant?.paymentStatus ? "text-green" : "text-red"
+                            }`}
                         >
                           {applicant?.paymentStatus ? "Paid" : "Unpaid"}
                         </p>
                       </div>
-                      <div className="flex w-[25%] items-center justify-center gap-[8px]">
+                      <div className="flex w-[12.5%] items-center justify-start gap-[8px]">
+                        <p
+                          className={`text-[14px] font-[600] ${applicant?.evaluationMailSent ? "text-green" : "text-red"
+                            }`}
+                        >
+                          {applicant?.evaluationMailSent ? "Sent" : "Unsent"}
+                        </p>
+                      </div>
+                      <div className="flex w-[15%] items-center justify-center gap-[8px]">
                         {/* {loadingg === applicant._id ? (
                           <button className="text-[14px] font-[500] flex items-center justify-center w-[152.63px] rounded-[30px] bg_Button px-4 h-[40px]">
                             <MiniLoader />
@@ -372,7 +384,7 @@ function JobApplicants() {
                             Send Payment Link
                           </button>
                         )} */}
-                   
+
                         {loading === applicant._id ? (
                           <button className="text-[14px] font-[500] flex items-center justify-center w-[92.49px] rounded-[30px] bg_Button px-4 h-[40px]">
                             <MiniLoader />
@@ -380,10 +392,9 @@ function JobApplicants() {
                         ) : (
                           <button
                             disabled={!applicant.isEvaluate || applicant.paymentStatus}
-                            className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${
-                              !applicant.isEvaluate || applicant.paymentStatus && "opacity-50"
-                            }`}
-                            onClick={() =>{setLoading(applicant._id) ;handleSendIndividualMail(applicant)}}
+                            className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${!applicant.isEvaluate || applicant.paymentStatus && "opacity-50"
+                              }`}
+                            onClick={() => { setLoading(applicant._id); handleSendIndividualMail(applicant) }}
                           >
                             Send Mail
                           </button>
