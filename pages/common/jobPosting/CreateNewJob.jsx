@@ -432,7 +432,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/job/add/${id}`,
+        `https://api.skilotech.com/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -442,7 +442,7 @@ function CreateNewJob() {
       );
 
       router.push(`/common/hiring/JobPost?id=${response?.data?.data?._id}`);
-      // localStorage.removeItem("jdData");
+      localStorage.removeItem("jdData");
 
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
