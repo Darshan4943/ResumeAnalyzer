@@ -15,6 +15,7 @@ import EarthLoader from "../components/common/EarthLoader.jsx";
 import store from "../Redux/Store.js";
 import { Api } from "../Redux/Api.jsx";
 import { useRouter } from "next/router.js";
+import Script from "next/script.js";
 const WrappedApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
 
@@ -76,7 +77,21 @@ const WrappedApp = ({ Component, pageProps }) => {
           defer
           src="https://checkout.razorpay.com/v1/checkout.js"
         ></script>
+        
+        
       </Helmet>
+       <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17407922744"
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-17407922744');
+        `}
+      </Script>
       <Provider store={store}>
         <Api />
         {/* {loading && (
