@@ -17,8 +17,13 @@ const SelectPostJd = ({
   setSelectedJob,
   setResumeCount,
   resumeCount,
+  selectedJob,
   JobMatchforSkilotechCollection,
+  selectedIndexes,
+  setSelectJob,
+  setSelectedIndexes
 }) => {
+
   const router = useRouter();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [filterStatus, setFilterStatus] = useState("All");
@@ -89,19 +94,19 @@ const SelectPostJd = ({
 
   const sortedJobs = Array.isArray(jobPost?.jobs)
     ? jobPost.jobs
-        .filter((job) =>
-          filterStatus === "All" ? true : job.status === filterStatus
-        )
-        .sort((a, b) => {
-          const statusComparison =
-            statusPriority[a.status] - statusPriority[b.status];
+      .filter((job) =>
+        filterStatus === "All" ? true : job.status === filterStatus
+      )
+      .sort((a, b) => {
+        const statusComparison =
+          statusPriority[a.status] - statusPriority[b.status];
 
-          if (statusComparison !== 0) {
-            return statusComparison;
-          }
+        if (statusComparison !== 0) {
+          return statusComparison;
+        }
 
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      })
     : [];
 
   const isLive = (item) => {
@@ -132,60 +137,50 @@ const SelectPostJd = ({
     };
   }, []);
 
-  return (
-    <div className=" flex flex-col gap-[16px]  ">
-      {openLimit && (
-        <div ref={taskRef}>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
-            <div className="w-[300px] rounded-[12px] bg-white p-4 flex flex-col gap-4">
-              <div className=" flex justify-between">
-                <p className="text-[14px] font-medium">Set Filter Limit</p>
-                <svg
-                  onClick={() => setOpenLimit(false)}
-                  className=" cursor-pointer"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g mask="url(#mask0_9648_113609)">
-                    <path
-                      d="M4.71874 14.1648L3.84375 13.2898L8.13126 9.00234L3.84375 4.71483L4.71874 3.83984L9.00624 8.12735L13.2938 3.83984L14.1687 4.71483L9.88123 9.00234L14.1687 13.2898L13.2938 14.1648L9.00624 9.87733L4.71874 14.1648Z"
-                      fill="#333333"
-                    />
-                  </g>
-                </svg>
-              </div>
+  const moveToHiring = async () => {
+    try {
+      const response = await axios.post("https://api.skilotech.com/api/job/moveToHiringFromCollection", {
+        selectedIndexes,
+        jobId: selectedJob?._id,
+      });
 
-              <input
-                type="text"
-                value={resumeCount}
-                onChange={(e) => {
-                  setResumeCount(e.target.value);
-                }}
-                name=""
-                id=""
-                placeholder="Ex. 5"
-                className=" h-[38px]   p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
-              />
-              <button
-                onClick={() => {
-                  setOpenLimit(false);
-                  JobMatchforSkilotechCollection();
-                }}
-                className="px-6 h-[38px] bg_Button rounded-[30px]"
-              >
-                Request CV from Skilotech
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      const { data } = response;
+      const movedCount = data.data?.length || 0;
+      const skippedCount = data.skippedFiles?.length || 0;
+      if (movedCount === 1) {
+        toast.success(`1 resume moved to hiring.`);
+      } else if (movedCount > 1) {
+        toast.success(`${movedCount} resumes moved to hiring.`);
+      }
+
+      if (skippedCount === 1) {
+        toast.warning(`1 file skipped due to missing data.`);
+      } else if (skippedCount > 1) {
+        toast.warning(`${skippedCount} files skipped due to missing parsed data.`);
+      }
+
+      // if (skippedCount > 0) {
+      //   console.warn("Skipped file IDs:", data.skippedFiles);
+      // }
+
+
+      setSelectJob(false);
+      setSelectedIndexes([]);
+    } catch (error) {
+      console.error("❌ Error sending data:", error.response?.data || error.message);
+      toast.error("Failed to move candidates to hiring.");
+    }
+  };
+
+
+
+
+  return (
+    <div className=" flex flex-col gap-[12px]  ">
+
       <div className="flex ml:flex-row flex-col gap-4 justify-between ml:items-center items-end w-full">
         <span className="text-[16px] font-semibold   w-full ">
-          Select a Job for Request CV from Skilotech
+          Select a Job
         </span>
 
         <div className="flex scr360:flex-row flex-col items-start gap-3">
@@ -216,11 +211,16 @@ const SelectPostJd = ({
               <option value="Expired">Expired</option>
             </select>
           </div>
+
+          <button onClick={() => moveToHiring()} disabled={!selectedJob} className={`bg_Button min-w-[130px] px-4 h-[38px] rounded-[30px] flex justify-center items-center  ${!selectedJob && "opacity-50"}`}>
+            Move to Hiring
+          </button>
+
         </div>
       </div>
 
       <div>
-        <div className=" flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
+        <div className=" flex flex-row flex-wrap gap-x-[24px]  gap-y-[16px] ">
           {loading ? (
             <div className="w-full flex items-start justify-center ">
               <MiniLoader />
@@ -236,7 +236,7 @@ const SelectPostJd = ({
                         setSelectedJob(item);
                         setOpenLimit(true);
                       }}
-                      className="flex w-full sm:w-[300px] cursor-pointer py-3 px-3  flex-col items-start gap-3 flex-shrink-0 rounded-[12px] bg-white border border-[#DEDEDE] col-span-4"
+                      className={`flex w-full sm:w-[300px] cursor-pointer py-3 px-3  flex-col items-start gap-3 flex-shrink-0 rounded-[12px] bg-white border  col-span-4 ${selectedJob?._id === item?._id ? "border-blue" : "border-[#DEDEDE]"}`}
                     >
                       <div className="flex justify-between w-[100%]">
                         <div className="flex justify-between gap-[10px] items-start">

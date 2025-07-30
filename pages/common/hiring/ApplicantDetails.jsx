@@ -36,17 +36,11 @@ function ApplicantDetails({ setTogglee }) {
   const getData = async () => {
     try {
       setLoading(true);
-      console.log(
-        "Requesting applicant details with id:",
-        id,
-        "applicantId:",
-        applicantId
-      );
-
+      
       const response = await axios.get(
         "https://api.skilotech.com/api/applicantdetails",
         {
-          params: { id, applicantId },
+          params: { id ,applicantId},
         }
       );
 

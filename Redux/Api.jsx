@@ -22,16 +22,25 @@ import { setLoginState } from "./slices/loginSlice";
 import { useRouter } from "next/router";
 import { setShareJobClose } from "./slices/shareJobSlice";
 import { setAiHitsData } from "./slices/setAiHitsSlice";
+import LinkedinPopUp from "../components/models/LinkedinPopUp";
 
 export const Api = ({ }) => {
   const [error, setError] = useState(false);
+  const [selectedPage, setSelectedPage] = useState("");
   const [loading, setLoading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const { recallData } = useSelector((state) => state.recall);
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const router = useRouter();
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const [allPlans, setAllPlans] = useState([]);
+  const [linkedinPopUp, setLinkedinPopUp] = useState(false)
+
+  useEffect(() => {
+    setSelectedPage(router.pathname);
+
+  }, [router.pathname]);
 
   const dispatch = useDispatch();
   // dispatch(setShareJobClose());
@@ -48,6 +57,11 @@ export const Api = ({ }) => {
   }, [router.events]);
 
   useEffect(() => {
+    const linkedinConnect = localStorage.getItem("linkedinConnect")
+    if (!linkedinConnect) {
+      setLinkedinPopUp(true)
+    }
+
     dispatch(fetchUserData());
   }, []);
 
@@ -428,7 +442,7 @@ export const Api = ({ }) => {
 
       if (countryData) {
         const country = countryData.formatted_address;
-      
+
         localStorage.setItem("country", country);
         const codeJson = telCode.find((item) => item?.name === country);
         const Country = currencyMap.find(
@@ -441,18 +455,18 @@ export const Api = ({ }) => {
             ? "INR"
             : country === "United Kingdom"
               ? "GBP"
-              : "USD";  
+              : "USD";
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
         );
-      
+
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
           `https://api.skilotech.com/api/exchangeRate/${currency}`
         );
-   
+
         localStorage.setItem(
           "exchangeRate",
           exchangeRate?.data === "" ? "1" : exchangeRate?.data?.rate
@@ -570,6 +584,9 @@ export const Api = ({ }) => {
           getLocation={getLocation}
         />
       )}
+      {(linkedinPopUp && selectedPage.startsWith("/jobs")) &&
+        <LinkedinPopUp setLinkedinPopUp={setLinkedinPopUp} />
+      }
       {visible && !loading && <ResetPasswordModal />}
     </>
   );

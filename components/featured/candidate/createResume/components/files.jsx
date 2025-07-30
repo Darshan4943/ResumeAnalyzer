@@ -27,7 +27,9 @@ function Files({
   query,
   rename,
   getData,
-  setRename
+  setRename,
+  selectJob,
+  setSelectJob
 }) {
   const [clientId, setClientId] = useState();
   const router = useRouter();
@@ -114,6 +116,8 @@ function Files({
             rename={rename}
             getData={getData}
             setRename={setRename}
+             setSelectJob={setSelectJob}
+            selectJob={selectJob}
 
           />
         </>
