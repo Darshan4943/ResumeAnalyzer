@@ -10,6 +10,7 @@ import RelevantJobs from "../../../components/featured/candidate/jobs/RelevantJo
 import SimilarJobs from "../../../components/featured/candidate/jobs/SimilarJobs";
 import { setShareJobOpen } from "../../../Redux/slices/shareJobSlice";
 import ApplicationStatus from "./ApplicationStatus";
+import Head from "next/head";
 
 function JobDetails() {
   const [jobData, setJobData] = useState([]);
@@ -17,7 +18,7 @@ function JobDetails() {
   const dispatch = useDispatch();
   dispatch(setShareJobOpen());
   const [limitPopup, setLimitPopup] = useState(false);
-  const { id, isShared ,w,t,f,l} = router.query;
+  const { id, isShared, w, t, f, l } = router.query;
   const [loading, setLoading] = useState(true);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -60,8 +61,82 @@ function JobDetails() {
     getData();
   }, []);
 
+  const createdAt = jobData[0]?.createdAt;
+  const deadLine = jobData[0]?.deadLine;
+
+  const datePosted = createdAt && !isNaN(new Date(createdAt))
+    ? new Date(createdAt).toISOString()
+    : new Date().toISOString();
+
+  const validThrough = deadLine && !isNaN(new Date(deadLine))
+    ? new Date(deadLine).toISOString()
+    : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); 
+
   return (
     <>
+      {jobData &&
+        <Head>
+          <title>{jobData[0]?.jobTitle} | {jobData[0]?.companyName}</title>
+          <meta name="description" content={jobData[0]?.gist} />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "JobPosting",
+                "title": jobData[0]?.jobTitle,
+                "description": jobData[0]?.description?.replace(/<[^>]+>/g, '') || '',
+                "identifier": {
+                  "@type": "PropertyValue",
+                  "name": jobData[0]?.companyName,
+                  "value": jobData[0]?.jobId
+                },
+                "datePosted": datePosted,
+                "validThrough": validThrough,
+                "employmentType": jobData[0]?.jobType?.toUpperCase().replace(" ", "_"),
+                "hiringOrganization": {
+                  "@type": "Organization",
+                  "name": jobData[0]?.companyName,
+                  "sameAs": "https://www.skilotech.com",
+                  "logo": jobData[0]?.logo || "https://www.skilotech.com/logo.png"
+                },
+                "jobLocation": {
+                  "@type": "Place",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": jobData[0]?.location?.[0]?.split(",")[0] || "",
+                    "addressRegion": jobData[0]?.location?.[0]?.split(",")[1]?.trim() || "",
+                    "addressCountry": jobData[0]?.country?.[0] || "India"
+                  }
+                },
+                ...(jobData[0]?.minSalary && jobData[0]?.maxSalary
+                  ? {
+                    "baseSalary": {
+                      "@type": "MonetaryAmount",
+                      "currency": jobData[0]?.currency || "INR",
+                      "value": {
+                        "@type": "QuantitativeValue",
+                        "minValue": jobData[0]?.minSalary * 1000000,
+                        "maxValue": jobData[0]?.maxSalary * 1000000,
+                        "unitText": jobData[0]?.salaryType === "Annual" ? "YEAR" : "MONTH"
+                      }
+                    }
+                  }
+                  : {}),
+                "jobLocationType": jobData[0]?.jobMode?.toUpperCase().replace("-", "_"),
+                "qualifications": jobData[0]?.requiredQualification,
+                "experienceRequirements": jobData[0]?.experience,
+                "skills": [
+                  ...(jobData[0]?.mustSkills || []),
+                  ...(jobData[0]?.goodSkills || [])
+                ],
+                "industry": jobData[0]?.jobSector
+              }),
+            }}
+          />
+        </Head>
+
+      }
       {noLink ? (
         <div className="customMargins flex flex-col gap-[28px] justify-center items-center  min-h-[600px]">
           <img
@@ -71,7 +146,7 @@ function JobDetails() {
           />
           <p className="text-[#B3261E] text-[24px] font-[600]">Link is not valid any more</p>
 
-        
+
         </div>
       ) : (
         <>
