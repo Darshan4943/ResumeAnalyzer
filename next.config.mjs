@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects() {
+  async rewrites() {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://api.skilotech.com/sitemap.xml',
-        permanent: true,
+        destination: 'https://api.skilotech.com/api/sitemap.xml',
       },
     ];
   },
