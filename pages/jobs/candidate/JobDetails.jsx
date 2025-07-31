@@ -70,7 +70,7 @@ function JobDetails() {
 
   const validThrough = deadLine && !isNaN(new Date(deadLine))
     ? new Date(deadLine).toISOString()
-    : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); 
+    : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
   return (
     <>
@@ -104,9 +104,14 @@ function JobDetails() {
                   "@type": "Place",
                   "address": {
                     "@type": "PostalAddress",
-                    "addressLocality": jobData[0]?.location?.[0]?.split(",")[0] || "",
-                    "addressRegion": jobData[0]?.location?.[0]?.split(",")[1]?.trim() || "",
-                    "addressCountry": jobData[0]?.country?.[0] || "India"
+                    "addressLocality": jobData[0]?.location?.[0]?.split(",")[0] || "Remote",
+                    "addressRegion": jobData[0]?.location?.[0]?.split(",")[1]?.trim() || "Maharashtra",
+                    "postalCode": "411057", // optional
+                    "streetAddress": "Hinjewadi Phase 2", // optional
+                    "addressCountry": {
+                      "@type": "Country",
+                      "name": jobData[0]?.country?.[0] || "India"
+                    }
                   }
                 },
                 ...(jobData[0]?.minSalary && jobData[0]?.maxSalary
@@ -116,22 +121,22 @@ function JobDetails() {
                       "currency": jobData[0]?.currency || "INR",
                       "value": {
                         "@type": "QuantitativeValue",
-                        "minValue": jobData[0]?.minSalary * 1000000,
-                        "maxValue": jobData[0]?.maxSalary * 1000000,
+                        "minValue": jobData[0]?.minSalary * 100000,
+                        "maxValue": jobData[0]?.maxSalary * 100000,
                         "unitText": jobData[0]?.salaryType === "Annual" ? "YEAR" : "MONTH"
                       }
                     }
                   }
                   : {}),
-                "jobLocationType": jobData[0]?.jobMode?.toUpperCase().replace("-", "_"),
+                "jobLocationType": jobData[0]?.jobMode?.toUpperCase().replace("-", "_") || "TELECOMMUTE",
                 "qualifications": jobData[0]?.requiredQualification,
-                "experienceRequirements": jobData[0]?.experience,
+                "experienceRequirements": `Minimum ${jobData[0]?.relExpMin || 0} years of experience`,
                 "skills": [
                   ...(jobData[0]?.mustSkills || []),
                   ...(jobData[0]?.goodSkills || [])
                 ],
                 "industry": jobData[0]?.jobSector
-              }),
+              })
             }}
           />
         </Head>
