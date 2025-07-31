@@ -11,6 +11,7 @@ import SimilarJobs from "../../../components/featured/candidate/jobs/SimilarJobs
 import { setShareJobOpen } from "../../../Redux/slices/shareJobSlice";
 import ApplicationStatus from "./ApplicationStatus";
 import Head from "next/head";
+import JobHead from "../../../components/models/JobHead";
 
 function JobDetails() {
   const [jobData, setJobData] = useState([]);
@@ -75,71 +76,7 @@ function JobDetails() {
   return (
     <>
       {jobData &&
-        <Head>
-          <title>{jobData[0]?.jobTitle} | {jobData[0]?.companyName}</title>
-          <meta name="description" content={jobData[0]?.gist} />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "JobPosting",
-                "title": jobData[0]?.jobTitle,
-                "description": jobData[0]?.description?.replace(/<[^>]+>/g, '') || '',
-                "identifier": {
-                  "@type": "PropertyValue",
-                  "name": jobData[0]?.companyName,
-                  "value": jobData[0]?.jobId
-                },
-                "datePosted": datePosted,
-                "validThrough": validThrough,
-                "employmentType": jobData[0]?.jobType?.toUpperCase().replace(" ", "_"),
-                "hiringOrganization": {
-                  "@type": "Organization",
-                  "name": jobData[0]?.companyName,
-                  "sameAs": "https://www.skilotech.com",
-                  "logo": jobData[0]?.logo || "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/logo+skilotech+2.png"
-                },
-                "jobLocation": {
-                  "@type": "Place",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": jobData[0]?.location?.[0]?.split(",")[0] || "Remote",
-                    "addressRegion": jobData[0]?.location?.[0]?.split(",")[1]?.trim() || "Maharashtra",
-                    "postalCode": "411057", // optional
-                    "streetAddress": "Hinjewadi Phase 2", // optional
-                    "addressCountry": {
-                      "@type": "Country",
-                      "name": jobData[0]?.country?.[0] || "India"
-                    }
-                  }
-                },
-                ...(jobData[0]?.minSalary && jobData[0]?.maxSalary
-                  ? {
-                    "baseSalary": {
-                      "@type": "MonetaryAmount",
-                      "currency": jobData[0]?.currency || "INR",
-                      "value": {
-                        "@type": "QuantitativeValue",
-                        "minValue": jobData[0]?.minSalary * 100000,
-                        "maxValue": jobData[0]?.maxSalary * 100000,
-                        "unitText": jobData[0]?.salaryType === "Annual" ? "YEAR" : "MONTH"
-                      }
-                    }
-                  }
-                  : {}),
-                "jobLocationType": jobData[0]?.jobMode?.toUpperCase().replace("-", "_") || "TELECOMMUTE",
-                "qualifications": jobData[0]?.requiredQualification,
-                "experienceRequirements": `Minimum ${jobData[0]?.relExpMin || 0} years of experience`,
-                "skills": [
-                  ...(jobData[0]?.mustSkills || []),
-                  ...(jobData[0]?.goodSkills || [])
-                ],
-                "industry": jobData[0]?.jobSector
-              })
-            }}
-          />
-        </Head>
+       <JobHead jobData={jobData}/> 
 
       }
       {noLink ? (
