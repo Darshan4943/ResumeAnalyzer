@@ -98,7 +98,7 @@ function JobDetails() {
                   "@type": "Organization",
                   "name": jobData[0]?.companyName,
                   "sameAs": "https://www.skilotech.com",
-                  "logo": jobData[0]?.logo || "https://www.skilotech.com/logo.png"
+                  "logo": jobData[0]?.logo || "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/logo+skilotech+2.png"
                 },
                 "jobLocation": {
                   "@type": "Place",
