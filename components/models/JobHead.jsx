@@ -49,7 +49,7 @@ const JobHead = ({ jobData }) => {
             "currency": job.currency || "INR",
             "value": {
               "@type": "QuantitativeValue",
-              "value": job.minSalary * 1000000, // adjust if in LPA
+              "value": job.minSalary * 1000000, 
               "unitText": job.salaryType === "Annual" ? "YEAR" : "MONTH"
             }
           }
