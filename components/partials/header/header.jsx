@@ -394,8 +394,8 @@ function Header({ userData }) {
                         }}
                         className={`  flex justify-between pl-[10px] gap-4 items-center  cursor-pointer lg:w-full w-[200px]  border border-[#E1E3E3] rounded-[30px] px-[3px] h-[37px] `}
                       >
-                        <div className="text-[14px] font-medium text-[#889FBA]">
-                          UX Designer
+                        <div className="text-[13.5px] font-medium text-[#889FBA]">
+                          Search jobs here
                         </div>
                         <div className="bg-blue rounded-[50%] h-[30px] w-[30px] flex justify-center items-center">
                           <svg
