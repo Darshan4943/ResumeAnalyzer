@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://api.skilotech.com/sitemap.xml',
+        destination: 'https://api.skilotech.com/api/sitemap.xml',
         permanent: true,
       },
     ];
