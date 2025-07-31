@@ -36,6 +36,7 @@ export const Api = ({ }) => {
   const isLogin = useSelector((state) => state.auth.isLogin);
   const [allPlans, setAllPlans] = useState([]);
   const [linkedinPopUp, setLinkedinPopUp] = useState(false)
+  const [isBot,setIsBot] = useState(true)
 
   useEffect(() => {
     setSelectedPage(router.pathname);
@@ -575,16 +576,29 @@ export const Api = ({ }) => {
     getLocation();
   }, []);
 
+  useEffect(() => {
+    const isBot = typeof window !== 'undefined' && /bot|google|crawler|spider|bing|msn|duckduckbot|yandex|baidu/i.test(
+      navigator.userAgent
+    );
+
+    if (!isBot) {
+      setIsBot(false)
+    } else {
+      setIsBot(true)
+    }
+  }, []);
+
+
   return (
     <>
-      {enablePopup && (
+      {(enablePopup && !isBot) && (
         <LocationEnablePopup
           setEnablePopup={(value) => dispatch(setEnablePopup(value))}
           enablePopup={enablePopup}
           getLocation={getLocation}
         />
       )}
-      {(linkedinPopUp && selectedPage.startsWith("/jobs")) &&
+      {(linkedinPopUp && selectedPage.startsWith("/jobs") && !isBot) &&
         <LinkedinPopUp setLinkedinPopUp={setLinkedinPopUp} />
       }
       {visible && !loading && <ResetPasswordModal />}
