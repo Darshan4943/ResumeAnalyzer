@@ -54,7 +54,7 @@ function AllJobCard({
         " linear-gradient(178.88deg, #FFFFFF -24.19%, #FFDF9B 131.8%)",
       backgroundImg: "",
       no: 2,
-      page: 1,
+      page: 2,
       isCircle: true,
     },
     {
@@ -70,7 +70,7 @@ function AllJobCard({
       isBgImg: true,
 
       no: 2,
-      page: 2,
+      page: 3,
     },
     {
       title: "Contact",
@@ -84,7 +84,7 @@ function AllJobCard({
       isBgImg: true,
 
       no: 2,
-      page: 3,
+      page: 4,
     },
   ];
   const pagePoster = posters.find((poster) => poster.page === page);
