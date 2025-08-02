@@ -64,6 +64,7 @@ function NormalJobCard({ item }) {
           <meta name="description" content={`Apply for ${item.jobTitle} at ${item.companyName}, posted on Skilotech.`} />
           <link rel="canonical" href={`https://https://www.skilotech.com/jobs/candidate/JobDetails?id=${item._id}`} />
         </Head>
+        
       }
       <div
         onClick={() => {

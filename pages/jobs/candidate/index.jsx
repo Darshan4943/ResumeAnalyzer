@@ -7,6 +7,7 @@ import axios from "axios";
 import AllJobCard from "../../../components/featured/candidate/jobs/AllJobCard";
 import { AnimatePresence, motion } from "framer-motion";
 import MiniLoader from "../../../components/common/miniLoader";
+import Head from "next/head";
 
 function Index() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -608,6 +609,69 @@ function Index() {
                 </>
               )}
             </AnimatePresence>
+            <Head>
+              <title>Find Jobs in India, Pune, Remote - Latest Openings | Skilotech</title>
+              <meta
+                name="description"
+                content="Explore latest job opportunities in Pune, Bangalore, Delhi, and across India. Find remote jobs, fresher jobs, full-time & contract roles at Skilotech."
+              />
+              <meta
+                name="keywords"
+                content="jobs in Pune, latest jobs, software jobs in India, remote jobs, IT jobs, fresher jobs, job openings, hiring now, career in Pune"
+              />
+              <link rel="canonical" href="https://www.skilotech.com/jobs/candidate" />
+
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@graph": jobData.slice(0, 5).map((job) => ({
+                      "@type": "JobPosting",
+                      "title": job.jobTitle,
+                      "description": job.description?.replace(/<[^>]+>/g, ""), 
+                      "datePosted": new Date(job.createdAt).toISOString(),
+                      "validThrough": new Date(job.deadLine || new Date(Date.now() + 30 * 86400000)).toISOString(),
+                      "employmentType": job.jobType,
+                      "hiringOrganization": {
+                        "@type": "Organization",
+                        "name": job.companyName,
+                        "sameAs": "https://www.skilotech.com",
+                      },
+                      "jobLocation": {
+                        "@type": "Place",
+                        "address": {
+                          "@type": "PostalAddress",
+                          "addressLocality": job.location?.[0] || "India",
+                          "addressCountry": "IN",
+                        },
+                      },
+                      "industry": job.jobSector || "IT",
+                      "identifier": {
+                        "@type": "PropertyValue",
+                        "name": "Skilotech",
+                        "value": job.jobId || job._id,
+                      },
+                      "url": `https://www.skilotech.com/jobs/candidate/JobDetails?id=${job._id}`,
+                    })),
+                  }),
+                }}
+              />
+            </Head>
+
+
+            <div
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                visibility: "hidden",
+              }}
+            >
+              Discover top job openings in Pune, Bangalore, Delhi, Hyderabad, Mumbai,
+              Chennai and across India. Search full-time, remote, contract, and fresher
+              jobs across multiple industries including IT, sales, marketing, and HR.
+              Updated daily with the latest opportunities.
+            </div>
 
             <AllJobCard
               setMiniloading={setMiniloading}
