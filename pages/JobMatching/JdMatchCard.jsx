@@ -8,6 +8,7 @@ import Tesseract from "tesseract.js";
 import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
+import JdDataExport from "../common/jdDataExport";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function JdMatchCard({
   resumeList,
@@ -30,6 +31,7 @@ function JdMatchCard({
   findCandidates,
   skilotechCollection
 }) {
+  console.log(resumeList)
   const router = useRouter();
   const [parentId, setParentId] = useState()
   const [saveLoading, setSaveLoading] = useState()
@@ -349,7 +351,6 @@ function JdMatchCard({
   };
 
 
-
   return (
     <div className="w-full flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] scr390:px-4 scr390:py-4 px-2 py-4 bg-white ">
       <div className="text-[18px] font-[500] flex justify-between">
@@ -402,6 +403,7 @@ function JdMatchCard({
               <p className="">Select</p>
             </div>
           }
+          <JdDataExport resumeList={resumeList} />
           {select &&
             <div className="bg-[#D1EDFF] relative flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center  ">
               <div

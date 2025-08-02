@@ -10,7 +10,7 @@ import ReactSelect from "react-select";
 const SelectPost = () => {
   const router = useRouter();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-    const [skills, setSkills] = useState(SkillList);
+  const [skills, setSkills] = useState(SkillList);
   const [filterStatus, setFilterStatus] = useState("All");
   const [loading, setLoading] = useState(true);
   const [jobPost, setJobPost] = useState([]);
@@ -116,19 +116,19 @@ const SelectPost = () => {
 
   const sortedJobs = Array.isArray(jobPost?.jobs)
     ? jobPost.jobs
-        .filter((job) =>
-          filterStatus === "All" ? true : job.status === filterStatus
-        )
-        .sort((a, b) => {
-          const statusComparison =
-            statusPriority[a.status] - statusPriority[b.status];
+      .filter((job) =>
+        filterStatus === "All" ? true : job.status === filterStatus
+      )
+      .sort((a, b) => {
+        const statusComparison =
+          statusPriority[a.status] - statusPriority[b.status];
 
-          if (statusComparison !== 0) {
-            return statusComparison;
-          }
+        if (statusComparison !== 0) {
+          return statusComparison;
+        }
 
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      })
     : [];
 
   const isLive = (item) => {
@@ -149,21 +149,19 @@ const SelectPost = () => {
     <>
       <div className="bg-[#F9F9F9] xsm:w-[348px] w-[284px] flex rounded-[30px] text-[14px] font-semibold ">
         <button
-          className={`${
-            toggle === 0
-              ? "bg-[#06A9EF] py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
-              : "py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%]"
-          }`}
+          className={`${toggle === 0
+            ? "bg-[#06A9EF] py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
+            : "py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%]"
+            }`}
           onClick={() => setToggle(0)}
         >
           Select Job
         </button>
         <button
-          className={`${
-            toggle === 1
-              ? "bg-[#06A9EF] py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
-              : "py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%]"
-          }`}
+          className={`${toggle === 1
+            ? "bg-[#06A9EF] py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
+            : "py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%]"
+            }`}
           onClick={() => setToggle(1)}
         >
           Manual
@@ -265,29 +263,29 @@ const SelectPost = () => {
                                     </div>
                                   </>
                                 )
-                                : item.status === "Filled" ? (
-                                  <>
-                                    <div className="w-[6px] h-[6px] bg-blue rounded-full"></div>
-                                    <div className="text-[12px] font-[500] text-blue">
-                                     Filled
-                                    </div>
-                                  </>
-                                )
-                                : item.status === "Cancelled" ? (
-                                  <>
-                                    <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
-                                    <div className="text-[12px] font-[500] text-[#B3261E]">
-                                      Cancelled
-                                    </div>
-                                  </>
-                                ): item.status === "Expired" ? (
-                                  <>
-                                    <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
-                                    <div className="text-[12px] font-[500] text-[#B3261E]">
-                                      Expired
-                                    </div>
-                                  </>
-                                ) : null}
+                                  : item.status === "Filled" ? (
+                                    <>
+                                      <div className="w-[6px] h-[6px] bg-blue rounded-full"></div>
+                                      <div className="text-[12px] font-[500] text-blue">
+                                        Filled
+                                      </div>
+                                    </>
+                                  )
+                                    : item.status === "Cancelled" ? (
+                                      <>
+                                        <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                                        <div className="text-[12px] font-[500] text-[#B3261E]">
+                                          Cancelled
+                                        </div>
+                                      </>
+                                    ) : item.status === "Expired" ? (
+                                      <>
+                                        <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                                        <div className="text-[12px] font-[500] text-[#B3261E]">
+                                          Expired
+                                        </div>
+                                      </>
+                                    ) : null}
                               </div>
                             </div>
                           </div>
@@ -304,7 +302,7 @@ const SelectPost = () => {
                           <div className="flex w-[100%] justify-between items-center">
                             <div className="flex flex-col items-start gap-[4px]">
                               <p className="text-[12px] font-[600] text-[#646464]">
-                               Posted Since
+                                Posted Since
                               </p>
                               <p className="text-[#333] font-[500] text-[12px]">
                                 {getRelativeTime(item?.createdAt)}
@@ -371,40 +369,44 @@ const SelectPost = () => {
                                 {item?.jobType}
                               </div>
                             </div>
-                            <div className="border-[1px] border-[#AFAFAF]"></div>
-                            <div className="flex gap-[4px] items-center">
-                              <div>
-                                <svg
-                                  width="10"
-                                  height="13"
-                                  viewBox="0 0 10 13"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
+                            {item?.location.length > 0 && (
+                              <div className="border-[1px] border-[#AFAFAF]"></div>
+                            )}{" "}
+                            {item?.location.length > 0 && (
+
+                              <div className="flex gap-[4px] items-center">
+                                <div>
+                                  <svg
+                                    width="10"
+                                    height="13"
+                                    viewBox="0 0 10 13"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M5.0026 6.4974C5.32344 6.4974 5.59809 6.38316 5.82656 6.15469C6.05503 5.92622 6.16927 5.65156 6.16927 5.33073C6.16927 5.0099 6.05503 4.73524 5.82656 4.50677C5.59809 4.2783 5.32344 4.16406 5.0026 4.16406C4.68177 4.16406 4.40712 4.2783 4.17865 4.50677C3.95017 4.73524 3.83594 5.0099 3.83594 5.33073C3.83594 5.65156 3.95017 5.92622 4.17865 6.15469C4.40712 6.38316 4.68177 6.4974 5.0026 6.4974ZM5.0026 10.7849C6.18871 9.69601 7.06858 8.70677 7.64219 7.81719C8.2158 6.9276 8.5026 6.13767 8.5026 5.4474C8.5026 4.38767 8.16476 3.51997 7.48906 2.84427C6.81337 2.16858 5.98455 1.83073 5.0026 1.83073C4.02066 1.83073 3.19184 2.16858 2.51615 2.84427C1.84045 3.51997 1.5026 4.38767 1.5026 5.4474C1.5026 6.13767 1.78941 6.9276 2.36302 7.81719C2.93663 8.70677 3.81649 9.69601 5.0026 10.7849ZM5.0026 12.3307C3.43733 10.9988 2.26823 9.76163 1.49531 8.61927C0.722396 7.47691 0.335938 6.41962 0.335938 5.4474C0.335938 3.98906 0.805035 2.82726 1.74323 1.96198C2.68142 1.0967 3.76788 0.664062 5.0026 0.664062C6.23733 0.664062 7.32378 1.0967 8.26198 1.96198C9.20017 2.82726 9.66927 3.98906 9.66927 5.4474C9.66927 6.41962 9.28281 7.47691 8.5099 8.61927C7.73698 9.76163 6.56788 10.9988 5.0026 12.3307Z"
+                                      fill="#646464"
+                                    />
+                                  </svg>
+                                </div>
+                                <div
+                                  className={`text-[12px] font-[400] ${item?.location.length > 1 && "group"
+                                    } relative`}
                                 >
-                                  <path
-                                    d="M5.0026 6.4974C5.32344 6.4974 5.59809 6.38316 5.82656 6.15469C6.05503 5.92622 6.16927 5.65156 6.16927 5.33073C6.16927 5.0099 6.05503 4.73524 5.82656 4.50677C5.59809 4.2783 5.32344 4.16406 5.0026 4.16406C4.68177 4.16406 4.40712 4.2783 4.17865 4.50677C3.95017 4.73524 3.83594 5.0099 3.83594 5.33073C3.83594 5.65156 3.95017 5.92622 4.17865 6.15469C4.40712 6.38316 4.68177 6.4974 5.0026 6.4974ZM5.0026 10.7849C6.18871 9.69601 7.06858 8.70677 7.64219 7.81719C8.2158 6.9276 8.5026 6.13767 8.5026 5.4474C8.5026 4.38767 8.16476 3.51997 7.48906 2.84427C6.81337 2.16858 5.98455 1.83073 5.0026 1.83073C4.02066 1.83073 3.19184 2.16858 2.51615 2.84427C1.84045 3.51997 1.5026 4.38767 1.5026 5.4474C1.5026 6.13767 1.78941 6.9276 2.36302 7.81719C2.93663 8.70677 3.81649 9.69601 5.0026 10.7849ZM5.0026 12.3307C3.43733 10.9988 2.26823 9.76163 1.49531 8.61927C0.722396 7.47691 0.335938 6.41962 0.335938 5.4474C0.335938 3.98906 0.805035 2.82726 1.74323 1.96198C2.68142 1.0967 3.76788 0.664062 5.0026 0.664062C6.23733 0.664062 7.32378 1.0967 8.26198 1.96198C9.20017 2.82726 9.66927 3.98906 9.66927 5.4474C9.66927 6.41962 9.28281 7.47691 8.5099 8.61927C7.73698 9.76163 6.56788 10.9988 5.0026 12.3307Z"
-                                    fill="#646464"
-                                  />
-                                </svg>
-                              </div>
-                              <div
-                                className={`text-[12px] font-[400] ${
-                                  item.location.length > 1 && "group"
-                                } relative`}
-                              >
-                                {item.location.length > 1
-                                  ? item.location
+                                  {item?.location.length > 1
+                                    ? item?.location
                                       .map((loc) => loc.split(",")[0]) // Get the first part before the comma (e.g., "Pune" or "Nashik")
                                       .join(", ") // Join them with commas
-                                  : item.location[0]?.split(",")[0]}{" "}
-                                {/* If only one location, show the first part */}
-                                <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                                  {item?.location
-                                    ?.map((loc) => loc.split(",")[0]) // Get the first part before the comma
-                                    .join(", ")}
+                                    : item?.location[0]?.split(",")[0]}{" "}
+                                  {/* If only one location, show the first part */}
+                                  <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                                    {item?.location
+                                      ?.map((loc) => loc.split(",")[0]) // Get the first part before the comma
+                                      .join(", ")}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                         </div>
                       ))}
@@ -454,127 +456,125 @@ const SelectPost = () => {
                   name="jobTitle"
                   value={data.jobTitle}
                   onChange={handleChange}
-                  className={`border-[1px] rounded-[8px] p-[8px] w-full outline-none ${
-                    errors.jobTitle ? "border-red" : "border-[#DEDEDE]"
-                  }`}
+                  className={`border-[1px] rounded-[8px] p-[8px] w-full outline-none ${errors.jobTitle ? "border-red" : "border-[#DEDEDE]"
+                    }`}
                   placeholder="Enter Job Title"
                 />
               </div>{" "}
             </div>
-             <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
-                      <div className="text-sm font-medium">
-                        Key Skills <span className="text-[red]">*</span>
+            <div className="flex flex-col gap-[8px] scr1300:col-span-4 scr1024:col-span-6 col-span-12 ">
+              <div className="text-sm font-medium">
+                Key Skills <span className="text-[red]">*</span>
 
-                      </div>
-                      <ReactSelect
-                        isMulti
-                        onInputChange={(data) => {}}
-                        options={skills
-                          .filter((item) => item.trim() !== "")
-                          .map((item) => ({
-                            value: item,
-                            label: camelCase(item),
-                          }))}
-                        className={`w-full withoutBorder ${
-                          errors.mustSkills ? "border-red" : "border-[#DEDEDE]"
-                        }`}
-                        value={
-                          data.mustSkills
-                            ? data.mustSkills.map((skill) => ({
-                                value: skill,
-                                label: camelCase(skill),
-                              }))
-                            : []
-                        }
-                        onChange={(selectedOptions) => {
-                          const newMustSkills = selectedOptions
-                            ? selectedOptions.map((option) => option.value)
-                            : [];
-            
-                          if (newMustSkills.length > data?.mustSkills?.length) {
-                            setErrors((prevErrors) => ({
-                              ...prevErrors,
-                              mustSkills: "",
-                            }));
-                          }
-            
-                          setData({
-                            ...data,
-                            mustSkills: newMustSkills,
-                          });
-                        }}
-                        onKeyDown={(event) => {
-                          if (event.key === "Enter" && event.target.value.trim()) {
-                            const newSkill = event.target.value.trim();
-            
-                            if (!skills.includes(newSkill)) {
-                              setSkills((prevSkills) => [...prevSkills, newSkill]);
-                            }
-            
-                            event.target.value = "";
-                          }
-                        }}
-                        styles={{
-                          control: (provided, state) => ({
-                            ...provided,
-                            border: errors.mustSkills
-                              ? "1px solid red"
-                              : "1px solid #DEDEDE",
-                            borderRadius: "8px",
-                            padding: "2px 8px",
-                            flexWrap: "wrap",
-                            boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
-                          }),
-                          valueContainer: (base) => ({
-                            ...base,
-                            display: "flex",
-                            flexWrap: "nowrap",
-                            gap: "4px",
-                            padding: "2px 4px",
-                            overflowX: "auto",
-                            scrollbarWidth: "none",
-                            "-ms-overflow-style": "none",
-                            "&::-webkit-scrollbar": {
-                              display: "none",
-                            },
-                          }),
-                          placeholder: (provided) => ({
-                            ...provided,
-                            color: "#767676",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                          }),
-                          menu: (provided) => ({
-                            ...provided,
-                            zIndex: 10,
-                            scrollbarWidth: "none",
-                            "-ms-overflow-style": "none",
-                            "&::-webkit-scrollbar": {
-                              display: "none",
-                            },
-                          }),
-                          multiValue: (provided) => ({
-                            ...provided,
-                            backgroundColor: "#EFFAFF",
-                            borderRadius: "4px",
-                            minWidth: "90px",
-                          }),
-                          multiValueLabel: (provided) => ({
-                            ...provided,
-                            color: "#06A9EF",
-                            fontWeight: "500",
-                          }),
-                          multiValueRemove: (provided) => ({
-                            ...provided,
-                            color: "#9A4545",
-                            "&:hover": {
-                              backgroundColor: "transparent",
-                            },
-                          }),
-                        }}
-                      />
-                    </div>
-            
+              </div>
+              <ReactSelect
+                isMulti
+                onInputChange={(data) => { }}
+                options={skills
+                  .filter((item) => item.trim() !== "")
+                  .map((item) => ({
+                    value: item,
+                    label: camelCase(item),
+                  }))}
+                className={`w-full withoutBorder ${errors.mustSkills ? "border-red" : "border-[#DEDEDE]"
+                  }`}
+                value={
+                  data.mustSkills
+                    ? data.mustSkills.map((skill) => ({
+                      value: skill,
+                      label: camelCase(skill),
+                    }))
+                    : []
+                }
+                onChange={(selectedOptions) => {
+                  const newMustSkills = selectedOptions
+                    ? selectedOptions.map((option) => option.value)
+                    : [];
+
+                  if (newMustSkills.length > data?.mustSkills?.length) {
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      mustSkills: "",
+                    }));
+                  }
+
+                  setData({
+                    ...data,
+                    mustSkills: newMustSkills,
+                  });
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && event.target.value.trim()) {
+                    const newSkill = event.target.value.trim();
+
+                    if (!skills.includes(newSkill)) {
+                      setSkills((prevSkills) => [...prevSkills, newSkill]);
+                    }
+
+                    event.target.value = "";
+                  }
+                }}
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    border: errors.mustSkills
+                      ? "1px solid red"
+                      : "1px solid #DEDEDE",
+                    borderRadius: "8px",
+                    padding: "2px 8px",
+                    flexWrap: "wrap",
+                    boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+                  }),
+                  valueContainer: (base) => ({
+                    ...base,
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    gap: "4px",
+                    padding: "2px 4px",
+                    overflowX: "auto",
+                    scrollbarWidth: "none",
+                    "-ms-overflow-style": "none",
+                    "&::-webkit-scrollbar": {
+                      display: "none",
+                    },
+                  }),
+                  placeholder: (provided) => ({
+                    ...provided,
+                    color: "#767676",
+                    fontSize: "12px",
+                    fontWeight: "400",
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    zIndex: 10,
+                    scrollbarWidth: "none",
+                    "-ms-overflow-style": "none",
+                    "&::-webkit-scrollbar": {
+                      display: "none",
+                    },
+                  }),
+                  multiValue: (provided) => ({
+                    ...provided,
+                    backgroundColor: "#EFFAFF",
+                    borderRadius: "4px",
+                    minWidth: "90px",
+                  }),
+                  multiValueLabel: (provided) => ({
+                    ...provided,
+                    color: "#06A9EF",
+                    fontWeight: "500",
+                  }),
+                  multiValueRemove: (provided) => ({
+                    ...provided,
+                    color: "#9A4545",
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }),
+                }}
+              />
+            </div>
+
             <div className="flex flex-col gap-[8px]">
               <div className="text-[14px] font-[500]">Job Description  <span className="text-[red]">*</span></div>
               <div>
@@ -582,9 +582,8 @@ const SelectPost = () => {
                   name="description"
                   value={data.description}
                   onChange={handleChange}
-                  className={`w-full h-[200px] border-[1px] rounded-[8px] p-4 outline-none ${
-                    errors.description ? "border-red" : "border-[#DEDEDE]"
-                  }`}
+                  className={`w-full h-[200px] border-[1px] rounded-[8px] p-4 outline-none ${errors.description ? "border-red" : "border-[#DEDEDE]"
+                    }`}
                   placeholder="Enter description"
                 ></textarea>
               </div>
