@@ -1673,7 +1673,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               <>
                                 <div
                                   className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
-                                  key={applicant?._id}
+                                  key={applicant?.applicantId}
                                 >
                                   <div className="  gap-[20px]  w-full justify-between flex items-center">
                                     {/* {userDataGlobal?.role === "employer" && ( */}
@@ -1890,7 +1890,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       <div
                                         onClick={() =>
                                           router.push(
-                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
+                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
                                             }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                             }`
                                           )
@@ -1904,7 +1904,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         className=" cursor-pointer"
                                         onClick={() =>
                                           router.push(
-                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
+                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
                                             }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                             }`
                                           )
@@ -2294,7 +2294,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         <>
                           <div
                             className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
-                            key={applicant?._id}
+                            key={applicant?.applicantId}
                           >
                             <div className="  gap-[20px]  w-full justify-between flex items-center">
                               {/* {userDataGlobal?.role === "employer" && ( */}
@@ -2488,7 +2488,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 <div
                                   onClick={() =>
                                     router.push(
-                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
+                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
                                       }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                       }`
                                     )
@@ -2502,7 +2502,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   className=" cursor-pointer"
                                   onClick={() =>
                                     router.push(
-                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
+                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
                                       }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                       }`
                                     )
@@ -2741,7 +2741,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         ? "bg-[#D3F1FF]"
                                         : "bg-[#FFFFFF]"
                                         }`}
-                                      key={applicant?._id}
+                                      key={applicant?.applicantId}
                                     >
                                       <div className="  gap-[20px]  w-full justify-between flex items-center">
                                         {userDataGlobal?.role === "employer" && (
@@ -2857,7 +2857,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             className="cursor-pointer"
                                             onClick={() =>
                                               router.push(
-                                                `/common/hiring/ApplicantDetails?applicantId=${applicant?._id}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
+                                                `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
                                               )
                                             }
                                           >

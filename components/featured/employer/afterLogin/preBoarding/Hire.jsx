@@ -240,7 +240,7 @@ const Hire = ({ }) => {
                             <button
                               onClick={() =>
                                 router.push(
-                                  `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?._id}`
+                                  `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`
                                 )
                               }
                               className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
@@ -448,7 +448,7 @@ const Hire = ({ }) => {
                         <button
                           onClick={() =>
                             router.push(
-                              `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?._id}`
+                              `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`
                             )
                           }
                           className="flex w-[260px] px-6 py-3 justify-center items-center gap-2 bg-[#06A9EF] text-white text-[12px] font-semibold font-Montserrat rounded-lg border border-[#06A9EF]"
