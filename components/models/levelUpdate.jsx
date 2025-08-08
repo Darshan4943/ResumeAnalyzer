@@ -18,7 +18,8 @@ function LevelUpdate({
   selectedLevel,
   setSelectedLevel,
   applicantDetails,
-  jobDetails
+  jobDetails,
+
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isNextLevel, setIsNextLevel] = useState("");
@@ -171,6 +172,11 @@ function LevelUpdate({
         }
       }
     }
+    // else if (isNextLevel===""){
+    //   toast.success("Status updated successfully")
+    //   setOpenTaskModel(false)
+    //   console.log(111,isNextLevel)
+    // }
 
     try {
       setLoading(true);
@@ -506,8 +512,9 @@ function LevelUpdate({
             </div>
           ) : (
             <button
+            disabled={isNextLevel===""}
               onClick={isNextLevel ? nextStage : submitDetails}
-              className=" h-[40px] bg_Button rounded-[30px] px-8"
+              className={`h-[40px] bg_Button rounded-[30px] px-8 ${isNextLevel==="" && "opacity-50"}`}
             >
               Save
             </button>
