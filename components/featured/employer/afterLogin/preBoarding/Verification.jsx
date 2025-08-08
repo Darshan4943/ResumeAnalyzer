@@ -46,6 +46,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const taskRef = useRef(null);
   const [moreOption, setMoreOption] = useState(false);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
+    const [jobDetails, setJobDetails] = useState(null);
   const {recallData } = useSelector((state) => state.recall);
   const dispatch = useDispatch();
   const handleOutsideClick = (event) => {
@@ -194,6 +195,19 @@ const Verification = ({ toggleContentt, setToggle }) => {
       </div>
     );
   };
+   const fetchJobDetails = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
+      );
+      setJobDetails(response.data);
+      setReject(true);
+
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    }
+  };
+
 
   return (
     <>
@@ -244,7 +258,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   >
                     <div className="grid grid-cols-6 w-full">
                       <div className="flex items-center justify-start col-span-1">
-                        <div onClick={()=> router.push(`/common/hiring/ApplicantDetails?applicantId=${applicants?.applicantId}&id=${applicants?.jobId}`)} className="flex justify-start text-[14px] font-[600] cursor-pointer items-center  gap-1 scr1024:gap-[16px]">
+                        <div onClick={()=> router.push(`/common/hiring/ApplicantDetails?applicantId=${applicants?._id}&id=${applicants?.jobId}`)} className="flex justify-start text-[14px] font-[600] cursor-pointer items-center  gap-1 scr1024:gap-[16px]">
                           {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
                           <img
                             className="w-[40px] rounded-[50%]"
@@ -345,7 +359,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                   ?.documentStatus == "Verified" ? (
                                 <>
                                   {loadingApplicantId ===
-                                  applicants.applicantId ? (
+                                  applicants._id ? (
                                     <div
                                       className={` w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
                              
@@ -357,7 +371,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                     <button
                                       onClick={() =>
                                         moveToReleaseOffer(
-                                          applicants?.applicantId,
+                                          applicants?._id,
                                           applicants?.jobId
                                         )
                                       }
@@ -399,7 +413,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                             {moreOption && selectedDotIndex === index && (
                               <motion.div
                                 onClick={() => {
-                                  setReject(true);
+                              fetchJobDetails(applicants?.jobId)
                                   selectedApplicant(applicants);
                                 }}
                                 initial={{ x: "100%" }}
@@ -589,7 +603,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                   ?.documentStatus === "Verified" ? (
                                 <>
                                   {loadingApplicantId ===
-                                  applicants.applicantId ? (
+                                  applicants._id ? (
                                     <div className="w-[140px] h-[40px] flex justify-center items-center rounded-[30px] border border-blue text-[12px] font-semibold">
                                       <MiniLoader />
                                     </div>
@@ -597,7 +611,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                     <button
                                       onClick={() =>
                                         moveToReleaseOffer(
-                                          applicants?.applicantId,
+                                          applicants?._id,
                                           applicants?.jobId
                                         )
                                       }
@@ -845,7 +859,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     <button
                       onClick={() =>
                         verifyDocuments(
-                          VerifyApplicant?.applicantId,
+                          VerifyApplicant?._id,
                           VerifyApplicant?.jobId
                         )
                       }
@@ -863,6 +877,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
       {reject && (
         <ShortlistMail
           shortlist={[applicant]}
+               jobData={jobDetails}
           setPopupVisible={setReject}
           id={applicant?.jobId}
           newHiringStage={"Rejected"}

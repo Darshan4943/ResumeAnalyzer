@@ -181,7 +181,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
-    setApplicantIds([applicant?.applicantId]);
+    setApplicantIds([applicant?._id]);
   };
   const [loadingg, setLoadingg] = useState({
     isLoading: false,
@@ -192,7 +192,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   const moveToHiringMultiple = async () => {
     const applicantIds = checkedApplicants.map(
-      (applicantId) => applicantId.applicantId
+      (applicantId) => applicantId._id
     );
 
     setLoading1(true);
@@ -279,7 +279,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   const handleSend = async (applicant) => {
     if (!allReject) {
-      setLoadingg({ isLoading: true, applicantId: applicant?.applicantId });
+      setLoadingg({ isLoading: true, applicantId: applicant?._id });
     } else {
       setLoadinggg(true);
     }
@@ -293,8 +293,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       content:
         "<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been Rejected .</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>",
       applicantId: allReject
-        ? checkedApplicants?.map((item) => item?.applicantId)
-        : [applicant?.applicantId],
+        ? checkedApplicants?.map((item) => item?._id)
+        : [applicant?._id],
       jobId: id,
       newHiringStage: "Rejected",
     };
@@ -963,7 +963,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           />
                         </svg>
                       </div>
-                      {userDataGlobal?.role !== "recruiter" && (
+                      {/* {userDataGlobal?.role !== "recruiter" && ( */}
                         <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
                           <p
                             onClick={() => {
@@ -994,7 +994,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             />
                           </svg>
                         </div>
-                      )}
+                      {/* )} */}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
                   </div>
@@ -1673,7 +1673,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               <>
                                 <div
                                   className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
-                                  key={applicant?.applicantId}
+                                  key={applicant?._id}
                                 >
                                   <div className="  gap-[20px]  w-full justify-between flex items-center">
                                     {/* {userDataGlobal?.role === "employer" && ( */}
@@ -1805,7 +1805,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             }}
                                             className="absolute flex flex-col w-[180px] items-start p-3 gap-2 bg-white rounded-[12px] z-[1000] top-[100%] "
                                           >
-                                            {userDataGlobal?.role ===
+                                            {/* {userDataGlobal?.role ===
                                               "recruiter" &&
                                               applicant?.hiringStage ===
                                               "Pending" && (
@@ -1836,7 +1836,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 >
                                                   Shortlist
                                                 </button>
-                                              )}
+                                              )} */}
 
                                             <button
                                               disabled={
@@ -1858,7 +1858,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             >
                                               Reject
                                             </button>
-                                            {userDataGlobal?.role ===
+                                            {/* {userDataGlobal?.role ===
                                               "recruiter" &&
                                               applicant?.hiringStage ===
                                               "Shortlisted" && (
@@ -1876,7 +1876,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                   }}
                                                   onClick={() =>
                                                     hiredCandidate(
-                                                      applicant?.applicantId,
+                                                      applicant?._id,
                                                       applicant?.jobId
                                                     )
                                                   }
@@ -1884,14 +1884,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 >
                                                   Hire
                                                 </button>
-                                              )}
+                                              )} */}
                                           </div>
                                         )}
+                                        {console.log(applicant)}
                                       <div
+                                      
                                         onClick={() =>
                                           router.push(
-                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
-                                            }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
+                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?._id}&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                             }`
                                           )
                                         }
@@ -1904,7 +1905,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         className=" cursor-pointer"
                                         onClick={() =>
                                           router.push(
-                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
+                                            `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
                                             }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                             }`
                                           )
@@ -2294,7 +2295,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         <>
                           <div
                             className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  `}
-                            key={applicant?.applicantId}
+                            key={applicant?._id}
                           >
                             <div className="  gap-[20px]  w-full justify-between flex items-center">
                               {/* {userDataGlobal?.role === "employer" && ( */}
@@ -2474,7 +2475,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           }}
                                           onClick={() =>
                                             hiredCandidate(
-                                              applicant?.applicantId,
+                                              applicant?._id,
                                               applicant?.jobId
                                             )
                                           }
@@ -2488,7 +2489,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 <div
                                   onClick={() =>
                                     router.push(
-                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
+                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
                                       }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                       }`
                                     )
@@ -2502,7 +2503,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   className=" cursor-pointer"
                                   onClick={() =>
                                     router.push(
-                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId
+                                      `/common/hiring/ApplicantDetails?applicantId=${applicant?._id
                                       }&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
                                       }`
                                     )
@@ -2741,7 +2742,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         ? "bg-[#D3F1FF]"
                                         : "bg-[#FFFFFF]"
                                         }`}
-                                      key={applicant?.applicantId}
+                                      key={applicant?._id}
                                     >
                                       <div className="  gap-[20px]  w-full justify-between flex items-center">
                                         {userDataGlobal?.role === "employer" && (
@@ -2857,7 +2858,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             className="cursor-pointer"
                                             onClick={() =>
                                               router.push(
-                                                `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
+                                                `/common/hiring/ApplicantDetails?applicantId=${applicant?._id}&id=${id}&currentPage=${page}&sortValue=${sortSelect}`
                                               )
                                             }
                                           >

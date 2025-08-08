@@ -90,7 +90,7 @@ function ContactUs() {
   }, [telCode, searchTerm]);
 
   return (
-    <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins ">
+    <div className="w-[100%]  flex items-center py-[50px] justify-center customMargins ">
       <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] sm:p-[16px] p-[8px] h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
         <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col ">
           <div className="flex items-center gap-2">

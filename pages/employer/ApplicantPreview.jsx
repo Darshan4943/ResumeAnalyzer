@@ -19,7 +19,7 @@ function ApplicantPreview({  }) {
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
   const { id, applicantId } = router.query;
- 
+ const [applicantDetails, setApplicantDetails] = useState(null);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState(false);
@@ -37,7 +37,7 @@ function ApplicantPreview({  }) {
       );
 
       if (response.data) {
-        setJobDetails(response.data.data);
+        setApplicantDetails(response.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 3000);
@@ -146,12 +146,12 @@ function ApplicantPreview({  }) {
             <ApplicantDetailsLeftCard
               setActiveOption={setActiveOption}
               setToggle={setToggle}
-              jobDetails={jobDetails}
+              applicantDetails={applicantDetails}
               id={id}
               statusChange={statusChange}
               setStatusChange={setStatusChange}
             />
-            {jobDetails?.details && (
+            {applicantDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                   <div className="flex flex-col ">
@@ -212,7 +212,7 @@ function ApplicantPreview({  }) {
                           />
                         </svg>
                       </div>
-                      {/* {userDataGlobal?.role === "employer" && (
+                      {/* {userDataGlobal?.role === "employer" && ( */}
                         <div>
                           <p
                             className={`${
@@ -241,18 +241,18 @@ function ApplicantPreview({  }) {
                             />
                           </svg>
                         </div>
-                      )} */}
+                      {/* )} */}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
                 </div>
                 {toggle === "ApplicantProfile" && (
-                  <ApplicantProfile jobDetails={jobDetails} />
+                  <ApplicantProfile applicantDetails={applicantDetails} />
                 )}
                 {toggle === "Resume" && (
                   <div className=" flex items-center justify-center py-[16px] resumes2 ">
                     <PdfViewer
-                      pdfUrl={jobDetails?.resumeUrl}
+                      pdfUrl={applicantDetails?.resumeUrl}
                       loadingg={loadingg}
                       setLoadingg={setLoadingg}
                     />
@@ -260,8 +260,8 @@ function ApplicantPreview({  }) {
                 )}
                 {toggle === "HiringProgress" && (
                   <HiringProgress
-                    hiringData={jobDetails?.hiringLevel}
-                    jobDetails={jobDetails}
+                    hiringData={applicantDetails?.hiringLevel}
+                    applicantDetails={applicantDetails}
                     successfull={successfull}
                     setSuccessfull={setSuccessfull}
                     taskSuccessfull={taskSuccessfull}

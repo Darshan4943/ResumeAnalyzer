@@ -17,7 +17,8 @@ function LevelUpdate({
   setTaskSuccessfull,
   selectedLevel,
   setSelectedLevel,
-  jobDetails,
+  applicantDetails,
+  jobDetails
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isNextLevel, setIsNextLevel] = useState("");
@@ -74,7 +75,7 @@ function LevelUpdate({
       setShortlist(true);
     }
   };
-  console.log(jobDetails)
+  console.log(applicantDetails)
   const submitDetails = async () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -174,7 +175,7 @@ function LevelUpdate({
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://api.skilotech.com/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
+        `https://api.skilotech.com/api/job/hiringLevelUpdate/${applicantDetails?._id}/${applicantDetails?.jobId}`,
         {
           selectedValues: {
             level: selectedLevel?.level + 1,
@@ -284,9 +285,10 @@ function LevelUpdate({
           <div className="fixed z-[12000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[12000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
             <ShortlistMail
-              shortlist={[jobDetails]}
+              shortlist={[applicantDetails]}
+              jobData={jobDetails}
               setPopupVisible={setShortlist}
-              id={jobDetails?.jobId}
+              id={applicantDetails?.jobId}
               isByEmployer={true}
               submitDetails={submitDetails}
               newHiringStage={isNextLevel}
@@ -400,41 +402,54 @@ function LevelUpdate({
       <div className="min-h-[1px] bg-[#D6DDEB]"></div>
       <div className="flex flex-col gap-4">
         <div className="flex justify-between ms:flex-row flex-col gap-4 text-[14px] font-semibold">
-          <div className="flex gap-[8px] items-center  ">
+          <div className="flex gap-[8px] items-center">
             <input
               type="radio"
               name="approvalChoice"
               value="nextLevel"
-              className="h-[20px] w-[20px] custom-radio cursor-pointer "
+              className="h-[20px] w-[20px] custom-radio cursor-pointer"
               onChange={(e) => handleIsNextLevel(e.target.value)}
               checked={isNextLevel === "nextLevel"}
+              disabled={
+                applicantDetails?.hiringStage === "Shortlisted" ||
+                applicantDetails?.hiringStage === "Rejected"
+              }
             />
-
-            <label className="ml:text-[12px] text-[14px]">Move to next Level</label>
+            <label className={`ml:text-[12px] text-[14px] ${(applicantDetails?.hiringStage === "Shortlisted" ||
+              applicantDetails?.hiringStage === "Rejected") && "opacity-50"}`}>Move to next Level</label>
           </div>
-          <div className="flex gap-[8px] items-center  ">
+
+          <div className="flex gap-[8px] items-center">
             <input
               type="radio"
               name="approvalChoice"
               value="Shortlisted"
-              className="h-[20px] w-[20px] custom-radio cursor-pointer "
+              className="h-[20px] w-[20px] custom-radio cursor-pointer"
               onChange={(e) => handleIsNextLevel(e.target.value)}
               checked={isNextLevel === "Shortlisted"}
+              disabled={applicantDetails?.hiringStage === "Shortlisted"}
             />
-            <label className="text-[#0C8A0A] ml:text-[12px] text-[14px] ">Shortlist Candidate</label>
+            <label className={`text-[#0C8A0A] ml:text-[12px] text-[14px] ${(applicantDetails?.hiringStage === "Shortlisted" ||  applicantDetails?.hiringStage === "Rejected") && "opacity-50"}`}>
+              Shortlist Candidate
+            </label>
           </div>
-          <div className="flex gap-[8px] items-center  ">
+
+          <div className="flex gap-[8px] items-center">
             <input
               type="radio"
               name="approvalChoice"
               value="Rejected"
-              className="h-[20px] w-[20px] custom-radio cursor-pointer "
+              className="h-[20px] w-[20px] custom-radio cursor-pointer"
               onChange={(e) => handleIsNextLevel(e.target.value)}
               checked={isNextLevel === "Rejected"}
+              disabled={applicantDetails?.hiringStage === "Rejected"}
             />
-            <label className="text-[#C00000] ml:text-[12px] text-[14px]">Reject Candidate</label>
+            <label className={`text-[#C00000] ml:text-[12px] text-[14px] ${applicantDetails?.hiringStage === "Rejected" && "opacity-50"}`}>
+              Reject Candidate
+            </label>
           </div>
         </div>
+
         {isNextLevel === "nextLevel" && (
           <>
             <div className="flex flex-col gap-2">
@@ -523,7 +538,7 @@ function LevelUpdate({
                 selectedValues={selectedValues}
                 setSelectedValues={setSelectedValues}
                 submitDetails={submitDetails}
-              
+
               />
             </motion.div>
           </div>
@@ -575,30 +590,30 @@ function LevelUpdate({
               <div className="text-[16px] font-semibold h-[1px] w-full bg-[#DEDEDE] mt-1">
 
               </div>
-            <div
-              className="px-4  pt-2 text-[14px]"
-              dangerouslySetInnerHTML={{
-                __html: mailDetails?.candidate?.content,
-              }}
-            />
-            <div className="text-[14px] font-medium leading-6 ">
-              Once completed, kindly send it to the following email address:
+              <div
+                className="px-4  pt-2 text-[14px]"
+                dangerouslySetInnerHTML={{
+                  __html: mailDetails?.candidate?.content,
+                }}
+              />
+              <div className="text-[14px] font-medium leading-6 ">
+                Once completed, kindly send it to the following email address:
 
-              {selectedValues?.taskReviewer?.map((person, index) => (
-                <div key={index} className=" leading-tight ">
+                {selectedValues?.taskReviewer?.map((person, index) => (
+                  <div key={index} className=" leading-tight ">
 
-                  <p className=" font-semibold">
+                    <p className=" font-semibold">
 
-                    {person.email}
-                  </p>
+                      {person.email}
+                    </p>
 
-                </div>
-              ))}
+                  </div>
+                ))}
 
-              <p className="mt-2">Best regards,</p>
-              Skilotech
+                <p className="mt-2">Best regards,</p>
+                Skilotech
 
-            </div>
+              </div>
             </div>
 
 
@@ -610,7 +625,7 @@ function LevelUpdate({
 
 
       }
-       {isInterviewerPreview &&
+      {isInterviewerPreview &&
         <>
 
           <div className="fixed z-[3000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -623,21 +638,21 @@ function LevelUpdate({
               <div className="text-[16px] font-semibold h-[1px] w-full bg-[#DEDEDE] mt-1">
 
               </div>
-            <div
-              className="px-4  pt-2 text-[14px]"
-              dangerouslySetInnerHTML={{
-                __html: mailDetails?.interviewer?.content,
-              }}
-            />
-            <div className="text-[14px] font-medium leading-6 ">
-            The candidate will send you the completed task once they have finished. Kindly review it and provide feedback on their performance. Once completed, please send your review to the following email address:
+              <div
+                className="px-4  pt-2 text-[14px]"
+                dangerouslySetInnerHTML={{
+                  __html: mailDetails?.interviewer?.content,
+                }}
+              />
+              <div className="text-[14px] font-medium leading-6 ">
+                The candidate will send you the completed task once they have finished. Kindly review it and provide feedback on their performance. Once completed, please send your review to the following email address:
 
-              <p className="font-semibold">{userDataGlobal?.email}</p>
+                <p className="font-semibold">{userDataGlobal?.email}</p>
 
-              <p className="mt-2">Best regards,</p>
-              Skilotech
+                <p className="mt-2">Best regards,</p>
+                Skilotech
 
-            </div>
+              </div>
             </div>
 
 

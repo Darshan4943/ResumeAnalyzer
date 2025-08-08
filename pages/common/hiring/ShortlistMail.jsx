@@ -20,6 +20,7 @@ function ShortlistMail({
   isByEmployer,
   newHiringStage,
 }) {
+
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -41,6 +42,9 @@ function ShortlistMail({
       )
       .join(", ");
   };
+
+
+  
 
   const [shortlistContent, setShortlistContent] = useState(
     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
@@ -105,7 +109,7 @@ function ShortlistMail({
   </div>`
   );
 
-  console.log(shortlist[0]?.details?.personal?.firstName);
+  console.log(shortlist);
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
@@ -221,7 +225,7 @@ function ShortlistMail({
         newHiringStage === "Shortlisted" ? shortlistSubject : rejectedSubject,
       content:
         newHiringStage === "Shortlisted" ? shortlistContent : rejectedContent,
-      applicantId: shortlist?.map((item) => item?.applicantId),
+      applicantId: shortlist?.map((item) => item?._id),
       role: userDataGlobal?.role,
       jobId: id,
       newHiringStage,

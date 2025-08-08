@@ -34,6 +34,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
   const { recallData } = useSelector((state) => state.recall);
   const [loading, setLoading] = useState(true);
+    const [jobDetails, setJobDetails] = useState(null);
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
     setMiniloading(true);
@@ -152,6 +153,19 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     setSelectedDotIndex(index);
   };
 
+  const fetchJobDetails = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
+      );
+      setJobDetails(response.data);
+      setReject(true);
+
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -225,7 +239,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                         >
                           <div className="grid grid-cols-5 w-full ">
                             <div className="flex items-center justify-start col-span-1">
-                              <div onClick={()=> router.push(`/common/hiring/ApplicantDetails?applicantId=${job?.applicantId}&id=${job?.jobId}`)} className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px] cursor-pointer">
+                              <div onClick={()=> router.push(`/common/hiring/ApplicantDetails?applicantId=${job?._id}&id=${job?.jobId}`)} className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px] cursor-pointer">
                                 {/* <input
                           className="w-[16px] h-[16px]"
                           type="checkbox"
@@ -352,7 +366,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                                   {moreOption && selectedDotIndex === index && (
                                     <motion.div
                                       onClick={() => {
-                                        setReject(true);
+                                       fetchJobDetails(job?.jobId)
                                         selectedApplicant(job);
                                       }}
                                       initial={{ x: "100%" }}
@@ -561,7 +575,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                                   "Rejected"
                                 }
                                 onClick={() => {
-                                  setReject(true);
+                                fetchJobDetails(job?.jobId)
                                   selectedApplicant(job);
                                 }}
                                 style={{
@@ -610,6 +624,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
           {reject && (
             <ShortlistMail
               shortlist={[applicant]}
+              jobData={jobDetails}
               setPopupVisible={setReject}
               id={applicant?.jobId}
               newHiringStage={"Rejected"}

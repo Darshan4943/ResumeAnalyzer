@@ -8,7 +8,7 @@ import axios from "axios";
 import ApplicantProfile from "./ApplicantProfile";
 
 function ApplicantDetailsLeftCard({
-  jobDetails,
+  applicantDetails,
   id,
   setStatusChange,
   statusChange,
@@ -53,7 +53,7 @@ function ApplicantDetailsLeftCard({
           shortlist={shortlist}
           setPopupVisible={setPopupVisible}
           id={id}
-          jobData={jobDetails}
+          jobData={applicantDetails}
           applicantIds={[shortlist.applicantId]}
           statusChange={statusChange}
           setStatusChange={setStatusChange}
@@ -61,7 +61,7 @@ function ApplicantDetailsLeftCard({
         />
       )}
       <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
-        {jobDetails?.details && (
+        {applicantDetails?.details && (
           <div className="flex flex-col overflow-y-auto gap-6 px-2 scr500:px-6 py-2 scr500:py-4">
             <div className=" flex gap-2 scr500:gap-6">
               <img
@@ -71,19 +71,19 @@ function ApplicantDetailsLeftCard({
               />
               <div className="w-[65%] flex flex-col gap-1">
                 <p className="text-[20px] scr500:text-[24px]   text-start   font font-medium  ">
-                  {jobDetails?.details?.personal?.firstName}{" "}
-                  {jobDetails?.details?.personal?.lastName}
+                  {applicantDetails?.details?.personal?.firstName}{" "}
+                  {applicantDetails?.details?.personal?.lastName}
                 </p>
 
                 <p className="text-[16px]   text-start text-[#646464]   font-normal  ">
-                  {jobDetails?.details?.professional?.designation}
+                  {applicantDetails?.details?.professional?.designation}
                 </p>
-                {jobDetails?.matchingPercentage && (
+                {applicantDetails?.matchingPercentage && (
                   <div className="flex gap-2 text-[13px] scr500:text-[12px] font-medium items-center">
                     Profile Match Score :
                     <span className="text-[13px] scr500:text-[16px] font-semibold">
                       {" "}
-                      {jobDetails?.matchingPercentage} %
+                      {applicantDetails?.matchingPercentage} %
                     </span>
                   </div>
                 )}
@@ -93,36 +93,36 @@ function ApplicantDetailsLeftCard({
               <div className="flex justify-between">
                 <p className="text-[16px] font-[600]">Job Applied</p>
                 <p className="text-[16px] font-normal text-[#646464]">
-                  {CountPostingDays(jobDetails?.appliedOn)}
+                  {CountPostingDays(applicantDetails?.appliedOn)}
                 </p>
               </div>
               <div className="h-[1px] bg-[#D6DDEB]"></div>
               <div className="flex flex-col gap-1 text-[16px] font-normal">
-                <p className="">{jobDetails?.jobTitle}</p>
+                <p className="">{applicantDetails?.jobTitle}</p>
               </div>
             </div>
 
-            {userDataGlobal?.role === "recruiter" ? (
+            {/* {userDataGlobal?.role === "recruiter" ? (
               <>
-                {jobDetails?.hiringStage === "Shortlisted" ? (
+                {applicantDetails?.hiringStage === "Shortlisted" ? (
                   <button className="flex gap-2">
                     <div
                       onClick={() => {
                         setHiringStage("Rejected");
-                        togglePopup(jobDetails);
+                        togglePopup(applicantDetails);
                       }}
                       className="px-4 w-full items-center flex justify-center py-3  text-[16px] rounded-[30px] font-medium text-[#FF6550] bg-[#FF65501A] "
                     >
                       Reject Candidate
                     </div>
                   </button>
-                ) : jobDetails?.hiringStage === "Rejected" ? (
+                ) : applicantDetails?.hiringStage === "Rejected" ? (
                   <button disabled className="flex gap-2">
                     <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#FF6550] bg-[#FF65501A]">
                       Rejected
                     </div>
                   </button>
-                ) : jobDetails?.hiringStage === "Hired" ? (
+                ) : applicantDetails?.hiringStage === "Hired" ? (
                   <button disabled className="flex gap-2">
                     <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#1D9474] bg-[#4BD06F33]">
                       Hired
@@ -132,7 +132,7 @@ function ApplicantDetailsLeftCard({
                   <button
                     onClick={() => {
                       setHiringStage("Shortlisted");
-                      togglePopup(jobDetails);
+                      togglePopup(applicantDetails);
                     }}
                     className="flex gap-2"
                   >
@@ -142,7 +142,7 @@ function ApplicantDetailsLeftCard({
                   </button>
                 )}
               </>
-            ) : (
+            ) : ( */}
               <>
                 {loading ? (
                   <div className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
@@ -150,26 +150,26 @@ function ApplicantDetailsLeftCard({
                   </div>
                 ) : (
                   <>
-                    {(jobDetails?.hiringStage === "Pending" && !clientView) ? (
+                    {(applicantDetails?.hiringStage === "Pending" && !clientView) ? (
                       <button
                         onClick={moveToHiring}
                         className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]"
                       >
                         Move to Hiring Process
                       </button>
-                    ) : jobDetails?.hiringStage === "Shortlisted" ? (
+                    ) : applicantDetails?.hiringStage === "Shortlisted" ? (
                       <button disabled className="flex gap-2">
                         <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#4640DE] bg-[#4640DE1A]">
                           Shortlisted
                         </div>
                       </button>
-                    ) : jobDetails?.hiringStage === "Rejected" ? (
+                    ) : applicantDetails?.hiringStage === "Rejected" ? (
                       <button disabled className="flex gap-2">
                         <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#FF6550] bg-[#FF65501A]">
                           Rejected
                         </div>
                       </button>
-                    ) : jobDetails?.hiringStage === "Hired" ? (
+                    ) : applicantDetails?.hiringStage === "Hired" ? (
                       <button disabled className="flex gap-2">
                         <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#1D9474] bg-[#4BD06F33]">
                           Hired
@@ -191,7 +191,7 @@ function ApplicantDetailsLeftCard({
                   </>
                 )}
               </>
-            )}
+             {/* )} */}
 
             <div className="min-h-[1px] bg-[#D6DDEB]"></div>
             <div className="flex flex-col gap-4 text-[14px] font-normal">
@@ -211,7 +211,7 @@ function ApplicantDetailsLeftCard({
                     />
                   </g>
                 </svg>
-                <p>{jobDetails?.details?.personal?.email}</p>
+                <p>{applicantDetails?.details?.personal?.email}</p>
               </div>
               <div className="flex gap-2">
                 <svg
@@ -228,9 +228,9 @@ function ApplicantDetailsLeftCard({
                     />
                   </g>
                 </svg>
-                <p>{jobDetails?.details?.personal?.mobileNo}</p>
+                <p>{applicantDetails?.details?.personal?.mobileNo}</p>
               </div>
-              {jobDetails?.details?.personal?.currentLocation && (
+              {applicantDetails?.details?.personal?.currentLocation && (
                 <div className="flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -246,11 +246,11 @@ function ApplicantDetailsLeftCard({
                       />
                     </g>
                   </svg>
-                  <p>{jobDetails?.details?.personal?.currentLocation}</p>
+                  <p>{applicantDetails?.details?.personal?.currentLocation}</p>
                 </div>
               )}
 
-              {jobDetails?.details?.professional?.totalExperience && (
+              {applicantDetails?.details?.professional?.totalExperience && (
                 <div className="flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -268,51 +268,51 @@ function ApplicantDetailsLeftCard({
                   </svg>
 
                   <p>
-                    {jobDetails?.details?.professional?.totalExperience} years
+                    {applicantDetails?.details?.professional?.totalExperience} years
                   </p>
                 </div>
               )}
               <div className="flex flex-col gap-4 text-[16px] font-normal  overflow-y-auto">
                 <div className="flex flex-col gap-4">
-                  {jobDetails?.details?.professional?.aboutme && (
+                  {applicantDetails?.details?.professional?.aboutme && (
                     <div className="flex flex-col gap-2  w-[100%]">
                       <p className=" font-medium text-[14px] ">About </p>
                       <div className="flex flex-col gap-4 text-[12px] font-normal">
-                        <p>{jobDetails?.details?.professional?.aboutme}</p>
+                        <p>{applicantDetails?.details?.professional?.aboutme}</p>
                       </div>
                     </div>
                   )}
                   <div className="flex  gap-4 flex-col justify-between">
-                    {jobDetails?.details?.professional?.currentJob?.company ||
-                    jobDetails?.details?.professional?.hightestQul?.length >
+                    {applicantDetails?.details?.professional?.currentJob?.company ||
+                    applicantDetails?.details?.professional?.hightestQul?.length >
                       0 ? (
                       <div className="flex flex-col gap-4 w-[100%]">
-                        {jobDetails?.details?.professional?.currentJob && (
+                        {applicantDetails?.details?.professional?.currentJob && (
                           <div>
                             <p className="text-[14px] font-medium">
                               Current Job
                             </p>
                             <p className="text-[12px] font-normal">
                               {
-                                jobDetails?.details?.professional?.currentJob
+                                applicantDetails?.details?.professional?.currentJob
                                   ?.company
                               }
                             </p>
                             <p className="text-[12px] font-normal">
                               {
-                                jobDetails?.details?.professional?.currentJob
+                                applicantDetails?.details?.professional?.currentJob
                                   ?.title
                               }
                             </p>
                           </div>
                         )}
-                        {jobDetails?.details?.professional?.hightestQul && (
+                        {applicantDetails?.details?.professional?.hightestQul && (
                           <div>
                             <p className="text-[14px] font-medium">
                               Highest Qualification
                             </p>
                             <p className="text-[12px] font-normal">
-                              {jobDetails?.details?.professional?.hightestQul}
+                              {applicantDetails?.details?.professional?.hightestQul}
                             </p>
                           </div>
                         )}
@@ -320,13 +320,13 @@ function ApplicantDetailsLeftCard({
                     ) : null}
 
                     <div className="flex flex-col gap-4  w-[100%]">
-                      {jobDetails?.details?.professional?.totalExperience && (
+                      {applicantDetails?.details?.professional?.totalExperience && (
                         <div>
                           <p className="text-[14px]  font-medium">
                             Experience in Years
                           </p>
                           <p className="text-[12px] font-normal">
-                            {jobDetails?.details?.professional?.totalExperience}
+                            {applicantDetails?.details?.professional?.totalExperience}
                           </p>
                         </div>
                       )}

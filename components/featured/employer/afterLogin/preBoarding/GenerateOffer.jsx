@@ -277,10 +277,10 @@ const GenerateOffer = ({
               }}
             >
               <svg
-                className="absolute top-[-30px]  left-[38%] right-[62%] flex"
+                className="absolute top-[-28px]  left-[41%] right-[59%] flex"
                 xmlns="http://www.w3.org/2000/svg"
-                width="85"
-                height="85"
+                width="55"
+                height="55"
                 viewBox="0 0 85 85"
                 fill="none"
               >
@@ -301,7 +301,7 @@ const GenerateOffer = ({
               </svg>
 
               <div className="text-center">
-                <div className="text-[24px] font-[500] text-[#333]">
+                <div className="text-[20px] font-[500] text-[#333]">
                   Offer Generated Successfully
                 </div>
               </div>
@@ -310,7 +310,7 @@ const GenerateOffer = ({
                   onClick={() => {
                     setGenerateOffer(false), setSuccessfull(false);
                   }}
-                  className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                  className=" px-[24px] rounded-[30px] h-[40px] bg_Button"
                 >
                   Done
                 </button>

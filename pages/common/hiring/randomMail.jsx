@@ -119,7 +119,7 @@ function RandomMail({
       cc: tags,
       subject: subject,
       content: content,
-      applicantId: shortlist?.map((item) => item?.applicantId),
+      applicantId: shortlist?.map((item) => item?._id),
       jobId: id,
     };
 

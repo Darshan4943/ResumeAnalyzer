@@ -135,7 +135,7 @@ function CreateNewJob() {
         const response = await axios.get(
           `https://api.skilotech.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
-            params: { page: 1, limit: 1000 },
+            params: { page: 1, limit: 2000 },
           }
         );
         setCompanyData(response.data.companies);
@@ -1128,7 +1128,7 @@ function CreateNewJob() {
                               if (data.__isNew__) {
                                 return (
                                   <span className="text-blue font-medium">
-                                    + Create New Company:{" "}
+                                    {/* + Create New Company:{" "} */}
                                     <strong>{data.label}</strong>
                                   </span>
                                 );
@@ -1602,7 +1602,7 @@ function CreateNewJob() {
                                 border: formError.description
                                   ? "2px solid red"
                                   : "0px solid #DEDEDE",
-                                fontSize: "16px",
+                                fontSize: "14px",
                                 color: "#333",
                                 padding: "10px",
                                 minHeight: "340px",

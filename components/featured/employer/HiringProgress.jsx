@@ -6,11 +6,12 @@ import { formatInterviewDate } from "../../../utils/middleware";
 
 function HiringProgress({
   hiringData = [],
-  jobDetails,
+  applicantDetails,
   successfull,
   setSuccessfull,
   taskSuccessfull,
   setTaskSuccessfull,
+  jobDetails
 }) {
   const [openTaskModel, setOpenTaskModel] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
@@ -34,7 +35,7 @@ function HiringProgress({
   };
 
   return (
-    <div className="flex flex-col gap-6 h-[calc(100vh-300px)] overflow-y-auto scr1024:px-6 px-2 py-4">
+    <div className="flex flex-col gap-6 h-[calc(100vh-200px)] overflow-y-auto scr1024:px-6 px-2 py-4">
       {hiringData?.length > 0 ? (
         hiringData
           ?.slice()
@@ -51,8 +52,8 @@ function HiringProgress({
                       height="17"
                       viewBox="0 0 16 17"
                       fill="none"
-                      // style={{ animationDelay: "1s" }}
-                      // className="level"
+                    // style={{ animationDelay: "1s" }}
+                    // className="level"
                     >
                       <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
                       <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
@@ -84,7 +85,7 @@ function HiringProgress({
                               />
                             </svg>
                             <p className="font-normal">
-                              {jobDetails?.matchingPercentage / 20}
+                              {applicantDetails?.matchingPercentage / 20}
                             </p>
                           </div>
                         </div>
@@ -93,7 +94,7 @@ function HiringProgress({
                         </p>
                       </div>
                     </div>
-                    {index === 0 && (
+                  {(index === 0 && applicantDetails.hiringStage !== "Rejected") && (
                       <button
                         onClick={() => {
                           setSelectedLevel(level);
@@ -109,8 +110,8 @@ function HiringProgress({
               ) : (
                 <>
                   {level?.status === "Shortlisted" ||
-                  level?.status === "Rejected" ||
-                  level?.status === "Hired" ? (
+                    level?.status === "Rejected" ||
+                    level?.status === "Hired" ? (
                     <div className="flex gap-4 w-full ">
                       <div className="w-[24px]  ">
                         <svg
@@ -119,8 +120,8 @@ function HiringProgress({
                           height="17"
                           viewBox="0 0 16 17"
                           fill="none"
-                          // style={{ animationDelay: "1s" }}
-                          // className="level"
+                        // style={{ animationDelay: "1s" }}
+                        // className="level"
                         >
                           <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
                           <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
@@ -153,15 +154,14 @@ function HiringProgress({
                             </div>
                           )}
                           <div
-                            className={`px-[10px] py-[3px] rounded-[80px] w-fit h-fit ${
-                              level?.status === "Hired"
+                            className={`px-[10px] py-[3px] rounded-[80px] w-fit h-fit ${level?.status === "Hired"
                                 ? " text-[#0C8A0A] bg-[#E2FFE1]"
                                 : level?.status === "Shortlisted"
-                                ? " text-[#4640DE] bg-[#4640DE1A]"
-                                : level?.status === "Rejected"
-                                ? " text-[#FF6550] bg-[#FFE6E2]"
-                                : ""
-                            }  }`}
+                                  ? " text-[#4640DE] bg-[#4640DE1A]"
+                                  : level?.status === "Rejected"
+                                    ? " text-[#FF6550] bg-[#FFE6E2]"
+                                    : ""
+                              }  }`}
                           >
                             {level?.status}
                           </div>
@@ -236,35 +236,35 @@ function HiringProgress({
 
                             {(level?.status === "Conducted" ||
                               level?.status === "Completed") && (
-                              <div className="flex flex-col gap-2">
-                                <p className="text-[#646464] text-[16px] font-normal">
-                                  {level?.isTask ? "Reviewer" : "Conducted by"}
-                                </p>
-                                <div className="flex gap-4 flex-wrap">
-                                  {(level?.isTask
-                                    ? level?.taskReviewer
-                                    : level?.interviewer
-                                  )?.map((assignee, i) => (
-                                    <div key={i} className="flex gap-2">
-                                      <DummyProfileSvg />
-                                      <div className="flex flex-col">
-                                        <p className="text-[14px] font-medium">
-                                          {assignee.name}
-                                        </p>
-                                        <p className="text-[12px] font-normal text-[#646464]">
-                                          {assignee.role}
-                                        </p>
-                                        <p className="text-[12px] font-normal text-[#646464]">
-                                          {assignee.email}
-                                        </p>
+                                <div className="flex flex-col gap-2">
+                                  <p className="text-[#646464] text-[16px] font-normal">
+                                    {level?.isTask ? "Reviewer" : "Conducted by"}
+                                  </p>
+                                  <div className="flex gap-4 flex-wrap">
+                                    {(level?.isTask
+                                      ? level?.taskReviewer
+                                      : level?.interviewer
+                                    )?.map((assignee, i) => (
+                                      <div key={i} className="flex gap-2">
+                                        <DummyProfileSvg />
+                                        <div className="flex flex-col">
+                                          <p className="text-[14px] font-medium">
+                                            {assignee.name}
+                                          </p>
+                                          <p className="text-[12px] font-normal text-[#646464]">
+                                            {assignee.role}
+                                          </p>
+                                          <p className="text-[12px] font-normal text-[#646464]">
+                                            {assignee.email}
+                                          </p>
+                                        </div>
                                       </div>
-                                    </div>
-                                  ))}
+                                    ))}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
-                            {index === 0 && (
+                            {(index === 0 && applicantDetails.hiringStage !== "Rejected") && (
                               <button
                                 onClick={() => {
                                   setSelectedLevel(level);
@@ -282,14 +282,13 @@ function HiringProgress({
                                 {level?.isTask ? "Task" : "Interview"} Status
                               </p>
                               <div
-                                className={`px-[10px] py-[3px] rounded-[80px] w-fit ${
-                                  level?.status === "Pending"
+                                className={`px-[10px] py-[3px] rounded-[80px] w-fit ${level?.status === "Pending"
                                     ? "text-[#FFB836] bg-[#EB85331A]"
                                     : level?.status === "Conducted" ||
                                       level?.status === "Completed"
-                                    ? "text-[#0C8A0A] bg-[#E2FFE1]"
-                                    : "text-[#FF6550] bg-[#FF65501A]"
-                                }`}
+                                      ? "text-[#0C8A0A] bg-[#E2FFE1]"
+                                      : "text-[#FF6550] bg-[#FF65501A]"
+                                  }`}
                               >
                                 {level?.status === "Pending"
                                   ? "In Progress"
@@ -381,6 +380,7 @@ function HiringProgress({
                 setTaskSuccessfull={setTaskSuccessfull}
                 selectedLevel={selectedLevel}
                 setSelectedLevel={setSelectedLevel}
+                applicantDetails={applicantDetails}
                 jobDetails={jobDetails}
               />
             </motion.div>
@@ -425,10 +425,10 @@ function HiringProgress({
                   {successfull === "Interview"
                     ? "Interview Scheduled"
                     : successfull === "Task"
-                    ? "Task Assigned"
-                    : successfull === "Shortlisted"
-                    ? "Shortlisted"
-                    : "Rejected"}{" "}
+                      ? "Task Assigned"
+                      : successfull === "Shortlisted"
+                        ? "Shortlisted"
+                        : "Rejected"}{" "}
                   Successfully
                 </div>
               </div>

@@ -430,14 +430,12 @@ function ScheduleTask({
                     onTextChange={(e) => handleChange2(e.htmlValue)}
                     headerTemplate={header}
                     style={{
-                      border: formError.content
-                        ? "2px solid red"
-                        : "2px solid #dedede",
-                      fontSize: "15px",
+                       border: "none",
+                      fontSize: "16px",
                       color: "#333",
 
                       // paddingTop: `${(selectedValues?.taskReviewer.length || 0) * 76}px`,
-                      minHeight: "296px",
+                      minHeight: "196px",
                     }}
                   />
                   {/* <div className=" absolute top-[56px] pl-[16px] flex flex-col gap-2">

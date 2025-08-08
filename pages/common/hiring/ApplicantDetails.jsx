@@ -14,6 +14,7 @@ function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("matchingParameters");
   const [activeOption, setActiveOption] = useState("matchingParameters");
   const [jobDetails, setJobDetails] = useState(null);
+  const [applicantDetails, setApplicantDetails] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,11 +25,26 @@ function ApplicantDetails({ setTogglee }) {
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
-  const fileExtension = jobDetails?.resumeUrl?.split(".").pop().toLowerCase();
+  const fileExtension = applicantDetails?.resumeUrl?.split(".").pop().toLowerCase();
   const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
   const isPDF = fileExtension === "pdf";
   const isDoc = ["doc", "docx"].includes(fileExtension);
+
+
+
+  const fetchJobDetailsHeder = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
+      );
+      setJobDetails(response.data);
+
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    }
+  };
   useEffect(() => {
+    fetchJobDetailsHeder()
     if (clientView) {
       dispatch(setPageOpened());
     }
@@ -36,18 +52,21 @@ function ApplicantDetails({ setTogglee }) {
   const getData = async () => {
     try {
       setLoading(true);
-      
+
       const response = await axios.get(
         "https://api.skilotech.com/api/applicantdetails",
         {
-          params: { id ,applicantId},
+          params: { id, applicantId },
         }
       );
 
       if (response.data) {
-        setJobDetails(response?.data?.data);
-
-        if (!response.data?.data?.matchingPercentage) {
+        setApplicantDetails(response?.data?.data);
+        if (response?.data?.data?.hiringLevel.length > 0) {
+          setToggle("HiringProgress");
+          setActiveOption("HiringProgress");
+        }
+        else if (!response.data?.data?.matchingPercentage) {
           setToggle("Resume");
           setActiveOption("Resume");
         }
@@ -190,9 +209,8 @@ function ApplicantDetails({ setTogglee }) {
         <p>{error}</p>
       ) : (
         <div
-          className={`flex flex-col gap-[8px] relative ${
-            clientView && "pt-6 customMargins"
-          }`}
+          className={`flex flex-col gap-[8px] relative ${clientView && "pt-6 customMargins"
+            }`}
         >
           <div className=" flex w-full gap-2 justify-between rounded-[16px] items-center">
             <img
@@ -213,14 +231,14 @@ function ApplicantDetails({ setTogglee }) {
             <ApplicantDetailsLeftCard
               setActiveOption={setActiveOption}
               setToggle={setToggle}
-              jobDetails={jobDetails}
+              applicantDetails={applicantDetails}
               id={id}
               statusChange={statusChange}
               setStatusChange={setStatusChange}
               applicantId={applicantId}
               clientView={clientView}
             />
-            {jobDetails?.details && (
+            {applicantDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                   <div className="flex flex-col ">
@@ -255,14 +273,13 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div> */}
-                      {jobDetails?.matchingParameters.length > 0 && (
+                      {applicantDetails?.matchingParameters.length > 0 && (
                         <div>
                           <p
-                            className={`min-w-[156px] ${
-                              activeOption === "matchingParameters"
-                                ? "text-[#333]"
-                                : "text-[#646464]"
-                            } cursor-pointer `}
+                            className={`min-w-[156px] ${activeOption === "matchingParameters"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                              } cursor-pointer `}
                             onClick={() =>
                               handleOptionClick("matchingParameters")
                             }
@@ -287,16 +304,16 @@ function ApplicantDetails({ setTogglee }) {
                           </svg>
                         </div>
                       )}
-                      {userDataGlobal?.role === "employer" &&
-                        jobDetails?.hiringStage !== "Pending" &&
-                        jobDetails.hiringLevel.length > 0 && (
+                      {
+                        // userDataGlobal?.role === "employer" &&
+                        applicantDetails?.hiringStage !== "Pending" &&
+                        applicantDetails.hiringLevel.length > 0 && (
                           <div>
                             <p
-                              className={`min-w-[115px] ${
-                                activeOption === "HiringProgress"
-                                  ? "text-[#333]"
-                                  : "text-[#646464]"
-                              } cursor-pointer`}
+                              className={`min-w-[115px] ${activeOption === "HiringProgress"
+                                ? "text-[#333]"
+                                : "text-[#646464]"
+                                } cursor-pointer`}
                               onClick={() =>
                                 handleOptionClick("HiringProgress")
                               }
@@ -323,11 +340,10 @@ function ApplicantDetails({ setTogglee }) {
                         )}
                       <div>
                         <p
-                          className={` min-w-[60px] ${
-                            activeOption === "Resume"
-                              ? "text-[#333]"
-                              : "text-[#646464]"
-                          } cursor-pointer`}
+                          className={` min-w-[60px] ${activeOption === "Resume"
+                            ? "text-[#333]"
+                            : "text-[#646464]"
+                            } cursor-pointer`}
                           onClick={() => handleOptionClick("Resume")}
                         >
                           Resume
@@ -352,35 +368,35 @@ function ApplicantDetails({ setTogglee }) {
                   </div>
                 </div>
                 {toggle === "ApplicantProfile" && (
-                  <ApplicantProfile jobDetails={jobDetails} />
+                  <ApplicantProfile applicantDetails={applicantDetails} />
                 )}
                 {toggle === "Resume" && (
                   <div
-                    onClick={downloadResume(jobDetails?.resumeUrl)}
+                    onClick={downloadResume(applicantDetails?.resumeUrl)}
                     className=" flex items-center justify-center py-[16px] resumes2 cursor-pointer "
                   >
                     {isImage ? (
                       <img
-                        src={jobDetails?.resumeUrl}
+                        src={applicantDetails?.resumeUrl}
                         alt="Uploaded Document"
                         className="max-w-[70%] max-h-full object-contain rounded-lg"
                       />
                     ) : isPDF ? (
                       <PdfViewer
-                        pdfUrl={jobDetails?.resumeUrl}
+                        pdfUrl={applicantDetails?.resumeUrl}
                         loadingg={loadingg}
                         setLoadingg={setLoadingg}
                       />
                     ) : isDoc ? (
-                      <DocumentViewer fileUrl={jobDetails?.resumeUrl} />
+                      <DocumentViewer fileUrl={applicantDetails?.resumeUrl} />
                     ) : (
-                      <InlineSVG imageUrl={jobDetails?.resumeUrl} />
+                      <InlineSVG imageUrl={applicantDetails?.resumeUrl} />
                     )}
                   </div>
                 )}
                 {toggle === "matchingParameters" && (
                   <div>
-                    {jobDetails?.matchingParameters?.map((param, index) => (
+                    {applicantDetails?.matchingParameters?.map((param, index) => (
                       <div key={index} className="px-6 py-2">
                         <h3 className="text-[16px] font-semibold">
                           {param.title}
@@ -397,7 +413,8 @@ function ApplicantDetails({ setTogglee }) {
                 )}
                 {toggle === "HiringProgress" && (
                   <HiringProgress
-                    hiringData={jobDetails?.hiringLevel}
+                    hiringData={applicantDetails?.hiringLevel}
+                    applicantDetails={applicantDetails}
                     jobDetails={jobDetails}
                     successfull={successfull}
                     setSuccessfull={setSuccessfull}

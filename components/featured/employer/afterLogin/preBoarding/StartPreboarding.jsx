@@ -55,10 +55,10 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
   }, [id]);
 
   useEffect(() => {
-    if (applicant?.applicantId) {
+    if (applicant?._id) {
       setData((prevState) => ({
         ...prevState,
-        applicantId: applicant.applicantId, jobId: applicant.jobId, applicantEmail: applicant.details.personal.email, applicantFirstName: applicant.details.personal.firstName, applicantLastName: applicant.details.personal.lastName
+        applicantId: applicant._id, jobId: applicant.jobId, applicantEmail: applicant.details.personal.email, applicantFirstName: applicant.details.personal.firstName, applicantLastName: applicant.details.personal.lastName
       }));
     }
   }, [applicant]);
@@ -202,6 +202,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
           </div>
           <svg
             onClick={() => setStartPreboarding(false)}
+            className=" cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

@@ -50,6 +50,12 @@ function EmployerSidebar() {
           img: "/images/employer/sidebar/hiring.png",
           img1: "/images/employer/sidebar/hiring2.png",
         },
+        {
+          title: "Preboarding",
+          route: "/employer/Preboarding",
+          img: "/images/employer/sidebar/preboarding.png",
+          img1: "/images/employer/sidebar/Preboarding2.png",
+        },
       ],
     },
     {
