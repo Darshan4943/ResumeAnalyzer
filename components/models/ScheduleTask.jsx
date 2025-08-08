@@ -254,7 +254,7 @@ function ScheduleTask({
                 </div>
                 <input
                   type="text"
-                  placeholder="Employee Name"
+                  placeholder="Reviewer Name"
                   className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
                   value={level?.taskReviewer[0].name}
                   onChange={(e) =>
@@ -263,7 +263,7 @@ function ScheduleTask({
                 />
                 <input
                   type="text"
-                  placeholder="Employee Role"
+                  placeholder="Reviewer Role"
                   className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
                   value={level?.taskReviewer[0].role}
                   onChange={(e) =>
@@ -272,7 +272,7 @@ function ScheduleTask({
                 />
                 <input
                   type="text"
-                  placeholder="Enter Email"
+                  placeholder="Reviewer Email"
                   className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
                   value={level?.taskReviewer[0].email}
                   onChange={(e) =>

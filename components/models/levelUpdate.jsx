@@ -75,7 +75,7 @@ function LevelUpdate({
       setShortlist(true);
     }
   };
-  console.log(applicantDetails)
+
   const submitDetails = async () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -336,7 +336,7 @@ function LevelUpdate({
           <div className="flex flex-col gap-2 w-[30%]">
             <p className="text-[18px] font-medium">{selectedLevel?.isInterview ? "Interview" : "Task"} Date</p>
 
-            <div>{formatInterviewDate(selectedLevel?.interviewDate)}</div>
+            <div>{formatInterviewDate(selectedLevel?.isInterview ? selectedLevel?.interviewDate : selectedLevel?.assignOn )}</div>
           </div>
         </div>
       )}
@@ -495,19 +495,19 @@ function LevelUpdate({
         <div className="flex gap-4 justify-end py-[1rem]">
           <button
             onClick={closeTaskPopup}
-            className=" h-[38px] red_border_Button rounded-[30px] px-6"
+            className=" h-[40px] red_border_Button rounded-[30px] px-6"
           // id="button"
           >
             Cancel
           </button>
           {loading ? (
-            <div className="h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white">
+            <div className="h-[40px] w-[92.94px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white">
               <MiniLoader />
             </div>
           ) : (
             <button
               onClick={isNextLevel ? nextStage : submitDetails}
-              className=" h-[38px] bg_Button rounded-[30px] px-8"
+              className=" h-[40px] bg_Button rounded-[30px] px-8"
             >
               Save
             </button>

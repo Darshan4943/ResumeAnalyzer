@@ -322,7 +322,7 @@ function  ScheduleInterview({
                 </div>
                 <input
                   type="text"
-                  placeholder="Employee Name"
+                  placeholder="Interviewer Name"
                   className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
                   value={level?.interviewer[0].name}
                   onChange={(e) =>
@@ -331,7 +331,7 @@ function  ScheduleInterview({
                 />
                 <input
                   type="text"
-                  placeholder="Employee Role"
+                  placeholder="Interviewer Role"
                   className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
                   value={level?.interviewer[0].role}
                   onChange={(e) =>
@@ -340,7 +340,7 @@ function  ScheduleInterview({
                 />
                 <input
                   type="text"
-                  placeholder="Enter Email"
+                  placeholder="Interviewer Email"
                   className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
                   value={level?.interviewer[0].email}
                   onChange={(e) =>
