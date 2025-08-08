@@ -147,7 +147,7 @@ function UploadDocuments() {
       
         try {
             const response = await axios.post(
-                `http://localhost:2000/api/preboarding/uploadDocuments/${applicantId}/${jobId}`,
+                `https://api.skilotech.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`,
                 uploadedFiles, 
                 { headers: { "Content-Type": "application/json" } }
             );
