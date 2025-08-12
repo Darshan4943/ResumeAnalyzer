@@ -35,8 +35,9 @@ const Profile = () => {
   }, [router.query]);
 
   useEffect(() => {
-    const { code, error: queryError } = router.query;
+    const { code, error: queryError, state } = router.query;
     const linkedin = localStorage.getItem("linkedin")
+    const gmail = localStorage.getItem("gmail")
 
     if (queryError) {
 
@@ -44,8 +45,10 @@ const Profile = () => {
       return;
     }
 
+    const [service = "", userId = ""] = state?.split(":") || [];
 
-    if (code && !linkedin) {
+
+    if (code && !linkedin && service === "linkedin") {
       localStorage.setItem("linkedin", true)
 
       axios
@@ -66,6 +69,28 @@ const Profile = () => {
           setError("Something went wrong. Please try again.");
         });
     }
+    if (code && !gmail && service === "gmail") {
+
+      axios.post("https://api.skilotech.com/api/google/save-tokens", { code, userId })
+        .then(res => {
+          const data = res.data;
+          if (data) {
+            toast.success("Gmail connected!")
+            localStorage.setItem("gmail", true)
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }
+
+        ).catch(err => {
+          console.error("Axios error:", err.response?.data || err.message);
+          setError("Something went wrong. Please try again.");
+        });
+
+    }
+
+
   }, [router.query]);
 
 
@@ -172,12 +197,33 @@ const Profile = () => {
     const clientId = "77ibh256epyk8p";
     const redirectUri = encodeURIComponent("https://skilotech.com/recruiter/profile");
     const scope = encodeURIComponent("openid profile email w_member_social");
-    const state = "DCEEFWF45453sdffef424";
+    const state = `linkedin:${userDataGlobal?._id}`;
 
     const authUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
 
     window.location.href = authUrl;
   };
+
+
+  function connectGmail() {
+    const clientId = "96258899310-39ejce0n9o9aqml4bjolvnif7442n17d.apps.googleusercontent.com";
+    const redirectUri = "http://localhost:3000/recruiter/profile";
+    const scopes = [
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.modify"
+    ];
+
+    const state = `gmail:${userDataGlobal?._id}`;
+
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}&response_type=code&scope=${encodeURIComponent(
+      scopes.join(" ")
+    )}&access_type=offline&prompt=consent&state=${encodeURIComponent(state)}`;
+
+    window.location.href = authUrl;
+  }
+
 
 
   return (
@@ -227,18 +273,27 @@ const Profile = () => {
                 <div className="w-full flex flex-col gap-6">
                   <div className="text-[18px] font-Montserrat flex justify-between font-semibold text-[#333]">
                     Account Details
-
-                    {
-                      (!userDataGlobal?.linkedinAccessToken || new Date(userDataGlobal?.linkedinAccessTokenExpiryDate) < new Date())
-                      && (
-                        <button
-                          onClick={handleConnect}
-                          className="px-4 h-[36px] bg_Button rounded-[30px]"
-                        >
-                          Connect to LinkedIn
-                        </button>
-                      )}
-
+                    <div className="flex gap-4">
+                      {
+                        (!userDataGlobal?.linkedinAccessToken || new Date(userDataGlobal?.linkedinAccessTokenExpiryDate) < new Date())
+                        && (
+                          <button
+                            onClick={handleConnect}
+                            className="px-4 h-[36px] bg_Button rounded-[30px]"
+                          >
+                            Connect to LinkedIn
+                          </button>
+                        )}
+                      {
+                        ((!userDataGlobal?.googleAccessToken && userDataGlobal?.isGoogleRequired) &&
+                          <button
+                            onClick={connectGmail}
+                            className="px-4 h-[36px] bg_Button rounded-[30px]"
+                          >
+                            Connect to Gmail
+                          </button>
+                        )}
+                    </div>
                   </div>
                   <div className="flex scr1024:flex-row flex-col scr1024:gap-[30px] gap-[20px]">
                     <div className=" scr1024:w-[40%] w-[100%] gap-6 flex flex-col ">
