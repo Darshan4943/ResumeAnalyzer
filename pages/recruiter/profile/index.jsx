@@ -207,7 +207,7 @@ const Profile = () => {
 
   function connectGmail() {
     const clientId = "96258899310-39ejce0n9o9aqml4bjolvnif7442n17d.apps.googleusercontent.com";
-    const redirectUri = "http://localhost:3000/recruiter/profile";
+    const redirectUri = "https://skilotech.com/recruiter/profile";
     const scopes = [
       "https://www.googleapis.com/auth/gmail.readonly",
       "https://www.googleapis.com/auth/gmail.modify"
