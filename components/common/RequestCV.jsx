@@ -54,12 +54,13 @@ function RequestCV({ isCandidate, skilotechCollection }) {
   const [folders, setFolders] = useState([]);
   const [filters, setFilters] = useState({});
   const [jobtypeData, setJobTypeData] = useState([]);
+ 
   const [isFilterUsed, setIsFilterUsed] = useState(false);
   const [page, setPage] = useState(1);
   const [clear, setClear] = useState(false);
   const [hiddenFilters, setHiddenFilters] = useState({});
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(50);
+  const [limit, setLimit] = useState(20);
   const [miniLoading, setMiniloading] = useState(true);
   const [count, setCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
@@ -681,11 +682,12 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         ? jobtypeData.experienceYears.sort((a, b) => a - b)
         : [],
     },
-    {
-      title: "Education Level",
-      img: "/images/filter/education.png",
-      child: jobtypeData?.educationLevels || [],
-    },
+  {
+  title: "Education Level",
+  img: "/images/filter/education.png",
+  child: [...new Set(jobtypeData?.educationLevels?.flat() || [])],
+}
+,
     // {
     //   title: "Education Stream",
     //   img: "/images/filter/stream.png",
@@ -862,7 +864,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
                 <div className="flex gap-4 scr420:items-center  items-start ">
                   <svg
                     className=" cursor-pointer min-w-[24px]"
-                    onClick={() => router.back()}
+                    onClick={() => router.push("/findCandidates")}
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
