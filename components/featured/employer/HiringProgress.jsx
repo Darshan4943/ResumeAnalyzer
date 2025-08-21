@@ -11,7 +11,8 @@ function HiringProgress({
   setSuccessfull,
   taskSuccessfull,
   setTaskSuccessfull,
-  jobDetails
+  jobDetails,
+  clientView
 }) {
   const [openTaskModel, setOpenTaskModel] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
@@ -94,7 +95,7 @@ function HiringProgress({
                         </p>
                       </div>
                     </div>
-                  {(index === 0 && applicantDetails.hiringStage !== "Rejected") && (
+                  {(index === 0 && applicantDetails.hiringStage !== "Rejected" && !clientView) && (
                       <button
                         onClick={() => {
                           setSelectedLevel(level);
@@ -264,7 +265,7 @@ function HiringProgress({
                                 </div>
                               )}
 
-                            {(index === 0 && applicantDetails.hiringStage !== "Rejected") && (
+                            {(index === 0 && applicantDetails.hiringStage !== "Rejected" && !clientView) && (
                               <button
                                 onClick={() => {
                                   setSelectedLevel(level);

@@ -20,7 +20,9 @@ import { setRecallData } from "../../../Redux/slices/recallSlice";
 import JdParameters from "../../../components/common/jdParameters";
 import { updateAiHit, updateAiHitWithCount } from "../../../Redux/slices/aiHitsSlice";
 import RandomMail from "./randomMail";
+
 import { setPageOpened } from "../../../Redux/slices/websiteSlice";
+import { downloadApplicantExcel } from "./DownloadApplicationExel";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const randomPercentage = useMemo(
@@ -235,9 +237,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
 
   const handleCheckboxChange = (applicant) => {
-    if (applicant?.hiringStage !== "Pending") {
-      return;
-    }
+    // if (applicant?.hiringStage !== "Pending") {
+    //   return;
+    // }
 
     setCheckedApplicants((prev) => {
       const updated = prev.some((a) => a._id === applicant._id)
@@ -246,18 +248,21 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
       setSelectAll(
         updated.length ===
-        jobDetails?.data?.applications.filter(
-          (app) => app.hiringStage === "Pending"
-        ).length
+        jobDetails?.data?.applications
+          // .filter(
+          //   (app) => app.hiringStage === "Pending"
+          // )
+          .length
       );
 
       return updated;
     });
   };
   const handleSelectAll = () => {
-    const selectableApplicants = jobDetails?.data?.applications.filter(
-      (app) => app.hiringStage === "Pending"
-    );
+    const selectableApplicants = jobDetails?.data?.applications
+    // .filter(
+    //   (app) => app.hiringStage === "Pending"
+    // );
     if (selectAll) {
       setCheckedApplicants([]);
     } else {
@@ -670,6 +675,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setSortSelect(index);
   // };
 
+  console.log(jobDetails?.data?.applications)
+
   return (
     <>
       {clientView && (
@@ -882,6 +889,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         )}
                       </div>
                     </div>
+                    {clientView &&
+                      <button onClick={() => downloadApplicantExcel(jobDetails, jobData)} className=" bg-green text-white px-4 h-[38px] rounded-[30px] text-[13px] font-medium">
+                        Download Exel
+                      </button>
+                    }
                   </div>
                 </div>
                 {!clientView && (
@@ -964,36 +976,36 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         </svg>
                       </div>
                       {/* {userDataGlobal?.role !== "recruiter" && ( */}
-                        <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                          <p
-                            onClick={() => {
-                              setOption(3),
-                                setActiveOption("Selected Candidate for Hiring");
-                            }}
-                            className={` ${activeOption === "Selected Candidate for Hiring"
-                              ? ""
-                              : "text-[#646464]"
-                              } cursor-pointer font-[600]`}
-                          >
-                            Selected Candidate for Hiring
-                          </p>
-                          <svg
-                            width="214"
-                            height="4"
-                            viewBox="0 0 214 4"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
-                              fill={
-                                activeOption === "Selected Candidate for Hiring"
-                                  ? "#06A9EF"
-                                  : "white"
-                              }
-                            />
-                          </svg>
-                        </div>
+                      <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                        <p
+                          onClick={() => {
+                            setOption(3),
+                              setActiveOption("Selected Candidate for Hiring");
+                          }}
+                          className={` ${activeOption === "Selected Candidate for Hiring"
+                            ? ""
+                            : "text-[#646464]"
+                            } cursor-pointer font-[600]`}
+                        >
+                          Selected Candidate for Hiring
+                        </p>
+                        <svg
+                          width="214"
+                          height="4"
+                          viewBox="0 0 214 4"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
+                            fill={
+                              activeOption === "Selected Candidate for Hiring"
+                                ? "#06A9EF"
+                                : "white"
+                            }
+                          />
+                        </svg>
+                      </div>
                       {/* )} */}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
@@ -1181,7 +1193,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             />
                           </div>
                         </div>
-                        {userDataGlobal?.role === "employer" && (
+                        {/* {userDataGlobal?.role === "employer" && (
                           <button
                             disabled={!checkedApplicants.length > 0 || loading1}
                             style={{
@@ -1195,15 +1207,17 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           >
                             Move to Hiring Process
                           </button>
-                        )}
-                        {checkedApplicants?.length > 0 && (
+                        )} */}
+                        {userDataGlobal?.role === "recruiter" &&
                           <button
+                            disabled={checkedApplicants?.length < 1}
                             onClick={() => setRandomMail(true)}
-                            className="px-4 h-[40px] bg_Button rounded-[30px]"
+                            className={`px-4 h-[40px] bg_Button rounded-[30px] ${checkedApplicants?.length < 1 && "opacity-50"}`}
                           >
-                            Send Mail
+                            Send Mail to Client
                           </button>
-                        )}
+                        }
+
                       </div>
                     </div>
 
@@ -1591,9 +1605,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           checked={
                             checkedApplicants.length > 0 &&
                             checkedApplicants.length ===
-                            jobDetails?.data?.applications.filter(
-                              (app) => app.hiringStage === "Pending"
-                            ).length
+                            jobDetails?.data?.applications
+                              // .filter(
+                              //   (app) => app.hiringStage === "Pending"
+                              // )
+                              .length
                           }
                           onChange={handleSelectAll}
                         />
@@ -1687,9 +1703,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       onChange={() =>
                                         handleCheckboxChange(applicant)
                                       }
-                                      disabled={
-                                        applicant.hiringStage !== "Pending"
-                                      }
+                                    // disabled={
+                                    //   applicant.hiringStage !== "Pending"
+                                    // }
                                     />
                                     {/* )} */}
                                     <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
@@ -1887,9 +1903,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                               )} */}
                                           </div>
                                         )}
-                                        {console.log(applicant)}
+
                                       <div
-                                      
+
                                         onClick={() =>
                                           router.push(
                                             `/common/hiring/ApplicantDetails?applicantId=${applicant?._id}&id=${id}&currentPage=${page}&sortValue=${sortSelect}${clientView ? `&clientView=true` : ``
@@ -2211,7 +2227,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         />
                        )}  */}
                   {/* {userDataGlobal?.role === "employer" && ( */}
-                  <input
+                  {/* <input
                     className="w-[16px] h-[16px]"
                     type="checkbox"
                     checked={
@@ -2222,7 +2238,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       ).length
                     }
                     onChange={handleSelectAll}
-                  />
+                  /> */}
                   {/* )}  */}
                   {applicant_head.map((applicant_head, index) => (
                     <div
@@ -2299,7 +2315,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           >
                             <div className="  gap-[20px]  w-full justify-between flex items-center">
                               {/* {userDataGlobal?.role === "employer" && ( */}
-                              <input
+                              {/* <input
                                 key={applicant.id}
                                 className="w-[16px] h-[16px]"
                                 type="checkbox"
@@ -2308,7 +2324,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 )}
                                 onChange={() => handleCheckboxChange(applicant)}
                                 disabled={applicant.hiringStage !== "Pending"}
-                              />
+                              /> */}
                               {/* )} */}
                               <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
                                 <img
@@ -2542,7 +2558,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     </clipPath>
                                   </defs>
                                 </svg>
-                                <img
+                                {/* <img
                                   onClick={() => {
                                     if (
                                       applicant?.hiringStage !== "Hired" &&
@@ -2558,7 +2574,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     }`}
                                   src="/images/employer/three-dot.png"
                                   alt=""
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>

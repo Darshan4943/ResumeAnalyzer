@@ -175,7 +175,7 @@ function ApplicantDetailsLeftCard({
                           Hired
                         </div>
                       </button>
-                    ) : (
+                    ) :  !clientView &&
                       <div
                         onClick={() => {
                           setToggle("HiringProgress");
@@ -187,7 +187,8 @@ function ApplicantDetailsLeftCard({
                           Schedule Interview
                         </div>
                       </div>
-                    )}
+                    
+                    }
                   </>
                 )}
               </>

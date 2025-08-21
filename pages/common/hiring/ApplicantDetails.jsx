@@ -213,16 +213,29 @@ function ApplicantDetails({ setTogglee }) {
             }`}
         >
           <div className=" flex w-full gap-2 justify-between rounded-[16px] items-center">
-            <img
-              onClick={() =>
-                router.push(
-                  `/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}`
-                )
-              }
-              className="w-[24px] cursor-pointer"
-              src="/images/employer/Icon_left.png"
-              alt=""
-            />
+            {clientView ?
+              <img
+                onClick={() =>
+                  router.push(
+                    `/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}&clientView=true`
+                  )
+                }
+                className="w-[24px] cursor-pointer"
+                src="/images/employer/Icon_left.png"
+                alt=""
+              />
+              :
+              <img
+                onClick={() =>
+                  router.push(
+                    `/common/hiring/JobPost?id=${id}&currentPage=${currentPage}&sortValue=${sortValue}`
+                  )
+                }
+                className="w-[24px] cursor-pointer"
+                src="/images/employer/Icon_left.png"
+                alt=""
+              />
+            }
             <p className="text-[16px]  w-[100%] text-start flex justify-start  font-semibold  ">
               Applicant Details
             </p>
@@ -420,6 +433,7 @@ function ApplicantDetails({ setTogglee }) {
                     setSuccessfull={setSuccessfull}
                     taskSuccessfull={taskSuccessfull}
                     setTaskSuccessfull={setTaskSuccessfull}
+                    clientView={clientView}
                   />
                 )}
               </div>
