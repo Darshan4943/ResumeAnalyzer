@@ -22,7 +22,7 @@ import { updateAiHit, updateAiHitWithCount } from "../../../Redux/slices/aiHitsS
 import RandomMail from "./randomMail";
 
 import { setPageOpened } from "../../../Redux/slices/websiteSlice";
-import { downloadApplicantExcel } from "./DownloadApplicationExel";
+import { DownloadApplicantExcel, downloadApplicantExcel } from "./DownloadApplicationExel";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const randomPercentage = useMemo(
@@ -675,7 +675,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setSortSelect(index);
   // };
 
-  console.log(jobDetails?.data?.applications)
 
   return (
     <>
@@ -890,7 +889,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       </div>
                     </div>
                     {clientView &&
-                      <button onClick={() => downloadApplicantExcel(jobDetails, jobData)} className=" bg-green text-white px-4 h-[38px] rounded-[30px] text-[13px] font-medium">
+                      <button onClick={() => DownloadApplicantExcel(jobDetails, jobData)} className=" bg-green text-white px-4 h-[38px] rounded-[30px] text-[13px] font-medium">
                         Download Exel
                       </button>
                     }

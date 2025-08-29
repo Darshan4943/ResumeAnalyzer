@@ -1,7 +1,7 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-export const downloadApplicantExcel = (jobDetails, jobData) => {
+export const DownloadApplicantExcel = (jobDetails, jobData) => {
   if (!jobDetails?.data?.applications?.length) {
     alert("No applicants found");
     return;
