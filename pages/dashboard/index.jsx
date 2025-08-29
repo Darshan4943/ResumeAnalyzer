@@ -31,15 +31,19 @@ function Dashboard({ toggleContentt }) {
 
   const scrollToPendingJobs = (status) => {
     if (pendingJobsRef.current) {
-      const offset = 64;
-      const elementPosition = pendingJobsRef.current.offsetTop;
       setStatus(status);
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: "smooth",
-      });
+
+      const yOffset = 64;
+
+      setTimeout(() => {
+        if (pendingJobsRef.current) {
+          pendingJobsRef.current.scrollIntoView({ behavior: "smooth",  }) ;
+        }
+      }, 0);
+
     }
   };
+
   const scrollToInterviewJobs = () => {
     if (pendingJobsRef.current) {
       const offset = 64;
@@ -114,9 +118,9 @@ function Dashboard({ toggleContentt }) {
         <div>
           <CandidateOverviewChart statistics={statistics} />
         </div>
-     
-          <JobPostChart />
-      
+
+        <JobPostChart />
+
       </div>
       <Services />
       <div ref={pendingJobsRef}>

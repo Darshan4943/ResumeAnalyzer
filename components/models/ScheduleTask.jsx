@@ -17,11 +17,30 @@ function ScheduleTask({
   submitDetails,
   mailDetails,
   setMailDetails,
-  isCandidatePreview, 
+  isCandidatePreview,
   setIsCandidatePreview,
   setIsInterviewerPreview,
   isInterviewerPreview
 }) {
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+
+    if (!checked) {
+
+      setMailDetails((prev) => ({
+        ...prev,
+        interviewer: { ...prev.candidate },
+      }));
+    } else {
+
+      setMailDetails((prev) => ({
+        ...prev,
+        interviewer: { subject: "", content: "" },
+      }));
+    }
+  };
   const [levels, setLevels] = useState([
     {
       id: 1,
@@ -29,7 +48,7 @@ function ScheduleTask({
       taskReviewer: [{ name: "", role: "", email: "" }],
     },
   ]);
- 
+
   const [formError, setFormError] = useState({});
   const debounceUpdate = useCallback(
     debounce((value) => {
@@ -292,7 +311,7 @@ function ScheduleTask({
 
         <div className="flex flex-col  gap-4    py-[16px] ">
           <div>
-            <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4 overflow-x-auto md:overflow-x-visible">
+            <div className="flex gap-6 sm:text-[16px] text-[12px] font-semibold  overflow-x-auto md:overflow-x-visible">
               <div className="flex flex-col gap-2">
                 <p
                   className={` cursor-pointer ${activeOption === "Candidate"
@@ -339,6 +358,21 @@ function ScheduleTask({
                   />
                 </svg>
               </div>
+              {(mailDetails?.candidate?.subject && activeOption === "Interviewer" )&&
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="copyCandidate"
+                    checked={checked}
+                    onChange={handleCheckboxChange}
+                    className="h-4 w-4 text-blue-600 border-gray-300 rounded cursor-pointer"
+                  />
+                  <label htmlFor="copyCandidate" className="text-gray-700 text-sm cursor-pointer">
+                    Same as Candidate
+                  </label>
+                </div>
+              }
+
             </div>
             <div className="h-[1px] bg-[#D6DDEB]"></div>
           </div>
@@ -430,7 +464,7 @@ function ScheduleTask({
                     onTextChange={(e) => handleChange2(e.htmlValue)}
                     headerTemplate={header}
                     style={{
-                       border: "none",
+                      border: "none",
                       fontSize: "16px",
                       color: "#333",
 
@@ -477,26 +511,26 @@ function ScheduleTask({
           Cancel
         </button>
         <button
-          onClick={() =>{ activeOption==="Interviewer" ? setIsInterviewerPreview(true): setIsCandidatePreview(true)}}
+          onClick={() => { activeOption === "Interviewer" ? setIsInterviewerPreview(true) : setIsCandidatePreview(true) }}
           className="h-[38px] blue_border_Button rounded-[30px] px-6"
         // id="button"
         >
           Preview
         </button>
         {loading ? (
-          <div className="ml:px-9 w-[230px] justify-center items-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
+          <div className="ml:px-9 w-[183px] justify-center items-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
             <MiniLoader />
           </div>
         ) : (
           <button
             onClick={() => submitDetails()}
-            className="h-[38px] bg_Button rounded-[30px] px-8"
+            className="h-[38px] bg_Button rounded-[30px] px-8 w-[183px]"
           >
             Create Assignment
           </button>
         )}
       </div>
-      
+
     </div>
   );
 }

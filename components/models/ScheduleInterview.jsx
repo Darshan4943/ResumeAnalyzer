@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 import React, { useCallback, useEffect, useState } from "react";
 import MiniLoader from "../common/mini-loader";
 
-function  ScheduleInterview({
+function ScheduleInterview({
   setError,
   error,
   loading,
@@ -17,7 +17,13 @@ function  ScheduleInterview({
   submitDetails,
   mailDetails,
   setMailDetails,
+  setRescheduleInterview,
+  rescheduleInterview,
+  setOpenTaskModel,
+  selectedLevel
 }) {
+
+
   const [levels, setLevels] = useState([
     {
       id: 1,
@@ -35,7 +41,35 @@ function  ScheduleInterview({
       duration: "30 min",
       interviewDate: new Date().toISOString().split("T")[0],
     });
+    if (rescheduleInterview) {
+      setSelectedValues({
+        ...selectedValues,
+        isInterview: true,
+        isOnline: selectedLevel?.isOnline ?? false,
+        startAmPm: selectedLevel?.startAmPm ?? "",
+        startTime: selectedLevel?.startTime ?? "",
+        duration: selectedLevel?.duration ?? "",
+        interviewDate: selectedLevel?.interviewDate
+          ? new Date(selectedLevel.interviewDate).toISOString().split("T")[0]
+          : "",
+        interviewLocation: selectedLevel?.interviewLocation ?? "",
+        interviewer: selectedLevel?.interviewer ?? [],
+        meetingLink: selectedLevel?.meetingLink ?? "",
+        title: selectedLevel?.title ?? "",
+        task: selectedLevel?.task ?? "",
+      });
+      setLevels(
+      (selectedLevel?.interviewer || []).map((intv, index) => ({
+        id: index + 1,
+        name: `Interviewer ${index + 1}`,
+        interviewer: [intv],
+      }))
+    );
+
+    }
+    
   }, []);
+
   const debounceUpdate = useCallback(
     debounce((value) => {
       setMailDetails((prev) => ({
@@ -223,6 +257,25 @@ function  ScheduleInterview({
   };
 
   const header = renderHeader();
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+
+    if (!checked) {
+
+      setMailDetails((prev) => ({
+        ...prev,
+        interviewer: { ...prev.candidate },
+      }));
+    } else {
+
+      setMailDetails((prev) => ({
+        ...prev,
+        interviewer: { subject: "", content: "" },
+      }));
+    }
+  };
 
   return (
     <div
@@ -399,21 +452,19 @@ function  ScheduleInterview({
 
                 <div className="flex gap-2   text-[14px] font-[400]">
                   <button
-                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${
-                      selectedValues.startAmPm === "AM"
-                        ? " bg-blue text-white"
-                        : ""
-                    }`}
+                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${selectedValues.startAmPm === "AM"
+                      ? " bg-blue text-white"
+                      : ""
+                      }`}
                     onClick={() => handleAmPmChange("AM")}
                   >
                     AM
                   </button>
                   <button
-                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${
-                      selectedValues.startAmPm === "PM"
-                        ? "text-white bg-blue"
-                        : ""
-                    }`}
+                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${selectedValues.startAmPm === "PM"
+                      ? "text-white bg-blue"
+                      : ""
+                      }`}
                     onClick={() => handleAmPmChange("PM")}
                   >
                     PM
@@ -505,14 +556,13 @@ function  ScheduleInterview({
 
         <div className="flex flex-col  gap-4    py-[16px] ">
           <div>
-          <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4 overflow-x-auto md:overflow-x-visible">
-          <div className="flex flex-col gap-2">
+            <div className="flex gap-6 sm:text-[16px] text-[12px] font-semibold  overflow-x-auto md:overflow-x-visible">
+              <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${
-                    activeOption === "Candidate"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
-                  } `}
+                  className={` cursor-pointer ${activeOption === "Candidate"
+                    ? "text-[#333333]"
+                    : "text-[#646464]"
+                    } `}
                   onClick={() => handleOptionClick("Candidate")}
                 >
                   Email to Candidate
@@ -532,11 +582,10 @@ function  ScheduleInterview({
               </div>
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${
-                    activeOption === "Interviewer"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
-                  } `}
+                  className={` cursor-pointer ${activeOption === "Interviewer"
+                    ? "text-[#333333]"
+                    : "text-[#646464]"
+                    } `}
                   onClick={() => handleOptionClick("Interviewer")}
                 >
                   Email to Interviewer
@@ -554,6 +603,20 @@ function  ScheduleInterview({
                   />
                 </svg>
               </div>
+              {(mailDetails?.candidate?.subject && activeOption === "Interviewer" )&&
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="copyCandidate"
+                    checked={checked}
+                    onChange={handleCheckboxChange}
+                    className="h-4 w-4 text-blue-600 border-gray-300 rounded cursor-pointer"
+                  />
+                  <label htmlFor="copyCandidate" className="text-gray-700 text-sm cursor-pointer">
+                    Same as Candidate
+                  </label>
+                </div>
+              }
             </div>
             <div className="h-[1px] bg-[#D6DDEB]"></div>
           </div>
@@ -737,22 +800,30 @@ function  ScheduleInterview({
       </div>
       <div className="flex gap-4 sm:justify-end  justify-center pb-[1rem]">
         <button
-          onClick={() => setShowScheduleInterview(false)}
+          onClick={() => {
+            setShowScheduleInterview(false);
+            if (rescheduleInterview) {
+              setRescheduleInterview(false);
+              setOpenTaskModel(false)
+
+            }
+          }}
+
           className="h-[38px] red_border_Button rounded-[30px] px-6"
-          // id="button"
+        // id="button"
         >
           Cancel
         </button>
         {loading ? (
-          <div className="ml:px-9 w-[230px] items-center justify-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
+          <div className="ml:px-9 w-[200px] items-center justify-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
             <MiniLoader />
           </div>
         ) : (
           <button
             onClick={() => submitDetails()}
-            className="h-[38px] bg_Button rounded-[30px] px-8"
+            className="h-[38px] bg_Button rounded-[30px] px-8 w-[200px]"
           >
-            Schedule Interview
+            {rescheduleInterview ? "Reschedule" : "Schedule"} Interview
           </button>
         )}
       </div>

@@ -19,11 +19,15 @@ function LevelUpdate({
   setSelectedLevel,
   applicantDetails,
   jobDetails,
+  rescheduleInterview,
+  setRescheduleInterview,
+  setOpenTaskModel
 
 }) {
+  console.log(rescheduleInterview)
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isNextLevel, setIsNextLevel] = useState("");
-  const [showScheduleInterview, setShowScheduleInterview] = useState(false);
+  const [showScheduleInterview, setShowScheduleInterview] = useState(rescheduleInterview ? rescheduleInterview : false);
   const [showAssignTask, setShowAssignTask] = useState(false);
   const [error, setError] = useState();
   const [currenStatus, setCurrenStatus] = useState();
@@ -37,13 +41,13 @@ function LevelUpdate({
   const [shortlist, setShortlist] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
   const [mailDetails, setMailDetails] = useState({
-    candidate: { subject: "" },
-    interviewer: { subject: "" },
+    candidate: { subject: rescheduleInterview ? "Interview Rescheduled":"" },
+    interviewer: { subject: rescheduleInterview ? "Interview Rescheduled":"" },
   });
   useEffect(() => {
     setCurrenStatus(selectedLevel?.status);
   });
-
+  console.log(11,selectedValues)
   const nextStage = () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -81,13 +85,14 @@ function LevelUpdate({
     if (
       selectedLevel?.status === currenStatus &&
       selectedLevel?.level !== 1 &&
-      selectedLevel.status === "Pending"
+      selectedLevel.status === "Pending" &&
+      !rescheduleInterview
     ) {
       setError("Status Should Be Changed");
       return;
     }
 
-    if (isNextLevel === "nextLevel") {
+    if (isNextLevel === "nextLevel" || rescheduleInterview) {
       if (selectedValues.isInterview) {
         if (
           !selectedValues?.interviewer ||
@@ -208,6 +213,7 @@ function LevelUpdate({
           isNextLevel,
           mailDetails,
           employer: userDataGlobal?.email,
+          rescheduleInterview
         }
       );
 
@@ -218,6 +224,9 @@ function LevelUpdate({
           setSuccessfull("Task")
           setTaskSuccessfull(true)
 
+        } if(rescheduleInterview){
+          setSuccessfull("Rescheduled")
+          setTaskSuccessfull(true)
         }
         if (selectedValues?.isInterview) {
           setSuccessfull("Interview")
@@ -342,7 +351,7 @@ function LevelUpdate({
           <div className="flex flex-col gap-2 w-[30%]">
             <p className="text-[18px] font-medium">{selectedLevel?.isInterview ? "Interview" : "Task"} Date</p>
 
-            <div>{formatInterviewDate(selectedLevel?.isInterview ? selectedLevel?.interviewDate : selectedLevel?.assignOn )}</div>
+            <div>{formatInterviewDate(selectedLevel?.isInterview ? selectedLevel?.interviewDate : selectedLevel?.assignOn)}</div>
           </div>
         </div>
       )}
@@ -435,7 +444,7 @@ function LevelUpdate({
               checked={isNextLevel === "Shortlisted"}
               disabled={applicantDetails?.hiringStage === "Shortlisted"}
             />
-            <label className={`text-[#0C8A0A] ml:text-[12px] text-[14px] ${(applicantDetails?.hiringStage === "Shortlisted" ||  applicantDetails?.hiringStage === "Rejected") && "opacity-50"}`}>
+            <label className={`text-[#0C8A0A] ml:text-[12px] text-[14px] ${(applicantDetails?.hiringStage === "Shortlisted" || applicantDetails?.hiringStage === "Rejected") && "opacity-50"}`}>
               Shortlist Candidate
             </label>
           </div>
@@ -512,9 +521,9 @@ function LevelUpdate({
             </div>
           ) : (
             <button
-            disabled={isNextLevel===""}
+              disabled={isNextLevel === ""}
               onClick={isNextLevel ? nextStage : submitDetails}
-              className={`h-[40px] bg_Button rounded-[30px] px-8 ${isNextLevel==="" && "opacity-50"}`}
+              className={`h-[40px] bg_Button rounded-[30px] px-8 ${isNextLevel === "" && "opacity-50"}`}
             >
               Save
             </button>
@@ -545,6 +554,10 @@ function LevelUpdate({
                 selectedValues={selectedValues}
                 setSelectedValues={setSelectedValues}
                 submitDetails={submitDetails}
+                rescheduleInterview={rescheduleInterview}
+                setRescheduleInterview={setRescheduleInterview}
+                setOpenTaskModel={setOpenTaskModel}
+                selectedLevel={selectedLevel}
 
               />
             </motion.div>
