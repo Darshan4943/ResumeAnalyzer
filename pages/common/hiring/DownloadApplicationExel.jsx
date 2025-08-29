@@ -1,7 +1,7 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-export const DownloadApplicantExcel = (jobDetails, jobData) => {
+const DownloadApplicantExcel = (jobDetails, jobData) => {
   if (!jobDetails?.data?.applications?.length) {
     alert("No applicants found");
     return;
@@ -69,3 +69,5 @@ export const DownloadApplicantExcel = (jobDetails, jobData) => {
   const data = new Blob([excelBuffer], { type: "application/octet-stream" });
   saveAs(data, fileName);
 };
+
+export default DownloadApplicantExcel;
