@@ -348,7 +348,7 @@ const MatchJob = () => {
       setProgress(Math.round((current / total) * 100));
     });
 
-    socket.on("jobMatchingComplete", ({ results, error }) => {
+    socket.on("jobMatchingComplete", ({ error }) => {
       if (error) {
         alert(error);
         setMatchLoader(false);
@@ -357,7 +357,7 @@ const MatchJob = () => {
       }
       const filterCount = localStorage.getItem("resumeCount");
 
-      const sorted = (results?.length ? results : received)
+      const sorted = (resumeList?.length ? resumeList : received)
         .filter((item) => item?.matching_percentage && item?.file && item.file.trim() !== "")
         .sort((a, b) => parseFloat(b.matching_percentage) - parseFloat(a.matching_percentage));
 
