@@ -332,9 +332,7 @@ export const Api = ({ }) => {
             localStorage.setItem("skillTestCountLimit", 0);
             localStorage.setItem("skillCertifiedCountLimit", 0);
           }
-          // localStorage.setItem("exchangeRate", "1");
-          // localStorage.setItem("currency", "USD");
-          // localStorage.setItem("icon", "$");
+         
         })
         .catch((err) => {
           console.log(err);
@@ -478,6 +476,9 @@ export const Api = ({ }) => {
         );
         localStorage.setItem("icon", exchangeRate?.data === "" ? "$" : symbol);
       } else {
+         localStorage.setItem("exchangeRate", "1");
+          localStorage.setItem("currency", "USD");
+          localStorage.setItem("icon", "$");
         console.error("Error: Country data not found");
       }
     };
