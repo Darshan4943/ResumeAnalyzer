@@ -422,9 +422,10 @@ export const Api = ({ }) => {
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {
+     
       try {
         const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDJ8-ekxTxJ2NHEfP0WsfbJPNzp7Goh2Bs`
         );
 
         return response.data.results;
