@@ -18,7 +18,7 @@ const JdDataExport = ({ resumeList }) => {
       return {
         Name: item.name,
         Email: item.email,
-        Mobile: item.mobile,
+        Mobile: item.Mobile,
         Location: item.location,
         Qualification: item.highestQualification,
         Experience: item.totalExperience,
