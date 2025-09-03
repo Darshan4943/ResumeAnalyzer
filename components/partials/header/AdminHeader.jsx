@@ -231,7 +231,7 @@ function AdminHeader({ userData }) {
                         >
                             <li>Api Logs</li>
                         </Link>
-                        <Link
+                        {/* <Link
                             onClick={() => setServices(false)}
                             href="/dashboard/Plans"
                             className={
@@ -241,7 +241,18 @@ function AdminHeader({ userData }) {
                             }
                         >
                             <li>Plans</li>
-                        </Link>
+                        </Link> */}
+                         {/* <Link
+                            onClick={() => setServices(false)}
+                            href="/dashboard/jobs"
+                            className={
+                                selectedPage === "/dashboard/jobs"
+                                    ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                                    : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+                            }
+                        >
+                            <li>Jobs</li>
+                        </Link> */}
 
                     </div>
                     <div
