@@ -2,7 +2,8 @@ import { AgChartsReact } from "ag-charts-react";
 import { useState } from "react";
 
 
-const StackedBarChartCand = ({ data, title,  }) => {
+const StackedBarChartCand = ({ data, title,label  }) => {
+  
     const [options, setOptions] = useState({
         data,
         title: {
@@ -13,7 +14,7 @@ const StackedBarChartCand = ({ data, title,  }) => {
             {
                 type: "donut",
                 calloutLabelKey: "asset",
-                angleKey: "Candidates",
+                angleKey: label,
                 innerRadiusRatio: 0.6,
             },
         ],

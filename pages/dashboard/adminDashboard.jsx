@@ -22,7 +22,20 @@ function AdminDashboard({ toggleContentt }) {
   const [inquiriesData, setInquiriesData] = useState([]);
   const [activeRecruiters, setActiveRecruiters] = useState([]);
   const [result, setResult] = useState();
-
+  const [list, setList] = useState([]);
+  //  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const [miniLoading, setMiniloading] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
+  const [userList, setUserList] = useState([]);
+  const [uploadPopUp, setUploadPopUp] = useState(false);
+  const [totalPages, setTotalpages] = useState(0);
+  const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  //  const [page, setPage] = useState(1)
+  const [data, setData] = useState([]);
+console.log(list)
   const [activeplans, setActivePlans] = useState();
 
   const handleChangePage = (event, newPage) => {
@@ -45,11 +58,13 @@ function AdminDashboard({ toggleContentt }) {
     axios
       .get("https://api.skilotech.com/api/activeSubscription")
       .then((res) => {
-        setActivePlans(res.data.data);
+        setActivePlans(res.data.totalCount);
+         
       })
       .catch((err) => {
         console.log(err);
       });
+    
 
     axios
       .get("https://api.skilotech.com/api/candidates")
@@ -76,7 +91,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios.get("https://api.skilotech.com/api/activeRecruiters").then((res) => {
-      console.log(res);
+     
       setResult(res.data);
     });
   };
@@ -90,19 +105,6 @@ function AdminDashboard({ toggleContentt }) {
     setPage(0);
   };
 
-  const [list, setList] = useState([]);
-  //  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const [miniLoading, setMiniloading] = useState(false);
-  const [totalCount, setTotalCount] = useState(0);
-  const [userList, setUserList] = useState([]);
-  const [uploadPopUp, setUploadPopUp] = useState(false);
-  const [totalPages, setTotalpages] = useState(0);
-  const [selectedCandidate, setSelectedCandidate] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [limit, setLimit] = useState(10);
-  //  const [page, setPage] = useState(1)
-  const [data, setData] = useState([]);
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -128,7 +130,7 @@ function AdminDashboard({ toggleContentt }) {
       <div className="ml:pt-5 pt-4 lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3">
         <div
           onClick={() => router.push("/dashboard/Recruiters")}
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer h-[70px]"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -137,7 +139,7 @@ function AdminDashboard({ toggleContentt }) {
           }}
         >
           <div className="flex items-center justify-between  gap-[5px] self-stretch">
-            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px] ml:text-[30px] font-semibold leading-normal">
+            <p className="text-[#333] leading-tight font-feature-settings-cv11 font-montserrat text-[26px] ml:text-[30px] font-semibold">
               {recruiterData.totalCount}
             </p>
             <div className="w-[69%]">
@@ -155,7 +157,7 @@ function AdminDashboard({ toggleContentt }) {
 
         <div
           onClick={() => router.push("/dashboard/Candidates")}
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer h-[70px]"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -164,7 +166,7 @@ function AdminDashboard({ toggleContentt }) {
           }}
         >
           <div className="flex items-center gap-[5px] justify-between self-stretch">
-            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px] ml:text-[30px] font-semibold leading-normal">
+            <p className="text-[#333] leading-tight font-feature-settings-cv11 font-montserrat text-[26px] ml:text-[30px] font-semibold ">
               {candidateData.totalCount}
             </p>
             <div className="w-[69%]">
@@ -209,7 +211,7 @@ function AdminDashboard({ toggleContentt }) {
 
         <div
           onClick={() => router.push("/dashboard/ActivePlans")}
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[70px]"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -218,8 +220,8 @@ function AdminDashboard({ toggleContentt }) {
           }}
         >
           <div className="flex items-center justify-between gap-[5px] self-stretch">
-            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px] ml:text-[30px] font-semibold leading-normal">
-              {activeplans?.length}
+            <p className="text-[#333] leading-tight font-feature-settings-cv11 font-montserrat text-[26px] ml:text-[30px] font-semibold ">
+              {activeplans}
             </p>
             <div className="w-[69%]">
               <p className="ml:text-[14px] text-[14px] leading-4 font-medium font-montserrat ">
@@ -244,7 +246,8 @@ function AdminDashboard({ toggleContentt }) {
           }}
         >
           {result?.ActiveRecruiter && (
-            <StackedBarChart
+            <StackedBarChartCand
+             label={"Recruiters"}
               title={"Active/Inactive Recruiters "}
               data={[
                 { asset: "Active", Recruiters: result?.ActiveRecruiter },
@@ -263,6 +266,7 @@ function AdminDashboard({ toggleContentt }) {
         >
           {result?.ActiveCandidate && (
             <StackedBarChartCand
+            label={"Candidates"}
               title={"Active/Inactive Candidates "}
               data={[
                 { asset: "Active", Candidates: result?.ActiveCandidate },

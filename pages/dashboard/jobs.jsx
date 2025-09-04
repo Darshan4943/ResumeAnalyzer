@@ -3,7 +3,7 @@ import React from 'react';
 function Jobs() {
     const downloadExcel = async () => {
   try {
-    const response = await fetch("http://localhost:2000/api/download-applications-jobs", {
+    const response = await fetch("https://api.skilotech.com/api/download-applications-jobs", {
       method: "GET",
     });
     if (!response.ok) throw new Error("Failed to download");
