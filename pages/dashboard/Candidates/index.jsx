@@ -116,7 +116,7 @@ const Index = () => {
             <span className="text-[18px] text-[#333333] font-medium">
               Total Candidates - {totalCount}
             </span>
-            <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
+            {/* <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
               <svg
                 width="24"
                 height="24"
@@ -139,7 +139,7 @@ const Index = () => {
                 type="text"
                 placeholder="Search "
               />
-            </div>
+            </div> */}
           </div>
           {loading ? (
             <div className="flex w-full items-center justify-center h-[70vh]">
