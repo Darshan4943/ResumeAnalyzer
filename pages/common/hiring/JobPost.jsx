@@ -10,7 +10,7 @@ import MiniLoaderr from "../../../components/common/mini-loader";
 import ShortlistMail from "./ShortlistMail";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { AiGenerate, DownSvg, UpSvg } from "../../../utils/svg";
+import { AiGenerate, Close_svg, DownSvg, UpSvg } from "../../../utils/svg";
 import { useDispatch, useSelector } from "react-redux";
 import Analytics from "../../../components/featured/employer/Analytics";
 import { fa } from "@faker-js/faker";
@@ -39,9 +39,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [randomMail, setRandomMail] = useState(false);
   const router = useRouter();
   const { id, currentPage, sortValue, clientView } = router.query;
-
+  const [createTask, setCreateTask] = useState(false)
   const taskRef = useRef(null);
   const dispatch = useDispatch();
+  const [task, setTask] = useState("");
+
   const [isSort, setIsSort] = useState(false);
   const [checkedApplicants, setCheckedApplicants] = useState([]);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
@@ -328,7 +330,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
   };
 
-  const fetchJobDetailsHeder = async (id, setJobData) => {
+  const fetchJobDetailsHeder = async (id) => {
     try {
       const response = await axios.get(
         `https://api.skilotech.com/api/job/getJobDetailsById/${id}`
@@ -648,7 +650,20 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       toast.error("Error while hiring candidate");
     }
   };
+const generateTask = async () => {
+  try {
+    const response = await axios.post("http://localhost:2000/api/tasks/generate", {
+      gist: jobData.gist,
+      jobId: jobData._id,
+    });
 
+    console.log("Task generated successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error generating task:", error);
+    throw error;
+  }
+};
   // const handleSortSelect = (index) => {
   //   const apps = [...(jobDetails?.data?.applications || [])];
 
@@ -675,9 +690,58 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setSortSelect(index);
   // };
 
-
+  const handleChange = (e) => {
+    setTask(e.target.value);
+  };
   return (
     <>
+      {createTask &&
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+            <div className="flex flex-col p-4 gap-4 bg-white rounded-[16px] w-[600px]">
+              <div className="flex justify-between w-full">
+                <p className="text-[16px] font-medium ">Task Creation</p>
+                <button onClick={() => setCreateTask(false)}>
+                  <Close_svg />
+                </button>
+              </div>
+              <div>
+                <textarea
+                  type="text"
+                  placeholder="Enter Task"
+                  value={task}
+                  onChange={handleChange}
+                  className="  p-2 flex-1 w-full border border-[#DEDEDE] outline-none rounded-[12px] min-h-[250px] text-[14px]"
+                />
+              </div>
+              <div className=" w-full flex justify-end gap-4">
+                <button style={{
+                  backgroundColor: "#4C43CD",
+                  backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+                  transform: aiLoading ? "scale(1.1)" : "scale(1)",
+                  transition: "transform 0.5s ease-in-out",
+                }} onClick={generateTask} className="bg- px-4 h-[38px] rounded-[30px] text-white text-[12px] font-medium ">
+                  Generate With AI
+
+                </button>
+
+                <button className="bg_Button px-4 h-[38px] rounded-[30px]">
+                  Create Task
+
+                </button>
+
+              </div>
+
+
+            </div>
+
+          </div>
+        </>
+      }
       {clientView && (
         <div
           className="bg-white z-[2000] fixed w-full top-0 ml-[-24px] "
@@ -897,114 +961,119 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                 </div>
                 {!clientView && (
                   <div>
-                    <div className="flex px-[16px] ms:text-[16px] text-[14px] rounded-t-[16px]  overflow-auto items-start  ml:gap-[40px] gap-2 bg-[#fff]">
-                      <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                        <p
-                          onClick={() => {
-                            setOption(0), setActiveOption("applicant");
-                          }}
-                          className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
-                            } cursor-pointer text-[16px] font-[600]`}
-                        >
-                          Applicant
-                        </p>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="89"
-                          height="4"
-                          viewBox="0 0 89 4"
-                          fill="none"
-                        >
-                          <path
-                            d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                            fill={
-                              activeOption === "applicant" ? "#06A9EF" : "white"
-                            }
-                          />
-                        </svg>
-                      </div>
+                    <div className="flex justify-between items-center bg-[#fff] rounded-t-[16px]  overflow-auto px-[16px]">
+                      <div className="flex  ms:text-[16px] text-[14px]  items-start  ml:gap-[40px] gap-2 ">
+                        <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                          <p
+                            onClick={() => {
+                              setOption(0), setActiveOption("applicant");
+                            }}
+                            className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
+                              } cursor-pointer text-[16px] font-[600]`}
+                          >
+                            Applicant
+                          </p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="89"
+                            height="4"
+                            viewBox="0 0 89 4"
+                            fill="none"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                              fill={
+                                activeOption === "applicant" ? "#06A9EF" : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
 
-                      <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                        <p
-                          onClick={() => {
-                            setOption(2), setActiveOption("Analytics");
-                          }}
-                          className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
-                            } cursor-pointer font-[600]`}
-                        >
-                          Analytics
-                        </p>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="89"
-                          height="4"
-                          viewBox="0 0 89 4"
-                          fill="none"
-                        >
-                          <path
-                            d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                            fill={
-                              activeOption === "Analytics" ? "#06A9EF" : "white"
-                            }
-                          />
-                        </svg>
+                        <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                          <p
+                            onClick={() => {
+                              setOption(2), setActiveOption("Analytics");
+                            }}
+                            className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
+                              } cursor-pointer font-[600]`}
+                          >
+                            Analytics
+                          </p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="89"
+                            height="4"
+                            viewBox="0 0 89 4"
+                            fill="none"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                              fill={
+                                activeOption === "Analytics" ? "#06A9EF" : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                          <p
+                            onClick={() => {
+                              setOption(1), setActiveOption("JobDetails");
+                            }}
+                            className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
+                              } cursor-pointer font-[600]`}
+                          >
+                            Job Details
+                          </p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="89"
+                            height="4"
+                            viewBox="0 0 89 4"
+                            fill="none"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                              fill={
+                                activeOption === "JobDetails" ? "#06A9EF" : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
+                        {/* {userDataGlobal?.role !== "recruiter" && ( */}
+                        <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                          <p
+                            onClick={() => {
+                              setOption(3),
+                                setActiveOption("Selected Candidate for Hiring");
+                            }}
+                            className={` ${activeOption === "Selected Candidate for Hiring"
+                              ? ""
+                              : "text-[#646464]"
+                              } cursor-pointer font-[600]`}
+                          >
+                            Selected Candidate for Hiring
+                          </p>
+                          <svg
+                            width="214"
+                            height="4"
+                            viewBox="0 0 214 4"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
+                              fill={
+                                activeOption === "Selected Candidate for Hiring"
+                                  ? "#06A9EF"
+                                  : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
                       </div>
-                      <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                        <p
-                          onClick={() => {
-                            setOption(1), setActiveOption("JobDetails");
-                          }}
-                          className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
-                            } cursor-pointer font-[600]`}
-                        >
-                          Job Details
-                        </p>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="89"
-                          height="4"
-                          viewBox="0 0 89 4"
-                          fill="none"
-                        >
-                          <path
-                            d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                            fill={
-                              activeOption === "JobDetails" ? "#06A9EF" : "white"
-                            }
-                          />
-                        </svg>
-                      </div>
-                      {/* {userDataGlobal?.role !== "recruiter" && ( */}
-                      <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                        <p
-                          onClick={() => {
-                            setOption(3),
-                              setActiveOption("Selected Candidate for Hiring");
-                          }}
-                          className={` ${activeOption === "Selected Candidate for Hiring"
-                            ? ""
-                            : "text-[#646464]"
-                            } cursor-pointer font-[600]`}
-                        >
-                          Selected Candidate for Hiring
-                        </p>
-                        <svg
-                          width="214"
-                          height="4"
-                          viewBox="0 0 214 4"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
-                            fill={
-                              activeOption === "Selected Candidate for Hiring"
-                                ? "#06A9EF"
-                                : "white"
-                            }
-                          />
-                        </svg>
-                      </div>
+                      {/* <button onClick={() => setCreateTask(true)} className="bg_Button px-4 h-[38px] rounded-[30px] ">
+                        Create Task
+                      </button> */}
                       {/* )} */}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
