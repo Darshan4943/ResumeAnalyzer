@@ -24,7 +24,7 @@ function LevelUpdate({
   setOpenTaskModel
 
 }) {
-  console.log(rescheduleInterview)
+  
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isNextLevel, setIsNextLevel] = useState("");
   const [showScheduleInterview, setShowScheduleInterview] = useState(rescheduleInterview ? rescheduleInterview : false);
@@ -47,7 +47,7 @@ function LevelUpdate({
   useEffect(() => {
     setCurrenStatus(selectedLevel?.status);
   });
-  console.log(11,selectedValues)
+  
   const nextStage = () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -224,7 +224,7 @@ function LevelUpdate({
           setSuccessfull("Task")
           setTaskSuccessfull(true)
 
-        } if(rescheduleInterview){
+        } if(rescheduleInterview && selectedValues?.isInterview){
           setSuccessfull("Rescheduled")
           setTaskSuccessfull(true)
         }

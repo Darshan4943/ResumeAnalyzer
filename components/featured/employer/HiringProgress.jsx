@@ -16,7 +16,7 @@ function HiringProgress({
 }) {
   const [openTaskModel, setOpenTaskModel] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
-  console.log(33, selectedLevel)
+  
   const [viewLevel, setViewLevel] = useState()
   const [isDetails, setIsDetails] = useState(false)
   const [rescheduleInterview, setRescheduleInterview] = useState(false)

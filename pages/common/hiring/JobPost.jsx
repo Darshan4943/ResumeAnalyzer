@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import JobDetails from "./JobDetails";
-
+import { Editor } from "primereact/editor";
 import CustomPagination from "../../../components/common/CustomPagination";
 import MiniLoader from "../../../components/common/miniLoader";
 import MiniLoaderr from "../../../components/common/mini-loader";
@@ -23,6 +23,7 @@ import RandomMail from "./randomMail";
 
 import { setPageOpened } from "../../../Redux/slices/websiteSlice";
 import { DownloadApplicantExcel, downloadApplicantExcel } from "./DownloadApplicationExel";
+import ScheduleTask from "../../../components/models/ScheduleTask";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const randomPercentage = useMemo(
@@ -38,12 +39,13 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [openParameters, setOpenParamenters] = useState(false);
   const [randomMail, setRandomMail] = useState(false);
   const router = useRouter();
+  const [showAssignTask, setShowAssignTask] = useState(false);
   const { id, currentPage, sortValue, clientView } = router.query;
   const [createTask, setCreateTask] = useState(false)
   const taskRef = useRef(null);
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
-
+  const [assignnTask, setAssignTask] = useState(false)
   const [isSort, setIsSort] = useState(false);
   const [checkedApplicants, setCheckedApplicants] = useState([]);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
@@ -71,6 +73,13 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [hiringStage, setHiringStage] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false);
+  const [taskLoading, setTaskLoading] = useState(false)
+  const [taskLoading1, setTaskLoading1] = useState(false)
+  const [successfull, setSuccessfull] = useState();
+  const [taskSuccessfull, setTaskSuccessfull] = useState(false);
+  const [isCandidatePreview, setIsCandidatePreview] = useState(false)
+  const [isInterviewerPreview, setIsInterviewerPreview] = useState(false)
+    const [rescheduleInterview, setRescheduleInterview] = useState(false)
   const { recallData } = useSelector((state) => state.recall);
   const sort = [
     { label: "Profile Match ↑", value: "profileMatchAsc" },
@@ -78,7 +87,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     { label: "Applied Date ↑", value: "appliedDateAsc" },
     { label: "Applied Date ↓", value: "appliedDateDesc" },
   ];
-
+  const [mailDetails, setMailDetails] = useState({
+    candidate: { subject: rescheduleInterview ? "Interview Rescheduled" : "" },
+    interviewer: { subject: rescheduleInterview ? "Interview Rescheduled" : "" },
+  });
+  const [selectedValues, setSelectedValues] = useState({});
   const [sortSelect, setSortSelect] = useState("profileMatchAsc");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortedApplications, setSortedApplications] = useState([]);
@@ -650,20 +663,110 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       toast.error("Error while hiring candidate");
     }
   };
-const generateTask = async () => {
-  try {
-    const response = await axios.post("http://localhost:2000/api/tasks/generate", {
-      gist: jobData.gist,
-      jobId: jobData._id,
-    });
 
-    console.log("Task generated successfully:", response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Error generating task:", error);
-    throw error;
-  }
-};
+  const formatTask = (taskText) => {
+    if (!taskText) return "";
+
+
+    if (typeof taskText !== "string") {
+      taskText = JSON.stringify(taskText, null, 2);
+    }
+
+    const text = taskText.replace(/\r\n/g, "\n").trim();
+
+    const extract = (headingRegex, input) => {
+      const m = input.match(headingRegex);
+      return m && m[1] ? m[1].trim() : "";
+    };
+
+    // Extract sections using non-greedy matches and lookaheads
+    const taskContent = extract(/📝\s*Task:\s*([\s\S]*?)(?=\n\s*Requirements:|\n\s*Bonus\s*\(optional\):|$)/i, text);
+    const requirementsContent = extract(/Requirements:\s*([\s\S]*?)(?=\n\s*Bonus\s*\(optional\):|$)/i, text);
+    const bonusContent = extract(/Bonus\s*\(optional\):\s*([\s\S]*?)$/i, text);
+
+    // Convert a block of lines into <ul><li>...</li></ul>
+    const toListHtml = (block) => {
+      if (!block) return "";
+      // split lines, consider lines starting with -, • or plain lines
+      const lines = block
+        .split("\n")
+        .map((l) => l.trim())
+        .filter((l) => l.length > 0);
+      // Extract lines that may have leading '- ' or '• ' or numbered '1.' etc.
+      const items = lines.map((line) => {
+        // remove leading bullet markers
+        return line.replace(/^[-•\d\.\)\s]+/, "").trim();
+      }).filter(Boolean);
+      if (!items.length) return "";
+      return `<ul>\n${items.map((it) => `<li>${escapeHtml(it)}</li>`).join("\n")}\n</ul>\n`;
+    };
+
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+
+    let html = "";
+
+    if (taskContent) {
+
+      const taskPara = escapeHtml(taskContent).replace(/\n+/g, "<br/>");
+      html += `<p><strong>📝 Task:</strong></p>\n<p>${taskPara}</p>\n`;
+    } else {
+      html += `<p><strong>📝 Task:</strong></p>\n<p>No task description provided.</p>\n`;
+    }
+
+
+    if (requirementsContent) {
+      html += `<p><strong>Requirements:</strong></p>\n`;
+      html += toListHtml(requirementsContent) || `<p>${escapeHtml(requirementsContent)}</p>\n`;
+    } else {
+
+      html += `<p><strong>Requirements:</strong></p>\n<ul>\n<li>Implement core functionality described in the task.</li>\n<li>Ensure responsive UI and basic styling.</li>\n<li>Persist data using a simple RESTful API.</li>\n</ul>\n`;
+    }
+
+    if (bonusContent) {
+      html += `<p><strong>Bonus (optional):</strong></p>\n`;
+      html += toListHtml(bonusContent) || `<p>${escapeHtml(bonusContent)}</p>\n`;
+    } else {
+      html += `<p><strong>Bonus (optional):</strong></p>\n<ul>\n<li>Performance optimizations.</li>\n<li>Accessibility improvements.</li>\n</ul>\n`;
+    }
+
+    return html;
+  };
+
+
+
+  const generateTask = async () => {
+    setTaskLoading(true)
+    try {
+      const response = await axios.post("https://api.skilotech.com/api/job/generateTask", {
+        jobGist: jobData.gist,
+        jobId: jobData._id,
+      });
+      let taskText = response.data.task;
+      console.log(222, taskText)
+      const formattedTask = formatTask(taskText);
+      setTask(formattedTask);
+      dispatch(updateAiHit(userDataGlobal?._id));
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
+      setTaskLoading(false)
+      return response.data;
+    } catch (error) {
+      console.error("Error generating task:", error);
+      setTaskLoading(false)
+      throw error;
+    }
+  };
   // const handleSortSelect = (index) => {
   //   const apps = [...(jobDetails?.data?.applications || [])];
 
@@ -690,8 +793,194 @@ const generateTask = async () => {
   //   setSortSelect(index);
   // };
 
-  const handleChange = (e) => {
-    setTask(e.target.value);
+
+
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+        <button className="ql-align" aria-label="Align Left"></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+
+  const header = renderHeader();
+
+  const saveJobTask = async (jobId) => {
+    try {
+      const response = await axios.put(`https://api.skilotech.com/api/jobs/${jobId}/task`, { task });
+      return response.data;
+    } catch (error) {
+      console.error("Error saving task:", error);
+      throw error;
+    }
+  };
+
+  const handleSave = async () => {
+
+    if (!task.trim()) return toast.error("Task cannot be empty");
+    setTaskLoading1(true)
+    try {
+      const data = await saveJobTask(jobData._id, task);
+      toast.success(`Task saved`);
+      setTaskLoading1(false)
+      setCreateTask(false)
+      setTask("");
+    } catch (err) {
+      setTaskLoading1(false)
+      toast.error("Failed to save task");
+    }
+  };
+  const assignTask = async () => {
+    if (checkedApplicants?.length < 1) {
+      toast.error("Please select a candidate first")
+      return
+    }
+
+    setShowAssignTask(true)
+
+  }
+  const sentRandomMail = async () => {
+    if (checkedApplicants?.length < 1) {
+      toast.error("Please select a candidate first")
+      return
+    }
+    setRandomMail(true)
+  }
+  const submitDetails = async () => {
+    
+  
+     
+      if (selectedValues.isTask) {
+        if (
+          !selectedValues?.taskReviewer ||
+          selectedValues.taskReviewer.length === 0
+        ) {
+          setError("Reviewer Details are Required");
+          return;
+        }
+        const invalidTaskReviewer = selectedValues.taskReviewer.some(
+          (taskReviewer) =>
+            !taskReviewer.email || taskReviewer.email.trim() === ""
+        );
+
+        if (invalidTaskReviewer) {
+          setError("Email is required for every Reviewer");
+          return;
+        }
+        if (!mailDetails?.candidate?.subject?.trim()) {
+          setError("Candidate Subject is required.");
+          return;
+        }
+
+        if (!mailDetails?.candidate?.content?.trim()) {
+          setError("Candidate Email body is required.");
+          return;
+        }
+        if (!mailDetails?.interviewer?.subject?.trim()) {
+          setError("Subject is required for reviewer.");
+          return;
+        }
+
+        if (!mailDetails?.interviewer?.content?.trim()) {
+          setError("Email body is required for reviewer.");
+          return;
+        }
+      }
+
+    // else if (isNextLevel===""){
+    //   toast.success("Status updated successfully")
+    //   setOpenTaskModel(false)
+    //   console.log(111,isNextLevel)
+    // }
+
+    try {
+      setLoading(true);
+      const response = await axios.put(
+        `https://api.skilotech.com/api/job/hiringLevelUpdate/${applicantDetails?._id}/${applicantDetails?.jobId}`,
+        {
+          selectedValues: {
+            level: selectedLevel?.level + 1,
+            interviewer: selectedValues?.interviewer,
+            taskReviewer: selectedValues?.taskReviewer,
+            duration: selectedValues?.duration,
+            interviewDate: selectedValues?.interviewDate,
+            interviewLocation: selectedValues?.interviewLocation,
+            isInterview: selectedValues?.isInterview,
+            isTask: selectedValues?.isTask,
+            isOnline: selectedValues?.isOnline,
+            meetingLink: selectedValues?.meetingLink,
+            startAmPm: selectedValues?.startAmPm,
+            startTime: selectedValues?.startTime,
+            status: selectedValues?.status,
+            title: selectedValues?.title,
+          },
+          selectedLevel: {
+            level: selectedLevel?.level,
+            status: selectedLevel?.status,
+            score: selectedLevel?.score,
+            comment: selectedLevel?.comment,
+          },
+          isNextLevel,
+          mailDetails,
+          employer: userDataGlobal?.email,
+          rescheduleInterview
+        }
+      );
+
+      if (response.data.success) {
+        console.log("Details updated successfully");
+        if (selectedValues?.isTask) {
+
+          setSuccessfull("Task")
+          setTaskSuccessfull(true)
+
+        } if (rescheduleInterview) {
+          setSuccessfull("Rescheduled")
+          setTaskSuccessfull(true)
+        }
+        if (selectedValues?.isInterview) {
+          setSuccessfull("Interview")
+          setTaskSuccessfull(true)
+        }
+        if (isNextLevel === "Shortlisted") {
+          setSuccessfull("Shortlisted")
+          setTaskSuccessfull(true)
+        }
+        if (isNextLevel === "Rejected") {
+          setSuccessfull("Rejected")
+          setTaskSuccessfull(true)
+        }
+
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error updating application details:", error);
+      setLoading(false);
+    }
   };
   return (
     <>
@@ -707,12 +996,15 @@ const generateTask = async () => {
                 </button>
               </div>
               <div>
-                <textarea
-                  type="text"
-                  placeholder="Enter Task"
+
+                <Editor
+                  style={{ minHeight: "140px", overflow: "auto", maxHeight: "300px", }}
                   value={task}
-                  onChange={handleChange}
-                  className="  p-2 flex-1 w-full border border-[#DEDEDE] outline-none rounded-[12px] min-h-[250px] text-[14px]"
+                  headerTemplate={header}
+
+                  onTextChange={(e) => {
+                    setTask(e.htmlValue);
+                  }}
                 />
               </div>
               <div className=" w-full flex justify-end gap-4">
@@ -724,13 +1016,21 @@ const generateTask = async () => {
     `,
                   transform: aiLoading ? "scale(1.1)" : "scale(1)",
                   transition: "transform 0.5s ease-in-out",
-                }} onClick={generateTask} className="bg- px-4 h-[38px] rounded-[30px] text-white text-[12px] font-medium ">
-                  Generate With AI
+                }} disabled={taskLoading} onClick={generateTask} className="bg- px-4 h-[38px] w-[136.55px] flex justify-center items-center rounded-[30px] text-white text-[12px] font-medium ">
+                  {taskLoading ?
+                    <MiniLoaderr />
+                    :
+                    "Generate With AI"
+                  }
 
                 </button>
 
-                <button className="bg_Button px-4 h-[38px] rounded-[30px]">
-                  Create Task
+                <button disabled={taskLoading1} onClick={handleSave} className=" w-[103.74px] flex justify-center items-center bg_Button px-4 h-[38px] rounded-[30px]">
+                  {taskLoading1 ?
+                    <MiniLoaderr />
+                    :
+                    "Save Task"
+                  }
 
                 </button>
 
@@ -741,6 +1041,36 @@ const generateTask = async () => {
 
           </div>
         </>
+      }
+      {showAssignTask &&
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+            <div className="flex flex-col  gap-4  w-[650px] h-[80vh] rounded-[16px]">
+              
+              <ScheduleTask
+                setError={setError}
+                loading={loading}
+                mailDetails={mailDetails}
+                setMailDetails={setMailDetails}
+                error={error}
+                setShowAssignTask={setShowAssignTask}
+                setTaskSuccessfull={setTaskSuccessfull}
+                selectedValues={selectedValues}
+                setSelectedValues={setSelectedValues}
+                submitDetails={submitDetails}
+                isCandidatePreview={isCandidatePreview}
+                setIsCandidatePreview={setIsCandidatePreview}
+                setIsInterviewerPreview={setIsInterviewerPreview}
+                isInterviewerPreview={isInterviewerPreview}
+              />
+
+
+            </div>
+          </div>
+        </>
+
+
       }
       {clientView && (
         <div
@@ -1071,9 +1401,15 @@ const generateTask = async () => {
                           </svg>
                         </div>
                       </div>
-                      {/* <button onClick={() => setCreateTask(true)} className="bg_Button px-4 h-[38px] rounded-[30px] ">
-                        Create Task
-                      </button> */}
+                      {/* {jobData?.task ?
+                        <button onClick={assignTask} className="bg_Button px-4 h-[38px] rounded-[30px] ">
+                          Assign Task
+                        </button>
+                        :
+                        <button onClick={() => setCreateTask(true)} className="bg_Button px-4 h-[38px] rounded-[30px] ">
+                          Create Task
+                        </button>
+                      } */}
                       {/* )} */}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
@@ -1278,9 +1614,9 @@ const generateTask = async () => {
                         )} */}
                         {userDataGlobal?.role === "recruiter" &&
                           <button
-                            disabled={checkedApplicants?.length < 1}
-                            onClick={() => setRandomMail(true)}
-                            className={`px-4 h-[40px] bg_Button rounded-[30px] ${checkedApplicants?.length < 1 && "opacity-50"}`}
+                            // disabled={checkedApplicants?.length < 1}
+                            onClick={sentRandomMail}
+                            className={`px-4 h-[40px] bg_Button rounded-[30px] `}
                           >
                             Send Mail to Client
                           </button>

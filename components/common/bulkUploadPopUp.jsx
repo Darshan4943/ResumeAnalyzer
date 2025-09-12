@@ -209,7 +209,7 @@ function BulkUploadPopUp({ setOpenPopup,setGetData }) {
 
         <div className="flex justify-end gap-4 ">
           <a
-            href="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/Bulk_job_upload.xlsx"
+            href="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/Bulk_job_uploads.xlsx"
             download="job_details.xlsx"
             className="border-[#06A9EF] border-[1px] text-[12px] font-[600] px-4 py-2 rounded-[30px] flex gap-2 items-center"
           >
