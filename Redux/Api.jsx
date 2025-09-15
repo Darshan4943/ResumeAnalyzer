@@ -379,19 +379,16 @@ export const Api = ({ }) => {
     if (navigator.geolocation) {
       navigator.permissions.query({ name: "geolocation" }).then((result) => {
         if (result.state === "granted") {
-          // Permission was already granted
           navigator.geolocation.getCurrentPosition(
             successCallback,
             errorCallback
           );
         } else if (result.state === "prompt") {
-          // Permission is being requested
           navigator.geolocation.getCurrentPosition(
             successCallback,
             errorCallback
           );
         } else if (result.state === "denied") {
-          // Permission was denied
           dispatch(setEnablePopup(true));
           dispatch(setShowPlans(false));
         }

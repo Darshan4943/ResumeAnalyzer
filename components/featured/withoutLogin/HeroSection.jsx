@@ -98,50 +98,50 @@ function HeroSection() {
               <input
                 type="text"
                 placeholder="Enter Skill / Designation"
-                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[174px] scr1100:min-w-[174px] ms:min-w-[148px] ms:max-w-[148px] placeholder:text-[#889FBA]"
+                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[174px] scr1100:min-w-[174px] ms:min-w-[148px] ms:max-w-[148px] min-w-full placeholder:text-[#889FBA]"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
               />
 
               <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
-                 <div className="relative w-[180px]" ref={dropdownRef}>
-                          <div
-                            className={`px-4 py-2 bg-white cursor-pointer text-[14px] font-medium ${experience  ? "text-[#333]" : "text-[#889FBA]"
-                              }`}
-                            onClick={toggleDropdownn}
-                          >
-                            {experience || "Select Experience"}
+              <div className="relative max-w-[180px] min-w-[110px]" ref={dropdownRef}>
+                <div
+                  className={` py-2 bg-white cursor-pointer scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]   font-medium ${experience ? "text-[#333]" : "text-[#889FBA]"
+                    }`}
+                  onClick={toggleDropdownn}
+                >
+                  {experience || "Select Experience"}
+                </div>
+
+                {open && (
+                  <ul className="absolute top-full left-0 mt-2 bg-white rounded shadow-md w-[204px] max-h-[200px] overflow-y-auto z-10">
+                    {experienceList.map((exp, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => handleSelect(exp)}
+                        className={`px-4 py-2 text-[13px] font-medium cursor-pointer hover:bg-[#f5f5f5] ${exp === experience ? "bg-[#f0f0f0] font-semibold" : ""
+                          }`}
+                      >
+                        {exp === "Fresher" ? (
+                          <div className="flex items-center leading-tight font-medium">
+                            <span className="text-[13px]">Fresher</span> <span className="text-[12px] text-[#717B9E] pl-1"> (less than 1 year)</span>
+
                           </div>
+                        ) : (
+                          exp
+                        )}
+                      </li>
 
-                          {open && (
-                            <ul className="absolute top-full left-0 mt-2 bg-white rounded shadow-md w-[204px] max-h-[200px] overflow-y-auto z-10">
-                              {experienceList.map((exp, idx) => (
-                                <li
-                                  key={idx}
-                                  onClick={() => handleSelect(exp)}
-                                  className={`px-4 py-2 text-[13px] font-medium cursor-pointer hover:bg-[#f5f5f5] ${exp === experience ? "bg-[#f0f0f0] font-semibold" : ""
-                                    }`}
-                                >
-                                  {exp === "Fresher" ? (
-                                    <div className="flex items-center leading-tight font-medium">
-                                      <span className="text-[13px]">Fresher</span> <span className="text-[12px] text-[#717B9E] pl-1"> (less than 1 year)</span>
-                                      
-                                    </div>
-                                  ) : (
-                                    exp
-                                  )}
-                                </li>
-
-                              ))}
-                            </ul>
-                          )}
-                        </div>
+                    ))}
+                  </ul>
+                )}
+              </div>
 
               <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
               <input
                 type="text"
                 placeholder="Enter Location"
-                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]   font-[500]  font-Montserrat scr1100:max-w-[105px] ms:max-w-[90px] placeholder:text-[#889FBA]"
+                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]   font-[500]  font-Montserrat scr1100:max-w-[105px] ms:max-w-[90px] ms:min-w-[90px] min-w-full placeholder:text-[#889FBA]"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
@@ -153,7 +153,7 @@ function HeroSection() {
                       `/jobs/candidate?search=${true}&loc=${location}&exp=${experience}&jobTit=${jobTitle}`
                     );
                   }}
-                  className="ms:block hidden relative z-[10] scr1100:text-[14px] text-[12px]  font-[600]  h-[38px] scr1100:w-[100px] w-[76px] px-6  bg_Button rounded-[30px]"
+                  className="ms:block hidden relative z-[10] scr1100:text-[14px] text-[12px]  font-[600]  h-[38px] scr1100:w-[100px] w-[76px]  bg_Button rounded-[30px]"
                 >
                   Search
                 </button>
