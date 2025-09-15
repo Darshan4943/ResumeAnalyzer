@@ -179,7 +179,7 @@ const MatchJob = () => {
         return;
       }
 
-      setTotalAvailable(Math.ceil(res.data.totalAvailable / 2));
+      setTotalAvailable(Math.ceil(res.data.totalAvailable));
 
       setShowConfirmationPopup(true);
       setLoading5(false);
@@ -348,7 +348,7 @@ const MatchJob = () => {
       setProgress(Math.round((current / total) * 100));
     });
 
-    socket.on("jobMatchingComplete", ({results, error }) => {
+    socket.on("jobMatchingComplete", ({ results, error }) => {
       if (error) {
         alert(error);
         setMatchLoader(false);
@@ -861,8 +861,8 @@ const MatchJob = () => {
             <>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
-                <div className="w-[340px] text-center bg-white p-4 rounded-[12px] flex flex-col gap-4">
-                  <p className="text-[16px] font-medium"> You will be charged {totalAvailable} AI Hits for this match. Do you want to continue?</p>
+                <div className="w-[410px] text-center bg-white p-4 rounded-[12px] flex flex-col gap-4">
+                  <p className="text-[16px] font-medium"> We found {totalAvailable} resumes so you will be charged {totalAvailable/2} AI Hits for this match. Do you want to continue?</p>
                   <div className="flex justify-between">
 
                     <button className="blue_border_Button h-[32px] px-4 rounded-[30px]" onClick={() => setShowConfirmationPopup(false)}>Cancel</button>
@@ -1061,6 +1061,13 @@ const MatchJob = () => {
                     <div className="bg_Button px-4 rounded-[30px] flex justify-center items-center font-medium w-[130px] h-[38px] min-w-[130px]"> <MiniLoader /></div>
                   ) : (
                     <button
+                      style={{
+                        backgroundColor: "#4C43CD",
+                        backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+                      }}
                       onClick={handleJobMatch}
                       className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
                     >
@@ -1071,7 +1078,15 @@ const MatchJob = () => {
                   <button
                     disabled={selectedIndexes.length === 0}
                     onClick={MatchJob}
-                    style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
+                    style={{
+                      opacity: selectedIndexes.length > 0 ? 1 : 0.5,
+                      backgroundColor: "#4C43CD",
+                      backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+                    }}
+
                     className="bg_Button px-4 rounded-[30px] font-medium w-[130px] h-[38px] min-w-[130px]"
                   >
                     Find Match

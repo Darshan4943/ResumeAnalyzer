@@ -80,8 +80,8 @@ function Index() {
   const fileInputRef = useRef(null);
   const [isTypingDone, setIsTypingDone] = useState(false);
   const containerRef = useRef(null);
-   const dispatch = useDispatch();
-   const { recallData } = useSelector((state) => state.recall);
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
   const [inputLine, setInputLine] = useState("");
   const [jdResult, setJdResult] = useState(null);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -495,7 +495,7 @@ function Index() {
                   </h3>
                 </div>
 
-                <div className="flex gap-3 flex-col overflow-x-auto whitespace-nowrap px-4 py-2 no-scrollbar">
+                <div className="flex gap-3 flex-col overflow-x-auto overflow-y-auto whitespace-nowrap px-4 py-2 h-[350px]">
                   {jdResult.suggestions.map((suggestion, index) => (
                     <div
                       key={index}
@@ -599,10 +599,16 @@ function Index() {
 
                   <button
                     disabled={aiLoading}
+
                     style={{
                       opacity: aiLoading ? 0.5 : 1,
+                      backgroundColor: "#4C43CD",
+                      backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
                     }}
-                    className="flex h-[36px] w-[36px] bg-[#06A9EF] items-center justify-center  rounded-full "
+                    className="flex h-[36px] w-[36px]  items-center justify-center  rounded-full "
                     onClick={handleGenerate}
                   >
                     <svg

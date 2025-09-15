@@ -430,6 +430,13 @@ function JdExtraction() {
         </button>
 
         <button
+         style={{
+                  backgroundColor: "#4C43CD",
+                  backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+                }}
           disabled={file && !loading ? false : true}
           className={` px-6    text-[14px] font-[600] rounded-[30px] h-[38px]  leading-tight bg_Button ${
             file && !loading ? "opacity-100 bg_Button" : "opacity-50"

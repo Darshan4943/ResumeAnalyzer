@@ -294,6 +294,7 @@ function RequestCV({ isCandidate, skilotechCollection }) {
         "https://api.skilotech.com/api/findCandidates/manual",
         {
           data,
+          preferences,
           filters,
           collection,
           userId: userDataGlobal?._id,
