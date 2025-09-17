@@ -58,7 +58,7 @@ function Aboutcompanies() {
 
   const fetchJobsById = async () => {
     try {
-      setMiniloading(true);
+      setLoading(true);
       const response = await axios.get(
         `https://api.skilotech.com/api/getJobsById/${id ? id : createdBy
         }?page=${page}&limit=${limit}&role=${role}`
@@ -73,7 +73,7 @@ function Aboutcompanies() {
       console.error("Error fetching employer jobs:", err);
       setError(err.response?.data?.message || "Failed to fetch jobs.");
     } finally {
-      setTimeout(() => setMiniloading(false), 500);
+      setTimeout(() => setLoading(false), 500);
     }
 
   };
@@ -98,9 +98,13 @@ function Aboutcompanies() {
     } finally {
       setTimeout(() => {
         setMiniloading(false);
+        setLoading(false)
       }, 500);
     }
   };
+  useEffect(() => {
+    fetchJobsById();
+  }, [page, limit])
 
   useEffect(() => {
     if (id) {
@@ -129,6 +133,7 @@ function Aboutcompanies() {
       console.error("Error fetching employer jobs:", err);
       setError(err.response?.data?.message || "Failed to fetch jobs.");
     } finally {
+       setLoading(false)
       setTimeout(() => setMiniloading(false), 500);
     }
   };
@@ -239,9 +244,10 @@ function Aboutcompanies() {
 
             </div>
           }
-          <div className={`flex ml:flex-row flex-col justify-between  w-full  gap-6 ${companyName && "pt-6" }`}>
+          <div className={`flex ml:flex-row flex-col justify-between  w-full  gap-6 ${companyName && "pt-6"}`}>
             <div className="flex gap-6 flex-col w-full scr700:w-[70%]">
               <div className="skeleton-line h-[16px] w-[340px] mb-[-12px]"></div>
+
               {[1, 2, 3, 4].map((item, index) => (
                 <div key={index} className="flex gap-4 flex-col w-full">
                   <div className="h-[172px] w-full  bg-white rounded-[12px] p-4 flex flex-col gap-1">
@@ -451,20 +457,41 @@ function Aboutcompanies() {
             >
               {jobs.length > 0 ? (
                 <div className="flex ml:flex-row flex-col justify-between gap-4">
-                  <div className="flex-1 min-w-[300px]">
-                    <h2 className="sm:text-[16px] text-[14px] font-semibold mb-2">
-                      Explore {jobs.length} Open Positions at {companyName}
-                    </h2>
-                    <div className="flex flex-col gap-4">
-                      {jobs.length > 0 ? (
-                        jobs.map((item, index) => (
-                          <NormalJobCard key={item.id || index} item={item} />
-                        ))
-                      ) : (
-                        <NoJobs />
-                      )}
+                  {loading ?
+                    <div className="flex gap-6 flex-col w-full scr700:w-[70%]">
+                      {[1, 2, 3, 4].map((item, index) => (
+                        <div key={index} className="flex gap-4 flex-col w-full">
+                          <div className="h-[172px] w-full  bg-white rounded-[12px] p-4 flex flex-col gap-1">
+                            <div className="flex justify-between">
+                              <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                              {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                            </div>
+
+
+                            <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                            <div className="skeleton-line h-[50px] w-full"></div>
+                            <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
+                    :
+
+                    <div className="flex-1 min-w-[300px]">
+                      <h2 className="sm:text-[16px] text-[14px] font-semibold mb-2">
+                        Explore {jobs.length} Open Positions {companyName && "at"} {companyName}
+                      </h2>
+                      <div className="flex flex-col gap-4">
+                        {jobs.length > 0 ? (
+                          jobs.map((item, index) => (
+                            <NormalJobCard key={item.id || index} item={item} />
+                          ))
+                        ) : (
+                          <NoJobs />
+                        )}
+                      </div>
+                    </div>
+                  }
 
                   <div className="w-[357px] flex flex-col">
                     <h2 className="sm:text-[16px] text-[14px]  font-semibold mb-2 ">
