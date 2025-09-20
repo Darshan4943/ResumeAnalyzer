@@ -84,6 +84,7 @@ function Index() {
   const { recallData } = useSelector((state) => state.recall);
   const [inputLine, setInputLine] = useState("");
   const [jdResult, setJdResult] = useState(null);
+  console.log(jdResult)
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [fileText, setFileText] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -232,7 +233,7 @@ function Index() {
       const { data } = await axios[method](url, {
         userId: userDataGlobal?._id,
         jd: editableText,
-        jobTitle: jdResult.jobTitle,
+        jobTitle: jobTitle,
       });
 
       toast.success(
