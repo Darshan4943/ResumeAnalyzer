@@ -605,7 +605,7 @@ function HiringProgress({
 
                 <div className="text-center">
                   <div className="text-[20px] font-[500] text-[#333]">
-                    {successfull ? "Interview Rescheduled" : successfull === "Interview"
+                    {successfull ==="Rescheduled" ? "Interview Rescheduled" : successfull === "Interview"
                       ? "Interview Scheduled"
                       : successfull === "Task"
                         ? "Task Assigned"

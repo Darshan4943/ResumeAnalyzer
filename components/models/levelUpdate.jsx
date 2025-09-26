@@ -228,7 +228,7 @@ function LevelUpdate({
           setSuccessfull("Rescheduled")
           setTaskSuccessfull(true)
         }
-        if (selectedValues?.isInterview) {
+        if (!rescheduleInterview && selectedValues?.isInterview) {
           setSuccessfull("Interview")
           setTaskSuccessfull(true)
         }
