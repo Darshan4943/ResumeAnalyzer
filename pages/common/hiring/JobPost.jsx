@@ -79,7 +79,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
   const [isCandidatePreview, setIsCandidatePreview] = useState(false)
   const [isInterviewerPreview, setIsInterviewerPreview] = useState(false)
-    const [rescheduleInterview, setRescheduleInterview] = useState(false)
+  const [rescheduleInterview, setRescheduleInterview] = useState(false)
   const { recallData } = useSelector((state) => state.recall);
   const sort = [
     { label: "Profile Match ↑", value: "profileMatchAsc" },
@@ -317,6 +317,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         : [applicant?._id],
       jobId: id,
       newHiringStage: "Rejected",
+      ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
     };
 
     try {
@@ -871,45 +872,45 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setRandomMail(true)
   }
   const submitDetails = async () => {
-    
-  
-     
-      if (selectedValues.isTask) {
-        if (
-          !selectedValues?.taskReviewer ||
-          selectedValues.taskReviewer.length === 0
-        ) {
-          setError("Reviewer Details are Required");
-          return;
-        }
-        const invalidTaskReviewer = selectedValues.taskReviewer.some(
-          (taskReviewer) =>
-            !taskReviewer.email || taskReviewer.email.trim() === ""
-        );
 
-        if (invalidTaskReviewer) {
-          setError("Email is required for every Reviewer");
-          return;
-        }
-        if (!mailDetails?.candidate?.subject?.trim()) {
-          setError("Candidate Subject is required.");
-          return;
-        }
 
-        if (!mailDetails?.candidate?.content?.trim()) {
-          setError("Candidate Email body is required.");
-          return;
-        }
-        if (!mailDetails?.interviewer?.subject?.trim()) {
-          setError("Subject is required for reviewer.");
-          return;
-        }
 
-        if (!mailDetails?.interviewer?.content?.trim()) {
-          setError("Email body is required for reviewer.");
-          return;
-        }
+    if (selectedValues.isTask) {
+      if (
+        !selectedValues?.taskReviewer ||
+        selectedValues.taskReviewer.length === 0
+      ) {
+        setError("Reviewer Details are Required");
+        return;
       }
+      const invalidTaskReviewer = selectedValues.taskReviewer.some(
+        (taskReviewer) =>
+          !taskReviewer.email || taskReviewer.email.trim() === ""
+      );
+
+      if (invalidTaskReviewer) {
+        setError("Email is required for every Reviewer");
+        return;
+      }
+      if (!mailDetails?.candidate?.subject?.trim()) {
+        setError("Candidate Subject is required.");
+        return;
+      }
+
+      if (!mailDetails?.candidate?.content?.trim()) {
+        setError("Candidate Email body is required.");
+        return;
+      }
+      if (!mailDetails?.interviewer?.subject?.trim()) {
+        setError("Subject is required for reviewer.");
+        return;
+      }
+
+      if (!mailDetails?.interviewer?.content?.trim()) {
+        setError("Email body is required for reviewer.");
+        return;
+      }
+    }
 
     // else if (isNextLevel===""){
     //   toast.success("Status updated successfully")
@@ -1047,7 +1048,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
             <div className="flex flex-col  gap-4  w-[650px] h-[80vh] rounded-[16px]">
-              
+
               <ScheduleTask
                 setError={setError}
                 loading={loading}

@@ -44,7 +44,7 @@ function ShortlistMail({
   };
 
 
-  
+
 
   const [shortlistContent, setShortlistContent] = useState(
     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
@@ -229,6 +229,7 @@ function ShortlistMail({
       role: userDataGlobal?.role,
       jobId: id,
       newHiringStage,
+      ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
     };
 
     try {
@@ -326,7 +327,7 @@ function ShortlistMail({
                   <div className="flex items-center gap-[20px]">
                     <div className="text-[16px] font-[600]">To</div>
                     {shortlist?.details?.personal?.firstName.length === 0 &&
-                    shortlist?.details?.personal?.lastName.length === 0 ? (
+                      shortlist?.details?.personal?.lastName.length === 0 ? (
                       ""
                     ) : (
                       <>
@@ -413,8 +414,8 @@ function ShortlistMail({
                       newHiringStage === "Shortlisted"
                         ? shortlistSubject
                         : newHiringStage === "Rejected"
-                        ? rejectedSubject
-                        : ""
+                          ? rejectedSubject
+                          : ""
                     }
                     // onChange={(e) => {
                     //   setSubject(e.target.value);
@@ -448,8 +449,8 @@ function ShortlistMail({
                       newHiringStage === "Shortlisted"
                         ? shortlistContent
                         : newHiringStage === "Rejected"
-                        ? rejectedContent
-                        : "subject"
+                          ? rejectedContent
+                          : "subject"
                     }
                     headerTemplate={header}
                     // onTextChange={(e) => {

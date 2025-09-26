@@ -96,6 +96,7 @@ function RecentJobs({ isPending }) {
         : [applicant?.applicantId],
       jobId: applicant.jobId,
       newHiringStage: "Rejected",
+           ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
     };
 
     try {

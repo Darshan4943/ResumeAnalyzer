@@ -96,6 +96,7 @@ function RecentApplications({ status }) {
         : [applicant?.applicantId],
       jobId: applicant.jobId,
       newHiringStage: "Rejected",
+      ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
     };
 
     try {
@@ -238,9 +239,8 @@ function RecentApplications({ status }) {
               {applicants?.data?.applications.map((applicant, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
-                      checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                    }`}
+                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                      }`}
                     key={applicant._id}
                   >
                     <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -279,45 +279,43 @@ function RecentApplications({ status }) {
                       </div>
                       <div className=" flex justify-center w-[15%]">
                         <div
-                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                            checkedApplicants[index]
+                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
                               ? "bg-[#FFFFFF]"
                               : applicant.hiringStage === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : applicant?.hiringStage === "Task"
-                              ? "bg-[#EAF6FF]"
-                              : applicant.hiringStage === "Pending"
-                              ? "bg-[#FFF9ED]"
-                              : applicant?.hiringStage === "Hired"
-                              ? "bg-[#4BD06F33]"
-                              : applicant.hiringStage === "Shortlisted"
-                              ? "bg-[#4640DE1A]"
-                              : applicant.hiringStage === "Rejected"
-                              ? "bg-[#FF65501A]"
-                              : applicant.hiringStage === "In Review"
-                              ? "bg-[#EB85331A]"
-                              : applicant?.hiringStage === "Selected"
-                              ? "bg-[#56CDAD1A]"
-                              : ""
-                          } ${
-                            applicant.hiringStage === "Interview"
+                                ? "bg-[#26A4FF1A]"
+                                : applicant?.hiringStage === "Task"
+                                  ? "bg-[#EAF6FF]"
+                                  : applicant.hiringStage === "Pending"
+                                    ? "bg-[#FFF9ED]"
+                                    : applicant?.hiringStage === "Hired"
+                                      ? "bg-[#4BD06F33]"
+                                      : applicant.hiringStage === "Shortlisted"
+                                        ? "bg-[#4640DE1A]"
+                                        : applicant.hiringStage === "Rejected"
+                                          ? "bg-[#FF65501A]"
+                                          : applicant.hiringStage === "In Review"
+                                            ? "bg-[#EB85331A]"
+                                            : applicant?.hiringStage === "Selected"
+                                              ? "bg-[#56CDAD1A]"
+                                              : ""
+                            } ${applicant.hiringStage === "Interview"
                               ? "text-[#26A4FF]"
                               : applicant?.hiringStage === "Task"
-                              ? "text-[#0B4A78]"
-                              : applicant.hiringStage === "Pending"
-                              ? "text-[#FFB836]"
-                              : applicant?.hiringStage === "Hired"
-                              ? "text-[#1D9474]"
-                              : applicant.hiringStage === "Shortlisted"
-                              ? "text-[#4640DE]"
-                              : applicant.hiringStage === "Rejected"
-                              ? "text-[#FF6550]"
-                              : applicant.hiringStage === "In Review"
-                              ? "text-[#FFB836]"
-                              : applicant?.hiringStage === "Selected"
-                              ? "text-[#56CDAD]"
-                              : "text-[#333333]"
-                          }`}
+                                ? "text-[#0B4A78]"
+                                : applicant.hiringStage === "Pending"
+                                  ? "text-[#FFB836]"
+                                  : applicant?.hiringStage === "Hired"
+                                    ? "text-[#1D9474]"
+                                    : applicant.hiringStage === "Shortlisted"
+                                      ? "text-[#4640DE]"
+                                      : applicant.hiringStage === "Rejected"
+                                        ? "text-[#FF6550]"
+                                        : applicant.hiringStage === "In Review"
+                                          ? "text-[#FFB836]"
+                                          : applicant?.hiringStage === "Selected"
+                                            ? "text-[#56CDAD]"
+                                            : "text-[#333333]"
+                            }`}
                         >
                           {applicant.hiringStage}
                         </div>
@@ -574,37 +572,35 @@ function RecentApplications({ status }) {
                           </p>
                         </p>
                         <div
-                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                            checkedApplicants[index]
+                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
                               ? "bg-[#FFFFFF]"
                               : applicant.hiringStage === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : applicant.hiringStage === "Pending"
-                              ? "bg-[#FFF9ED]"
-                              : applicant.hiringStage === "Hired"
-                              ? "bg-[#56CDAD1A]"
-                              : applicant.hiringStage === "Shortlisted"
-                              ? "bg-[#4640DE1A]"
-                              : applicant.hiringStage === "Rejected"
-                              ? "bg-[#FF65501A]"
-                              : applicant.hiringStage === "In Review"
-                              ? "bg-[#EB85331A]"
-                              : ""
-                          } ${
-                            applicant.hiringStage === "Interview"
+                                ? "bg-[#26A4FF1A]"
+                                : applicant.hiringStage === "Pending"
+                                  ? "bg-[#FFF9ED]"
+                                  : applicant.hiringStage === "Hired"
+                                    ? "bg-[#56CDAD1A]"
+                                    : applicant.hiringStage === "Shortlisted"
+                                      ? "bg-[#4640DE1A]"
+                                      : applicant.hiringStage === "Rejected"
+                                        ? "bg-[#FF65501A]"
+                                        : applicant.hiringStage === "In Review"
+                                          ? "bg-[#EB85331A]"
+                                          : ""
+                            } ${applicant.hiringStage === "Interview"
                               ? "text-[#26A4FF]"
                               : applicant.hiringStage === "Pending"
-                              ? "text-[#FFB836]"
-                              : applicant.hiringStage === "Hired"
-                              ? "text-[#56CDAD]"
-                              : applicant.hiringStage === "Shortlisted"
-                              ? "text-[#4640DE]"
-                              : applicant.hiringStage === "Rejected"
-                              ? "text-[#FF6550]"
-                              : applicant.hiringStage === "In Review"
-                              ? "text-[#FFB836]"
-                              : "text-[#333333]"
-                          }`}
+                                ? "text-[#FFB836]"
+                                : applicant.hiringStage === "Hired"
+                                  ? "text-[#56CDAD]"
+                                  : applicant.hiringStage === "Shortlisted"
+                                    ? "text-[#4640DE]"
+                                    : applicant.hiringStage === "Rejected"
+                                      ? "text-[#FF6550]"
+                                      : applicant.hiringStage === "In Review"
+                                        ? "text-[#FFB836]"
+                                        : "text-[#333333]"
+                            }`}
                         >
                           {applicant.hiringStage}
                         </div>{" "}
@@ -623,7 +619,7 @@ function RecentApplications({ status }) {
                               style={{
                                 opacity:
                                   applicant?.hiringStage === "Rejected" ||
-                                  applicant?.hiringStage === "Shortlisted"
+                                    applicant?.hiringStage === "Shortlisted"
                                     ? 0.5
                                     : 1,
                               }}
