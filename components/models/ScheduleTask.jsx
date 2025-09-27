@@ -311,7 +311,7 @@ function ScheduleTask({
 
         <div className="flex flex-col  gap-4    py-[16px] ">
           <div>
-            <div className="flex gap-6 sm:text-[16px] text-[12px] font-semibold  overflow-x-auto md:overflow-x-visible">
+            <div className="flex gap-4 sm:text-[16px] text-[12px] font-semibold  overflow-x-auto md:overflow-x-visible">
               <div className="flex flex-col gap-2">
                 <p
                   className={` cursor-pointer ${activeOption === "Candidate"

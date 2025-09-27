@@ -24,7 +24,7 @@ function LevelUpdate({
   setOpenTaskModel
 
 }) {
-  
+
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isNextLevel, setIsNextLevel] = useState("");
   const [showScheduleInterview, setShowScheduleInterview] = useState(rescheduleInterview ? rescheduleInterview : false);
@@ -41,13 +41,13 @@ function LevelUpdate({
   const [shortlist, setShortlist] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
   const [mailDetails, setMailDetails] = useState({
-    candidate: { subject: rescheduleInterview ? "Interview Rescheduled":"" },
-    interviewer: { subject: rescheduleInterview ? "Interview Rescheduled":"" },
+    candidate: { subject: rescheduleInterview ? "Interview Rescheduled" : "" },
+    interviewer: { subject: rescheduleInterview ? "Interview Rescheduled" : "" },
   });
   useEffect(() => {
     setCurrenStatus(selectedLevel?.status);
   });
-  
+
   const nextStage = () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -213,7 +213,8 @@ function LevelUpdate({
           isNextLevel,
           mailDetails,
           employer: userDataGlobal?.email,
-          rescheduleInterview
+          rescheduleInterview,
+          ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
         }
       );
 
@@ -224,7 +225,7 @@ function LevelUpdate({
           setSuccessfull("Task")
           setTaskSuccessfull(true)
 
-        } if(rescheduleInterview && selectedValues?.isInterview){
+        } if (rescheduleInterview && selectedValues?.isInterview) {
           setSuccessfull("Rescheduled")
           setTaskSuccessfull(true)
         }

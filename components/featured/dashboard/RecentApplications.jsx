@@ -336,7 +336,7 @@ function RecentApplications({ status }) {
                           className="cursor-pointer flex gap-3 text-[14px] text-[#224D90] font-medium"
                           onClick={() =>
                             router.push(
-                              `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
+                              `/common/hiring/ApplicantDetails?applicantId=${applicant._id}&id=${applicant.jobId}`
                             )
                           }
                         >
@@ -532,7 +532,7 @@ function RecentApplications({ status }) {
                     onClick={() => {
                       if (!isPopupVisible) {
                         router.push(
-                          `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
+                          `/common/hiring/ApplicantDetails?applicantId=${applicant._id}&id=${applicant.jobId}`
                         );
                       }
                     }}

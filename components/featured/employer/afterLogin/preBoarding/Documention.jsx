@@ -129,8 +129,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
     try {
       const response = await axios.post(
         "https://api.skilotech.com/api/preboarding/documentReminder",
-        emailDetails
+        {
+          ...emailDetails,
+          ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id }),
+        }
       );
+
 
       setIsRemind(true);
       setLoadingApplicantId(null);
@@ -422,7 +426,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                                 {moreOption && selectedDotIndex === index && (
                                   <motion.div
                                     onClick={() => {
-                                    fetchJobDetails(applicants?.jobId)
+                                      fetchJobDetails(applicants?.jobId)
                                       selectedApplicant(applicants);
                                     }}
                                     initial={{ x: "100%" }}
@@ -744,7 +748,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
           {reject && (
             <ShortlistMail
               shortlist={[applicant]}
-                   jobData={jobDetails}
+              jobData={jobDetails}
               setPopupVisible={setReject}
               id={applicant?.jobId}
               newHiringStage={"Rejected"}

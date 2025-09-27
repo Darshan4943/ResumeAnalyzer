@@ -17,7 +17,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
   const [showEditor, setShowEditor] = useState(false);
   const [formError, setFormError] = useState("");
   const [sendMail, setSendMail] = useState(false);
-  const {recallData } = useSelector((state) => state.recall);
+  const { recallData } = useSelector((state) => state.recall);
   const dispatch = useDispatch();
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -38,6 +38,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
     isCertifications: false,
     isExperience: false,
     note: "",
+    ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
 
   });
 
@@ -469,7 +470,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
           </div>
           {showEditor && (
             <Editor
-            headerTemplate={header}
+              headerTemplate={header}
               value={data.note}
               onTextChange={(e) => handleChange1(e.htmlValue)}
               style={{

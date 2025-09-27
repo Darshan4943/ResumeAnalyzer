@@ -121,6 +121,7 @@ function RandomMail({
       content: content,
       applicantId: shortlist?.map((item) => item?._id),
       jobId: id,
+      ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
     };
 
     try {

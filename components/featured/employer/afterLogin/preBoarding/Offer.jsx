@@ -115,8 +115,12 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
-        `https://api.skilotech.com/api/preboarding/releaseOffer/${applicantId}/${jobId}`
+        `https://api.skilotech.com/api/preboarding/releaseOffer/${applicantId}/${jobId}`,
+        {
+          ...(userDataGlobal?.oauthId && { recId: userDataGlobal?._id })
+        }
       );
+
 
       if (response.status === 200) {
         toast.success("Moved to Release Offer successfully");
@@ -206,8 +210,8 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                 <>
                   <div
                     className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${checkedjob[index]
-                        ? "bg-[#D3F1FF]"
-                        : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                      ? "bg-[#D3F1FF]"
+                      : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
                       }`}
                   >
                     <div className="grid grid-cols-6 w-full">
@@ -237,11 +241,11 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                       </div>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                            "Verified" ||
-                            applicants.preboardingDetails?.documentStatus ===
-                            "Submitted"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
+                          "Verified" ||
+                          applicants.preboardingDetails?.documentStatus ===
+                          "Submitted"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
                           } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus ===
@@ -253,20 +257,20 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
                           className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                              ? "bg-[#FFFFFF]"
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                              ?.offerAcceptanceStatus === "Pending"
+                              ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Pending"
-                                ? "bg-[#FFF9ED]"
+                                ?.offerAcceptanceStatus === "Initiated"
+                                ? "bg-[#E7F8FF]"
                                 : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Initiated"
-                                  ? "bg-[#E7F8FF]"
+                                  ?.offerAcceptanceStatus === "Accepted"
+                                  ? "bg-[#E8FFE8]"
                                   : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Accepted"
-                                    ? "bg-[#E8FFE8]"
-                                    : applicants?.preboardingDetails
-                                      ?.offerAcceptanceStatus === "Rejected"
-                                      ? "bg-[#FFE6E2]"
-                                      : ""
+                                    ?.offerAcceptanceStatus === "Rejected"
+                                    ? "bg-[#FFE6E2]"
+                                    : ""
                             } ${applicants?.preboardingDetails
                               ?.offerAcceptanceStatus === "Pending"
                               ? "text-[#FFB836]"
@@ -467,11 +471,11 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                         </p>
                         <div
                           className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                              "Verified" ||
-                              applicants.preboardingDetails?.documentStatus ===
-                              "Submitted"
-                              ? "text-[#0C8A0A]"
-                              : "text-[#333]"
+                            "Verified" ||
+                            applicants.preboardingDetails?.documentStatus ===
+                            "Submitted"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
                             } `}
                         >
                           {applicants?.preboardingDetails?.documentStatus ===
@@ -495,20 +499,20 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                         </p>
                         <div
                           className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${checkedjob[index]
-                              ? "bg-[#FFFFFF]"
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                              ?.offerAcceptanceStatus === "Pending"
+                              ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Pending"
-                                ? "bg-[#FFF9ED]"
+                                ?.offerAcceptanceStatus === "Initiated"
+                                ? "bg-[#E7F8FF]"
                                 : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Initiated"
-                                  ? "bg-[#E7F8FF]"
+                                  ?.offerAcceptanceStatus === "Accepted"
+                                  ? "bg-[#E8FFE8]"
                                   : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Accepted"
-                                    ? "bg-[#E8FFE8]"
-                                    : applicants?.preboardingDetails
-                                      ?.offerAcceptanceStatus === "Rejected"
-                                      ? "bg-[#FFE6E2]"
-                                      : ""
+                                    ?.offerAcceptanceStatus === "Rejected"
+                                    ? "bg-[#FFE6E2]"
+                                    : ""
                             } ${applicants?.preboardingDetails
                               ?.offerAcceptanceStatus === "Pending"
                               ? "text-[#FFB836]"
