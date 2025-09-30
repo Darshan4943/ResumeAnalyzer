@@ -70,7 +70,7 @@ function NormalJobCard({ item }) {
         onClick={() => {
           router.push(`/jobs/candidate/JobDetails?id=${item?._id}`);
         }}
-        className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[155px] bg-[#FFFFFF] z-0 w-full cursor-pointer `}
+        className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  bg-[#FFFFFF] z-0 w-full cursor-pointer `}
         style={{
           boxShadow: "0px 0px 14px 0px #00000005",
         }}
@@ -120,7 +120,7 @@ function NormalJobCard({ item }) {
                 </div>
               )
             :
-            <div className="h-[18px]">
+            <div className="">
               </div>
             }
             </div>

@@ -79,7 +79,7 @@ function Job_card({
                   {item?.jobTitle.length > 60
                     ? `${item?.jobTitle.slice(0, 60)}...`
                     : item?.jobTitle}
-                  <div className="absolute text-[10px] z-[100] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                  <div className="absolute text-[10px] z-[100] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[0px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                     {item.jobTitle}
                   </div>
                   {item?.status !== "Active" && (
