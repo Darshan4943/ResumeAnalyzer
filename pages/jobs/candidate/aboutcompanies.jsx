@@ -228,7 +228,7 @@ function Aboutcompanies() {
       fetchReviewss();
     }
   }, [showPopup]);
-  console.log(jobs)
+  
   return (
     <div className="customMargins">
       {miniLoading ? (
@@ -480,7 +480,7 @@ function Aboutcompanies() {
 
                     <div className="flex-1 min-w-[300px]">
                       <h2 className="sm:text-[16px] text-[14px] font-semibold mb-2">
-                        Explore {jobs.length} Open Positions {companyName && "at"} {companyName}
+                        Explore {totalCount} Open Positions {companyName && "at"} {companyName}
                       </h2>
                       <div className="flex flex-col gap-4">
                         {jobs.length > 0 ? (
