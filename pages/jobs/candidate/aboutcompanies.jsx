@@ -12,6 +12,7 @@ import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 
 function Aboutcompanies() {
   const [company, setCompany] = useState(null);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
@@ -227,7 +228,7 @@ function Aboutcompanies() {
       fetchReviewss();
     }
   }, [showPopup]);
-
+  console.log(jobs)
   return (
     <div className="customMargins">
       {miniLoading ? (

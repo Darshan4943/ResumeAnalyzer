@@ -104,7 +104,7 @@ function Job_card({
                 >
                   {item?.companyName}
                 </div>
-                {item?.role === "recruiter" && (
+                {(item?.role === "recruiter" && !item?.isExternal) && (
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
@@ -119,7 +119,7 @@ function Job_card({
                 )}
               </div>
               {item?.logo && (
-                <div className="flex flex-row object-cover min-w-[76px] items-end">
+                <div className="flex flex-row object-cover min-w-[76px] ">
                   <img
                     src={item?.logo}
                     alt=""
@@ -199,35 +199,35 @@ function Job_card({
                       />
                     </g>
                   </svg>
-                   <div className="text-[#262626] text-[12px] font-[400] ">
-                {item?.country
-                  ?.filter((country) => country.trim() !== "")
-                  ?.map((country) => {
-                    const firstWord = country.split(" ")[0];
-                    return (
-                      firstWord.charAt(0).toUpperCase() +
-                      firstWord.slice(1).toLowerCase()
-                    );
-                  })
-                  .join(" ,")}{" "}
-                {item?.location?.length > 0 &&
-                  "  ||"}{" "}
-                {(() => {
-                  const formattedLocations = item?.location
-                    ?.filter((loc) => loc.trim() !== "")
-                    ?.map((loc) => {
-                      const firstWord = loc.split(",")[0].trim(); // Split by comma and trim spaces
-                      return (
-                        firstWord.charAt(0).toUpperCase() +
-                        firstWord.slice(1).toLowerCase()
-                      );
-                    });
+                  <div className="text-[#262626] text-[12px] font-[400] ">
+                    {item?.country
+                      ?.filter((country) => country.trim() !== "")
+                      ?.map((country) => {
+                        const firstWord = country.split(" ")[0];
+                        return (
+                          firstWord.charAt(0).toUpperCase() +
+                          firstWord.slice(1).toLowerCase()
+                        );
+                      })
+                      .join(" ,")}{" "}
+                    {item?.location?.length > 0 &&
+                      "  ||"}{" "}
+                    {(() => {
+                      const formattedLocations = item?.location
+                        ?.filter((loc) => loc.trim() !== "")
+                        ?.map((loc) => {
+                          const firstWord = loc.split(",")[0].trim(); // Split by comma and trim spaces
+                          return (
+                            firstWord.charAt(0).toUpperCase() +
+                            firstWord.slice(1).toLowerCase()
+                          );
+                        });
 
-                  return formattedLocations?.length > 1
-                    ? formattedLocations.join(", ")
-                    : formattedLocations?.[0] || "";
-                })()}
-              </div>
+                      return formattedLocations?.length > 1
+                        ? formattedLocations.join(", ")
+                        : formattedLocations?.[0] || "";
+                    })()}
+                  </div>
                 </div>
               )}
             </div>
@@ -325,9 +325,11 @@ function Job_card({
                 </div>
               )}
               <div className="flex gap-[6px] scr700:gap-3">
-                <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
-                  Applicants : {jobData[0]?.totalApplicationCount}
-                </div>
+                {jobData[0]?.totalApplicationCount > 0 &&
+                  <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
+                    Applicants : {jobData[0]?.totalApplicationCount}
+                  </div>
+                }
                 {jobData[0]?.openPositions && (
                   <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
                     Openings: {jobData[0]?.openPositions}
@@ -363,23 +365,27 @@ function Job_card({
                   item?.status !== "Active"
                 }
                 onClick={() => {
-                  if (isLogin) {
-                    if (jobApplyCount > 0) {
-                      if (
-                        !jobData?.some(
-                          (job) =>
-                            job?.matchedApplication?.applicantId ===
-                            userDataGlobal?._id
-                        )
-                      ) {
+                  if (!item?.isExternal) {
+                    if (isLogin) {
+                      if (jobApplyCount > 0) {
+                        if (
+                          !jobData?.some(
+                            (job) =>
+                              job?.matchedApplication?.applicantId ===
+                              userDataGlobal?._id
+                          )
+                        ) {
+                          router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
+                        }
+                      } else {
                         router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
+                        // setLimitPopup(true);
                       }
                     } else {
-                      router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
-                      // setLimitPopup(true);
+                      router.push(`/jobs/easyApply?id=${item._id}`);
                     }
                   } else {
-                    router.push(`/jobs/easyApply?id=${item._id}`);
+                    window.open(item?.jobLink, "_blank", "noopener,noreferrer")
                   }
                 }}
                 className={`text-[14px] font-[600]  flex items-center ${item?.matchedApplication?.applicantId ===

@@ -106,7 +106,7 @@ function NormalJobCard({ item }) {
               >
                 {item?.companyName}
               </div>
-              {item?.role === "recruiter" && (
+              {(item?.role === "recruiter" && !item?.isExternal) ? (
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
@@ -118,7 +118,11 @@ function NormalJobCard({ item }) {
                 >
                   Posted by Recruiter ( {camelCase(item?.createdByName)} )
                 </div>
-              )}
+              )
+            :
+            <div className="h-[18px]">
+              </div>
+            }
             </div>
             {item?.logo && (
               <div className="flex flex-row  items-start min-w-[76px]">
