@@ -82,9 +82,7 @@ function Job_card({
                   <div className="absolute text-[10px] z-[100] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[0px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                     {item.jobTitle}
                   </div>
-                  {item?.status !== "Active" && (
-                    <p className={`${item?.status === "On Hold" ? "text-[#FF7802]" : "text-red"}`}>{item?.status}</p>
-                  )}
+
                 </div>
 
                 <div
@@ -118,19 +116,25 @@ function Job_card({
                   </div>
                 )}
               </div>
-              {item?.logo && (
-                <div className="flex flex-row object-cover min-w-[76px] ">
-                  <img
-                    src={item?.logo}
-                    alt=""
-                    style={{
-                      height: "40px",
-                      width: "76px",
-                      objectFit: "contain"
-                    }}
-                  />
-                </div>
-              )}
+              <div className="flex items-center text-[14px] font-[600]">
+                {item?.status !== "Active" && (
+                  <p className={`${item?.status === "On Hold" ? "text-[#FF7802]" : "text-red"}`}>{item?.status}</p>
+                )}
+
+                {item?.logo && (
+                  <div className="flex flex-row object-cover min-w-[76px] ">
+                    <img
+                      src={item?.logo}
+                      alt=""
+                      style={{
+                        height: "40px",
+                        width: "76px",
+                        objectFit: "contain"
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
             <div className="flex flex-row gap-[11px] items-center leading-tight  flex-wrap ">
               {item?.experience && (
