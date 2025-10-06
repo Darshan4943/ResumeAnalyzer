@@ -44,7 +44,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
       toast.success("Subscribe successfully");
       // console.log('Subscribed with email:', email);
     } else {
-    
+
       toast.error("please enter a valid email");
     }
   };
@@ -77,9 +77,9 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           </div>
 
           <p className="largest">
-          Skilotech is the Modern Talent Platform for career development and recruitment
+            Skilotech is the Modern Talent Platform for career development and recruitment
           </p>
-         
+
         </div>
         <div className="flex gap-4 footerThird ml:w-[33%] scr420:justify-between justify-between break-word ">
           <div className="flex flex-col justify-between gap-4  flex-wrap address">
@@ -114,24 +114,42 @@ function Footer({ isSubscribe, setIsSubcrib }) {
             <div className="footer_about_section ">
               <p className="text-[#fff] font-[500] text-[16px]">About</p>
               <div className="footer_sub_about gap-[4px]">
-              <p
+                <p
                   onClick={() => openInNewTab("/Blogs")}
                   className="footer_sub_about_P cursor-pointer"
                 >
-                 Blogs
+                  Blogs
                 </p>
-                <p
+                {/* <p
                   onClick={() => openInNewTab("/TermsAndConditions")}
                   className="footer_sub_about_P cursor-pointer"
                 >
                   Terms and Conditions
-                </p>
-                <p
+                </p> */}
+                <a
+                  href="/TermsAndConditions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer_sub_about_P cursor-pointer"
+                >
+                  Terms and Conditions
+                </a>
+
+                {/* <p
                   onClick={() => openInNewTab("/PrivacyPolicy")}
                   className="footer_sub_about_P cursor-pointer "
                 >
                   Privacy Policy
-                </p>
+                </p> */}
+                <a
+                  href="/PrivacyPolicy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer_sub_about_P cursor-pointer"
+                >
+                  Privacy Policy
+                </a>
+
                 <p
                   onClick={() => router.push("/ContactUs")}
                   className="footer_sub_about_P cursor-pointer "
@@ -155,7 +173,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
         </div>
         <div className="footer_input_conatainer ml:w-[60%]  flex flex-col justify-between">
           <div className="flex flex-col items-center gap-[20px] footer_input_container">
-           
+
             <p className="footer_input_conatainer_P text-center text-[14px] font-[500]">
               Like to stay market relevant with news and updates?
             </p>
@@ -173,7 +191,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <button
                 onClick={handleSubscribed}
                 className="px-4 text-[14px] font-medium h-[38px] rounded-[30px] bg_Button"
-                // disabled={error || email.trim() === ''}
+              // disabled={error || email.trim() === ''}
               >
                 Subscribe
               </button>
@@ -227,11 +245,11 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               </a>
             </div>
           </div>
-          
+
         </div>
-     
+
       </div>
-  
+
 
       <div className="footer_copyright">
         Copyright © 2025 Skilotech. All rights reserved.
