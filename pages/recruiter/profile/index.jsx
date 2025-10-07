@@ -336,7 +336,7 @@ const Profile = () => {
                           Contact Number <span>:</span>{" "}
                         </div>
                         <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                          {data?.mobileNo ? data?.mobileNo : "-"}
+                         {data?.dial_code && data?.dial_code}  {data?.mobileNo ? data?.mobileNo : "-"}
                         </div>
                       </div>
                     </div>
