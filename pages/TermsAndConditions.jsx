@@ -9,7 +9,7 @@ function TermsAndConditions() {
 
       <div className="py-4 px-6 text-[12px]">
         <h2 className="text-[16px] font-semibold mb-2">1. Introduction</h2>
-        <p className='mb-2'>Welcome to Skilotech! These terms of use {`("Terms")`} govern your access to and use of our digital platforms, including our website {`("Site")`}, web application {`("Web App")`}, and mobile application {`("Mobile App")`} {`(collectively referred to as the "Services")`}. Skilotech s.r.o. {`("Skilotech," "we," or "us")`} provides these Services, and by accessing or using them, you agree to comply with these Terms. If you do not agree with these Terms, please refrain from accessing or using our Services.</p>
+        <p className='mb-2'>Welcome to Skilotech! These terms of use {`("Terms")`} govern your access to and use of our digital platforms, including our website {`("Site")`}, web application {`("Web App")`} {`(collectively referred to as the "Services")`}. Skilotech s.r.o. {`("Skilotech," "we," or "us")`} provides these Services, and by accessing or using them, you agree to comply with these Terms. If you do not agree with these Terms, please refrain from accessing or using our Services.</p>
 
         <h2 className="text-[16px] font-semibold mb-2">2. License to Use</h2>
         <p>You are granted a limited, revocable, non-exclusive, and non-transferable license to access and use the materials available on our Services for personal, non-commercial purposes only. This license does not grant you ownership of any content or materials on the Services and is subject to certain restrictions:</p>
