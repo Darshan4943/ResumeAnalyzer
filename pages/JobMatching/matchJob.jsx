@@ -195,8 +195,8 @@ const MatchJob = () => {
 
     const remainingLimit = jdCountMonthlyLimit - jdCountMonthly;
 
-    if (remainingLimit >= totalAvailable) {
-      dispatch(updateAiHitWithCount({ userId: userDataGlobal?._id, resumeCount: totalAvailable }));
+    if (remainingLimit >= totalAvailable/2) {
+      dispatch(updateAiHitWithCount({ userId: userDataGlobal?._id, resumeCount: totalAvailable/2 }));
       setTimeout(() => {
         dispatch(setRecallData(!recallData));
         getLimits();

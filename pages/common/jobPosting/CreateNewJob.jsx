@@ -1992,6 +1992,7 @@ function CreateNewJob() {
 
                           <CreatableSelect
                             isMulti
+                             isClearable={false} 
                             onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
@@ -2066,7 +2067,7 @@ function CreateNewJob() {
                                 display: "flex",
                                 flexWrap: "nowrap",
                                 gap: "4px",
-                                padding: "2px 4px",
+                                padding: "2px 12px",
                                 overflowX: "auto",
                                 scrollbarWidth: "none",
                                 "-ms-overflow-style": "none",
@@ -2117,6 +2118,7 @@ function CreateNewJob() {
                           </div>
                           <CreatableSelect
                             isMulti
+                             isClearable={false} 
                             onInputChange={(data) => { }}
                             options={[
                               ...new Set(
