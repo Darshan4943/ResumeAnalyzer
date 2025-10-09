@@ -104,19 +104,55 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                   
                 </div>
               )} */}
-              {selectedJob.mustSkills && (
+              {/* {selectedJob.mustSkills.length > 0 && (
                 <div className="flex flex-col gap-[10px] ">
-                  <div className="text-[14px] font-[600] text-[#333]">Skills :{" "}
+                  <div className="text-[14px] font-[600] text-[#333]">Required Skills :{" "}
 
-                  <span className="text-[14px] font-[500] text-[#333]">
-                    {selectedJob.mustSkills.length > 0 ? selectedJob.mustSkills.join(", ") : selectedJob.goodSkills.join(", ")}
-                  </span>
+                    <span className="text-[14px] font-[500] text-[#333]">
+                      {selectedJob.mustSkills.length > 0 && selectedJob.mustSkills.join(", ")}
+                    </span>
                   </div>
                 </div>
               )}
 
+              {selectedJob.goodSkills.length > 0 && (
+                <div className="flex flex-col gap-[10px] ">
+                  <div className="text-[14px] font-[600] text-[#333]">Other Skills :{" "}
+
+                    <span className="text-[14px] font-[500] text-[#333]">
+                      {selectedJob.goodSkills.length > 0 && selectedJob.goodSkills.join(", ")}
+                    </span>
+                  </div>
+                </div>
+              )} */}
+              {selectedJob.mustSkills?.length > 0 && (
+                <div className="flex flex-col gap-[10px]">
+                  <div className="text-[14px] font-[700] ">
+                    Required Skills:
+                  </div>
+                  <ul className="list-disc ml-5 text-[14px] font-[500] text-[#333]">
+                    {selectedJob.mustSkills.map((skill, index) => (
+                      <li key={index}>{skill}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedJob.goodSkills?.length > 0 && (
+                <div className="flex flex-col gap-[10px]">
+                  <div className="text-[14px] font-[700] ">
+                    Other Skills:
+                  </div>
+                  <ul className="list-disc ml-5 text-[14px] font-[500] text-[#333]">
+                    {selectedJob.goodSkills.map((skill, index) => (
+                      <li key={index}>{skill}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <div className="pb-[12px]  flex flex-col gap-2">
-                <div className="flex flex-col gap-[16px] text-[12px] text-[#333] font-[500]">
+                <div className="flex flex-col gap-[16px] text-[12px]  font-[500]">
                   <div className="text-[14px] font-[600] ">
                     Job Type :{" "}
                     <span className="text-[14px] font-[500]">
@@ -163,7 +199,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     <div className="text-[14px] font-[600] ">
                       Experience :{" "}
                       <span className="text-[14px] font-[500]">
-                       {selectedJob.experience} 
+                        {selectedJob.experience}
                       </span>
                     </div>
                   )}

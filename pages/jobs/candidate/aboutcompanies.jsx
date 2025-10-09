@@ -103,9 +103,11 @@ function Aboutcompanies() {
       }, 500);
     }
   };
-  useEffect(() => {
-    fetchJobsById();
-  }, [page, limit])
+  // useEffect(() => {
+  //   if (createdBy && role === "recruiter" && isRec) {
+  //     fetchJobsById();
+  //   }
+  // }, [page, limit])
 
   useEffect(() => {
     if (id) {
@@ -114,7 +116,7 @@ function Aboutcompanies() {
     } else if (companyName) {
       fetchEmployerJobs();
     }
-  }, [id]);
+  }, [id,page, limit]);
 
   const fetchEmployerJobs = async () => {
     try {
@@ -134,7 +136,7 @@ function Aboutcompanies() {
       console.error("Error fetching employer jobs:", err);
       setError(err.response?.data?.message || "Failed to fetch jobs.");
     } finally {
-       setLoading(false)
+      setLoading(false)
       setTimeout(() => setMiniloading(false), 500);
     }
   };
@@ -228,7 +230,8 @@ function Aboutcompanies() {
       fetchReviewss();
     }
   }, [showPopup]);
-  
+  console.log(jobs)
+
   return (
     <div className="customMargins">
       {miniLoading ? (
