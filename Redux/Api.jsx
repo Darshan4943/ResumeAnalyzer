@@ -287,20 +287,20 @@ export const Api = ({ }) => {
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
             );
-            // if (timezone >= newEnddate && result.isActive) {
-            //   axios
-            //     .put(
-            //       "https://api.skilotech.com/api/subscription/update/" + result._id
-            //     )
-            //     .then((res) => {
-            //       if (res.data.success) {
+            if (timezone >= newEnddate && result.isActive) {
+              axios
+                .put(
+                  "https://api.skilotech.com/api/subscription/update/" + result._id
+                )
+                .then((res) => {
+                  if (res.data.success) {
 
-            //       }
-            //     })
-            //     .catch((err) => {
-            //       console.log(err);
-            //     });
-            // }
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
           } else {
             if (!planActive && uploadCount == 0) {
               localStorage.setItem("uploadCount", 0);
@@ -560,6 +560,9 @@ export const Api = ({ }) => {
       await processCountryData(closestData.results);
     } else {
       console.log("No relevant data found");
+      localStorage.setItem("exchangeRate", "1");
+          localStorage.setItem("currency", "USD");
+          localStorage.setItem("icon", "$");
     }
   };
 

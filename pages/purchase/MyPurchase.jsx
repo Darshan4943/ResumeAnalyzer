@@ -27,7 +27,16 @@ function MyPurchase() {
   const [daysPercentage, setDaysPercentage] = useState(0);
   const [selectedPlansData, setSelectedPlansData] = useState();
   const [showPlanDetails, setShowPlanDetails] = useState(false);
-  const formatDate = (dateString) => format(new Date(dateString), "dd-MM-yy");
+  // const formatDate = (dateString) => format(new Date(dateString), "dd-MM-yy");
+  const formatDate = (dateString) => {
+  if (!dateString) return "-";
+
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) return "-";
+
+  return format(date, "dd-MM-yy");
+};
   const [isActive, setIsActive] = useState(false);
   const [limits, setLimits] = useState({
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
