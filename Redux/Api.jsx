@@ -565,6 +565,7 @@ export const Api = ({ }) => {
           localStorage.setItem("icon", "$");
     }
   };
+  
 
   const errorCallback = (error) => {
     console.log(error);
